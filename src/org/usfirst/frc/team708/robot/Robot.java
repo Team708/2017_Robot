@@ -2,7 +2,7 @@
 package org.usfirst.frc.team708.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
-//import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
@@ -11,9 +11,14 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 //import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+//import edu.wpi.first.wpilibj.vision.CameraServer;
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.cscore.AxisCamera;
+
 import org.usfirst.frc.team708.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team708.robot.subsystems.VisionProcessor;
-
+import org.usfirst.frc.team708.robot.commands.drivetrain.*;
+import org.usfirst.frc.team708.robot.commands.autonomous.*;
 
 
 /**
@@ -61,6 +66,9 @@ public class Robot extends IterativeRobot {
 	oi 				= new OI();		// Initializes the OI. 
 									// This MUST BE LAST or a NullPointerException will be thrown
 	
+	UsbCamera ucamera=CameraServer.getInstance().startAutomaticCapture("cam0", 0);
+	AxisCamera camera=CameraServer.getInstance().addAxisCamera("cam1", "10.7.8.11");
+	
 	
 	sendDashboardSubsystems();		// Sends each subsystem's currently running command to the Smart Dashboard
 		
@@ -82,7 +90,7 @@ public class Robot extends IterativeRobot {
 	 */
     	public void autonomousInit() {
     	
-    	turnDirection = prefs.getDouble("TurnDirection", 4.0);
+//    	turnDirection = prefs.getDouble("TurnDirection", 4.0);
     		
     	// schedule the autonomous command (example)   		
     	autonomousCommand = (Command)autonomousMode.getSelected();
@@ -144,6 +152,8 @@ public class Robot extends IterativeRobot {
             statsTimer.reset();
 
             // Various debug information
+            drivetrain.sendToDashboard();
+//            visionProcessor.sendToDashboard();
 
         }
     }
@@ -153,9 +163,10 @@ public class Robot extends IterativeRobot {
      */
     private void queueAutonomousModes() {
     	
-    	autonomousMode.addObject("Test Auto 1", null);
+    	autonomousMode.addObject("Drive Straight for time", new DriveStraightForTime(.5,3));
+    	autonomousMode.addDefault("Do Nothing", new DoNothing());
 //		autonomousMode.addObject("Find Target", new DriveToTarget());
-//		autonomousMode.addObject("Drive in Square", new DriveInSquare());
+		autonomousMode.addObject("Drive in Square", new DriveInSquare());
 
     	SmartDashboard.putData("Autonomous Selection", autonomousMode);    	   	
     }
@@ -164,7 +175,8 @@ public class Robot extends IterativeRobot {
      * Sends every subsystem to the Smart Dashboard
      */
     private void sendDashboardSubsystems() {
-    	
+    	SmartDashboard.putData(drivetrain);
+ //   	SmartDashboard.putData(visionProcessor);
     }
 }
 

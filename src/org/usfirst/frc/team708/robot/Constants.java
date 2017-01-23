@@ -46,7 +46,7 @@ public final class Constants {
 	 * Smart Dashboard
 	 */
 	public static final double SEND_STATS_INTERVAL	= .5;	// Interval for reporting in seconds
-	public static final boolean DEBUG 				= false;
+	public static final boolean DEBUG 				= true;
 	
 
 	/*

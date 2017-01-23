@@ -183,12 +183,13 @@ public class VisionProcessor extends Subsystem {
 	}
 
 	public void sendToDashboard() {
-		SmartDashboard.putBoolean("See Target", isHasTarget());
-//		SmartDashboard.putBoolean("Was Centered", wasCentered());
-		SmartDashboard.putBoolean("Is At Y", isAtY());
-		SmartDashboard.putNumber("Current Y", currentY);
-		SmartDashboard.putNumber("Center of Target", currentX);
-//		SmartDashboard.putNumber("Rotation", rotate);
+//		SmartDashboard.putBoolean("See Target", isHasTarget());
+////		SmartDashboard.putBoolean("Was Centered", wasCentered());
+//		SmartDashboard.putBoolean("Is At Y", isAtY());
+//		SmartDashboard.putNumber("Current Y", currentY);
+//		SmartDashboard.putNumber("Center of Target", currentX);
+////		SmartDashboard.putNumber("Rotation", rotate);
+		SmartDashboard.putString("visionProcessor", "called");
 	}
 
     public void initDefaultCommand() {

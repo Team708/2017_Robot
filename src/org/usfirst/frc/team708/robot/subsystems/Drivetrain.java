@@ -351,27 +351,29 @@ public class Drivetrain extends PIDSubsystem {
     public void sendToDashboard() {
     	if (Constants.DEBUG) {
 	    	// Accelerometer Info
-	    	SmartDashboard.putNumber("Accelerometer X", accelerometer.getX());
-	    	SmartDashboard.putNumber("Accelerometer Y", accelerometer.getY());
-	    	SmartDashboard.putNumber("Accelerometer Z", accelerometer.getZ());
-	    	
-	    	SmartDashboard.putNumber("Gyro Rate", gyro.getRate());			// Gyro rate
-	    	SmartDashboard.putNumber("PID Output", pidOutput);			// PID Info
-	    	SmartDashboard.putNumber("DT Encoder Raw", encoder.get());		// Encoder raw count
-	    	SmartDashboard.putBoolean("Brake", brake);					// Brake or Coast
-//	    	SmartDashboard.putNumber("DT IR Distance", getIRDistance());			// IR distance reading
-	    	
-	    	SmartDashboard.putNumber("DT Rt Master", rightMaster.getTemperature());
-	    	SmartDashboard.putNumber("DT Rt Slave", rightSlave.getTemperature());
-	    	SmartDashboard.putNumber("DT Lft Master", leftMaster.getTemperature());
-	    	SmartDashboard.putNumber("DT Lft Slave", leftSlave.getTemperature());
+//	    	SmartDashboard.putNumber("Accelerometer X", accelerometer.getX());
+//	    	SmartDashboard.putNumber("Accelerometer Y", accelerometer.getY());
+//	    	SmartDashboard.putNumber("Accelerometer Z", accelerometer.getZ());
+//	    	
+//	    	SmartDashboard.putNumber("Gyro Rate", gyro.getRate());			// Gyro rate
+//	    	SmartDashboard.putNumber("PID Output", pidOutput);			// PID Info
+//	    	SmartDashboard.putNumber("DT Encoder Raw", encoder.get());		// Encoder raw count
+//	    	SmartDashboard.putBoolean("Brake", brake);					// Brake or Coast
+////	    	SmartDashboard.putNumber("DT IR Distance", getIRDistance());			// IR distance reading
+//	    	
+//	    	SmartDashboard.putNumber("DT Rt Master", rightMaster.getTemperature());
+//	    	SmartDashboard.putNumber("DT Rt Slave", rightSlave.getTemperature());
+//	    	SmartDashboard.putNumber("DT Lft Master", leftMaster.getTemperature());
+//	    	SmartDashboard.putNumber("DT Lft Slave", leftSlave.getTemperature());
     	}
     	
-    	SmartDashboard.putNumber("Gyro angle", gyro.getAngle());				// Gyro angle
-//    	SmartDashboard.putNumber("DT Sonar Distance", getSonarDistance());		// Sonar distance reading
-    	SmartDashboard.putNumber("DT Encoder Distance", encoder.getDistance());	// Encoder reading
-    	SmartDashboard.putNumber("DT Encoder 2 Distance", encoder2.getDistance());		// Encoder reading
-//    	SmartDashboard.putNumber("Sonar Mode", sonarOverride);
+    	SmartDashboard.putNumber("Gyro angle", ( (int)gyro.getAngle()));				// Gyro angle
+////    	SmartDashboard.putNumber("DT Sonar Distance", getSonarDistance());		// Sonar distance reading
+//    	SmartDashboard.putNumber("DT Encoder Distance", encoder.getDistance());	// Encoder reading
+//    	SmartDashboard.putNumber("DT Encoder 2 Distance", encoder2.getDistance());		// Encoder reading
+////    	SmartDashboard.putNumber("Sonar Mode", sonarOverride);
 
+		SmartDashboard.putString("driveTrain", "called");
+		
     }
 }
