@@ -105,7 +105,7 @@ public class Drivetrain extends PIDSubsystem {
 	
 	
 //	drivetrainIRSensor 	= new IRSensor(RobotMap.DTIRSensor, IRSensor.GP2Y0A21YK0F);
-	drivetrainUltrasonicSensor = new UltrasonicSensor(RobotMap.DTSonar, UltrasonicSensor.MB1010);
+	drivetrainUltrasonicSensor = new UltrasonicSensor(RobotMap.dtSonar, UltrasonicSensor.MB1010);
 
 //	setInputRange(-25.0, 25.0);
 //	setAbsoluteTolerance(Constants.pid_tolerance);

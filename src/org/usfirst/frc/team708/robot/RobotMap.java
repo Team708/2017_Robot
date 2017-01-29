@@ -38,8 +38,8 @@ public class RobotMap {
 	public static final int climberMotor				= 21;
 	
 	// Intake CAN Device IDs
-	public static final int intakeMotoerBall			= 31;
-	public static final int intakeMotoerGear			= 32;
+	public static final int intakeMotorBall			= 31;
+	public static final int intakeMotorGear			= 32;
 
 	// Grappler Grabber CAN Device IDs
 	public static final int shooterMotoroMaster			= 41;
