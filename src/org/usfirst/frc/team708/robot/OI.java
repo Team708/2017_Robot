@@ -101,7 +101,6 @@ public class OI {
 //		loaderSpinOut.whenPressed(new LoaderOut());
 //		loaderOff.whenPressed(new LoaderOff());
 		
-		
 		}
 }
 
