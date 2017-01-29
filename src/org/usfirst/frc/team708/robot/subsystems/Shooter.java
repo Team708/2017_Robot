@@ -27,7 +27,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //import edu.wpi.first.wpilibj.Encoder;
 //import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
-//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+//import edu.wpi.first.wpilibj.smartdashboard.SmsartDashboard;
 
 /**
  *
@@ -36,6 +36,8 @@ public class Shooter extends Subsystem {
 	// Put methods for controlling this subsystem here. Call these
 	// from Commands.
 	
+	private CANTalon shooter;	// Motor Controllers
+
 	/**
 	 * Constructor
 	 */
@@ -44,7 +46,16 @@ public class Shooter extends Subsystem {
         
 		
 		// Initializes the motor
-        
+
+		shooter = new CANTalon(56);
+    	shooter.reset();
+    	shooter.setFeedbackDevice(FeedbackDevice.QuadEncoder);    
+    	shooter.reverseSensor(false);
+    	shooter.configEncoderCodesPerRev(500);
+    	shooter.set(0);
+    	shooter.configNominalOutputVoltage(12.0, -12.0);
+    	shooter.configMaxOutputVoltage(12.0);
+    	shooter.configPeakOutputVoltage(12.0, -12.0);        
 	}
 
 	public void initDefaultCommand() {
@@ -57,7 +68,9 @@ public class Shooter extends Subsystem {
 	 * Sends data to the Smart Dashboard
 	 */
 	public void sendToDashboard() {
-
+		SmartDashboard.putNumber("Encoder Position", shooter.getEncPosition());
+		SmartDashboard.putNumber("Encoder Speed", shooter.getSpeed());
+		SmartDashboard.putNumber("Encoder Velocity", shooter.getEncVelocity());
 	}
 }
 
