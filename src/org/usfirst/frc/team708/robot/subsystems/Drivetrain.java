@@ -88,30 +88,10 @@ public class Drivetrain extends PIDSubsystem {
 	encoder.reset();								// Resets the encoder so that it starts with a 0.0 value
 	encoder2.setDistancePerPulse(distancePerPulse);
 	encoder2.reset();								// Resets the encoder so that it starts with a 0.0 value
-
-	
-	shooter  = new CANTalon(56);
-    shooter.reset();
-    shooter.setFeedbackDevice(FeedbackDevice.QuadEncoder);    
-    shooter.reverseSensor(false);
-    shooter.configEncoderCodesPerRev(500);
-    shooter.set(0);
-	shooter.configNominalOutputVoltage(12.0, -12.0);
-	shooter.configMaxOutputVoltage(12.0);
-	shooter.configPeakOutputVoltage(12.0, -12.0);
-	shooter.ClearIaccum();
-	shooter.clearIAccum();
-	shooter.processMotionProfileBuffer();
-	
 	
 //	drivetrainIRSensor 	= new IRSensor(RobotMap.DTIRSensor, IRSensor.GP2Y0A21YK0F);
-	drivetrainUltrasonicSensor = new UltrasonicSensor(RobotMap.DTSonar, UltrasonicSensor.MB1010);
+	drivetrainUltrasonicSensor = new UltrasonicSensor(RobotMap.dtSonar, UltrasonicSensor.MB1010);
 
-//	setInputRange(-25.0, 25.0);
-//	setAbsoluteTolerance(Constants.pid_tolerance);
-//      setSetpoint(0.0);
-//		enable();
-//      disable();
     }
     
 
@@ -172,31 +152,6 @@ public class Drivetrain extends PIDSubsystem {
 	public void haloDrive(double move, double rotate) {
 		haloDrive(move, rotate, this.usePID);
 	}
-    
-    /**
-     * Drives the drivetrain using a left motor(s) value and a right motor(s) value
-     * @param left
-     * @param right
-     */
-    public void tankDrive(double left, double right) {
-    	// Checks whether drift correction is needed
-    	if (Math.abs(left - right) < Constants.TANK_STICK_TOLERANCE && left != 0.0 && right != 0.0) {
-    		// Enables the PID controller if it is not already
-    		if (!getPIDController().isEnabled()) {
-    			gyro.reset();
-    			getPIDController().reset();
-    			enable();
-    		}
-    		// Sets the forward move speed to the average of the two sticks
-    		moveSpeed = ((left + right) / 2);
-    	} else {
-    		// Disables the PID controller if it enabled so the drivetrain can move freely
-    		if (getPIDController().isEnabled()) {
-    			disable();
-    		}
-    		drivetrain.tankDrive(left, right);
-    	}
-    }
 
 	public boolean getUsePID() {
 		return usePID;
