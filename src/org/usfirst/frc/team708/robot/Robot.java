@@ -163,7 +163,7 @@ public class Robot extends IterativeRobot {
      */
     private void queueAutonomousModes() {
     	
-    	autonomousMode.addObject("Drive Straight for time", new DriveStraightForTime(.5,3));
+    	autonomousMode.addObject("Drive Straight for time", new DriveStraightForTime(.5, 3));
     	autonomousMode.addDefault("Do Nothing", new DoNothing());
 //		autonomousMode.addObject("Find Target", new DriveToTarget());
 		autonomousMode.addObject("Drive in Square", new DriveInSquare());

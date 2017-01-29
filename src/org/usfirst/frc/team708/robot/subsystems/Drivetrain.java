@@ -12,6 +12,8 @@ import org.usfirst.frc.team708.robot.util.Math708;
 
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import com.ctre.CANTalon;
+import com.ctre.CANTalon.FeedbackDevice;
+import com.ctre.CanTalonJNI;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 //import edu.wpi.first.wpilibj.interfaces.Gyro;
@@ -19,6 +21,8 @@ import edu.wpi.first.wpilibj.Encoder;
 //import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.TalonSRX;
+
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -35,7 +39,7 @@ public class Drivetrain extends PIDSubsystem {
 	private double moveSpeed = 0.0;
 	private double pidOutput = 0.0;
 	
-	private CANTalon leftMaster, leftSlave, rightMaster, rightSlave;	// Motor Controllers
+	private CANTalon leftMaster, leftSlave, rightMaster, rightSlave, shooter;	// Motor Controllers
 
 	private HatterDrive drivetrain;						// FRC provided drivetrain class
 	
@@ -66,7 +70,7 @@ public class Drivetrain extends PIDSubsystem {
 	leftSlave   = new CANTalon(RobotMap.drivetrainLeftMotorSlave);
 	rightMaster = new CANTalon(RobotMap.drivetrainRightMotorMaster);
 	rightSlave  = new CANTalon(RobotMap.drivetrainRightMotorSlave);
-		
+	
 	drivetrain = new HatterDrive(leftMaster, rightMaster, Constants.DRIVE_USE_SQUARED_INPUT);		// Initializes drivetrain class
 	
 	setupMasterSlave();								// Sets up master and slave
@@ -85,8 +89,23 @@ public class Drivetrain extends PIDSubsystem {
 	encoder2.setDistancePerPulse(distancePerPulse);
 	encoder2.reset();								// Resets the encoder so that it starts with a 0.0 value
 
+	
+	shooter  = new CANTalon(56);
+    shooter.reset();
+    shooter.setFeedbackDevice(FeedbackDevice.QuadEncoder);    
+    shooter.reverseSensor(false);
+    shooter.configEncoderCodesPerRev(500);
+    shooter.set(0);
+	shooter.configNominalOutputVoltage(12.0, -12.0);
+	shooter.configMaxOutputVoltage(12.0);
+	shooter.configPeakOutputVoltage(12.0, -12.0);
+	shooter.ClearIaccum();
+	shooter.clearIAccum();
+	shooter.processMotionProfileBuffer();
+	
+	
 //	drivetrainIRSensor 	= new IRSensor(RobotMap.DTIRSensor, IRSensor.GP2Y0A21YK0F);
-	drivetrainUltrasonicSensor = new UltrasonicSensor(RobotMap.DTSonar, UltrasonicSensor.MB1010);
+	drivetrainUltrasonicSensor = new UltrasonicSensor(RobotMap.dtSonar, UltrasonicSensor.MB1010);
 
 //	setInputRange(-25.0, 25.0);
 //	setAbsoluteTolerance(Constants.pid_tolerance);
@@ -118,43 +137,36 @@ public class Drivetrain extends PIDSubsystem {
     	move = move * Constants.DRIVE_MOTOR_MAX_SPEED;
     	rotate = rotate * Constants.ROTATE_MOTOR_MAX_SPEED;
     	
-    	if (usePID) {
-	    	if (rotate == 0.0 && move > 0.0) {
-	    		// Enables the PID controller if it is not already
-	    		if (!getPIDController().isEnable()) {
-	    			getPIDController().setPID(Constants.KpForward, Constants.KiForward, Constants.KdForward);
-	    			getPIDController().reset();
-	    			gyro.reset();
-	    			enable();
-	    			gyro.reset();
+    	if (usePID) 
+    	    {
+	        // Enables the PID controller if it is not already
+	    	if (!getPIDController().isEnabled()) 
+	    	    {
+	    		getPIDController().setPID(Constants.Kp, Constants.Ki, Constants.Kd);
+	    		getPIDController().reset();
+	    		gyro.reset();
+	    		enable();
+	    		gyro.reset();
 	    		}
-	    		// Sets the forward move speed to the move parameter
-	    		moveSpeed = move;
-	    	} else if (rotate == 0.0 && move < 0.0){
-	    		// Enables the PID controller if it is not already
-	    		if (!getPIDController().isEnable()) {
-	    			getPIDController().setPID(Constants.KpBackward, Constants.KiBackward, Constants.KdBackward);
-	    			getPIDController().reset();
-	    			gyro.reset();
-	    			enable();
-	    			gyro.reset();
-	    		}
-	    		// Sets the forward move speed to the move parameter
-	    		moveSpeed = move;
-	    	} else {
+	    	else 
+	    	    {
 	    		// Disables the PID controller if it enabled so the drivetrain can move freely
-	    		if (getPIDController().isEnable()) {
+	    		if (getPIDController().isEnabled()) 
+	    		    {
 	    			getPIDController().reset();
-	    		}
-	    		drivetrain.arcadeDrive(move, rotate);
-	    	}
-    	} else {
+	    		    }
+	    	    }
+	    	drivetrain.arcadeDrive(move, rotate);
+    	    } 
+    	    else 
+    	    {
     		// Disables the PID controller if it enabled so the drivetrain can move freely
-    		if (getPIDController().isEnable()) {
+    		if (getPIDController().isEnabled()) 
+    		    {
     			getPIDController().reset();
-    		}
+    		    }
     		drivetrain.arcadeDrive(move, rotate);
-    	}
+    	    }
     }
 	
 	public void haloDrive(double move, double rotate) {
@@ -170,7 +182,7 @@ public class Drivetrain extends PIDSubsystem {
     	// Checks whether drift correction is needed
     	if (Math.abs(left - right) < Constants.TANK_STICK_TOLERANCE && left != 0.0 && right != 0.0) {
     		// Enables the PID controller if it is not already
-    		if (!getPIDController().isEnable()) {
+    		if (!getPIDController().isEnabled()) {
     			gyro.reset();
     			getPIDController().reset();
     			enable();
@@ -179,7 +191,7 @@ public class Drivetrain extends PIDSubsystem {
     		moveSpeed = ((left + right) / 2);
     	} else {
     		// Disables the PID controller if it enabled so the drivetrain can move freely
-    		if (getPIDController().isEnable()) {
+    		if (getPIDController().isEnabled()) {
     			disable();
     		}
     		drivetrain.tankDrive(left, right);
