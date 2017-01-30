@@ -42,14 +42,14 @@ public class RobotMap {
 	public static final int intakeMotorGear			= 32;
 
 	// Grappler Grabber CAN Device IDs
-	public static final int shooterMotoroMaster			= 41;
-	public static final int grapplerMotorSlave			= 42;
+	public static final int shooterMotorMaster			= 41;
+	public static final int shooterMotorSlave			= 42;
 	
 	// Shooter CAN Device ID
 	public static final int feederMotor					= 51;
 	
 	// Hopper CAN Device ID
-	public static final int HopperMotor					= 61;
+	public static final int loaderMotor					= 61;
 	
 	// Digital IO
 	public static final int drivetrainEncoderARt		= 0;
@@ -103,5 +103,5 @@ public class RobotMap {
 //	40A						13
 //	40A						14
 //	40A						15
-	
+
 }
