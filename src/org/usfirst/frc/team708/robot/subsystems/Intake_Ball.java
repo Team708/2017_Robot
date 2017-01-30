@@ -10,6 +10,7 @@ import com.ctre.CANTalon;
 //import edu.wpi.first.wpilibj.Relay.Value;
 //import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  * Subsystem that intakes balls
@@ -40,7 +41,7 @@ public class Intake_Ball extends Subsystem {
 	//I believe this stops the motor
 	public void stop(){
 		
-		intakeMotor.set(Constants.INTAKE_OFF)
+		intakeMotor.set(Constants.INTAKE_OFF);
 		
 	}
     
