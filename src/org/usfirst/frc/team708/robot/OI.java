@@ -5,10 +5,13 @@ package org.usfirst.frc.team708.robot;
 
 import edu.wpi.first.wpilibj.buttons.*;
 
-//import org.team708.robot.commands.drivetrain.*;
+import org.usfirst.frc.team708.robot.commands.drivetrain.*;
+import org.usfirst.frc.team708.robot.commands.shooter.*;
+import org.usfirst.frc.team708.robot.commands.loader.*;
+
 //import org.team708.robot.commands.intake.*;
-//import org.team708.robot.commands.shooter.*;
-//import org.team708.robot.commands.visionProcessor.*;
+
+import org.usfirst.frc.team708.robot.commands.visionProcessor.*;
 
 import org.usfirst.frc.team708.robot.util.Gamepad;
 //import org.team708.robot.util.triggers.*;
@@ -92,14 +95,14 @@ public class OI {
 		
 //		sonarOverride.whenPressed(new SonarOverride());
 //		
-//		spinShooter.whenPressed(new SpinShooter());
+		spinShooter.whenPressed(new SpinShooter());
 //		spinShooterBack.whileActive(new SpinShooterBack());
 //		spinFeeder.whenPressed(new SpinFeeder());
 //		spinFeederBack.whileActive(new SpinShooterBack());
 //		
-//		loaderSpinIn.whenPressed(new LoaderIn());
-//		loaderSpinOut.whenPressed(new LoaderOut());
-//		loaderOff.whenPressed(new LoaderOff());
+		loaderSpinIn.whenPressed(new LoaderSpinIn());
+		loaderSpinOut.whenPressed(new LoaderSpinOut());
+		loaderOff.whenPressed(new LoaderOff());
 		
 		}
 }
