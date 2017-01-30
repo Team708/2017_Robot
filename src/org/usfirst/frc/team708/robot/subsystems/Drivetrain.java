@@ -26,10 +26,6 @@ import edu.wpi.first.wpilibj.TalonSRX;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-/**
- * This class is a drivetrain subsystem that uses PID to drive straight.
- * @author Nam Tran & Victor Lourng
- */
 
 public class Drivetrain extends PIDSubsystem {
 	
@@ -39,7 +35,7 @@ public class Drivetrain extends PIDSubsystem {
 	private double moveSpeed = 0.0;
 	private double pidOutput = 0.0;
 	
-	private CANTalon leftMaster, leftSlave, rightMaster, rightSlave, shooter;	// Motor Controllers
+	private CANTalon leftMaster, leftSlave, rightMaster, rightSlave;	// Motor Controllers
 
 	private HatterDrive drivetrain;						// FRC provided drivetrain class
 	
@@ -54,8 +50,8 @@ public class Drivetrain extends PIDSubsystem {
 	private UltrasonicSensor drivetrainUltrasonicSensor;	// Sonar used for <=21feet
 	private DigitalInput opticalSensor;
 	
-	public int sonarOverride = 0;	//0 = default, 1 = high, 2 = low; Used for overriding sonar
-	private boolean brake = true;		// Whether the talons should be in coast or brake mode
+	public int sonarOverride 	= 0;	//0 = default, 1 = high, 2 = low; Used for overriding sonar
+	private boolean brake 		= true;	// Whether the talons should be in coast or brake mode
 						// (this could be important if a jerky robot causes things to topple
 	
     /**
@@ -91,7 +87,6 @@ public class Drivetrain extends PIDSubsystem {
 	
 //	drivetrainIRSensor 	= new IRSensor(RobotMap.DTIRSensor, IRSensor.GP2Y0A21YK0F);
 	drivetrainUltrasonicSensor = new UltrasonicSensor(RobotMap.dtSonar, UltrasonicSensor.MB1010);
-
     }
     
 
@@ -323,10 +318,10 @@ public class Drivetrain extends PIDSubsystem {
 //	    	SmartDashboard.putNumber("Accelerometer Z", accelerometer.getZ());
 //	    	
 //	    	SmartDashboard.putNumber("Gyro Rate", gyro.getRate());			// Gyro rate
-//	    	SmartDashboard.putNumber("PID Output", pidOutput);			// PID Info
+//	    	SmartDashboard.putNumber("PID Output", pidOutput);				// PID Info
 //	    	SmartDashboard.putNumber("DT Encoder Raw", encoder.get());		// Encoder raw count
-//	    	SmartDashboard.putBoolean("Brake", brake);					// Brake or Coast
-////	    	SmartDashboard.putNumber("DT IR Distance", getIRDistance());			// IR distance reading
+//	    	SmartDashboard.putBoolean("Brake", brake);						// Brake or Coast
+//	    	SmartDashboard.putNumber("DT IR Distance", getIRDistance());	// IR distance reading
 //	    	
 //	    	SmartDashboard.putNumber("DT Rt Master", rightMaster.getTemperature());
 //	    	SmartDashboard.putNumber("DT Rt Slave", rightSlave.getTemperature());
@@ -334,13 +329,10 @@ public class Drivetrain extends PIDSubsystem {
 //	    	SmartDashboard.putNumber("DT Lft Slave", leftSlave.getTemperature());
     	}
     	
-    	SmartDashboard.putNumber("Gyro angle", ( (int)gyro.getAngle()));				// Gyro angle
-////    	SmartDashboard.putNumber("DT Sonar Distance", getSonarDistance());		// Sonar distance reading
-//    	SmartDashboard.putNumber("DT Encoder Distance", encoder.getDistance());	// Encoder reading
-//    	SmartDashboard.putNumber("DT Encoder 2 Distance", encoder2.getDistance());		// Encoder reading
-////    	SmartDashboard.putNumber("Sonar Mode", sonarOverride);
-
-		SmartDashboard.putString("driveTrain", "called");
-		
+    	SmartDashboard.putNumber("Gyro angle", ( (int)gyro.getAngle()));			// Gyro angle
+//    	SmartDashboard.putNumber("DT Sonar Distance", getSonarDistance());			// Sonar distance reading
+//    	SmartDashboard.putNumber("DT Encoder Distance", encoder.getDistance());		// Encoder reading
+//    	SmartDashboard.putNumber("DT Encoder 2 Distance", encoder2.getDistance());	// Encoder reading
+//    	SmartDashboard.putNumber("Sonar Mode", sonarOverride);		
     }
 }

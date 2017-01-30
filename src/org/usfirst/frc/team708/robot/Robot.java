@@ -16,11 +16,20 @@ import edu.wpi.cscore.UsbCamera;
 import edu.wpi.cscore.AxisCamera;
 
 import org.usfirst.frc.team708.robot.subsystems.Drivetrain;
+import org.usfirst.frc.team708.robot.subsystems.Shooter;
+import org.usfirst.frc.team708.robot.subsystems.Loader;
+import org.usfirst.frc.team.708.robot.subsystems.Intake_Ball;
+import org.usfirst.frc.team.708.robot.subsystems.Intake_Gear;
+import org.usfirst.frc.team.708.robot.subsystems.Climber;
+
+import org.usfirst.frc.team708.robot.OI;
+
 import org.usfirst.frc.team708.robot.subsystems.VisionProcessor;
 import org.usfirst.frc.team708.robot.commands.drivetrain.*;
+import org.usfirst.frc.team708.robot.commands.loader.*;
 import org.usfirst.frc.team708.robot.commands.autonomous.*;
 
-
+//sue's comment
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the IterativeRobot
@@ -35,13 +44,16 @@ public class Robot extends IterativeRobot {
     Timer statsTimer;										// Timer used for Smart Dash statistics
     
     public static Drivetrain 		drivetrain;
+    public static Shooter	 		shooter;
+    public static Loader	 		loader;
+    public static Intake_Ball		Intake_Ball;
+    public static Intake_Gear		Intake_Gear;
+    public static Climber			Climber;
+    
 	public static VisionProcessor 	visionProcessor;
     
 	public static OI 				oi;
 
-	public static double defenceNumber;
-	public static double turnDirection;
-	public static double driveThroughDefenceTime;
  
 	SendableChooser<Command> autonomousMode = new SendableChooser<>();
     Command 			autonomousCommand;
@@ -62,18 +74,20 @@ public class Robot extends IterativeRobot {
 // Subsystem Initialization
 
     drivetrain 		= new Drivetrain();
+    shooter			= new Shooter();
+    loader			= new Loader();
+    Intake_Gear		= new Intake_Gear();
+    Intake_Ball		= new Intake_Ball();
+    Climber			= new Climber();
         
 	oi 				= new OI();		// Initializes the OI. 
 									// This MUST BE LAST or a NullPointerException will be thrown
 	
-	UsbCamera ucamera=CameraServer.getInstance().startAutomaticCapture("cam0", 0);
-	AxisCamera camera=CameraServer.getInstance().addAxisCamera("cam1", "10.7.8.11");
-	
+//	UsbCamera ucamera=CameraServer.getInstance().startAutomaticCapture("cam0", 0);
+//	AxisCamera camera=CameraServer.getInstance().addAxisCamera("cam1", "10.7.8.11");
 	
 	sendDashboardSubsystems();		// Sends each subsystem's currently running command to the Smart Dashboard
-		
-	queueAutonomousModes();			// Adds autonomous modes to the selection box
-        
+	queueAutonomousModes();			// Adds autonomous modes to the selection box    
     }
 	
     /**
@@ -144,17 +158,19 @@ public class Robot extends IterativeRobot {
     /**
      * Sends data from each subsystem periodically as set by sendStatsIntervalSec
      */
-    
-    
-    
     private void sendStatistics() {
         if (statsTimer.get() >= Constants.SEND_STATS_INTERVAL) {
             statsTimer.reset();
 
             // Various debug information
             drivetrain.sendToDashboard();
+            loader.sendToDashboard();
+            shooter.sendToDashboard();
+            Intake_Ball.sendToDashboard();
+            Intake_Gear.sendToDashboard();
+            Climber.sendToDashbaord();
+            
 //            visionProcessor.sendToDashboard();
-
         }
     }
     
@@ -175,8 +191,12 @@ public class Robot extends IterativeRobot {
      * Sends every subsystem to the Smart Dashboard
      */
     private void sendDashboardSubsystems() {
+    	SmartDashboard.putData(shooter);
+    	SmartDashboard.putData(loader);
     	SmartDashboard.putData(drivetrain);
- //   	SmartDashboard.putData(visionProcessor);
+    	SmartDashboard.putData(Intake_Ball);
+    	SmartDashboard.putData(Intake_Gear);
+    	SmartDashboard.putData(Climber);
     }
 }
 

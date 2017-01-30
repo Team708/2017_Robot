@@ -34,9 +34,10 @@ public class DriveWithOpticalSensor extends Command {
     	Robot.drivetrain.haloDrive(DRIVE_SPEED * Constants.DRIVE_MOTOR_MAX_SPEED, 0.0, false);
     }
 
-    // Make this return true when this Command no longer needs to run execute()
+ //    Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return toWhite ? Robot.drivetrain.isOpticalSensorWhite() : !Robot.drivetrain.isOpticalSensorWhite();
+    	return false;
+ //   	return toWhite ? Robot.drivetrain.isOpticalSensorWhite() : !Robot.drivetrain.isOpticalSensorWhite();
     }
 
     // Called once after isFinished returns true
