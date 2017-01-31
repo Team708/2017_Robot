@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.buttons.*;
 import org.usfirst.frc.team708.robot.commands.drivetrain.*;
 import org.usfirst.frc.team708.robot.commands.shooter.*;
 import org.usfirst.frc.team708.robot.commands.loader.*;
+import org.usfirst.frc.team708.robot.commands.led_out.*;
 
 //import org.team708.robot.commands.intake.*;
 
@@ -59,7 +60,8 @@ public class OI {
 	public static final int LOADER_OUT_BUTTON 	= Gamepad.button_A;
 	public static final int LOADER_OFF_BUTTON 	= Gamepad.button_X;
 
-	
+	public static final int LED_BUTTON 	= Gamepad.button_B;
+
 	/*
 	 * Driver Button Commands
 	 */
@@ -78,6 +80,8 @@ public class OI {
 	public static final Button loaderSpinIn		= new JoystickButton(operatorGamepad, LOADER_IN_BUTTON);
 	public static final Button loaderSpinOut	= new JoystickButton(operatorGamepad, LOADER_OUT_BUTTON);
 	public static final Button loaderOff		= new JoystickButton(operatorGamepad, LOADER_OFF_BUTTON);
+
+	public static final Button led				= new JoystickButton(operatorGamepad, LED_BUTTON);
 
 	/**
 	 * Constructor
@@ -104,6 +108,7 @@ public class OI {
 		loaderSpinOut.whenPressed(new LoaderSpinOut());
 		loaderOff.whenPressed(new LoaderOff());
 		
+		led.whenPressed(new LED_out());
 		}
 }
 

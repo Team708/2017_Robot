@@ -8,19 +8,25 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-//import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //import edu.wpi.first.wpilibj.vision.CameraServer;
+//import edu.wpi.first.wpilibj.networktables.NetworkTable;
+
+import edu.wpi.first.wpilibj.SerialPort;
+import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.cscore.AxisCamera;
+
 
 import org.usfirst.frc.team708.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team708.robot.subsystems.Shooter;
 import org.usfirst.frc.team708.robot.subsystems.Loader;
-import org.usfirst.frc.team.708.robot.subsystems.Intake_Ball;
-import org.usfirst.frc.team.708.robot.subsystems.Intake_Gear;
-import org.usfirst.frc.team.708.robot.subsystems.Climber;
+import org.usfirst.frc.team708.robot.subsystems.LED;
+
+//import org.usfirst.frc.team.708.robot.subsystems.Intake_Ball;
+//import org.usfirst.frc.team.708.robot.subsystems.Intake_Gear;
+//import org.usfirst.frc.team.708.robot.subsystems.Climber;
 
 import org.usfirst.frc.team708.robot.OI;
 
@@ -28,6 +34,7 @@ import org.usfirst.frc.team708.robot.subsystems.VisionProcessor;
 import org.usfirst.frc.team708.robot.commands.drivetrain.*;
 import org.usfirst.frc.team708.robot.commands.loader.*;
 import org.usfirst.frc.team708.robot.commands.autonomous.*;
+import org.usfirst.frc.team708.robot.commands.led_out.*;
 
 //sue's comment
 /**
@@ -46,16 +53,21 @@ public class Robot extends IterativeRobot {
     public static Drivetrain 		drivetrain;
     public static Shooter	 		shooter;
     public static Loader	 		loader;
-    public static Intake_Ball		Intake_Ball;
-    public static Intake_Gear		Intake_Gear;
-    public static Climber			Climber;
+//    public static Intake_Ball		intake_ball;
+//    public static Intake_Gear		intake_gear;
+//    public static Climber			climber;
     
 	public static VisionProcessor 	visionProcessor;
+    public static LED				led1;
+    
+    
+//	public static SerialPort		led_out;
+//    public static Port				port;
     
 	public static OI 				oi;
 
- 
-	SendableChooser<Command> autonomousMode = new SendableChooser<>();
+    
+	SendableChooser autonomousMode = new SendableChooser<>();
     Command 			autonomousCommand;
     Preferences			prefs;
     
@@ -76,15 +88,20 @@ public class Robot extends IterativeRobot {
     drivetrain 		= new Drivetrain();
     shooter			= new Shooter();
     loader			= new Loader();
-    Intake_Gear		= new Intake_Gear();
-    Intake_Ball		= new Intake_Ball();
-    Climber			= new Climber();
+    led1			= new LED();
+    
+//    intake_gear		= new Intake_Gear();
+//    intake_ball		= new Intake_Ball();
+//    climber			= new Climber();
         
 	oi 				= new OI();		// Initializes the OI. 
 									// This MUST BE LAST or a NullPointerException will be thrown
 	
 //	UsbCamera ucamera=CameraServer.getInstance().startAutomaticCapture("cam0", 0);
 //	AxisCamera camera=CameraServer.getInstance().addAxisCamera("cam1", "10.7.8.11");
+	
+//	port = Port.kMXP;
+//	led_out = new SerialPort(9800, port);
 	
 	sendDashboardSubsystems();		// Sends each subsystem's currently running command to the Smart Dashboard
 	queueAutonomousModes();			// Adds autonomous modes to the selection box    
@@ -166,9 +183,10 @@ public class Robot extends IterativeRobot {
             drivetrain.sendToDashboard();
             loader.sendToDashboard();
             shooter.sendToDashboard();
-            Intake_Ball.sendToDashboard();
-            Intake_Gear.sendToDashboard();
-            Climber.sendToDashbaord();
+            led1.sendToDashboard();
+//            Intake_Ball.sendToDashboard();
+//            Intake_Gear.sendToDashboard();
+//            Climber.sendToDashbaord();
             
 //            visionProcessor.sendToDashboard();
         }
@@ -194,9 +212,10 @@ public class Robot extends IterativeRobot {
     	SmartDashboard.putData(shooter);
     	SmartDashboard.putData(loader);
     	SmartDashboard.putData(drivetrain);
-    	SmartDashboard.putData(Intake_Ball);
-    	SmartDashboard.putData(Intake_Gear);
-    	SmartDashboard.putData(Climber);
+    	SmartDashboard.putData(led1);
+//    	SmartDashboard.putData(Intake_Ball);
+//    	SmartDashboard.putData(Intake_Gear);
+//    	SmartDashboard.putData(Climber);
     }
 }
 
