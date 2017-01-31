@@ -34,7 +34,7 @@ public class LED_out extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	boolean Bpressed = OI.operatorGamepad.getButton(Gamepad.button_B);
-    	
+    
  //   	if (Bpressed == true){
     		Robot.led1.send_to_led(10);
 //       }
