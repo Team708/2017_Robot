@@ -9,6 +9,7 @@ import org.usfirst.frc.team708.robot.commands.drivetrain.*;
 import org.usfirst.frc.team708.robot.commands.shooter.*;
 import org.usfirst.frc.team708.robot.commands.loader.*;
 import org.usfirst.frc.team708.robot.commands.led_out.*;
+import org.usfirst.frc.team708.robot.commands.intake_ball.*;
 
 //import org.team708.robot.commands.intake.*;
 
@@ -93,9 +94,9 @@ public class OI {
 		 * Driver Commands to be called by button
 		 */
 //		intakeGearIn.whileHeld(new IntakeGearIn());
-//		intakeBallIn.whileHeld(new IntakeBallIn());
+		intakeBallIn.whileHeld(new Intake_Ball_In());
 //		intakeGearOut.whileActive(new IntakeGearOut());
-//		intakeBallOut.whileActive(new IntakeBallOut());
+		intakeBallOut.whileActive(new Intake_Ball_Out());
 		
 //		sonarOverride.whenPressed(new SonarOverride());
 //		

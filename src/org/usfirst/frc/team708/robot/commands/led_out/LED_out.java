@@ -6,6 +6,8 @@ import org.usfirst.frc.team708.robot.Robot;
 import org.usfirst.frc.team708.robot.OI;
 import org.usfirst.frc.team708.robot.subsystems.LED;
 
+import edu.wpi.first.wpilibj.SerialPort;
+import edu.wpi.first.wpilibj.SerialPort.Port;
 
 //import org.team708.robot.OI;
 //import org.team708.robot.subsystems.Loader;
@@ -22,29 +24,28 @@ public class LED_out extends Command {
 
 
     public LED_out() {
+    	requires(Robot.led1);
     }
     
 // Called just before this Command runs the first time
     protected void initialize() {
-
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	boolean Bpressed = OI.operatorGamepad.getButton(Gamepad.button_B);
     	
-    	if (Bpressed == true){
+ //   	if (Bpressed == true){
     		Robot.led1.send_to_led(10);
-       }
+//       }
     }
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	return true;
+    	return false;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.shooter.stop();
     }
 
     // Called when another command which requires one or more of the same

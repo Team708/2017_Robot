@@ -22,6 +22,8 @@ import edu.wpi.cscore.AxisCamera;
 import org.usfirst.frc.team708.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team708.robot.subsystems.Shooter;
 import org.usfirst.frc.team708.robot.subsystems.Loader;
+import org.usfirst.frc.team708.robot.subsystems.Intake_Ball;
+
 import org.usfirst.frc.team708.robot.subsystems.LED;
 
 //import org.usfirst.frc.team.708.robot.subsystems.Intake_Ball;
@@ -33,6 +35,8 @@ import org.usfirst.frc.team708.robot.OI;
 import org.usfirst.frc.team708.robot.subsystems.VisionProcessor;
 import org.usfirst.frc.team708.robot.commands.drivetrain.*;
 import org.usfirst.frc.team708.robot.commands.loader.*;
+import org.usfirst.frc.team708.robot.commands.intake_ball.*;
+
 import org.usfirst.frc.team708.robot.commands.autonomous.*;
 import org.usfirst.frc.team708.robot.commands.led_out.*;
 
@@ -53,7 +57,7 @@ public class Robot extends IterativeRobot {
     public static Drivetrain 		drivetrain;
     public static Shooter	 		shooter;
     public static Loader	 		loader;
-//    public static Intake_Ball		intake_ball;
+    public static Intake_Ball		intake_ball;
 //    public static Intake_Gear		intake_gear;
 //    public static Climber			climber;
     
@@ -87,11 +91,11 @@ public class Robot extends IterativeRobot {
 
     drivetrain 		= new Drivetrain();
     shooter			= new Shooter();
+    intake_ball		= new Intake_Ball();
     loader			= new Loader();
     led1			= new LED();
     
 //    intake_gear		= new Intake_Gear();
-//    intake_ball		= new Intake_Ball();
 //    climber			= new Climber();
         
 	oi 				= new OI();		// Initializes the OI. 
@@ -99,9 +103,6 @@ public class Robot extends IterativeRobot {
 	
 //	UsbCamera ucamera=CameraServer.getInstance().startAutomaticCapture("cam0", 0);
 //	AxisCamera camera=CameraServer.getInstance().addAxisCamera("cam1", "10.7.8.11");
-	
-//	port = Port.kMXP;
-//	led_out = new SerialPort(9800, port);
 	
 	sendDashboardSubsystems();		// Sends each subsystem's currently running command to the Smart Dashboard
 	queueAutonomousModes();			// Adds autonomous modes to the selection box    
@@ -184,7 +185,7 @@ public class Robot extends IterativeRobot {
             loader.sendToDashboard();
             shooter.sendToDashboard();
             led1.sendToDashboard();
-//            Intake_Ball.sendToDashboard();
+            intake_ball.sendToDashboard();
 //            Intake_Gear.sendToDashboard();
 //            Climber.sendToDashbaord();
             
@@ -213,7 +214,7 @@ public class Robot extends IterativeRobot {
     	SmartDashboard.putData(loader);
     	SmartDashboard.putData(drivetrain);
     	SmartDashboard.putData(led1);
-//    	SmartDashboard.putData(Intake_Ball);
+    	SmartDashboard.putData(intake_ball);
 //    	SmartDashboard.putData(Intake_Gear);
 //    	SmartDashboard.putData(Climber);
     }

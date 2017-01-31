@@ -28,7 +28,7 @@ public class LED extends Subsystem {
 	
 	public LED() {
 		port = Port.kMXP;
-		led_out = new SerialPort(9800, port);
+		led_out = new SerialPort(9600, port);
 	}
 
 	public void send_to_led(int command){
