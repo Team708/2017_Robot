@@ -85,7 +85,7 @@ public class Drivetrain extends PIDSubsystem {
 	encoder2.setDistancePerPulse(distancePerPulse);
 	encoder2.reset();								// Resets the encoder so that it starts with a 0.0 value
 	
-//	drivetrainIRSensor 	= new IRSensor(RobotMap.DTIRSensor, IRSensor.GP2Y0A21YK0F);
+	drivetrainIRSensor 	= new IRSensor(RobotMap.gearIRSensor, IRSensor.GP2Y0A21YK0F);
 	drivetrainUltrasonicSensor = new UltrasonicSensor(RobotMap.dtSonar, UltrasonicSensor.MB1010);
     }
     
@@ -321,7 +321,7 @@ public class Drivetrain extends PIDSubsystem {
 //	    	SmartDashboard.putNumber("PID Output", pidOutput);				// PID Info
 //	    	SmartDashboard.putNumber("DT Encoder Raw", encoder.get());		// Encoder raw count
 //	    	SmartDashboard.putBoolean("Brake", brake);						// Brake or Coast
-//	    	SmartDashboard.putNumber("DT IR Distance", getIRDistance());	// IR distance reading
+	    	SmartDashboard.putNumber("DT IR Distance", getIRDistance());	// IR distance reading
 //	    	
 //	    	SmartDashboard.putNumber("DT Rt Master", rightMaster.getTemperature());
 //	    	SmartDashboard.putNumber("DT Rt Slave", rightSlave.getTemperature());

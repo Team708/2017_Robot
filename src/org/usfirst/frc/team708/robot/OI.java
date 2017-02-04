@@ -10,8 +10,7 @@ import org.usfirst.frc.team708.robot.commands.shooter.*;
 import org.usfirst.frc.team708.robot.commands.led_out.*;
 import org.usfirst.frc.team708.robot.commands.loader.*;
 import org.usfirst.frc.team708.robot.commands.intake_ball.*;
-
-//import org.team708.robot.commands.intake.*;
+import org.usfirst.frc.team708.robot.commands.intake_gear.*;
 
 import org.usfirst.frc.team708.robot.commands.visionProcessor.*;
 
@@ -67,7 +66,7 @@ public class OI {
 	 * Driver Button Commands
 	 */
 	public static final Button  intakeGearIn 	= new JoystickButton(driverGamepad, INTAKE_GEAR_IN);
-	public static final Trigger intakeGearOut	= new AxisDown(driverGamepad, INTAKE_GEAR_OUT);
+	public static final Trigger intakeGearOut	= new AxisUp(driverGamepad, INTAKE_GEAR_OUT);
 	public static final Button  intakeBallIn 	= new JoystickButton(driverGamepad, INTAKE_BALL_IN);
 	public static final Trigger intakeBallOut	= new AxisUp(driverGamepad, INTAKE_BALL_OUT);
 
@@ -94,9 +93,9 @@ public class OI {
 		/*
 		 * Driver Commands to be called by button
 		 */
-//		intakeGearIn.whileHeld(new IntakeGearIn());
+		intakeGearIn.whileHeld(new Intake_Gear_In());
 		intakeBallIn.whileHeld(new Intake_Ball_In());
-//		intakeGearOut.whileActive(new IntakeGearOut());
+		intakeGearOut.whileActive(new Intake_Gear_Out());
 		intakeBallOut.whileActive(new Intake_Ball_Out());
 		
 //		sonarOverride.whenPressed(new SonarOverride());
