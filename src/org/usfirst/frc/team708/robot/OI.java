@@ -39,7 +39,8 @@ public class OI {
 	private static final int INTAKE_BALL_IN				= Gamepad.button_R_Shoulder;
 	private static final int INTAKE_GEAR_OUT			= Gamepad.shoulderAxisLeft;
 	private static final int INTAKE_BALL_OUT			= Gamepad.shoulderAxisRight;
-	
+	private static final int INTAKE_GEAR_UP				= Gamepad.button_B;
+	private static final int INTAKE_GEAR_DOWN			= Gamepad.button_A;		
 	// OTHER
 	public static final int SONAR_OVERRIDE 	= Gamepad.button_B;	
 	
@@ -69,7 +70,10 @@ public class OI {
 	public static final Trigger intakeGearOut	= new AxisUp(driverGamepad, INTAKE_GEAR_OUT);
 	public static final Button  intakeBallIn 	= new JoystickButton(driverGamepad, INTAKE_BALL_IN);
 	public static final Trigger intakeBallOut	= new AxisUp(driverGamepad, INTAKE_BALL_OUT);
-
+	public static final Button  intakeGearUp 	= new JoystickButton(driverGamepad, INTAKE_GEAR_UP);
+	public static final Button  intakeGearDown 	= new JoystickButton(driverGamepad, INTAKE_GEAR_DOWN);
+	
+	
 	public static final Button sonarOverride	= new JoystickButton(driverGamepad, SONAR_OVERRIDE);
 	/*
 	 * Operator Button Commands
@@ -94,6 +98,8 @@ public class OI {
 		 * Driver Commands to be called by button
 		 */
 		intakeGearIn.whileHeld(new Intake_Gear_In());
+		intakeGearIn.whileHeld(new Intake_Gear_Up());
+		intakeGearIn.whileHeld(new Intake_Gear_Down());
 		intakeBallIn.whileHeld(new Intake_Ball_In());
 		intakeGearOut.whileActive(new Intake_Gear_Out());
 		intakeBallOut.whileActive(new Intake_Ball_Out());
