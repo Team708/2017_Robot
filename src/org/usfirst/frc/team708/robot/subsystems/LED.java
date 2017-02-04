@@ -25,9 +25,7 @@ public class LED extends Subsystem {
     
 	public static SerialPort		led_out;
     public static Port				port;
-    
-    public static byte[] msg;
-    
+        
     public static int buttonvalue = 0;
 
 	public LED() {		
@@ -40,13 +38,15 @@ public class LED extends Subsystem {
 
 	public void send_to_led(int command){
 		buttonvalue = command;
-		String message = "1";
+		char message[];
 		
-		msg = message.getBytes();
-		led_out.writeString("1");
+//		msg = message.getBytes();
+//		led_out.writeString(message);
 //		led_out.write(msg, 4);
 
-		SmartDashboard.putNumber("LED is set to", buttonvalue);
+		SmartDashboard.putNumber("LED is set to int", buttonvalue);
+//		SmartDashboard.putString("LED set to string", buttonvalue.toString());
+
 		}
 	
 	public void sendToDashboard() {
