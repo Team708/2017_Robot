@@ -1,6 +1,7 @@
 package org.usfirst.frc.team708.robot.commands.shooter;
 import org.usfirst.frc.team708.robot.Constants;
 import org.usfirst.frc.team708.robot.RobotMap;
+import org.usfirst.frc.team708.robot.util.Gamepad;
 import org.usfirst.frc.team708.robot.Robot;
 import org.usfirst.frc.team708.robot.OI;
 
@@ -29,7 +30,16 @@ public class SpinShooter extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-		Robot.shooter.manualSpeed(Constants.SHOOTER_MOTOR_SPEED_HIGH);
+//    	boolean L_Shoulderpressed = OI.operatorGamepad.getButton(Gamepad.button_L_Shoulder);
+//    	
+//    	if (L_Shoulderpressed == true){
+    	
+    		Robot.shooter.manualSpeed(2000);
+    		Robot.shooter.setFgain(Constants.SHOOTER_F_LOW);
+    		
+//    	}
+//    	else
+//    		Robot.shooter.manualSpeed(2000);		
     }
 
     // Make this return true when this Command no longer needs to run execute()

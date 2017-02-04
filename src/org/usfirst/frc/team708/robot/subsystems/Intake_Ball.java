@@ -5,13 +5,9 @@ import org.usfirst.frc.team708.robot.RobotMap;
 
 import com.ctre.CANTalon;
 
-//import org.usfirst.frc.team708.robot.RobotMap;
-//import edu.wpi.first.wpilibj.Relay;
-//import edu.wpi.first.wpilibj.Relay.Value;
-//import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 /**
  * Subsystem that intakes balls
  * @author Madison

@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj.command.WaitCommand;
  */
 public class LED_out extends Command {
 
+static public int count = 0;
 
     public LED_out() {
     	requires(Robot.led1);
@@ -35,9 +36,10 @@ public class LED_out extends Command {
     protected void execute() {
     	boolean Bpressed = OI.operatorGamepad.getButton(Gamepad.button_B);
     
- //   	if (Bpressed == true){
-    		Robot.led1.send_to_led(10);
-//       }
+    	if (Bpressed == true){
+    	    count++;
+    		Robot.led1.send_to_led(count);
+       }
     }
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {

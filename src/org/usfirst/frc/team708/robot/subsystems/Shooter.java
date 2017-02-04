@@ -40,17 +40,21 @@ public class Shooter extends Subsystem {
 		
 		// Initializes the motor
 
-		shooter = new CANTalon(56);
-    	shooter.reset();
-//    	shooter.setFeedbackDevice(FeedbackDevice.QuadEncoder);    
-//    	shooter.reverseSensor(false);
-//    	shooter.configEncoderCodesPerRev(500);
-		shooter.changeControlMode(TalonControlMode.PercentVbus);
-//		shooter.changeControlMode(TalonControlMode.Speed);
-//        shooter.setAllowableClosedLoopErr(0);
-//        shooter.configNominalOutputVoltage(0.0, 0.0);
-//        shooter.configPeakOutputVoltage(12.0,-12.0);
-        shooter.set(0);       
+		shooter = new CANTalon(41);
+		shooter.enable();
+    	shooter.setFeedbackDevice(FeedbackDevice.QuadEncoder);    
+    	shooter.reverseSensor(false);
+    	shooter.configEncoderCodesPerRev(256);
+//		shooter.changeControlMode(TalonControlMode.PercentVbus);
+    	shooter.configNominalOutputVoltage(+0.0, -0.0);
+    	shooter.configPeakOutputVoltage(+4.0, -4.0);
+        /* set closed loop gains in slot1 */
+    	shooter.setProfile(0);
+
+    	shooter.setP(0.6);
+    	shooter.setI(0.002);
+    	shooter.setD(0);
+
 	}
 
 	public void initDefaultCommand() {
@@ -59,9 +63,14 @@ public class Shooter extends Subsystem {
 	
 	public void manualSpeed(double speed) {
 		shooter.changeControlMode(TalonControlMode.Speed);
-//		shooter.set(speed);
-		shooter.set(1);
+		shooter.set(speed);
+//		shooter.set(.2);
 }
+	
+	public void setFgain(double F){
+		shooter.setF(F);
+	}
+	
 	public void stop(){
 		shooter.set(Constants.MOTOR_OFF);
 }

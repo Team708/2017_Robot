@@ -7,8 +7,8 @@ import edu.wpi.first.wpilibj.buttons.*;
 
 import org.usfirst.frc.team708.robot.commands.drivetrain.*;
 import org.usfirst.frc.team708.robot.commands.shooter.*;
-import org.usfirst.frc.team708.robot.commands.loader.*;
 import org.usfirst.frc.team708.robot.commands.led_out.*;
+import org.usfirst.frc.team708.robot.commands.loader.*;
 import org.usfirst.frc.team708.robot.commands.intake_ball.*;
 
 //import org.team708.robot.commands.intake.*;
@@ -16,7 +16,7 @@ import org.usfirst.frc.team708.robot.commands.intake_ball.*;
 import org.usfirst.frc.team708.robot.commands.visionProcessor.*;
 
 import org.usfirst.frc.team708.robot.util.Gamepad;
-//import org.team708.robot.util.triggers.*;
+import org.usfirst.frc.team708.robot.util.triggers.*;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -66,21 +66,22 @@ public class OI {
 	/*
 	 * Driver Button Commands
 	 */
-	public static final Button intakeGearIn 	= new JoystickButton(driverGamepad, INTAKE_GEAR_IN);
-	public static final Button intakeGearOut	= new JoystickButton(driverGamepad, INTAKE_GEAR_OUT);
-	public static final Button intakeBallIn 	= new JoystickButton(driverGamepad, INTAKE_BALL_IN);
-	public static final Button intakeBallOut	= new JoystickButton(driverGamepad, INTAKE_BALL_OUT);
+	public static final Button  intakeGearIn 	= new JoystickButton(driverGamepad, INTAKE_GEAR_IN);
+	public static final Trigger intakeGearOut	= new AxisDown(driverGamepad, INTAKE_GEAR_OUT);
+	public static final Button  intakeBallIn 	= new JoystickButton(driverGamepad, INTAKE_BALL_IN);
+	public static final Trigger intakeBallOut	= new AxisUp(driverGamepad, INTAKE_BALL_OUT);
+
 	public static final Button sonarOverride	= new JoystickButton(driverGamepad, SONAR_OVERRIDE);
 	/*
 	 * Operator Button Commands
 	 */
-	public static final Button spinShooter		= new JoystickButton(operatorGamepad, SPIN_SHOOTER_BUTTON);
-	public static final Button spinShooterBack	= new JoystickButton(operatorGamepad, SPIN_SHOOTER_BACK_BUTTON);
-	public static final Button spinFeeder		= new JoystickButton(operatorGamepad, SPIN_FEEDER_BUTTON);
-	public static final Button spinFeederBack	= new JoystickButton(operatorGamepad, SPIN_FEEDER_BACK_BUTTON);
-	public static final Button loaderSpinIn		= new JoystickButton(operatorGamepad, LOADER_IN_BUTTON);
-	public static final Button loaderSpinOut	= new JoystickButton(operatorGamepad, LOADER_OUT_BUTTON);
-	public static final Button loaderOff		= new JoystickButton(operatorGamepad, LOADER_OFF_BUTTON);
+	public static final Button  spinShooter		= new JoystickButton(operatorGamepad, SPIN_SHOOTER_BUTTON);
+	public static final Trigger spinShooterBack	= new AxisDown(operatorGamepad, SPIN_SHOOTER_BACK_BUTTON);
+	public static final Button  spinFeeder		= new JoystickButton(operatorGamepad, SPIN_FEEDER_BUTTON);
+	public static final Trigger spinFeederBack	= new AxisUp(operatorGamepad, SPIN_FEEDER_BACK_BUTTON);
+	public static final Button  loaderSpinIn	= new JoystickButton(operatorGamepad, LOADER_IN_BUTTON);
+	public static final Button  loaderSpinOut	= new JoystickButton(operatorGamepad, LOADER_OUT_BUTTON);
+	public static final Button  loaderOff		= new JoystickButton(operatorGamepad, LOADER_OFF_BUTTON);
 
 	public static final Button led				= new JoystickButton(operatorGamepad, LED_BUTTON);
 
@@ -100,7 +101,7 @@ public class OI {
 		
 //		sonarOverride.whenPressed(new SonarOverride());
 //		
-		spinShooter.whenPressed(new SpinShooter());
+		spinShooter.whileHeld(new SpinShooter());
 //		spinShooterBack.whileActive(new SpinShooterBack());
 //		spinFeeder.whenPressed(new SpinFeeder());
 //		spinFeederBack.whileActive(new SpinShooterBack());

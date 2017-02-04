@@ -23,22 +23,21 @@ import org.usfirst.frc.team708.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team708.robot.subsystems.Shooter;
 import org.usfirst.frc.team708.robot.subsystems.Loader;
 import org.usfirst.frc.team708.robot.subsystems.Intake_Ball;
+import org.usfirst.frc.team708.robot.subsystems.Climber;
 
 import org.usfirst.frc.team708.robot.subsystems.LED;
 
-//import org.usfirst.frc.team.708.robot.subsystems.Intake_Ball;
 //import org.usfirst.frc.team.708.robot.subsystems.Intake_Gear;
-//import org.usfirst.frc.team.708.robot.subsystems.Climber;
 
 import org.usfirst.frc.team708.robot.OI;
 
 import org.usfirst.frc.team708.robot.subsystems.VisionProcessor;
 import org.usfirst.frc.team708.robot.commands.drivetrain.*;
-import org.usfirst.frc.team708.robot.commands.loader.*;
 import org.usfirst.frc.team708.robot.commands.intake_ball.*;
 
 import org.usfirst.frc.team708.robot.commands.autonomous.*;
 import org.usfirst.frc.team708.robot.commands.led_out.*;
+import org.usfirst.frc.team708.robot.commands.loader.*;
 
 //sue's comment
 /**
@@ -59,7 +58,7 @@ public class Robot extends IterativeRobot {
     public static Loader	 		loader;
     public static Intake_Ball		intake_ball;
 //    public static Intake_Gear		intake_gear;
-//    public static Climber			climber;
+    public static Climber			climber;
     
 	public static VisionProcessor 	visionProcessor;
     public static LED				led1;
@@ -94,9 +93,9 @@ public class Robot extends IterativeRobot {
     intake_ball		= new Intake_Ball();
     loader			= new Loader();
     led1			= new LED();
+    climber			= new Climber();
     
 //    intake_gear		= new Intake_Gear();
-//    climber			= new Climber();
         
 	oi 				= new OI();		// Initializes the OI. 
 									// This MUST BE LAST or a NullPointerException will be thrown
@@ -185,11 +184,10 @@ public class Robot extends IterativeRobot {
             loader.sendToDashboard();
             shooter.sendToDashboard();
             led1.sendToDashboard();
+            climber.sendToDashboard();
             intake_ball.sendToDashboard();
-//            Intake_Gear.sendToDashboard();
-//            Climber.sendToDashbaord();
-            
-//            visionProcessor.sendToDashboard();
+//          intake_Gear.sendToDashboard();
+//          visionProcessor.sendToDashboard();
         }
     }
     
@@ -215,8 +213,9 @@ public class Robot extends IterativeRobot {
     	SmartDashboard.putData(drivetrain);
     	SmartDashboard.putData(led1);
     	SmartDashboard.putData(intake_ball);
-//    	SmartDashboard.putData(Intake_Gear);
-//    	SmartDashboard.putData(Climber);
+//    	SmartDashboard.putData(intake_Gear);
+//    	SmartDashboard.putData(visionProcessor);
+    	SmartDashboard.putData(climber);
     }
 }
 

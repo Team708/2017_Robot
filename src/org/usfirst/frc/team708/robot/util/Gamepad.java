@@ -57,6 +57,7 @@ public class Gamepad extends Joystick{
      * @param axis
      * @return 
      */
+    
     public double getAxis(int axis){
 	double val = getRawAxis(axis);
         if(Math.abs(val) <= axis_deadband){
