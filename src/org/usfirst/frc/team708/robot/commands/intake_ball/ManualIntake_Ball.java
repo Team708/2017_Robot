@@ -23,7 +23,6 @@ public class ManualIntake_Ball extends Command {
 	    protected void execute() {
 	    	
 	    	boolean R_Shoulderpressed = OI.driverGamepad.getButton(Gamepad.button_R_Shoulder);
-	    	boolean AxisRightpressed = OI.driverGamepad.getButton(Gamepad.shoulderAxisRight);
 
 	//  LOADER_IN_BUTTON 	= Gamepad.Button_R_Shoulder;
 	//  LOADER_OUT_BUTTON 	= Gamepad.shoulderAxisRight;
@@ -32,7 +31,7 @@ public class ManualIntake_Ball extends Command {
 	    		Robot.intake_ball.moveMotor(Constants.INTAKE_FORWARD);
 	    	}
 	    	else
-	    	if (AxisRightpressed == true){
+	    	if (OI.driverGamepad.getAxis(Gamepad.shoulderAxisRight) >=.5){
 	    		Robot.intake_ball.moveMotor(Constants.INTAKE_REVERSE);
 	    	}
 	    	else {

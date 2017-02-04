@@ -1,7 +1,10 @@
 package org.usfirst.frc.team708.robot.commands.intake_ball;
 
 import org.usfirst.frc.team708.robot.Constants;
+import org.usfirst.frc.team708.robot.OI;
 import org.usfirst.frc.team708.robot.Robot;
+import org.usfirst.frc.team708.robot.util.Gamepad;
+
 import edu.wpi.first.wpilibj.command.Command;
 
 public class Intake_Ball_Out extends Command {
@@ -17,7 +20,9 @@ protected void initialize() {
 
 protected void execute() {
 
-	Robot.intake_ball.moveMotor(Constants.INTAKE_REVERSE);
+	if (OI.driverGamepad.getAxis(Gamepad.shoulderAxisRight) >=.5){
+		Robot.intake_ball.moveMotor(Constants.INTAKE_REVERSE);
+	}
 }
 
 

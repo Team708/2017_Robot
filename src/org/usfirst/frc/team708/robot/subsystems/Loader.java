@@ -30,7 +30,6 @@ public class Loader extends Subsystem {
 	}
 	
 	public void initDefaultCommand() {
-  //      setDefaultCommand(new ManualLoader());
     }
 	
 	public void manualMove(double speed){
