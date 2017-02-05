@@ -26,7 +26,7 @@ public class Loader extends Subsystem {
 	 * Constructor
 	 */
 	public Loader() {
-		loadMotor = new CANTalon(RobotMap.loaderMotor); //initializes the loading motor
+//		loadMotor = new CANTalon(RobotMap.loaderMotor); //initializes the loading motor
 	}
 	
 	public void initDefaultCommand() {
