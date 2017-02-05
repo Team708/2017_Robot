@@ -25,9 +25,11 @@ public class LED extends Subsystem {
     
 	public static SerialPort		led_out;
     public static Port				port;
-        
     public static int buttonvalue = 0;
 
+    public static byte[] msg = new byte[4];
+    public static String messageback;
+    
 	public LED() {		
 		
 		port = Port.kOnboard;
@@ -38,14 +40,14 @@ public class LED extends Subsystem {
 
 	public void send_to_led(int command){
 		buttonvalue = command;
-		char message[];
+		String message = Integer.toString(buttonvalue);
 		
-//		msg = message.getBytes();
-//		led_out.writeString(message);
-//		led_out.write(msg, 4);
+		led_out.writeString(message.toString());
+//		led_out.write(command, 8);
 
-		SmartDashboard.putNumber("LED is set to int", buttonvalue);
-//		SmartDashboard.putString("LED set to string", buttonvalue.toString());
+		messageback = new String(led_out.readString());
+		SmartDashboard.putNumber("LED sent to", buttonvalue);
+		SmartDashboard.putString("LED read from arduio", messageback);
 
 		}
 	
