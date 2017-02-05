@@ -27,7 +27,7 @@ public class Pivot_Gear extends Subsystem {
     }
 	
 	//I believe this sets the speed of the motor
-	public void moveMotor(double speed) {		
+	public void moveMotor(double speed) {
 		pivotMotor.set(speed);
 	}
 	
