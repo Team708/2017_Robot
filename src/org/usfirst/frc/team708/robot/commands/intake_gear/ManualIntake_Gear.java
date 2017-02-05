@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class ManualIntake_Gear extends Command {
 
 	 public ManualIntake_Gear() {
-	    	requires(Robot.loader);
+	    	requires(Robot.intake_gear);
 	    }
 	    
 
@@ -24,6 +24,7 @@ public class ManualIntake_Gear extends Command {
 	    	
 	    	boolean L_Shoulderpressed = OI.driverGamepad.getButton(Gamepad.button_L_Shoulder);
 	    	boolean B_Buttonpressed = OI.driverGamepad.getButton(Gamepad.button_B);
+	    	boolean A_Buttonpressed = OI.driverGamepad.getButton(Gamepad.button_A);
 
 	//  LOADER_IN_BUTTON 	= Gamepad.Button_L_Shoulder;
 	//  LOADER_OUT_BUTTON 	= Gamepad.shoulderAxisLeft;
@@ -31,23 +32,18 @@ public class ManualIntake_Gear extends Command {
 	    	if (L_Shoulderpressed == true){
 	    		Robot.intake_gear.moveMotor(Constants.INTAKE_FORWARD);
 	    	}
-	    	else
-	    	if (OI.driverGamepad.getAxis(Gamepad.shoulderAxisLeft) != 0.0){
+	    	else if (B_Buttonpressed == true){
+	    		Robot.intake_gear.movePivotMotor(Constants.INTAKE_FORWARD);
+	    	}
+	    	else if (OI.driverGamepad.getAxis(Gamepad.shoulderAxisLeft) != 0.0){
 	    		Robot.intake_gear.moveMotor(Constants.INTAKE_REVERSE);
 	    	}
+	    	else if (A_Buttonpressed == true){
+	    		Robot.intake_gear.movePivotMotor(Constants.INTAKE_REVERSE);
+	    	}
 	    	else {
+	    		Robot.intake_gear.movePivotMotor(Constants.INTAKE_OFF);	    		
 	    		Robot.intake_gear.moveMotor(Constants.INTAKE_OFF);
-	    	}
-	    	
-	    	if (B_Buttonpressed == true){
-	    		Robot.intake_gear.moveMotor(Constants.INTAKE_GEAR_UP);
-	    	}
-	    	else
-	    	if (OI.driverGamepad.getAxis(Gamepad.button_A) != 0.0){
-	    		Robot.intake_gear.moveMotor(Constants.INTAKE_GEAR_DOWN);
-	    	}
-	    	else {
-	    		Robot.intake_gear.moveMotor(Constants.INTAKE_GEAR_OFF);
 	    	}
 	    	
 	    }

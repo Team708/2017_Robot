@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class Intake_Gear_Down extends Command {
 
-public Intake_Gear_Up() {
+public Intake_Gear_Down() {
 		
 		requires(Robot.intake_gear);
 	}
@@ -17,7 +17,7 @@ public Intake_Gear_Up() {
 
 	protected void execute() {
 
-		Robot.intake_gear.moveMotor(Constants.INTAKE_GEAR_DOWN);
+		Robot.intake_gear.movePivotMotor(Constants.INTAKE_REVERSE);
 	}
 
 
@@ -28,8 +28,8 @@ public Intake_Gear_Up() {
 
 	protected void end() {
 	
-		Robot.intake_gear.stop();
-	
+		Robot.intake_gear.stopPivot();
+
 	}
 
 	protected void interrupted() {

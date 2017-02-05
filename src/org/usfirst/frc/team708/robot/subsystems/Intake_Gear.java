@@ -17,11 +17,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Intake_Gear extends Subsystem {
 	
     private CANTalon intakeMotor;
+    private CANTalon pivotMotor;
 
 	//I'm trying to link the right motor to the intake code here
 	public Intake_Gear() {
 		
 		intakeMotor = new CANTalon (RobotMap.intakeMotorGear);
+		pivotMotor = new CANTalon (RobotMap.pivotGearMotor);
 		
 	}
 	
@@ -34,10 +36,22 @@ public class Intake_Gear extends Subsystem {
 		
 		intakeMotor.set(speed);
 	}
+	
+	public void movePivotMotor(double speed) {
+		
+		pivotMotor.set(speed);
+	}
+	
 	//I believe this stops the motor
 	public void stop(){
 		
 		intakeMotor.set(Constants.INTAKE_OFF);
+		
+	}
+	
+	public void stopPivot(){
+		
+		pivotMotor.set(Constants.INTAKE_OFF);
 		
 	}
     

@@ -18,7 +18,7 @@ public Intake_Gear_Up() {
 
 	protected void execute() {
 
-		Robot.intake_gear.moveMotor(Constants.INTAKE_GEAR_UP);
+		Robot.intake_gear.movePivotMotor(Constants.INTAKE_FORWARD);
 	}
 
 
@@ -29,7 +29,7 @@ public Intake_Gear_Up() {
 
 	protected void end() {
 	
-		Robot.intake_gear.stop();
+		Robot.intake_gear.stopPivot();
 	
 	}
 
