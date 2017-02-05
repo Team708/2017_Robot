@@ -9,7 +9,11 @@ public class Intake_Gear_Up extends Command {
 
 public Intake_Gear_Up() {
 		
+<<<<<<< HEAD
 		requires(Robot.intake_gear);
+=======
+		requires(Robot.pivot_gear);
+>>>>>>> refs/remotes/origin/master
 	}
 
 	protected void initialize() {
@@ -18,7 +22,11 @@ public Intake_Gear_Up() {
 
 	protected void execute() {
 
+<<<<<<< HEAD
 		Robot.intake_gear.movePivotMotor(Constants.INTAKE_FORWARD);
+=======
+		Robot.pivot_gear.moveMotor(Constants.INTAKE_FORWARD);
+>>>>>>> refs/remotes/origin/master
 	}
 
 
@@ -29,7 +37,11 @@ public Intake_Gear_Up() {
 
 	protected void end() {
 	
+<<<<<<< HEAD
 		Robot.intake_gear.stopPivot();
+=======
+		Robot.pivot_gear.stop();
+>>>>>>> refs/remotes/origin/master
 	
 	}
 

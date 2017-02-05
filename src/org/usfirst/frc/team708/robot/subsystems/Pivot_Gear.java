@@ -14,54 +14,28 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * @author Nick
  */
 
-public class Intake_Gear extends Subsystem {
+public class Pivot_Gear extends Subsystem {
 	
-    private CANTalon intakeMotor;
     private CANTalon pivotMotor;
 
 	//I'm trying to link the right motor to the intake code here
-	public Intake_Gear() {
-<<<<<<< HEAD
-		
-		intakeMotor = new CANTalon (RobotMap.intakeMotorGear);
-		pivotMotor = new CANTalon (RobotMap.pivotGearMotor);
-		
-=======
-		intakeMotor = new CANTalon (RobotMap.intakeMotorGear);		
->>>>>>> refs/remotes/origin/master
+	public Pivot_Gear() {
+		pivotMotor 	= new CANTalon (RobotMap.pivotGearMotor);
 	}
 	
 	public void initDefaultCommand() {
     }
 	
 	//I believe this sets the speed of the motor
-	public void moveMotor(double speed) {
-		intakeMotor.set(speed);
-	}
-	
-<<<<<<< HEAD
-	public void movePivotMotor(double speed) {
-		
+	public void moveMotor(double speed) {		
 		pivotMotor.set(speed);
 	}
 	
-=======
-
->>>>>>> refs/remotes/origin/master
 	//I believe this stops the motor
-	public void stop(){
-		intakeMotor.set(Constants.INTAKE_OFF);
+	public void stop(){	
+		pivotMotor.set(Constants.INTAKE_OFF);	
 	}
 	
-<<<<<<< HEAD
-	public void stopPivot(){
-		
-		pivotMotor.set(Constants.INTAKE_OFF);
-		
-	}
-=======
->>>>>>> refs/remotes/origin/master
-    
     /**
      * Sends data about the subsystem to the Smart Dashboard
      */
@@ -69,7 +43,5 @@ public class Intake_Gear extends Subsystem {
 		if (Constants.DEBUG) {
 		}
     }
-    
-    
 }
 

@@ -40,9 +40,8 @@ public class OI {
 	private static final int INTAKE_GEAR_OUT			= Gamepad.shoulderAxisLeft;
 	private static final int INTAKE_BALL_OUT			= Gamepad.shoulderAxisRight;
 	private static final int INTAKE_GEAR_UP				= Gamepad.button_B;
-	private static final int INTAKE_GEAR_DOWN			= Gamepad.button_A;		
-	// OTHER
-	public static final int SONAR_OVERRIDE 	= Gamepad.button_B;	
+	private static final int INTAKE_GEAR_DOWN			= Gamepad.button_A;	
+	
 	
 	/*
 	 * Operator Button Assignment
@@ -57,9 +56,9 @@ public class OI {
 	private static final int OPERATE_HANGER				= Gamepad.leftStick_Y;
 
 	// LOADER Buttons
-	public static final int LOADER_IN_BUTTON 	= Gamepad.button_Y;
-	public static final int LOADER_OUT_BUTTON 	= Gamepad.button_A;
-	public static final int LOADER_OFF_BUTTON 	= Gamepad.button_X;
+//	public static final int LOADER_IN_BUTTON 	= Gamepad.button_Y;
+//	public static final int LOADER_OUT_BUTTON 	= Gamepad.button_A;
+//	public static final int LOADER_OFF_BUTTON 	= Gamepad.button_X;
 
 	public static final int LED_BUTTON 	= Gamepad.button_B;
 
@@ -73,8 +72,6 @@ public class OI {
 	public static final Button  intakeGearUp 	= new JoystickButton(driverGamepad, INTAKE_GEAR_UP);
 	public static final Button  intakeGearDown 	= new JoystickButton(driverGamepad, INTAKE_GEAR_DOWN);
 	
-	
-	public static final Button sonarOverride	= new JoystickButton(driverGamepad, SONAR_OVERRIDE);
 	/*
 	 * Operator Button Commands
 	 */
@@ -82,9 +79,9 @@ public class OI {
 	public static final Trigger spinShooterBack	= new AxisDown(operatorGamepad, SPIN_SHOOTER_BACK_BUTTON);
 	public static final Button  spinFeeder		= new JoystickButton(operatorGamepad, SPIN_FEEDER_BUTTON);
 	public static final Trigger spinFeederBack	= new AxisUp(operatorGamepad, SPIN_FEEDER_BACK_BUTTON);
-	public static final Button  loaderSpinIn	= new JoystickButton(operatorGamepad, LOADER_IN_BUTTON);
-	public static final Button  loaderSpinOut	= new JoystickButton(operatorGamepad, LOADER_OUT_BUTTON);
-	public static final Button  loaderOff		= new JoystickButton(operatorGamepad, LOADER_OFF_BUTTON);
+//	public static final Button  loaderSpinIn	= new JoystickButton(operatorGamepad, LOADER_IN_BUTTON);
+//	public static final Button  loaderSpinOut	= new JoystickButton(operatorGamepad, LOADER_OUT_BUTTON);
+//	public static final Button  loaderOff		= new JoystickButton(operatorGamepad, LOADER_OFF_BUTTON);
 
 	public static final Button led				= new JoystickButton(operatorGamepad, LED_BUTTON);
 
@@ -98,8 +95,8 @@ public class OI {
 		 * Driver Commands to be called by button
 		 */
 		intakeGearIn.whileHeld(new Intake_Gear_In());
-		intakeGearIn.whileHeld(new Intake_Gear_Up());
-		intakeGearIn.whileHeld(new Intake_Gear_Down());
+		intakeGearUp.whileHeld(new Intake_Gear_Up());
+		intakeGearDown.whileHeld(new Intake_Gear_Down());
 		intakeBallIn.whileHeld(new Intake_Ball_In());
 		intakeGearOut.whileActive(new Intake_Gear_Out());
 		intakeBallOut.whileActive(new Intake_Ball_Out());
@@ -111,9 +108,9 @@ public class OI {
 //		spinFeeder.whenPressed(new SpinFeeder());
 //		spinFeederBack.whileActive(new SpinShooterBack());
 //		
-		loaderSpinIn.whenPressed(new LoaderSpinIn());
-		loaderSpinOut.whenPressed(new LoaderSpinOut());
-		loaderOff.whenPressed(new LoaderOff());
+//		loaderSpinIn.whenPressed(new LoaderSpinIn());
+//		loaderSpinOut.whenPressed(new LoaderSpinOut());
+//		loaderOff.whenPressed(new LoaderOff());
 		
 		led.whenPressed(new LED_out());
 		}

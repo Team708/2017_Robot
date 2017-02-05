@@ -7,10 +7,10 @@ import org.usfirst.frc.team708.robot.util.Gamepad;
 import edu.wpi.first.wpilibj.command.Command;
 
 
-public class ManualIntake_Gear extends Command {
+public class ManualPivot_Gear extends Command {
 
-	 public ManualIntake_Gear() {
-	    	requires(Robot.intake_gear);
+	 public ManualPivot_Gear() {
+	    	requires(Robot.pivot_gear);
 	    }
 	    
 
@@ -22,31 +22,21 @@ public class ManualIntake_Gear extends Command {
 	    // Called repeatedly when this Command is scheduled to run
 	    protected void execute() {
 	    	
-	    	boolean L_Shoulderpressed = OI.driverGamepad.getButton(Gamepad.button_L_Shoulder);
 	    	boolean B_Buttonpressed = OI.driverGamepad.getButton(Gamepad.button_B);
 	    	boolean A_Buttonpressed = OI.driverGamepad.getButton(Gamepad.button_A);
 
 	//  LOADER_IN_BUTTON 	= Gamepad.Button_L_Shoulder;
 	//  LOADER_OUT_BUTTON 	= Gamepad.shoulderAxisLeft;
 	    	
-	    	if (L_Shoulderpressed == true){
-	    		Robot.intake_gear.moveMotor(Constants.INTAKE_FORWARD);
-	    	}
-<<<<<<< HEAD
-	    	else if (B_Buttonpressed == true){
-	    		Robot.intake_gear.movePivotMotor(Constants.INTAKE_FORWARD);
-	    	}
-=======
->>>>>>> refs/remotes/origin/master
-	    	else if (OI.driverGamepad.getAxis(Gamepad.shoulderAxisLeft) != 0.0){
-	    		Robot.intake_gear.moveMotor(Constants.INTAKE_REVERSE);
+
+	    	if (B_Buttonpressed == true){
+	    		Robot.pivot_gear.moveMotor(Constants.INTAKE_FORWARD);
 	    	}
 	    	else if (A_Buttonpressed == true){
-	    		Robot.intake_gear.movePivotMotor(Constants.INTAKE_REVERSE);
+	    		Robot.pivot_gear.moveMotor(Constants.INTAKE_REVERSE);
 	    	}
 	    	else {
-	    		Robot.intake_gear.movePivotMotor(Constants.INTAKE_OFF);	    		
-	    		Robot.intake_gear.moveMotor(Constants.INTAKE_OFF);
+	    		Robot.pivot_gear.moveMotor(Constants.INTAKE_OFF);	    		
 	    	}
 	    	
 	    }
@@ -58,7 +48,7 @@ public class ManualIntake_Gear extends Command {
 
 	    // Called once after isFinished returns true
 	    protected void end() {
-	    	Robot.intake_gear.stop();
+	    	Robot.pivot_gear.stop();
 	    }
 
 	    // Called when another command which requires one or more of the same

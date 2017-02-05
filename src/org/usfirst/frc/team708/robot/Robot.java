@@ -24,6 +24,7 @@ import org.usfirst.frc.team708.robot.subsystems.Shooter;
 import org.usfirst.frc.team708.robot.subsystems.Loader;
 import org.usfirst.frc.team708.robot.subsystems.Intake_Ball;
 import org.usfirst.frc.team708.robot.subsystems.Intake_Gear;
+import org.usfirst.frc.team708.robot.subsystems.Pivot_Gear;
 import org.usfirst.frc.team708.robot.subsystems.Climber;
 
 import org.usfirst.frc.team708.robot.subsystems.LED;
@@ -60,6 +61,8 @@ public class Robot extends IterativeRobot {
     public static Loader	 		loader;
     public static Intake_Ball		intake_ball;
     public static Intake_Gear		intake_gear;
+    public static Pivot_Gear		pivot_gear;
+
     public static Climber			climber;
     
 	public static VisionProcessor 	visionProcessor;
@@ -90,6 +93,7 @@ public class Robot extends IterativeRobot {
     shooter			= new Shooter();
     intake_ball		= new Intake_Ball();
     intake_gear		= new Intake_Gear();
+    pivot_gear		= new Pivot_Gear();
     loader			= new Loader();
     led1			= new LED();
     climber			= new Climber();
@@ -178,12 +182,17 @@ public class Robot extends IterativeRobot {
 
             // Various debug information
             drivetrain.sendToDashboard();
+<<<<<<< HEAD
            // loader.sendToDashboard();
+=======
+//            loader.sendToDashboard();
+>>>>>>> refs/remotes/origin/master
             shooter.sendToDashboard();
             led1.sendToDashboard();
             climber.sendToDashboard();
             intake_ball.sendToDashboard();
             intake_gear.sendToDashboard();
+            pivot_gear.sendToDashboard();
 //          visionProcessor.sendToDashboard();
         }
     }
@@ -206,11 +215,16 @@ public class Robot extends IterativeRobot {
      */
     private void sendDashboardSubsystems() {
     	SmartDashboard.putData(shooter);
+<<<<<<< HEAD
     	//SmartDashboard.putData(loader);
+=======
+//    	SmartDashboard.putData(loader);
+>>>>>>> refs/remotes/origin/master
     	SmartDashboard.putData(drivetrain);
     	SmartDashboard.putData(led1);
     	SmartDashboard.putData(intake_ball);
     	SmartDashboard.putData(intake_gear);
+    	SmartDashboard.putData(pivot_gear);
 //    	SmartDashboard.putData(visionProcessor);
     	SmartDashboard.putData(climber);
     }
