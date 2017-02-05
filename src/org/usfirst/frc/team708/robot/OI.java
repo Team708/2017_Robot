@@ -76,7 +76,7 @@ public class OI {
 	 * Operator Button Commands
 	 */
 	public static final Button  spinShooter		= new JoystickButton(operatorGamepad, SPIN_SHOOTER_BUTTON);
-	public static final Trigger spinShooterBack	= new AxisDown(operatorGamepad, SPIN_SHOOTER_BACK_BUTTON);
+	public static final Trigger spinShooterBack	= new AxisUp(operatorGamepad, SPIN_SHOOTER_BACK_BUTTON);
 	public static final Button  spinFeeder		= new JoystickButton(operatorGamepad, SPIN_FEEDER_BUTTON);
 	public static final Trigger spinFeederBack	= new AxisUp(operatorGamepad, SPIN_FEEDER_BACK_BUTTON);
 	public static final Button  loaderSpinIn	= new JoystickButton(operatorGamepad, LOADER_IN_BUTTON);
@@ -102,7 +102,7 @@ public class OI {
 //		sonarOverride.whenPressed(new SonarOverride());
 //		
 		spinShooter.whileHeld(new SpinShooter());
-//		spinShooterBack.whileActive(new SpinShooterBack());
+		spinShooterBack.whileActive(new SpinShooterBack());
 //		spinFeeder.whenPressed(new SpinFeeder());
 //		spinFeederBack.whileActive(new SpinShooterBack());
 //		

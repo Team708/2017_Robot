@@ -2,6 +2,7 @@ package org.usfirst.frc.team708.robot.subsystems;
 
 import org.usfirst.frc.team708.robot.Constants;
 import org.usfirst.frc.team708.robot.RobotMap;
+import org.usfirst.frc.team708.robot.commands.shooter.ManualShoot;
 import org.usfirst.frc.team708.robot.commands.shooter.SpinShooter;
 import org.usfirst.frc.team708.robot.OI;
 import org.usfirst.frc.team708.robot.commands.drivetrain.JoystickDrive;
@@ -45,26 +46,31 @@ public class Shooter extends Subsystem {
     	shooter.setFeedbackDevice(FeedbackDevice.QuadEncoder);    
     	shooter.reverseSensor(false);
     	shooter.configEncoderCodesPerRev(256);
-//		shooter.changeControlMode(TalonControlMode.PercentVbus);
+		shooter.changeControlMode(TalonControlMode.PercentVbus);
     	shooter.configNominalOutputVoltage(+0.0, -0.0);
     	shooter.configPeakOutputVoltage(+4.0, -4.0);
         /* set closed loop gains in slot1 */
+    	
     	shooter.setProfile(0);
 
     	shooter.setP(0.6);
     	shooter.setI(0.002);
     	shooter.setD(0);
-
+		
 	}
 
 	public void initDefaultCommand() {
-
+//			setDefaultCommand(new ManualShoot());
     }
 	
 	public void manualSpeed(double speed) {
-		shooter.changeControlMode(TalonControlMode.Speed);
+//		shooter.changeControlMode(TalonControlMode.Speed);
 		shooter.set(speed);
-//		shooter.set(.2);
+}
+	
+	public void manualRPM(double rpm) {
+		shooter.changeControlMode(TalonControlMode.Speed);
+		shooter.set(rpm);
 }
 	
 	public void setFgain(double F){

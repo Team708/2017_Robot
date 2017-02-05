@@ -13,7 +13,7 @@ import org.usfirst.frc.team708.robot.util.Math708;
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import com.ctre.CANTalon;
 import com.ctre.CANTalon.FeedbackDevice;
-import com.ctre.CanTalonJNI;
+//import com.ctre.CanTalonJNI;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 //import edu.wpi.first.wpilibj.interfaces.Gyro;
