@@ -27,28 +27,39 @@ public class LED extends Subsystem {
     public static Port				port;
     public static int buttonvalue = 0;
 
-    public static byte[] msg = new byte[4];
+    public static byte[] msg     = new byte[8];
+    public static byte[] msgread = new byte[10];
+
     public static String messageback;
     
 	public LED() {		
 		
-		port = Port.kOnboard;
+//		port = Port.kOnboard;
+		port = Port.kMXP;
 		led_out = new SerialPort(9600, port, 8, Parity.kNone, StopBits.kOne);
 		led_out.setWriteBufferMode(WriteBufferMode.kFlushOnAccess);
-		
+		msg[0] = 0x00;
+//		msg[1] = 0x55;
+//		msg[2] = 0x00;
+//		msg[3] = 0x64;
+//		msg[4] = 0x00;
+//		msg[5] = 0x0A;
+//		msg[6] = 0x00;
 		}
 
 	public void send_to_led(int command){
 		buttonvalue = command;
 		String message = Integer.toString(buttonvalue);
-		
-		led_out.writeString(message.toString());
-//		led_out.write(command, 8);
-
-		messageback = new String(led_out.readString());
-		SmartDashboard.putNumber("LED sent to", buttonvalue);
-		SmartDashboard.putString("LED read from arduio", messageback);
-
+		msg[0]++;
+//		led_out.writeString(message.toString());
+		led_out.write(msg, 1);
+        led_out.flush();
+        
+//		if (led_out.getBytesReceived() > 0)
+//			msgread = led_out.read(1);
+		SmartDashboard.putNumber("LED sent to", msg[0]);
+//		SmartDashboard.putNumber("LED sent to", buttonvalue);
+//		SmartDashboard.putNumber("LED read from arduio", msgread[0]);
 		}
 	
 	public void sendToDashboard() {

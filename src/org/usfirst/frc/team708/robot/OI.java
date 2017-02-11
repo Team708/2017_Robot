@@ -60,7 +60,7 @@ public class OI {
 //	public static final int LOADER_OUT_BUTTON 	= Gamepad.button_A;
 //	public static final int LOADER_OFF_BUTTON 	= Gamepad.button_X;
 
-	public static final int LED_BUTTON 	= Gamepad.button_B;
+	public static final int LED_BUTTON 	= Gamepad.button_X;
 
 	/*
 	 * Driver Button Commands

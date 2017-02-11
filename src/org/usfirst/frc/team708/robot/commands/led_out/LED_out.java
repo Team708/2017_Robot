@@ -34,16 +34,16 @@ static public int count = 0;
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	boolean Bpressed = OI.operatorGamepad.getButton(Gamepad.button_B);
-    
-    	if (Bpressed == true){
+//    	boolean Bpressed = OI.operatorGamepad.getButton(Gamepad.button_B);
+//    
+//    	if (Bpressed == true){
     	    count++;
     		Robot.led1.send_to_led(count);
-       }
+//       }
     }
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	return false;
+    	return true;
     }
 
     // Called once after isFinished returns true
