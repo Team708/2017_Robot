@@ -14,8 +14,11 @@ public Intake_Gear_Down() {
 	}
 
 	protected void execute() {
-		Robot.pivot_gear.moveMotor(Constants.INTAKE_REVERSE);
-	}
+        if (!Robot.pivot_gear.isRevSwitch())
+		      Robot.pivot_gear.moveMotor(Constants.INTAKE_REVERSE);
+        else
+        	Robot.pivot_gear.stop();
+        }
 
 
 	protected boolean isFinished() {

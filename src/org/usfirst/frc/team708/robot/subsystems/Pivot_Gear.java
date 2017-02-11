@@ -1,6 +1,7 @@
 package org.usfirst.frc.team708.robot.subsystems;
 
 import org.usfirst.frc.team708.robot.Constants;
+import org.usfirst.frc.team708.robot.Robot;
 import org.usfirst.frc.team708.robot.RobotMap;
 
 import com.ctre.CANTalon;
@@ -28,7 +29,18 @@ public class Pivot_Gear extends Subsystem {
 	
 	//I believe this sets the speed of the motor
 	public void moveMotor(double speed) {
-		pivotMotor.set(speed);
+        if (!(Robot.pivot_gear.isFwdSwitch() || Robot.pivot_gear.isRevSwitch()))
+    		pivotMotor.set(speed);
+        else
+        	pivotMotor.set(0);
+	}
+	
+	public boolean isFwdSwitch() {
+		return (pivotMotor.isFwdLimitSwitchClosed());
+	}
+	
+	public boolean isRevSwitch() {
+		return (pivotMotor.isRevLimitSwitchClosed());
 	}
 	
 	//I believe this stops the motor
@@ -41,6 +53,8 @@ public class Pivot_Gear extends Subsystem {
      */
     public void sendToDashboard() {
 		if (Constants.DEBUG) {
+			SmartDashboard.putBoolean("Pivot forward switch", pivotMotor.isFwdLimitSwitchClosed());
+			SmartDashboard.putBoolean("Pivot reverse switch", pivotMotor.isRevLimitSwitchClosed());
 		}
     }
 }

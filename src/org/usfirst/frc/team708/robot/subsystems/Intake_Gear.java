@@ -1,6 +1,7 @@
 package org.usfirst.frc.team708.robot.subsystems;
 
 import org.usfirst.frc.team708.robot.Constants;
+import org.usfirst.frc.team708.robot.Robot;
 import org.usfirst.frc.team708.robot.RobotMap;
 
 import com.ctre.CANTalon;
@@ -31,7 +32,9 @@ public class Intake_Gear extends Subsystem {
 		intakeMotor.set(speed);
 	}
 	
-
+	public boolean hasGear() {
+		return ((Robot.drivetrain.getIRDistance() > 0) && (Robot.drivetrain.getIRDistance() < Constants.IR_HAS_GEAR_DISTANCE));
+	}
 	//I believe this stops the motor
 	public void stop(){
 		intakeMotor.set(Constants.INTAKE_OFF);
@@ -43,6 +46,7 @@ public class Intake_Gear extends Subsystem {
      */
     public void sendToDashboard() {
 		if (Constants.DEBUG) {
+			
 		}
     }
     

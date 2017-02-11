@@ -8,33 +8,32 @@ import edu.wpi.first.wpilibj.command.Command;
 public class Intake_Gear_Up extends Command {
 
 public Intake_Gear_Up() {
-		
 		requires(Robot.pivot_gear);
 	}
 
 	protected void initialize() {
-
 	}
 
 	protected void execute() {
-
-		Robot.pivot_gear.moveMotor(Constants.INTAKE_FORWARD);
+        if (!Robot.pivot_gear.isFwdSwitch())
+		      Robot.pivot_gear.moveMotor(Constants.INTAKE_FORWARD);
+        else
+        	Robot.pivot_gear.stop();
 	}
 
 
 	protected boolean isFinished() {
-
-		return(false);
+		if (Robot.pivot_gear.isFwdSwitch())
+     		return(true);
+		else
+			return(false);
 	}
 
 	protected void end() {
-	
 		Robot.pivot_gear.stop();
-	
 	}
 
 	protected void interrupted() {
-
 		end();
 	}
 	
