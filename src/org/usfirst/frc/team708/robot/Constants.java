@@ -18,9 +18,13 @@ public final class Constants {
  
 	public static final double VISION_ROTATE_MOTOR_SPEED	= 0.8;
 	
-	public static final double LOADER_MOTOR_FORWARD 		=  1.0;
-	public static final double LOADER_MOTOR_REVERSE 		= -1.0;
-	public static final double LOADER_OFF 					=  0.0;
+//	public static final double LOADER_MOTOR_FORWARD 		=  1.0;
+//	public static final double LOADER_MOTOR_REVERSE 		= -1.0;
+//	public static final double LOADER_OFF 					=  0.0;
+	
+	public static final double FEEDER_MOTOR_FORWARD 		=  1.0;
+	public static final double FEEDER_MOTOR_REVERSE 		= -1.0;
+	public static final double FEEDER_OFF 					=  0.0;
 	
 	public static final double SHOOTER_MOTOR_FORWARD 		=  1.0;
 	public static final double SHOOTER_MOTOR_OFF			=  0.0;

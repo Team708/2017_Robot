@@ -21,7 +21,7 @@ import edu.wpi.cscore.AxisCamera;
 
 import org.usfirst.frc.team708.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team708.robot.subsystems.Shooter;
-import org.usfirst.frc.team708.robot.subsystems.Loader;
+import org.usfirst.frc.team708.robot.subsystems.Feeder;
 import org.usfirst.frc.team708.robot.subsystems.Intake_Ball;
 import org.usfirst.frc.team708.robot.subsystems.Intake_Gear;
 import org.usfirst.frc.team708.robot.subsystems.Pivot_Gear;
@@ -40,7 +40,7 @@ import org.usfirst.frc.team708.robot.commands.intake_gear.*;
 
 import org.usfirst.frc.team708.robot.commands.autonomous.*;
 import org.usfirst.frc.team708.robot.commands.led_out.*;
-import org.usfirst.frc.team708.robot.commands.loader.*;
+import org.usfirst.frc.team708.robot.commands.feeder.*;
 
 //sue's comment
 /**
@@ -58,7 +58,7 @@ public class Robot extends IterativeRobot {
     
     public static Drivetrain 		drivetrain;
     public static Shooter	 		shooter;
-    public static Loader	 		loader;
+    public static Feeder	 		feeder;
     public static Intake_Ball		intake_ball;
     public static Intake_Gear		intake_gear;
     public static Pivot_Gear		pivot_gear;
@@ -94,7 +94,7 @@ public class Robot extends IterativeRobot {
     intake_ball		= new Intake_Ball();
     intake_gear		= new Intake_Gear();
     pivot_gear		= new Pivot_Gear();
-    loader			= new Loader();
+    feeder			= new Feeder();
     led1			= new LED();
     climber			= new Climber();
             
@@ -182,7 +182,7 @@ public class Robot extends IterativeRobot {
 
             // Various debug information
             drivetrain.sendToDashboard();
-//            loader.sendToDashboard();
+//            feeder.sendToDashboard();
             shooter.sendToDashboard();
             led1.sendToDashboard();
             climber.sendToDashboard();
@@ -211,7 +211,7 @@ public class Robot extends IterativeRobot {
      */
     private void sendDashboardSubsystems() {
     	SmartDashboard.putData(shooter);
-//    	SmartDashboard.putData(loader);
+//    	SmartDashboard.putData(feeder);
     	SmartDashboard.putData(drivetrain);
     	SmartDashboard.putData(led1);
     	SmartDashboard.putData(intake_ball);

@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class ManualIntake_Ball extends Command {
 
 	 public ManualIntake_Ball() {
-	    	requires(Robot.loader);
+	    
 	    }
 	    
 

@@ -6,9 +6,9 @@ package org.usfirst.frc.team708.robot;
 import edu.wpi.first.wpilibj.buttons.*;
 
 import org.usfirst.frc.team708.robot.commands.drivetrain.*;
+import org.usfirst.frc.team708.robot.commands.feeder.*;
 import org.usfirst.frc.team708.robot.commands.shooter.*;
 import org.usfirst.frc.team708.robot.commands.led_out.*;
-import org.usfirst.frc.team708.robot.commands.loader.*;
 import org.usfirst.frc.team708.robot.commands.intake_ball.*;
 import org.usfirst.frc.team708.robot.commands.intake_gear.*;
 
@@ -105,8 +105,8 @@ public class OI {
 //		
 		spinShooter.whileHeld(new SpinShooter());
 		spinShooterBack.whileActive(new SpinShooterBack());
-//		spinFeeder.whenPressed(new SpinFeeder());
-//		spinFeederBack.whileActive(new SpinShooterBack());
+		spinFeeder.whileHeld(new SpinFeeder());
+		spinFeederBack.whileActive(new SpinFeederBack());
 //		
 //		loaderSpinIn.whenPressed(new LoaderSpinIn());
 //		loaderSpinOut.whenPressed(new LoaderSpinOut());

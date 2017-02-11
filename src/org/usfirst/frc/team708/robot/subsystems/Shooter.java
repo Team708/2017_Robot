@@ -51,11 +51,7 @@ public class Shooter extends Subsystem {
     	shooter.configPeakOutputVoltage(+4.0, -4.0);
         /* set closed loop gains in slot1 */
     	
-    	shooter.setProfile(0);
-
-    	shooter.setP(0.6);
-    	shooter.setI(0.002);
-    	shooter.setD(0);
+    	shooter.setPID(0.6, 0.0, 0.0, Constants.SHOOTER_F_HIGH, 0, 4.0, 0);
 		
 	}
 
@@ -64,7 +60,7 @@ public class Shooter extends Subsystem {
     }
 	
 	public void manualSpeed(double speed) {
-//		shooter.changeControlMode(TalonControlMode.Speed);
+		shooter.changeControlMode(TalonControlMode.PercentVbus);
 		shooter.set(speed);
 }
 	

@@ -19,29 +19,29 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * Leaders
  * 
  */
-public class Loader extends Subsystem {
+public class Feeder extends Subsystem {
 	
-	private CANTalon loadMotor;
+	private CANTalon feedMotor;
 	/**
 	 * Constructor
 	 */
-	public Loader() {
-//		loadMotor = new CANTalon(RobotMap.loaderMotor); //initializes the loading motor
+	public Feeder() {
+		feedMotor = new CANTalon(RobotMap.feederMotor); //initializes the loading motor
 	}
 	
 	public void initDefaultCommand() {
     }
 	
 	public void manualMove(double speed){
-		loadMotor.set(speed);
+		feedMotor.set(speed);
 	}
 	
 	public void stop(){
-		loadMotor.set(Constants.MOTOR_OFF);
+		feedMotor.set(Constants.MOTOR_OFF);
 	}
 	
 	public void sendToDashboard() {
-		SmartDashboard.putNumber("Loader Motor Speed", loadMotor.getSpeed());
+		SmartDashboard.putNumber("Loader Motor Speed", feedMotor.getSpeed());
 
 		if (Constants.DEBUG) {
 		}
