@@ -1,4 +1,4 @@
-package org.usfirst.frc.team708.robot.commands.loader;
+package org.usfirst.frc.team708.robot.commands.feeder;
 
 import org.usfirst.frc.team708.robot.Constants;
 import org.usfirst.frc.team708.robot.OI;
@@ -14,7 +14,7 @@ public class ManualLoader extends Command {
 
 
     public ManualLoader() {
-    	requires(Robot.loader);
+    	requires(Robot.feeder);
     }
     
 
@@ -29,20 +29,20 @@ public class ManualLoader extends Command {
     	boolean Xpressed = OI.operatorGamepad.getButton(Gamepad.button_X);
     	boolean Ypressed = OI.operatorGamepad.getButton(Gamepad.button_Y);
 
-//  LOADER_IN_BUTTON 	= Gamepad.button_Y;
-//  LOADER_OUT_BUTTON 	= Gamepad.button_A;
-//  LOADER_OFF_BUTTON 	= Gamepad.button_X;
+//  feeder_IN_BUTTON 	= Gamepad.button_Y;
+//  feeder_OUT_BUTTON 	= Gamepad.button_A;
+//  feeder_OFF_BUTTON 	= Gamepad.button_X;
     	
     	if (Ypressed == true){
-    		Robot.loader.manualMove(Constants.MOTOR_FORWARD);
+    		Robot.feeder.manualMove(Constants.MOTOR_FORWARD);
     	}
     	else
     	if (Apressed == true){
-    		Robot.loader.manualMove(Constants.MOTOR_REVERSE);
+    		Robot.feeder.manualMove(Constants.MOTOR_REVERSE);
     	}
     	else
     	if (Xpressed == true){
-    		Robot.loader.manualMove(Constants.MOTOR_OFF);
+    		Robot.feeder.manualMove(Constants.MOTOR_OFF);
     	}
     	
     }
@@ -54,7 +54,7 @@ public class ManualLoader extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.loader.stop();
+    	Robot.feeder.stop();
     }
 
     // Called when another command which requires one or more of the same

@@ -2,6 +2,7 @@ package org.usfirst.frc.team708.robot.subsystems;
 
 import org.usfirst.frc.team708.robot.Constants;
 import org.usfirst.frc.team708.robot.RobotMap;
+import org.usfirst.frc.team708.robot.commands.shooter.ManualShoot;
 import org.usfirst.frc.team708.robot.commands.shooter.SpinShooter;
 import org.usfirst.frc.team708.robot.OI;
 import org.usfirst.frc.team708.robot.commands.drivetrain.JoystickDrive;
@@ -41,7 +42,7 @@ public class Shooter extends Subsystem {
 		
 		// Initializes the motor
 
-		shooter = new CANTalon(41);
+		shooter = new CANTalon(RobotMap.shooterMotorMaster);
 		shooter.enable();
     	shooter.setFeedbackDevice(FeedbackDevice.QuadEncoder);    
     	shooter.reverseSensor(false);
@@ -52,11 +53,13 @@ public class Shooter extends Subsystem {
         /* set closed loop gains in slot1 */
     	shooter.setProfile(0);
 
-    	shooter.setP(0.6);
-    	shooter.setI(0.002);
-    	shooter.setD(0);
+//    	shooter.setP(0.6);
+//    	shooter.setI(0.002);
+//    	shooter.setD(0);
 
-    	hood = new Servo(4);
+    	shooter.setPID(0.6, 0.0, 0.0, Constants.SHOOTER_F_HIGH, 0, 4.0, 0);
+    	
+    	hood = new Servo(RobotMap.hoodAngle);
 
 //    	hood.setBounds(2455.0, 8.0, 0.0, 8.0, 553.0); // defines HS-805MG Servo
 
@@ -67,9 +70,14 @@ public class Shooter extends Subsystem {
     }
 	
 	public void manualSpeed(double speed) {
-		shooter.changeControlMode(TalonControlMode.Speed);
+//		shooter.changeControlMode(TalonControlMode.Speed);
 		shooter.set(speed);
 //		shooter.set(.2);
+}
+	
+	public void manualRPM(double rpm) {
+		shooter.changeControlMode(TalonControlMode.Speed);
+		shooter.set(rpm);
 }
 	
 	public void setFgain(double F){

@@ -1,9 +1,9 @@
-package org.usfirst.frc.team708.robot.commands.loader;
+package org.usfirst.frc.team708.robot.commands.feeder;
 
 import org.usfirst.frc.team708.robot.Constants;
 import org.usfirst.frc.team708.robot.OI;
 import org.usfirst.frc.team708.robot.Robot;
-import org.usfirst.frc.team708.robot.subsystems.Loader;
+import org.usfirst.frc.team708.robot.subsystems.Feeder;
 import org.usfirst.frc.team708.robot.util.Gamepad;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -11,13 +11,11 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class LoaderSpinIn extends Command {
+public class FeederOff extends Command {
 
 
-    public LoaderSpinIn() {
-    	
-    	requires(Robot.loader);
-
+    public FeederOff() {
+    	requires(Robot.feeder);
     }
     
 
@@ -28,7 +26,7 @@ public class LoaderSpinIn extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    		Robot.loader.manualMove(Constants.LOADER_MOTOR_FORWARD);
+    	Robot.feeder.manualMove(Constants.MOTOR_OFF); 	
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -38,7 +36,7 @@ public class LoaderSpinIn extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.loader.stop();
+    	Robot.feeder.stop();
     }
 
     // Called when another command which requires one or more of the same

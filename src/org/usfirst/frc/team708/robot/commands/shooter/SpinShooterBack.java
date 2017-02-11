@@ -16,21 +16,22 @@ import edu.wpi.first.wpilibj.command.WaitCommand;
 /**
  *
  */
-public class SpinShooter extends Command {
+public class SpinShooterBack extends Command {
 
 
-    public SpinShooter() {
+    public SpinShooterBack() {
     	requires(Robot.shooter);
     }
     
 // Called just before this Command runs the first time
     protected void initialize() {
+//		Robot.shooter.setFgain(Constants.SHOOTER_F_LOW);
     }
 
     // Called repeatedly when this Command is scheduled to run
-    protected void execute() {   	
-    		Robot.shooter.setFgain(Constants.SHOOTER_F_LOW);
-    		Robot.shooter.manualSpeed(2000);		
+    protected void execute() {
+//    	if (OI.operatorGamepad.getAxis(Gamepad.shoulderAxisLeft) <= -.5)
+    		Robot.shooter.manualSpeed(Constants.SHOOTER_MOTOR_BACKWARD);	
     }
 
     // Make this return true when this Command no longer needs to run execute()
