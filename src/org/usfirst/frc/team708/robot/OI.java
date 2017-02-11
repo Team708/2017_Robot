@@ -55,12 +55,9 @@ public class OI {
 	// HANGER
 	private static final int OPERATE_HANGER				= Gamepad.leftStick_Y;
 
-	// LOADER Buttons
-//	public static final int LOADER_IN_BUTTON 	= Gamepad.button_Y;
-//	public static final int LOADER_OUT_BUTTON 	= Gamepad.button_A;
-//	public static final int LOADER_OFF_BUTTON 	= Gamepad.button_X;
-
-	public static final int LED_BUTTON 	= Gamepad.button_X;
+	public static final int HOOD_HIGH		 			= Gamepad.button_A;
+	public static final int HOOD_LOW	 				= Gamepad.button_B;
+	public static final int LED_BUTTON 					= Gamepad.button_X;
 
 	/*
 	 * Driver Button Commands
@@ -84,6 +81,8 @@ public class OI {
 //	public static final Button  loaderOff		= new JoystickButton(operatorGamepad, LOADER_OFF_BUTTON);
 
 	public static final Button led				= new JoystickButton(operatorGamepad, LED_BUTTON);
+	public static final Button hoodHigh			= new JoystickButton(operatorGamepad, HOOD_HIGH);
+	public static final Button hoodLow			= new JoystickButton(operatorGamepad, HOOD_LOW);
 
 	/**
 	 * Constructor
@@ -113,6 +112,9 @@ public class OI {
 //		loaderOff.whenPressed(new LoaderOff());
 		
 		led.whenPressed(new LED_out());
+		hoodHigh.whenPressed(new MoveHoodHigh());
+		hoodLow.whenPressed(new MoveHoodLow());
+
 		}
 }
 
