@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.TalonSRX;
+import edu.wpi.first.wpilibj.Servo;
 
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -30,7 +31,7 @@ public class Shooter extends Subsystem {
 	// from Commands.
 	
 	private CANTalon shooter;	// Motor Controllers
-
+	private Servo	 hood;
 	/**
 	 * Constructor
 	 */
@@ -55,6 +56,10 @@ public class Shooter extends Subsystem {
     	shooter.setI(0.002);
     	shooter.setD(0);
 
+    	hood = new Servo(4);
+
+//    	hood.setBounds(2455.0, 8.0, 0.0, 8.0, 553.0); // defines HS-805MG Servo
+
 	}
 
 	public void initDefaultCommand() {
@@ -74,6 +79,14 @@ public class Shooter extends Subsystem {
 	public void stop(){
 		shooter.set(Constants.MOTOR_OFF);
 }
+	
+	public void moveHood(int angle) {
+
+		SmartDashboard.putNumber("Servo passed in: ", angle);
+		SmartDashboard.putNumber("Servo Raw", hood.getRaw());
+        hood.setRaw(angle);		
+
+	}
 	/**
 	 * Sends data to the Smart Dashboard
 	 */

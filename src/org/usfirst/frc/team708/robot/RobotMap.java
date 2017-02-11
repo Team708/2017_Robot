@@ -17,7 +17,7 @@ public class RobotMap {
 	public static final int operatorGamepad = 2;
 	
 	// PWM Ports
-//	public static final int 			 	= 0;
+	public static final int hoodAngle	 	= 0;
 //	public static final int  				= 1;
 //	public static final int 			 	= 2;
 //	public static final int  				= 3;
