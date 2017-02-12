@@ -22,46 +22,37 @@ import edu.wpi.cscore.AxisCamera;
 import org.usfirst.frc.team708.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team708.robot.subsystems.Shooter;
 import org.usfirst.frc.team708.robot.subsystems.Loader;
+import org.usfirst.frc.team708.robot.subsystems.Feeder;
 import org.usfirst.frc.team708.robot.subsystems.Intake_Ball;
 import org.usfirst.frc.team708.robot.subsystems.Intake_Gear;
 import org.usfirst.frc.team708.robot.subsystems.Pivot_Gear;
 import org.usfirst.frc.team708.robot.subsystems.Climber;
-
+import org.usfirst.frc.team708.robot.subsystems.VisionProcessor;
 import org.usfirst.frc.team708.robot.subsystems.LED;
-
-//import org.usfirst.frc.team.708.robot.subsystems.Intake_Gear;
 
 import org.usfirst.frc.team708.robot.OI;
 
-import org.usfirst.frc.team708.robot.subsystems.VisionProcessor;
+import org.usfirst.frc.team708.robot.commands.feeder.*;
 import org.usfirst.frc.team708.robot.commands.drivetrain.*;
 import org.usfirst.frc.team708.robot.commands.intake_ball.*;
 import org.usfirst.frc.team708.robot.commands.intake_gear.*;
-
 import org.usfirst.frc.team708.robot.commands.autonomous.*;
-import org.usfirst.frc.team708.robot.commands.led_out.*;
-import org.usfirst.frc.team708.robot.commands.feeder.*;
+import org.usfirst.frc.team708.robot.commands.Climber.*;
+import org.usfirst.frc.team708.robot.commands.loader.*;
+import org.usfirst.frc.team708.robot.commands.shooter.*;
+import org.usfirst.frc.team708.robot.commands.visionProcessor.*;
 
-//sue's comment
-/**
- * The VM is configured to automatically run this class, and to call the
- * functions corresponding to each mode, as described in the IterativeRobot
- * documentation. If you change the name of this class or the package after
- * creating this project, you must also update the manifest file in the resource
- * directory.
- * 
- * @author omn0mn0m
- */
 public class Robot extends IterativeRobot {
     
     Timer statsTimer;										// Timer used for Smart Dash statistics
     
     public static Drivetrain 		drivetrain;
     public static Shooter	 		shooter;
-    public static Loader	 		feeder;
+    public static Feeder	 		feeder;
     public static Intake_Ball		intake_ball;
     public static Intake_Gear		intake_gear;
     public static Pivot_Gear		pivot_gear;
+    public static Loader	 		loader;
 
     public static Climber			climber;
     
@@ -94,7 +85,8 @@ public class Robot extends IterativeRobot {
     intake_ball		= new Intake_Ball();
     intake_gear		= new Intake_Gear();
     pivot_gear		= new Pivot_Gear();
-    feeder			= new Loader();
+    feeder			= new Feeder();
+    loader			= new Loader();
     led1			= new LED();
     climber			= new Climber();
             
@@ -183,6 +175,7 @@ public class Robot extends IterativeRobot {
             // Various debug information
             drivetrain.sendToDashboard();
             feeder.sendToDashboard();
+            loader.sendToDashboard();
             shooter.sendToDashboard();
             led1.sendToDashboard();
             climber.sendToDashboard();
@@ -212,6 +205,7 @@ public class Robot extends IterativeRobot {
     private void sendDashboardSubsystems() {
     	SmartDashboard.putData(shooter);
     	SmartDashboard.putData(feeder);
+    	SmartDashboard.putData(loader);
     	SmartDashboard.putData(drivetrain);
     	SmartDashboard.putData(led1);
     	SmartDashboard.putData(intake_ball);
