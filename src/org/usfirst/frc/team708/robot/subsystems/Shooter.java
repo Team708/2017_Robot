@@ -14,7 +14,7 @@ import com.ctre.CANTalon.TalonControlMode;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
-
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.TalonSRX;
@@ -30,7 +30,9 @@ public class Shooter extends Subsystem {
 	// Put methods for controlling this subsystem here. Call these
 	// from Commands.
 	
-	private CANTalon shooter;	// Motor Controllers
+	private CANTalon shooter, shooterSlave;	// Motor Controllers
+	
+	private Servo	 hood;
 
 	/**
 	 * Constructor
@@ -41,7 +43,11 @@ public class Shooter extends Subsystem {
 		
 		// Initializes the motor
 
-		shooter = new CANTalon(41);
+		shooter = new CANTalon(RobotMap.shooterMotorMaster);
+		shooterSlave = new CANTalon(RobotMap.shooterMotorSlave);
+	    shooterSlave.changeControlMode(CANTalon.TalonControlMode.Follower);
+		shooterSlave.set(shooter.getDeviceID());
+	    
 		shooter.enable();
     	shooter.setFeedbackDevice(FeedbackDevice.QuadEncoder);    
     	shooter.reverseSensor(false);
@@ -51,7 +57,8 @@ public class Shooter extends Subsystem {
     	shooter.configPeakOutputVoltage(+4.0, -4.0);
         /* set closed loop gains in slot1 */
     	
-    	shooter.setPID(0.6, 0.0, 0.0, Constants.SHOOTER_F_HIGH, 0, 4.0, 0);
+    	shooter.setPID(0.06, 0.001, 2.0, 0.0, 10, 0.0, 0);
+    	hood = new Servo(RobotMap.hoodAngle);
 		
 	}
 
@@ -73,7 +80,14 @@ public class Shooter extends Subsystem {
 		shooter.setF(F);
 	}
 	
+	public void moveHood(int angle) {
+		SmartDashboard.putNumber("Servo passed in: ", angle);
+		SmartDashboard.putNumber("Servo Raw", hood.getRaw());
+        hood.setRaw(angle);		
+	}
+	
 	public void stop(){
+		shooter.changeControlMode(TalonControlMode.PercentVbus);
 		shooter.set(Constants.MOTOR_OFF);
 }
 	/**
