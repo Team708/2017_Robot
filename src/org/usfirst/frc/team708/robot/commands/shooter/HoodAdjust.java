@@ -16,21 +16,21 @@ import edu.wpi.first.wpilibj.command.WaitCommand;
 /**
  *
  */
-public class MoveHoodLow extends Command {
-
-
-    public MoveHoodLow() {
+public class HoodAdjust extends Command {
+    
+    public HoodAdjust() {
     	requires(Robot.shooter);
     }
     
 // Called just before this Command runs the first time
     protected void initialize() {
-
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	 Robot.shooter.moveHood(Constants.HOOD_MIN);  // 25 is the lower bounds
+    	double hoodAngle = OI.operatorGamepad.getAxis(Gamepad.rightStick_Y); //Gets Input from operator's controller
+ 
+    	Robot.shooter.hoodAdjust(hoodAngle); //Defines move speed from the operator's controller
     }
 
     // Make this return true when this Command no longer needs to run execute()

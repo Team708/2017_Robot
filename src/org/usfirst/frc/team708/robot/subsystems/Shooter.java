@@ -33,6 +33,8 @@ public class Shooter extends Subsystem {
 	
 	private CANTalon shooter;	// Motor Controllers
 	private Servo	 hood;
+	private int		 hoodLocation;
+
 	/**
 	 * Constructor
 	 */
@@ -62,7 +64,7 @@ public class Shooter extends Subsystem {
     	hood = new Servo(RobotMap.hoodAngle);
 
 //    	hood.setBounds(2455.0, 8.0, 0.0, 8.0, 553.0); // defines HS-805MG Servo
-
+    	hoodLocation = 25;
 	}
 
 	public void initDefaultCommand() {
@@ -90,15 +92,32 @@ public class Shooter extends Subsystem {
 	
 	public void moveHood(int angle) {
 
-		SmartDashboard.putNumber("Servo passed in: ", angle);
-		SmartDashboard.putNumber("Servo Raw", hood.getRaw());
+		if (Constants.DEBUG) {
+			SmartDashboard.putNumber("Servo passed in: ", angle);
+			SmartDashboard.putNumber("Servo Raw", hood.getRaw());
+		}
+		hoodLocation = angle;
         hood.setRaw(angle);		
+	}
+	
+	public void hoodAdjust(double angle) {
 
+		if ((angle > 0.0) && (hoodLocation<2000)) hoodLocation+=Constants.HOOD_CALIBRATION;
+		else if ((angle < 0.0) && (hoodLocation>25)) hoodLocation-=Constants.HOOD_CALIBRATION;
+			
+		moveHood(hoodLocation);
+		if (Constants.DEBUG) {
+			SmartDashboard.putNumber("Servo angle",hoodLocation);
+			SmartDashboard.putNumber("Servo joystick value", angle);
+		}
+    	
 	}
 	/**
 	 * Sends data to the Smart Dashboard
 	 */
 	public void sendToDashboard() {
+		if (Constants.DEBUG) {
+		}
 		SmartDashboard.putNumber("Encoder Position", shooter.getEncPosition());
 		SmartDashboard.putNumber("Encoder Speed", shooter.getSpeed());
 		SmartDashboard.putNumber("Encoder Velocity", shooter.getEncVelocity());

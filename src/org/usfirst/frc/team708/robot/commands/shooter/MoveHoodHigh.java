@@ -30,7 +30,7 @@ public class MoveHoodHigh extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	 Robot.shooter.moveHood(2000);  // 2000 is upper bounds
+    	 Robot.shooter.moveHood(Constants.HOOD_MAX);  // 2000 is upper bounds
     }
 
     // Make this return true when this Command no longer needs to run execute()

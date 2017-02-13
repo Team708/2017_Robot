@@ -22,11 +22,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Loader extends Subsystem {
 	
 	private CANTalon loadMotor;
+	private boolean spinforward; 
+
 	/**
 	 * Constructor
 	 */
 	public Loader() {
-//		loadMotor = new CANTalon(RobotMap.loaderMotor); //initializes the loading motor
+		loadMotor = new CANTalon(RobotMap.loaderMotor); //initializes the loading motor
+		spinforward = false;
 	}
 	
 	public void initDefaultCommand() {
@@ -40,9 +43,16 @@ public class Loader extends Subsystem {
 		loadMotor.set(Constants.MOTOR_OFF);
 	}
 	
+	public boolean toggleSpin() {
+		    spinforward = !spinforward;
+			return(spinforward);
+	}
+	
+	public boolean spinForward() {
+		return(spinforward);
+	}
+	
 	public void sendToDashboard() {
-		SmartDashboard.putNumber("Loader Motor Speed", loadMotor.getSpeed());
-
 		if (Constants.DEBUG) {
 		}
 	}

@@ -17,11 +17,11 @@ public class RobotMap {
 	public static final int operatorGamepad = 2;
 	
 	// PWM Ports
-	public static final int hoodAngle	 	= 0;
+//	public static final int 			 	= 0;
 //	public static final int  				= 1;
 //	public static final int 			 	= 2;
 //	public static final int  				= 3;
-//	public static final int  				= 4;
+	public static final int  	hoodAngle	= 4;
 //	public static final int  				= 5;
 //	public static final int  				= 6;
 //	public static final int  				= 7;
@@ -49,6 +49,8 @@ public class RobotMap {
 	// Shooter CAN Device ID
 	public static final int feederMotor					= 51;
 		
+	public static final int loaderMotor					= 61;
+
 	// Digital IO
 	public static final int drivetrainEncoderARt		= 0;
 	public static final int drivetrainEncoderBRt		= 1;
