@@ -30,12 +30,12 @@ public class VisionProcessor extends Subsystem {
 //	private final double 	targetWidth = 18; //width of target in inches
 
 	private double 			centerX = 0.0;
-	private double			targetY = AutoConstants.Y_TARGET;
+//	private double			targetY = AutoConstants.Y_TARGET;
 	private double 			currentX = 0.0;
 	private double			currentY = 0.0;
 
-	private double thresholdX = AutoConstants.X_THRESHOLD;
-	private double thresholdY = AutoConstants.Y_THRESHOLD;
+//	private double thresholdX = AutoConstants.X_THRESHOLD;
+//	private double thresholdY = AutoConstants.Y_THRESHOLD;
 	
     // High goal aspect ratio (11ft6in/3ft1in) in inches (3.729 repeating)
 //    private final double targetAspectRatio = 3.73; 
@@ -103,13 +103,13 @@ public class VisionProcessor extends Subsystem {
 			double difference = centerX - (currentX);
 			rotate = Math708.getSignClippedPercentError(currentX, centerX, 0.3, 0.5);
 			
-			if (Math.abs(difference) <= thresholdX) {
-				rotate = 0.0;
-				wasCentered = true;
-			}
-			else if (Math.abs(difference) > thresholdX) {
-				wasCentered = false;
-			}
+//			if (Math.abs(difference) <= thresholdX) {
+//				rotate = 0.0;
+//				wasCentered = true;
+//			}
+//			else if (Math.abs(difference) > thresholdX) {
+//				wasCentered = false;
+//			}
 			
 			
 			/*
@@ -138,22 +138,22 @@ public class VisionProcessor extends Subsystem {
 	//Returns how to move to get to target distance (targetAmount = target ratio)
 	
 	public double getMove() {
-		double move;
+		double move = 0.0;
 		
 		if (hasTarget) 
 		{
-			double difference = targetY - currentY;			
-			move = Math708.getSignClippedPercentError(currentY, targetY, 0.4, 0.6); 
-			//Check if target is at correct level within threshold
-			if (difference <= thresholdY) {
-				move = 0.0;
-				isAtY = true;
-			} else {
-				isAtY = false;
-			}
-			
-		} else {
- 			move = 0.0;
+//			double difference = targetY - currentY;			
+//			move = Math708.getSignClippedPercentError(currentY, targetY, 0.4, 0.6); 
+//			//Check if target is at correct level within threshold
+//			if (difference <= thresholdY) {
+//				move = 0.0;
+//				isAtY = true;
+//			} else {
+//				isAtY = false;
+//			}
+//			
+//		} else {
+// 			move = 0.0;
 		}
 		
 		return move;
@@ -168,13 +168,13 @@ public class VisionProcessor extends Subsystem {
 	}
 	
 	public boolean isAtY() {
-		double difference = targetY - currentY;			
-		//Check if target is at correct level within threshold
-		if (Math.abs(difference) <= thresholdY) {
-			isAtY = true;
-		} else {
-			isAtY = false;
-		}
+//		double difference = targetY - currentY;			
+//		//Check if target is at correct level within threshold
+//		if (Math.abs(difference) <= thresholdY) {
+//			isAtY = true;
+//		} else {
+//			isAtY = false;
+//		}
 		return isAtY;
 	}
 	

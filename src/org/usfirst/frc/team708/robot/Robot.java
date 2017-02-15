@@ -29,7 +29,10 @@ import org.usfirst.frc.team708.robot.subsystems.Intake_Ball;
 import org.usfirst.frc.team708.robot.subsystems.Intake_Gear;
 import org.usfirst.frc.team708.robot.subsystems.Pivot_Gear;
 import org.usfirst.frc.team708.robot.subsystems.Climber;
-import org.usfirst.frc.team708.robot.subsystems.VisionProcessor;
+import org.usfirst.frc.team708.robot.subsystems.VisionLift;
+import org.usfirst.frc.team708.robot.subsystems.VisionGear;
+import org.usfirst.frc.team708.robot.subsystems.VisionBoiler;
+//import org.usfirst.frc.team708.robot.subsystems.VisionProcessor;
 import org.usfirst.frc.team708.robot.subsystems.LED;
 
 import org.usfirst.frc.team708.robot.OI;
@@ -59,7 +62,11 @@ public class Robot extends IterativeRobot {
 
     public static Climber			climber;
     
-    public static VisionProcessor 	visionProcessor;
+//    public static VisionProcessor 	visionProcessor;
+    public static VisionLift 	visionLift;
+    public static VisionBoiler 	visionBoiler;
+    public static VisionGear 	visionGear;
+
     public static LED				led1;
     
     public static OI	 			oi;
@@ -86,17 +93,20 @@ public class Robot extends IterativeRobot {
         
 // Subsystem Initialization
 
-    drivetrain 		= new Drivetrain();
-    shooter			= new Shooter();
-    intake_ball		= new Intake_Ball();
-    intake_gear		= new Intake_Gear();
-    pivot_gear		= new Pivot_Gear();
-    feeder			= new Feeder();
-    loader			= new Loader();
-    led1			= new LED();
-    climber			= new Climber();
+    drivetrain 			= new Drivetrain();
+    shooter				= new Shooter();
+    intake_ball			= new Intake_Ball();
+    intake_gear			= new Intake_Gear();
+    pivot_gear			= new Pivot_Gear();
+    feeder				= new Feeder();
+    loader				= new Loader();
+    led1				= new LED();
+    climber				= new Climber();
+    visionLift			= new VisionLift();
+    visionBoiler		= new VisionBoiler();
+    visionGear			= new VisionGear();
             
-    oi 				= new OI();		// Initializes the OI. 
+    oi 					= new OI();		// Initializes the OI. 
 						// This MUST BE LAST or a NullPointerException will be thrown
 	
 //	UsbCamera ucamera=CameraServer.getInstance().startAutomaticCapture("cam0", 0);
@@ -114,16 +124,19 @@ public class Robot extends IterativeRobot {
 		sendStatistics();
 		prefs = Preferences.getInstance();
 	
-		if (ds.isFMSAttached())
-		{
-			alliance = ds.getAlliance();
-	        if (ds.getAlliance() == Alliance.Blue)
-	        	led1.send_to_led(Constants.SET_ALLIANCE_BLUE);
-	        else if (ds.getAlliance() == Alliance.Red)
-	        	led1.send_to_led(Constants.SET_ALLIANCE_RED);
-	        else
-	        	led1.send_to_led(Constants.SET_ALLIANCE_INVALID);	        
-		}
+//		try{
+//		    if (ds.isFMSAttached())
+//		        {
+//			    alliance = ds.getAlliance();
+//	             if (ds.getAlliance() == Alliance.Blue)
+//	        	    led1.send_to_led(Constants.SET_ALLIANCE_BLUE);
+//    	        else if (ds.getAlliance() == Alliance.Red)
+//	            	led1.send_to_led(Constants.SET_ALLIANCE_RED);
+//	            else
+//	            	led1.send_to_led(Constants.SET_ALLIANCE_INVALID);	        
+//    		    }
+//	        }
+//		catch ( e){}
 	}
 
 	/**
@@ -198,6 +211,9 @@ public class Robot extends IterativeRobot {
             intake_gear.sendToDashboard();
             pivot_gear.sendToDashboard();
 //          visionProcessor.sendToDashboard();
+            visionLift.sendToDashboard();
+            visionBoiler.sendToDashboard();
+            visionGear.sendToDashboard();
         }
     }
     
@@ -227,6 +243,9 @@ public class Robot extends IterativeRobot {
     	SmartDashboard.putData(intake_gear);
     	SmartDashboard.putData(pivot_gear);
 //    	SmartDashboard.putData(visionProcessor);
+    	SmartDashboard.putData(visionLift);
+    	SmartDashboard.putData(visionBoiler);
+    	SmartDashboard.putData(visionGear);
     	SmartDashboard.putData(climber);
     }
 }

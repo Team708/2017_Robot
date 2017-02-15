@@ -12,7 +12,7 @@ public class FindTarget extends Command {
 	
     public FindTarget() {
         // Use requires() here to declare subsystem dependencies
-        requires(Robot.visionProcessor);
+//        requires(Robot.visionProcessor);
     }
 
     // Called just before this Command runs the first time
@@ -21,7 +21,7 @@ public class FindTarget extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.visionProcessor.processData();
+//    	Robot.visionProcessor.processData();
     //	Robot.drivetrain.haloDrive(Robot.visionProcessor.getMove(0.5), Robot.visionProcessor.getRotate());
     }
 
