@@ -25,12 +25,10 @@ public class SpinShooterBack extends Command {
     
 // Called just before this Command runs the first time
     protected void initialize() {
-//		Robot.shooter.setFgain(Constants.SHOOTER_F_LOW);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-//    	if (OI.operatorGamepad.getAxis(Gamepad.shoulderAxisLeft) <= -.5)
     		Robot.shooter.manualSpeed(Constants.SHOOTER_MOTOR_BACKWARD);	
     }
 

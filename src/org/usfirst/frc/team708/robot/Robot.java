@@ -14,6 +14,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
 import edu.wpi.first.wpilibj.SerialPort;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.cscore.AxisCamera;
@@ -41,6 +43,7 @@ import org.usfirst.frc.team708.robot.commands.Climber.*;
 import org.usfirst.frc.team708.robot.commands.loader.*;
 import org.usfirst.frc.team708.robot.commands.shooter.*;
 import org.usfirst.frc.team708.robot.commands.visionProcessor.*;
+import org.usfirst.frc.team708.robot.commands.led_out.*;
 
 public class Robot extends IterativeRobot {
     
@@ -56,13 +59,16 @@ public class Robot extends IterativeRobot {
 
     public static Climber			climber;
     
-	public static VisionProcessor 	visionProcessor;
+    public static VisionProcessor 	visionProcessor;
     public static LED				led1;
     
-	public static OI 				oi;
+    public static OI	 			oi;
 
+    public static int 						AllianceColor;
+    public static DriverStation 			ds;
+    public static DriverStation.Alliance 	alliance;
     
-	SendableChooser autonomousMode = new SendableChooser<>();
+    SendableChooser 	autonomousMode = new SendableChooser<>();
     Command 			autonomousCommand;
     Preferences			prefs;
     
@@ -90,8 +96,8 @@ public class Robot extends IterativeRobot {
     led1			= new LED();
     climber			= new Climber();
             
-	oi 				= new OI();		// Initializes the OI. 
-									// This MUST BE LAST or a NullPointerException will be thrown
+    oi 				= new OI();		// Initializes the OI. 
+						// This MUST BE LAST or a NullPointerException will be thrown
 	
 //	UsbCamera ucamera=CameraServer.getInstance().startAutomaticCapture("cam0", 0);
 //	AxisCamera camera=CameraServer.getInstance().addAxisCamera("cam1", "10.7.8.11");
@@ -107,6 +113,17 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 		sendStatistics();
 		prefs = Preferences.getInstance();
+	
+		if (ds.isFMSAttached())
+		{
+			alliance = ds.getAlliance();
+	        if (ds.getAlliance() == Alliance.Blue)
+	        	led1.send_to_led(Constants.SET_ALLIANCE_BLUE);
+	        else if (ds.getAlliance() == Alliance.Red)
+	        	led1.send_to_led(Constants.SET_ALLIANCE_RED);
+	        else
+	        	led1.send_to_led(Constants.SET_ALLIANCE_INVALID);	        
+		}
 	}
 
 	/**
@@ -119,7 +136,6 @@ public class Robot extends IterativeRobot {
     	// schedule the autonomous command (example)   		
     	autonomousCommand = (Command)autonomousMode.getSelected();
         if (autonomousCommand != null) autonomousCommand.start();
-
     }
 
     /**
@@ -146,7 +162,6 @@ public class Robot extends IterativeRobot {
      * You can use it to reset subsystems before shutting down.
      */
     public void disabledInit() {
-    	
     }
 
     /**
@@ -215,5 +230,3 @@ public class Robot extends IterativeRobot {
     	SmartDashboard.putData(climber);
     }
 }
-
-

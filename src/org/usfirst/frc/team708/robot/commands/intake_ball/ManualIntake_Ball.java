@@ -30,7 +30,7 @@ public class ManualIntake_Ball extends Command {
 	    		Robot.intake_ball.moveMotor(Constants.INTAKE_FORWARD);
 	    	}
 	    	else
-	    	if (OI.driverGamepad.getAxis(Gamepad.shoulderAxisRight) >=.5){
+	    	if (OI.driverGamepad.getAxis(Gamepad.shoulderAxisRight) >= Constants.AXIS_DEAD_ZONE){
 	    		Robot.intake_ball.moveMotor(Constants.INTAKE_REVERSE);
 	    	}
 	    	else {

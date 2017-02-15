@@ -32,7 +32,7 @@ public class Pivot_Gear extends Subsystem {
         if (!(Robot.pivot_gear.isFwdSwitch() || Robot.pivot_gear.isRevSwitch()))
     		pivotMotor.set(speed);
         else
-        	pivotMotor.set(0);
+        	pivotMotor.set(Constants.INTAKE_OFF);
 	}
 	
 	public boolean isFwdSwitch() {

@@ -20,7 +20,7 @@ protected void initialize() {
 
 protected void execute() {
 
-	if (OI.driverGamepad.getAxis(Gamepad.shoulderAxisRight) >=.5){
+	if (OI.driverGamepad.getAxis(Gamepad.shoulderAxisRight) >= Constants.AXIS_DEAD_ZONE){
 		Robot.intake_ball.moveMotor(Constants.INTAKE_REVERSE);
 	}
 }

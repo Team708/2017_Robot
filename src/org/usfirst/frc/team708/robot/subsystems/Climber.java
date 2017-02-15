@@ -39,6 +39,7 @@ public class Climber extends Subsystem {
 	public void manualMove(double speed) {
 		climberMotor.set(speed);
 	}
+	
 	public void stop(){
 		climberMotor.set(Constants.MOTOR_OFF);
 	}

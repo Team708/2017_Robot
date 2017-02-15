@@ -31,9 +31,9 @@ public class Shooter extends Subsystem {
 	// Put methods for controlling this subsystem here. Call these
 	// from Commands.
 	
-	private CANTalon shooter;	// Motor Controllers
+	private CANTalon shooter, shooterSlave;	// Motor Controllers
 	private Servo	 hood;
-	private int		 hoodLocation;
+	private int	 hoodLocation;
 
 	/**
 	 * Constructor
@@ -44,27 +44,25 @@ public class Shooter extends Subsystem {
 		
 		// Initializes the motor
 
-		shooter = new CANTalon(RobotMap.shooterMotorMaster);
+		shooter      = new CANTalon(RobotMap.shooterMotorMaster);
+        shooterSlave = new CANTalon(RobotMap.shooterMotorSlave);
+
+        shooterSlave.changeControlMode(CANTalon.TalonControlMode.Follower);
+        shooterSlave.set(shooter.getDeviceID());
+
 		shooter.enable();
+		shooter.reverseSensor(false);
     	shooter.setFeedbackDevice(FeedbackDevice.QuadEncoder);    
-    	shooter.reverseSensor(false);
-    	shooter.configEncoderCodesPerRev(256);
-//		shooter.changeControlMode(TalonControlMode.PercentVbus);
-    	shooter.configNominalOutputVoltage(+0.0, -0.0);
-    	shooter.configPeakOutputVoltage(+4.0, -4.0);
-        /* set closed loop gains in slot1 */
-    	shooter.setProfile(0);
+    	shooter.changeControlMode(TalonControlMode.PercentVbus);
 
-//    	shooter.setP(0.6);
-//    	shooter.setI(0.002);
-//    	shooter.setD(0);
+    	shooter.configNominalOutputVoltage(Constants.NOMINAL_POS, Constants.NOMINAL_NEG);
+    	shooter.configPeakOutputVoltage(Constants.PEAK_POS, Constants.PEAK_NEG);
+    	shooter.configEncoderCodesPerRev(Constants.SHOOTER_ENCODER_PULSES);
 
-    	shooter.setPID(0.6, 0.0, 0.0, Constants.SHOOTER_F_HIGH, 0, 4.0, 0);
+    	shooter.setPID(Constants.SHOOTER_P, Constants.SHOOTER_I, Constants.SHOOTER_D, Constants.SHOOTER_F, Constants.SHOOTER_IZONE, Constants.SHOOTER_RAMPRATE, Constants.SHOOTER_PROFILE);
     	
     	hood = new Servo(RobotMap.hoodAngle);
-
-//    	hood.setBounds(2455.0, 8.0, 0.0, 8.0, 553.0); // defines HS-805MG Servo
-    	hoodLocation = 25;
+    	hoodLocation = Constants.HOOD_MIN;
 	}
 
 	public void initDefaultCommand() {
@@ -73,8 +71,9 @@ public class Shooter extends Subsystem {
 	
 	public void manualSpeed(double speed) {
 //		shooter.changeControlMode(TalonControlMode.Speed);
+		shooter.changeControlMode(TalonControlMode.PercentVbus);
+
 		shooter.set(speed);
-//		shooter.set(.2);
 }
 	
 	public void manualRPM(double rpm) {
@@ -87,6 +86,7 @@ public class Shooter extends Subsystem {
 	}
 	
 	public void stop(){
+		shooter.changeControlMode(TalonControlMode.PercentVbus);
 		shooter.set(Constants.MOTOR_OFF);
 }
 	
@@ -97,7 +97,7 @@ public class Shooter extends Subsystem {
 			SmartDashboard.putNumber("Servo Raw", hood.getRaw());
 		}
 		hoodLocation = angle;
-        hood.setRaw(angle);		
+                hood.setRaw(angle);		
 	}
 	
 	public void hoodAdjust(double angle) {

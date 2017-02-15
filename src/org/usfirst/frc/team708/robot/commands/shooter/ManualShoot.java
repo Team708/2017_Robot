@@ -25,7 +25,7 @@ public class ManualShoot extends Command {
     
 // Called just before this Command runs the first time
     protected void initialize() {
-		Robot.shooter.setFgain(Constants.SHOOTER_F_LOW);
+		Robot.shooter.setFgain(Constants.SHOOTER_F);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -33,10 +33,10 @@ public class ManualShoot extends Command {
     	boolean L_Shoulderpressed = OI.operatorGamepad.getButton(Gamepad.button_L_Shoulder);
     	
     	if (L_Shoulderpressed == true){
-    		Robot.shooter.manualSpeed(2000);
+    		Robot.shooter.manualSpeed(Constants.SHOOTER_MOTOR_SPEED_HIGH);
     	}
     	else
-    		Robot.shooter.manualSpeed(0);		
+    		Robot.shooter.manualSpeed(Constants.SHOOTER_MOTOR_OFF);		
     }
 
     // Make this return true when this Command no longer needs to run execute()

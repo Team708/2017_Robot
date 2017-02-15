@@ -3,6 +3,7 @@ package org.usfirst.frc.team708.robot.commands.Climber;
 import org.usfirst.frc.team708.robot.OI;
 import org.usfirst.frc.team708.robot.Robot;
 import org.usfirst.frc.team708.robot.util.Gamepad;
+import org.usfirst.frc.team708.robot.Constants;
 
 import edu.wpi.first.wpilibj.command.Command;
 /**
@@ -23,7 +24,7 @@ public class ManualMoveClimber extends Command {
     	double moveSpeed = OI.operatorGamepad.getAxis(Gamepad.leftStick_Y);
     	
     	//check if joystick axis is in deadzone. Change movespeed to 0 if it is
-    	if(moveSpeed <= .25 && moveSpeed >= -.25){
+    	if(moveSpeed <= Constants.AXIS_DEAD_ZONE && moveSpeed >= -Constants.AXIS_DEAD_ZONE){
     		moveSpeed = 0.0;
     	}
     	

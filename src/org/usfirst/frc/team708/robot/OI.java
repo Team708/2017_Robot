@@ -60,6 +60,7 @@ public class OI {
 	public static final int HOOD_LOW	 				= Gamepad.button_B;
 	private static final int LOADER_STOP				= Gamepad.button_X;	
 	private static final int LOADER_SPIN				= Gamepad.button_Y;	
+	
 	/*
 	 * Driver Button Commands
 	 */

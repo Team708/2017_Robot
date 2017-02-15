@@ -10,9 +10,9 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class DriveStraightToEncoderDistanceOrTime extends Command {
 
-	private double targetDistance;
+	private double 		targetDistance;
 	private final double rotate = 0.0;
-	private double speed;
+	private double 		speed;
 	
 	private double maxTime;
 	

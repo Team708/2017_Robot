@@ -29,8 +29,9 @@ public class SpinShooter extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {   	
-    		Robot.shooter.setFgain(Constants.SHOOTER_F_LOW);
-    		Robot.shooter.manualSpeed(2000);		
+   	Robot.shooter.setFgain(Constants.SHOOTER_F);
+	Robot.shooter.manualRPM(Constants.SHOOTER_MOTOR_SPEED_HIGH);
+ //   	Robot.shooter.manualSpeed(Constants.SHOOTER_MOTOR_SPEED_HIGH);		
     }
 
     // Make this return true when this Command no longer needs to run execute()
