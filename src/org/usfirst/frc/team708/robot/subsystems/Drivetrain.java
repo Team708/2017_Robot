@@ -2,13 +2,16 @@ package org.usfirst.frc.team708.robot.subsystems;
 
 import org.usfirst.frc.team708.robot.Constants;
 import org.usfirst.frc.team708.robot.OI;
+import org.usfirst.frc.team708.robot.Robot;
 import org.usfirst.frc.team708.robot.RobotMap;
 import org.usfirst.frc.team708.robot.commands.drivetrain.JoystickDrive;
+import org.usfirst.frc.team708.robot.commands.drivetrain.TurnToDegrees;
 import org.usfirst.frc.team708.robot.commands.visionProcessor.SonarOverride;
 import org.usfirst.frc.team708.robot.util.HatterDrive;
 import org.usfirst.frc.team708.robot.util.IRSensor;
 import org.usfirst.frc.team708.robot.util.UltrasonicSensor;
 import org.usfirst.frc.team708.robot.util.Math708;
+import org.usfirst.frc.team708.robot.subsystems.VisionLift;
 
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import com.ctre.CANTalon;
@@ -22,7 +25,7 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.TalonSRX;
-
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -34,6 +37,7 @@ public class Drivetrain extends PIDSubsystem {
 	// Variables specific for drivetrain PID loop
 	private double moveSpeed = 0.0;
 	private double pidOutput = 0.0;
+	private double GyroDiff = 0.0;
 	
 	private CANTalon leftMaster, leftSlave, rightMaster, rightSlave;	// Motor Controllers
 
@@ -53,6 +57,7 @@ public class Drivetrain extends PIDSubsystem {
 	public int sonarOverride 	= 0;	//0 = default, 1 = high, 2 = low; Used for overriding sonar
 	private boolean brake 		= true;	// Whether the talons should be in coast or brake mode
 						// (this could be important if a jerky robot causes things to topple
+	
 	
     /**
      * Constructor
@@ -226,8 +231,8 @@ public class Drivetrain extends PIDSubsystem {
     	}
     	return value;
     }
-        
-    
+
+
     /**
      * Sets up the drivetrain motors to have a master that is controlled by the 
      * default FRC RobotDrive class and slaves that do whatever the master
@@ -307,6 +312,25 @@ public class Drivetrain extends PIDSubsystem {
         drivetrain.arcadeDrive(moveSpeed, -output);
     }
     
+    
+    
+    public void DriveGyroTurn(double rotate, double targetDegrees){
+    	double difference;
+//    	gyro.reset();
+    	
+    	do{
+	    	difference = targetDegrees - gyro.getAngle();
+	    	if (difference < 0){
+	    		rotate = rotate;
+	    	}
+	    	else if (difference > 0){
+	    		rotate = rotate * -1;
+	    	}
+	    	GyroDiff = difference;
+	    	Robot.drivetrain.haloDrive(0.0, rotate, false); // TurnTodegrees is using PID = true
+	    } while (difference <= 5 && difference >= -5);
+    		
+    }
     /**
      * Sends data for this subsystem to the dashboard
      */
@@ -328,9 +352,9 @@ public class Drivetrain extends PIDSubsystem {
 //	    	SmartDashboard.putNumber("DT Lft Master", leftMaster.getTemperature());
 //	    	SmartDashboard.putNumber("DT Lft Slave", leftSlave.getTemperature());
     	}
-    	
+    	SmartDashboard.putNumber("Gyro Difference", GyroDiff);
     	SmartDashboard.putNumber("Gyro angle", ( (int)gyro.getAngle()));			// Gyro angle
-//    	SmartDashboard.putNumber("DT Sonar Distance", getSonarDistance());			// Sonar distance reading
+    	SmartDashboard.putNumber("DT Sonar Distance", getSonarDistance());			// Sonar distance reading
 //    	SmartDashboard.putNumber("DT Encoder Distance", encoder.getDistance());		// Encoder reading
 //    	SmartDashboard.putNumber("DT Encoder 2 Distance", encoder2.getDistance());	// Encoder reading
 //    	SmartDashboard.putNumber("Sonar Mode", sonarOverride);		

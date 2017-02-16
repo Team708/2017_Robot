@@ -2,34 +2,35 @@
 package org.usfirst.frc.team708.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.CameraServer;
+
 import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-//import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-//import edu.wpi.first.wpilibj.vision.CameraServer;
-import edu.wpi.cscore.UsbCamera;
-import edu.wpi.cscore.AxisCamera;
+
+
 
 import org.usfirst.frc.team708.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team708.robot.subsystems.Shooter;
+import org.usfirst.frc.team708.robot.subsystems.VisionLift;
+import org.usfirst.frc.team708.robot.subsystems.VisionGear;
+import org.usfirst.frc.team708.robot.subsystems.VisionBoiler;
 import org.usfirst.frc.team708.robot.subsystems.Loader;
-import org.usfirst.frc.team.708.robot.subsystems.Intake_Ball;
-import org.usfirst.frc.team.708.robot.subsystems.Intake_Gear;
-import org.usfirst.frc.team.708.robot.subsystems.Climber;
+
 
 import org.usfirst.frc.team708.robot.OI;
 
-import org.usfirst.frc.team708.robot.subsystems.VisionProcessor;
+
 import org.usfirst.frc.team708.robot.commands.drivetrain.*;
-import org.usfirst.frc.team708.robot.commands.loader.*;
+
+
 import org.usfirst.frc.team708.robot.commands.autonomous.*;
 
-//sue's comment
+
+
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the IterativeRobot
@@ -46,19 +47,22 @@ public class Robot extends IterativeRobot {
     public static Drivetrain 		drivetrain;
     public static Shooter	 		shooter;
     public static Loader	 		loader;
-    public static Intake_Ball		Intake_Ball;
-    public static Intake_Gear		Intake_Gear;
-    public static Climber			Climber;
+
     
-	public static VisionProcessor 	visionProcessor;
+	public static VisionLift 	visionLift;
+	public static VisionBoiler 	visionBoiler;
+	public static VisionGear 	visionGear;
+
+
     
 	public static OI 				oi;
 
- 
+    
 	SendableChooser<Command> autonomousMode = new SendableChooser<>();
     Command 			autonomousCommand;
     Preferences			prefs;
     
+
 
     /**
      * This function is run when the robot is first started up and should be
@@ -76,18 +80,19 @@ public class Robot extends IterativeRobot {
     drivetrain 		= new Drivetrain();
     shooter			= new Shooter();
     loader			= new Loader();
-    Intake_Gear		= new Intake_Gear();
-    Intake_Ball		= new Intake_Ball();
-    Climber			= new Climber();
+    visionLift = new VisionLift();
+    visionBoiler = new VisionBoiler();
+    visionGear = new VisionGear();
+
         
 	oi 				= new OI();		// Initializes the OI. 
 									// This MUST BE LAST or a NullPointerException will be thrown
 	
-//	UsbCamera ucamera=CameraServer.getInstance().startAutomaticCapture("cam0", 0);
-//	AxisCamera camera=CameraServer.getInstance().addAxisCamera("cam1", "10.7.8.11");
-	
 	sendDashboardSubsystems();		// Sends each subsystem's currently running command to the Smart Dashboard
 	queueAutonomousModes();			// Adds autonomous modes to the selection box    
+    
+
+
     }
 	
     /**
@@ -118,8 +123,9 @@ public class Robot extends IterativeRobot {
     public void autonomousPeriodic() {	
         Scheduler.getInstance().run();
         sendStatistics();
-    }
+    	
 
+    }
     /**
      * Runs when teleop mode initializes
      */
@@ -166,11 +172,11 @@ public class Robot extends IterativeRobot {
             drivetrain.sendToDashboard();
             loader.sendToDashboard();
             shooter.sendToDashboard();
-            Intake_Ball.sendToDashboard();
-            Intake_Gear.sendToDashboard();
-            Climber.sendToDashbaord();
+
             
-//            visionProcessor.sendToDashboard();
+            visionLift.sendToDashboard();
+            visionBoiler.sendToDashboard();
+            visionGear.sendToDashboard();
         }
     }
     
@@ -181,9 +187,12 @@ public class Robot extends IterativeRobot {
     	
     	autonomousMode.addObject("Drive Straight for time", new DriveStraightForTime(.5, 3));
     	autonomousMode.addDefault("Do Nothing", new DoNothing());
-//		autonomousMode.addObject("Find Target", new DriveToTarget());
-		autonomousMode.addObject("Drive in Square", new DriveInSquare());
 
+		autonomousMode.addObject("Drive in Square", new DriveInSquare());
+		autonomousMode.addObject("Rotate and Drive To Lift", new RotateAndDriveToLift(70.0));
+
+		
+		
     	SmartDashboard.putData("Autonomous Selection", autonomousMode);    	   	
     }
     
@@ -194,9 +203,11 @@ public class Robot extends IterativeRobot {
     	SmartDashboard.putData(shooter);
     	SmartDashboard.putData(loader);
     	SmartDashboard.putData(drivetrain);
-    	SmartDashboard.putData(Intake_Ball);
-    	SmartDashboard.putData(Intake_Gear);
-    	SmartDashboard.putData(Climber);
+    	SmartDashboard.putData(visionLift);
+    	SmartDashboard.putData(visionBoiler);
+    	SmartDashboard.putData(visionGear);
+
+
     }
 }
 

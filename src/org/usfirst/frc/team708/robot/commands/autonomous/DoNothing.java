@@ -15,13 +15,14 @@ public class DoNothing extends Command {
     public DoNothing() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+    	
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.drivetrain.resetEncoder();
-    	Robot.drivetrain.resetEncoder2();
-    	Robot.drivetrain.resetGyro();
+//    	Robot.drivetrain.resetEncoder();
+//    	Robot.drivetrain.resetEncoder2();
+//    	Robot.drivetrain.resetGyro();
     }
 
     // Called repeatedly when this Command is scheduled to run
