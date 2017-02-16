@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.buttons.*;
 
 import org.usfirst.frc.team708.robot.commands.drivetrain.*;
 import org.usfirst.frc.team708.robot.commands.shooter.*;
+import org.usfirst.frc.team708.robot.commands.feeder.*;
 import org.usfirst.frc.team708.robot.commands.led_out.*;
 import org.usfirst.frc.team708.robot.commands.intake_ball.*;
 import org.usfirst.frc.team708.robot.commands.intake_gear.*;
@@ -106,10 +107,10 @@ public class OI {
 //		sonarOverride.whenPressed(new SonarOverride());
 //		
 		spinShooter.whileHeld(new SpinShooter());
-//		spinShooterBack.whileActive(new SpinShooterBack());
-//		spinFeeder.whenPressed(new SpinFeeder());
-//		spinFeederBack.whileActive(new SpinShooterBack());
-//		
+		spinShooterBack.whileActive(new SpinShooterBack());
+		spinFeeder.whenPressed(new SpinFeeder());
+		spinFeederBack.whileActive(new SpinShooterBack());
+		
 		loaderSpin.whenPressed(new LoaderSpin());
 		loaderOff.whenPressed(new LoaderOff());
 		
