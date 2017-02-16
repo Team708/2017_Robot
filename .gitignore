@@ -2,3 +2,5 @@
 dist/FRCUserProgram.jar
 *.jar
 *.jar
+*.class
+*.jar
