@@ -358,7 +358,6 @@ public class VisionBoiler extends Subsystem {
 	 * isAtHeight
 	 * Method to determine whether the robot is at the distance from the target based on the threshold value
 	 */
-// VIET update this
 	public boolean isAtHeight() {
 		double difference = stopAtHeight - maxY;			
 		//Check if target is at correct level within threshold

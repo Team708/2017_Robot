@@ -47,7 +47,9 @@ public final class AutoConstants {
 	// Hopper Constants (Field)
 	public static final double DISTANCE_TO_HOPPER			= 140;
 	
-
+	//Shooter Constants
+	public static final double SHOOTER_MOTOR_SPINUP_TIME = 1.0;
+	public static final double SHOOTING_TIME = 3.0;
 	
 	// Axis Camera constants
 	public static final double AXIS_FOV_DEGREES 			= 43.5;			// Field of View of the AXIS Camera
@@ -58,4 +60,6 @@ public final class AutoConstants {
 	public static final double USB_FOV_DEGREES 				= 43.5;			// Field of View of the AXIS Camera
 	public static final int USB_IMG_WIDTH 					= 320;			// width of the USB image - resolution
 	public static final int USB_IMG_HEIGHT 					= 240;			// height of the USB image - resolution
+	
+	
 }
