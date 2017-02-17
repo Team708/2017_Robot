@@ -32,7 +32,7 @@ public class SpinShooter extends Command {
    	Robot.shooter.setFgain(Constants.SHOOTER_F);
 //	Robot.shooter.manualRPM(Constants.SHOOTER_MOTOR_SPEED_HIGH);
    	Robot.shooter.manualSpeed(Constants.SHOOTER_MOTOR_SPEED_HIGH);		
-   	Robot.shooter.manualSpeed(1.0);		
+//   	Robot.shooter.manualSpeed(1.0);		
     }
 
     // Make this return true when this Command no longer needs to run execute()

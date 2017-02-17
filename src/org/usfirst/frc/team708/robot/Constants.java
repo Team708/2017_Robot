@@ -30,10 +30,10 @@ public final class Constants {
 	public static final double SHOOTER_MOTOR_OFF			=  0.0;
 	public static final double SHOOTER_MOTOR_BACKWARD 		=  -1.0;
 	
-	public static final double SHOOTER_MOTOR_SPEED_LOW 		=  5200;
-	public static final double SHOOTER_MOTOR_SPEED_HIGH 	=  5200;
+	public static final double SHOOTER_MOTOR_SPEED_LOW 		=  5000;
+	public static final double SHOOTER_MOTOR_SPEED_HIGH 	=  5000;
 	
-	public static final int 	SHOOTER_ENCODER_PULSES	 	= 128;
+	public static final int 	SHOOTER_ENCODER_PULSES	 	= 48;
 
 	public static final double 	SHOOTER_P 					=  0.06;
 	public static final double 	SHOOTER_I 					=  0.001;

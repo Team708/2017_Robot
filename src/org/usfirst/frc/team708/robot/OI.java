@@ -43,6 +43,9 @@ public class OI {
 	private static final int INTAKE_GEAR_DOWN			= Gamepad.button_A;	
 	private static final int INTAKE_GEAR_UP				= Gamepad.button_B;
 	
+	private static final int INTAKE_GEAR_ADJUST			= Gamepad.dpadAxis;
+	
+	
 	public static final int LED_BUTTON 					= Gamepad.button_X;
 
 	
@@ -61,6 +64,9 @@ public class OI {
 	public static final int HOOD_LOW	 				= Gamepad.button_B;
 	private static final int LOADER_STOP				= Gamepad.button_X;	
 	private static final int LOADER_SPIN				= Gamepad.button_Y;	
+	
+	private static final int VISION__TRIGGER			= Gamepad.button_Start;
+	
 	
 	/*
 	 * Driver Button Commands
