@@ -35,8 +35,8 @@ public final class AutoConstants {
 	// Boiler Constants (Field)
 	public static final int BOILER_TARGET_HEIGHT 			= 10;
 	public static final int BOILER_TARGET_WIDTH 			= 14;
-	public static final int DISTANCE_TO_BOILER_LOCATION1 	= 156;	// A distance to stop at and shoot for high goal in inches (13 ft)
-	public static final double DISTANCE_BOILER_LOCATION2	= 0;	// A distance to stop at and shoot for high goal in inches 
+	public static final double DISTANCE_TO_BOILER_LOCATION1 = 0;	// A distance to stop at and shoot for high goal in inches
+	public static final double DISTANCE_TO_BOILER_LOCATION2	= 156;	// A distance to stop at and shoot for high goal in inches (13')
 	
 	// Gear Constants (Game piece)
 	public static final double DISTANCE_TO_GEAR				= 60;
