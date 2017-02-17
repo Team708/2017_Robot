@@ -25,10 +25,10 @@ import edu.wpi.first.wpilibj.vision.VisionThread;
 public class VisionBoiler extends Subsystem {
 	
 	// Camera Variables
-	private double fovDegrees = AutoConstants.AXIS_FOV_DEGREES;			// Field of View of the Camera
+	private double fovDegrees = AutoConstants.USB_FOV_DEGREES;			// Field of View of the Camera
 	private double pipelineSize;										// Number of Contours in the Pipline- 0 = target not in view
-	private int imageWidth = AutoConstants.AXIS_IMG_WIDTH;				// Width of image
-	private int imageHeight = AutoConstants.AXIS_IMG_HEIGHT;			// Height of image
+	private int imageWidth = AutoConstants.USB_IMG_WIDTH;				// Width of image
+	private int imageHeight = AutoConstants.USB_IMG_HEIGHT;			// Height of image
 	
 	// Image OpenCV Image Processing Variables
 	private VisionThread visionThread;				// vision processing thread - processes grip code
@@ -59,7 +59,7 @@ public class VisionBoiler extends Subsystem {
 	private int TargetWidth = AutoConstants.BOILER_TARGET_WIDTH;		//Target width
 	
 	private double trueCenter = imageWidth/2; 									// horizontal value of the center of the target 
-//VIET NEED TO SETUP MULTIPLE BOILER TARGET DISTANCES
+
 	private double distanceToStop = AutoConstants.DISTANCE_TO_LIFT_TARGET; 	// distance to stop at in front of lift target
 	private double currentCenter = 0.0; 											// horizontal value of where robot is looking
 	private double currentDistance = 0.0; 									// distance robot is from the target
@@ -91,8 +91,8 @@ public class VisionBoiler extends Subsystem {
 
 		// define the Cameras:
 		usbCamera=CameraServer.getInstance().startAutomaticCapture("cam0", 0);
-	 	axisCamera=CameraServer.getInstance().addAxisCamera("cam1", "10.7.8.11");
-		axisCamera.setResolution(imageWidth, imageHeight);
+//		axisCamera=CameraServer.getInstance().addAxisCamera("cam1", "10.7.8.11");
+//		axisCamera.setResolution(imageWidth, imageHeight);
 		
 	   
 	    // define the output stream on the smart dashboard
@@ -100,7 +100,7 @@ public class VisionBoiler extends Subsystem {
 		
 		
 		// Vision thread which processes the image contours
-	    visionThread = new VisionThread(axisCamera, new GripPipelineBoiler(), pipeline -> {
+	    visionThread = new VisionThread(usbCamera, new GripPipelineBoiler(), pipeline -> {
 	    	pipelineSize = pipeline.filterContoursOutput().size();
 	    	
 	    	// if the grip pipeline filter "filterContoursOutput" sees the target
@@ -185,7 +185,19 @@ public class VisionBoiler extends Subsystem {
 	    visionThread.start();
 	}
 	
-	
+	/*
+	 * GetClosestLocation
+	 * Determine which shooting location is closer to the robot
+	 */
+	public double getClosestLocation() {
+		if(Robot.drivetrain.getSonarDistance() >= AutoConstants.DISTANCE_TO_BOILER_LOCATION2/2) {
+			return AutoConstants.DISTANCE_TO_BOILER_LOCATION2;
+		}
+		else {
+			return AutoConstants.DISTANCE_TO_BOILER_LOCATION1;
+		}
+	}
+
 	/*
 	 * ProcessData
 	 * Method to interpret the camera data received above
@@ -342,6 +354,18 @@ public class VisionBoiler extends Subsystem {
 	 * isAtDistance
 	 * Method to determine whether the robot is at the distance from the target based on the threshold value
 	 */
+
+	public boolean isAtDistance() {
+		double difference = getClosestLocation() - Robot.drivetrain.getSonarDistance();			
+		//Check if target is at correct level within threshold
+		if (Math.abs(difference) <= thresholdDistance) {
+			isAtDistance = true;
+		} else {
+			isAtDistance = false;
+		}
+		return isAtDistance;
+	}
+
 	//VIET - UPDATE THIS METHOD TO RETURN WHETHER IT IS AT ANY OF THE SHOOTING DISTANCES FROM THE BOILER
 //	public boolean isAtDistance() {
 //		double difference = distanceToStop - currentDistance;			
@@ -353,6 +377,7 @@ public class VisionBoiler extends Subsystem {
 //		}
 //		return isAtDistance;
 //	}
+
 	
 	/*
 	 * isAtHeight

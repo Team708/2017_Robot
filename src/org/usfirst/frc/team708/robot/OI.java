@@ -43,6 +43,9 @@ public class OI {
 	private static final int INTAKE_GEAR_DOWN			= Gamepad.button_A;	
 	private static final int INTAKE_GEAR_UP				= Gamepad.button_B;
 	
+	private static final int INTAKE_GEAR_ADJUST			= Gamepad.dpadAxis;
+	
+	
 	public static final int LED_BUTTON 					= Gamepad.button_X;
 
 	
@@ -62,6 +65,9 @@ public class OI {
 	private static final int LOADER_STOP				= Gamepad.button_X;	
 	private static final int LOADER_SPIN				= Gamepad.button_Y;	
 	
+	private static final int VISION__TRIGGER			= Gamepad.button_Start;
+	
+	
 	/*
 	 * Driver Button Commands
 	 */
@@ -77,7 +83,7 @@ public class OI {
 	 * Operator Button Commands
 	 */
 	public static final Button  spinShooter		= new JoystickButton(operatorGamepad, SPIN_SHOOTER_BUTTON);
-	public static final Trigger spinShooterBack	= new AxisUp(operatorGamepad, SPIN_SHOOTER_BACK_BUTTON);
+	public static final Trigger spinShooterBack	= new AxisDown(operatorGamepad, SPIN_SHOOTER_BACK_BUTTON);
 	public static final Button  spinFeeder		= new JoystickButton(operatorGamepad, SPIN_FEEDER_BUTTON);
 	public static final Trigger spinFeederBack	= new AxisUp(operatorGamepad, SPIN_FEEDER_BACK_BUTTON);
 	public static final Button  loaderSpin		= new JoystickButton(operatorGamepad, LOADER_SPIN);

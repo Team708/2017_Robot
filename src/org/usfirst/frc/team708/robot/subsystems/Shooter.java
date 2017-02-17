@@ -51,7 +51,7 @@ public class Shooter extends Subsystem {
         shooterSlave.set(shooter.getDeviceID());
 
 		shooter.enable();
-		shooter.reverseSensor(false);
+		shooter.reverseSensor(true);
     	shooter.setFeedbackDevice(FeedbackDevice.QuadEncoder);    
     	shooter.changeControlMode(TalonControlMode.PercentVbus);
 

@@ -25,10 +25,10 @@ import edu.wpi.first.wpilibj.vision.VisionThread;
 public class VisionLift extends Subsystem {
 	
 	// Camera Variables
-	private double fovDegrees = AutoConstants.AXIS_FOV_DEGREES;			// Field of View of the Camera
+	private double fovDegrees = AutoConstants.USB_FOV_DEGREES;			// Field of View of the Camera
 	private double pipelineSize;										// Number of Contours in the Pipline- 0 = target not in view
-	private int imageWidth = AutoConstants.AXIS_IMG_WIDTH;				// Width of image
-	private int imageHeight = AutoConstants.AXIS_IMG_HEIGHT;			// Height of image
+	private int imageWidth = AutoConstants.USB_IMG_WIDTH;				// Width of image
+	private int imageHeight = AutoConstants.USB_IMG_HEIGHT;			// Height of image
 	
 	// Image OpenCV Image Processing Variables
 	private VisionThread visionThread;				// vision processing thread - processes grip code
@@ -88,9 +88,9 @@ public class VisionLift extends Subsystem {
 
 
 		// define the Cameras:
-		usbCamera=CameraServer.getInstance().startAutomaticCapture("cam0", 0);
-	 	axisCamera=CameraServer.getInstance().addAxisCamera("cam1", "10.7.8.11");
-		axisCamera.setResolution(imageWidth, imageHeight);
+		usbCamera=CameraServer.getInstance().startAutomaticCapture("cam1", 0);
+//	 	axisCamera=CameraServer.getInstance().addAxisCamera("cam1", "10.7.8.11");
+//		axisCamera.setResolution(imageWidth, imageHeight);
 		
 	   
 	    // define the output stream on the smart dashboard
@@ -98,7 +98,7 @@ public class VisionLift extends Subsystem {
 		
 		
 		// Vision thread which processes the image contours
-	    visionThread = new VisionThread(axisCamera, new GripPipelineLift(), pipeline -> {
+	    visionThread = new VisionThread(usbCamera, new GripPipelineLift(), pipeline -> {
 	    	pipelineSize = pipeline.filterContoursOutput().size();
 	    	
 	    	// if the grip pipeline filter "filterContoursOutput" sees the target
