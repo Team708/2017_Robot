@@ -53,8 +53,9 @@ public class Drivetrain extends PIDSubsystem {
 	private DigitalInput     opticalSensor;
 	
 	public int sonarOverride 	= 0;	//0 = default, 1 = high, 2 = low; Used for overriding sonar
-	private boolean brake 		= false;	// Whether the talons should be in coast or brake mode
-	
+	private boolean brake 		= true;	// Whether the talons should be in coast or brake mode
+	private boolean nobrake 	= false;	// Whether the talons should be in coast or brake mode
+
   
     public Drivetrain() {
     	// Passes variables from this class into the superclass constructor
@@ -259,6 +260,12 @@ public class Drivetrain extends PIDSubsystem {
     	rightSlave.enableBrakeMode(brake);
     }
     
+    public void setBrakeMode(Boolean brake) {
+    	leftMaster.enableBrakeMode(brake);
+    	leftSlave.enableBrakeMode(brake);
+    	rightMaster.enableBrakeMode(brake);
+    	rightSlave.enableBrakeMode(brake);
+    }
     /**
      * Sets encoder direction depending on which side of the drivetrain it is on
      */
