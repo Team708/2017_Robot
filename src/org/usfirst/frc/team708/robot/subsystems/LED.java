@@ -34,8 +34,8 @@ public class LED extends Subsystem {
 		
 //		port = Port.kOnboard;  //on board serial - bits were reversed 0x55 = 0xAA to arduino
 		port = Port.kMXP;      //expansion board serial
-		led_out = new SerialPort(9600, port, 8, Parity.kNone, StopBits.kOne);
-		led_out.setWriteBufferMode(WriteBufferMode.kFlushOnAccess);
+//		led_out = new SerialPort(9600, port, 8, Parity.kNone, StopBits.kOne);
+//		led_out.setWriteBufferMode(WriteBufferMode.kFlushOnAccess);
 		msg[0] = 0x00;
 		}
 

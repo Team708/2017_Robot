@@ -19,7 +19,7 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.cscore.AxisCamera;
-
+import edu.wpi.cscore.CvSource;
 
 import org.usfirst.frc.team708.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team708.robot.subsystems.Shooter;
@@ -30,8 +30,8 @@ import org.usfirst.frc.team708.robot.subsystems.Intake_Gear;
 import org.usfirst.frc.team708.robot.subsystems.Pivot_Gear;
 import org.usfirst.frc.team708.robot.subsystems.Climber;
 import org.usfirst.frc.team708.robot.subsystems.VisionLift;
-import org.usfirst.frc.team708.robot.subsystems.VisionGear;
-import org.usfirst.frc.team708.robot.subsystems.VisionBoiler;
+//import org.usfirst.frc.team708.robot.subsystems.VisionGear;
+//import org.usfirst.frc.team708.robot.subsystems.VisionBoiler;
 //import org.usfirst.frc.team708.robot.subsystems.VisionProcessor;
 import org.usfirst.frc.team708.robot.subsystems.LED;
 
@@ -64,8 +64,8 @@ public class Robot extends IterativeRobot {
     
 //    public static VisionProcessor 	visionProcessor;
     public static VisionLift 	visionLift;
-    public static VisionBoiler 	visionBoiler;
-    public static VisionGear 	visionGear;
+ //   public static VisionBoiler 	visionBoiler;
+//    public static VisionGear 	visionGear;
 
     public static LED				led1;
     
@@ -74,6 +74,14 @@ public class Robot extends IterativeRobot {
     public static int 						AllianceColor;
     public static DriverStation 			ds;
     public static DriverStation.Alliance 	alliance;
+    
+//	public static AxisCamera axisCamera;			// Axis Camera
+//    public static CvSource outputStream;			// Output stream to the Dashboard
+//    
+//	public int imageWidth = AutoConstants.USB_IMG_WIDTH;				// Width of image
+//	public int imageHeight = AutoConstants.USB_IMG_HEIGHT;			// Height of image
+
+
     
     SendableChooser 	autonomousMode = new SendableChooser<>();
     Command 			autonomousCommand;
@@ -103,14 +111,18 @@ public class Robot extends IterativeRobot {
     led1				= new LED();
     climber				= new Climber();
     visionLift			= new VisionLift();
-    visionBoiler		= new VisionBoiler();
-    visionGear			= new VisionGear();
+//    visionBoiler		= new VisionBoiler();
+//    visionGear			= new VisionGear();
             
     oi 					= new OI();		// Initializes the OI. 
 						// This MUST BE LAST or a NullPointerException will be thrown
 	
 //	UsbCamera ucamera=CameraServer.getInstance().startAutomaticCapture("cam0", 0);
-//	AxisCamera camera=CameraServer.getInstance().addAxisCamera("cam1", "10.7.8.11");
+// 	axisCamera=CameraServer.getInstance().addAxisCamera("cam1", "10.7.8.11");
+//	axisCamera.setResolution(imageWidth, imageHeight);
+//	
+//    // define the output stream on the smart dashboard
+//	outputStream = CameraServer.getInstance().putVideo("Target", imageWidth, imageHeight);
 	
 	sendDashboardSubsystems();		// Sends each subsystem's currently running command to the Smart Dashboard
 	queueAutonomousModes();			// Adds autonomous modes to the selection box    
@@ -202,18 +214,18 @@ public class Robot extends IterativeRobot {
 
             // Various debug information
             drivetrain.sendToDashboard();
-            feeder.sendToDashboard();
-            loader.sendToDashboard();
-            shooter.sendToDashboard();
-            led1.sendToDashboard();
-            climber.sendToDashboard();
-            intake_ball.sendToDashboard();
-            intake_gear.sendToDashboard();
-            pivot_gear.sendToDashboard();
+ //           feeder.sendToDashboard();
+ //           loader.sendToDashboard();
+ //           shooter.sendToDashboard();
+ //           led1.sendToDashboard();
+ //           climber.sendToDashboard();
+ //           intake_ball.sendToDashboard();
+ //           intake_gear.sendToDashboard();
+//            pivot_gear.sendToDashboard();
 //          visionProcessor.sendToDashboard();
             visionLift.sendToDashboard();
-            visionBoiler.sendToDashboard();
-            visionGear.sendToDashboard();
+//            visionBoiler.sendToDashboard();
+//            visionGear.sendToDashboard();
         }
     }
     
@@ -224,8 +236,11 @@ public class Robot extends IterativeRobot {
     	
     	autonomousMode.addObject("Drive Straight for time", new DriveStraightForTime(.5, 3));
     	autonomousMode.addDefault("Do Nothing", new DoNothing());
-//		autonomousMode.addObject("Find Target", new DriveToTarget());
 		autonomousMode.addObject("Drive in Square", new DriveInSquare());
+//		autonomousMode.addObject("DriveToLift Original", new RotateAndDriveToLift());
+		autonomousMode.addObject("DriveToLift- multi command", new DriveToLift());
+		autonomousMode.addObject("Rotate and DriveToLift", new RotateAndDriveToLift());
+		autonomousMode.addObject("Rotate and DriveToGear", new RotateAndDriveToGear());
 
     	SmartDashboard.putData("Autonomous Selection", autonomousMode);    	   	
     }
@@ -244,8 +259,8 @@ public class Robot extends IterativeRobot {
     	SmartDashboard.putData(pivot_gear);
 //    	SmartDashboard.putData(visionProcessor);
     	SmartDashboard.putData(visionLift);
-    	SmartDashboard.putData(visionBoiler);
-    	SmartDashboard.putData(visionGear);
+//    	SmartDashboard.putData(visionBoiler);
+ //   	SmartDashboard.putData(visionGear);
     	SmartDashboard.putData(climber);
     }
 }

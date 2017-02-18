@@ -29,7 +29,7 @@ public final class AutoConstants {
 	// Lift Constants (Field)
 	public static final int LIFT_TARGET_HEIGHT 				= 5;
 	public static final int LIFT_TARGET_WIDTH 				= 10;
-	public static final int DISTANCE_TO_LIFT_TARGET 		= 20;	// Distance to stop at to place gear on lift peg
+	public static final int DISTANCE_TO_LIFT				= 20;	// Distance to stop at to place gear on lift peg
 	
 	
 	// Boiler Constants (Field)
@@ -39,9 +39,13 @@ public final class AutoConstants {
 	public static final double DISTANCE_TO_BOILER_LOCATION2	= 156;	// A distance to stop at and shoot for high goal in inches (13')
 	
 	// Gear Constants (Game piece)
-	public static final double DISTANCE_TO_GEAR				= 60;
-	public static final int GEAR_TARGET_HEIGHT 				= 10;
-	public static final int GEAR_TARGET_WIDTH 				= 14;
+	public static final double DISTANCE_TO_GEAR				=35;
+	public static final int GEAR_TARGET_HEIGHT 				= 4;
+	public static final int GEAR_TARGET_WIDTH 				= 10;
+	
+	// vision constants
+	public static final int GEAR	= 0;
+	public static final int LIFT	= 1;
 
 	
 	// Hopper Constants (Field)

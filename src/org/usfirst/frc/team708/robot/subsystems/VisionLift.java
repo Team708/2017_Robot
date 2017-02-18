@@ -1,4 +1,6 @@
 package org.usfirst.frc.team708.robot.subsystems;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 import org.opencv.core.Rect;
 import org.opencv.imgproc.Imgproc;
@@ -7,6 +9,7 @@ import org.usfirst.frc.team708.robot.AutoConstants;
 import org.usfirst.frc.team708.robot.Constants;
 import org.usfirst.frc.team708.robot.Robot;
 import org.usfirst.frc.team708.robot.commands.visionProcessor.GripPipelineLift;
+import org.usfirst.frc.team708.robot.commands.visionProcessor.GripPipelineGear;
 import org.usfirst.frc.team708.robot.util.Math708;
 
 import edu.wpi.cscore.AxisCamera;
@@ -29,14 +32,17 @@ public class VisionLift extends Subsystem {
 	private double pipelineSize;										// Number of Contours in the Pipline- 0 = target not in view
 	private int imageWidth = AutoConstants.USB_IMG_WIDTH;				// Width of image
 	private int imageHeight = AutoConstants.USB_IMG_HEIGHT;			// Height of image
+	private boolean enableVisionLift = true;
+//	private boolean enableVisionGear = 
+	private int visionType = AutoConstants.LIFT;
 	
 	// Image OpenCV Image Processing Variables
 	private VisionThread visionThread;				// vision processing thread - processes grip code
 	private final Object imgLock = new Object();	// vision Lift object
 
 	private AxisCamera axisCamera;			// Axis Camera
-	private UsbCamera usbCamera;			// USB Camera
-    private CvSource outputStream;			// Output stream to the Dashboard
+//	private UsbCamera usbCamera;			// USB Camera
+   private CvSource outputStream;			// Output stream to the Dashboard
 
 	
 	// Targeting variables
@@ -58,8 +64,13 @@ public class VisionLift extends Subsystem {
 	private int liftTargetHeight = AutoConstants.LIFT_TARGET_HEIGHT;	//Target height
 	private int liftTargetWidth = AutoConstants.LIFT_TARGET_WIDTH;		//Target width
 	
+
+	private int gearTargetHeight = AutoConstants.GEAR_TARGET_HEIGHT;	//Target height
+	private int gearTargetWidth = AutoConstants.GEAR_TARGET_WIDTH;		//Target width
+	
 	private double trueCenter = imageWidth/2; 									// horizontal value of the center of the target 
-	private double distanceToStop = AutoConstants.DISTANCE_TO_LIFT_TARGET; 	// distance to stop at in front of lift target
+	private double distanceToStop = 0; 	// distance to stop at in front of target
+	
 	private double currentCenter = 0.0; 											// horizontal value of where robot is looking
 	private double currentDistance = 0.0; 									// distance robot is from the target
 
@@ -88,98 +99,34 @@ public class VisionLift extends Subsystem {
 
 
 		// define the Cameras:
-		usbCamera=CameraServer.getInstance().startAutomaticCapture("cam1", 0);
-//	 	axisCamera=CameraServer.getInstance().addAxisCamera("cam1", "10.7.8.11");
-//		axisCamera.setResolution(imageWidth, imageHeight);
+//		usbCamera=CameraServer.getInstance().startAutomaticCapture("cam1", 0);
+		axisCamera=CameraServer.getInstance().addAxisCamera("cam1", "10.7.8.11");
+		axisCamera.setResolution(imageWidth, imageHeight);
 		
-	   
-	    // define the output stream on the smart dashboard
+		// define the output stream on the smart dashboard
 		outputStream = CameraServer.getInstance().putVideo("Target", imageWidth, imageHeight);
-		
-		
-		// Vision thread which processes the image contours
-	    visionThread = new VisionThread(usbCamera, new GripPipelineLift(), pipeline -> {
-	    	pipelineSize = pipeline.filterContoursOutput().size();
-	    	
-	    	// if the grip pipeline filter "filterContoursOutput" sees the target
-	    	// loop through each contour image  
-	    	// grab the bounding rectangle values of each contour 
-	    	// to create the biggest rectangle around the 2 vertical retroreflective tapes 
-	    	// on either side of the lift peg
-	        if (!pipeline.filterContoursOutput().isEmpty()) {
-	        	
-	        	for (int i = 0; i < pipeline.filterContoursOutput().size(); i++) {
-	        		Rect r = Imgproc.boundingRect(pipeline.filterContoursOutput().get(i));
-	        		
-	        		// set the min/max values to match the values form the 1st image
-	        		if (i == 0) {
-	        			minX = r.x;
-	        			minY = r.y;
-	        			maxX = r.x + r.width;
-	        			maxY = r.y + r.height;
-	        		}
-	        		
-	        		// compare each value to the min/max and replace if a better one is found
-	        		if (r.x < minX) {
-	        			minX = r.x;
-	        		}
-	        		if (r.y < minY) {
-	        			minY = r.y;
-	        		}
-	        		if (r.x + r.width > maxX) {
-	        			maxX = r.x + r.width;
-	        		}
-	        		if (r.y + r.height> maxY) {
-	        			maxY = r.y + r.height;
-	        		}	        		
-	        	}
-	        	
-//				// this is a second method of looping through the contours in the filterContoursOutput Array of Mat Images	        	
-//	        	for (MatOfPoint contour : pipeline.filterContoursOutput()) {
-//	        		Rect r = Imgproc.boundingRect(contour);
-//	        		if (r.x < minX) {
-//	        			minX = r.x;
-//			        }
-//	        	}
-	        	
 
-	        	
-	            synchronized (imgLock) {
-	                currentCenter = minX + ((maxX - minX) / 2);
-	                
-		             // set values for the smartdashboard
-		             rectX = minX;
-		             rectY = minY;
-		             rectWidth = maxX - minX;
-		             rectHeight = maxY - minY;
-	
-		             // note - this formula was pulled from 1640's github code - need to find the specific reference
-			         // from 1640
-		             //Equation to determine the distance from a target (d) given the width in pixels of a vision target in the camera image (w): 
-			         //   	d = (TARGET_WIDTH*CAMERA_IMAGE_WIDTH)/(2*tan(FOV_ANGLE/2)*w) 
-			         //   	i.e. d and w are inversely related.
-		             currentDistance = liftTargetWidth * imageWidth / (2*(Math.tan(Math.toRadians(fovDegrees))/2)*rectWidth);
-		             
-		            // display the current image on the driver station 
-		             
-		            if (Constants.DEBUG){
-		            	outputStream.putFrame(pipeline.hslThresholdOutput()); 	               
-		            }  
-	            }
-	            
-	        }
-	        
-	        //  the target is not in the camera (ie, pipeline is empty)
-	        else {
-	        	hasTarget = false;
-	        	minX = 0;
-	        	minY = 0;
-	        	maxX = 0;
-	        	maxY = 0;
-	        } 
-	       
-	    });
-	    visionThread.start();
+	   
+		if(enableVisionLift == true) {
+			
+			if (visionType == AutoConstants.LIFT)
+			{
+				// process the lift
+				runLiftProcessing();
+			}
+			
+			// else run the gear
+			else
+			{
+				runGearProcessing();
+			}
+
+
+			
+			// Vision thread which processes the image contours
+		    	
+
+		}
 	}
 	
 	
@@ -333,6 +280,7 @@ public class VisionLift extends Subsystem {
 		
 		return move;
 	}
+	
 	/*
 	 * isAtDistance
 	 * Method to determine whether the robot is at the distance from the target based on the threshold value
@@ -380,6 +328,16 @@ public class VisionLift extends Subsystem {
 		isCentered = ic;
 	}
 	
+	public void putVisionType(int vt) {
+		visionType = vt;
+	}
+	public void putDistanceToStop(double dt) {
+		distanceToStop = dt;
+	}
+	public int getVisionType() {
+		return visionType;
+	}
+	
 	
 	public void putAtDistance(boolean ay) {
 		isAtDistance = ay;
@@ -396,11 +354,14 @@ public class VisionLift extends Subsystem {
 		}
 		return inSweep;
 	}
-
+	public void putEnableLift(boolean vl) {
+		enableVisionLift = vl;
+	}
 	public void sendToDashboard() {
 		if (Constants.DEBUG) {
 			SmartDashboard.putBoolean("Has Target", isHasTarget());
 			SmartDashboard.putBoolean("Is At Distance", isAtDistance());
+			SmartDashboard.putNumber("Distance To Stop", distanceToStop);
 			SmartDashboard.putNumber("Current Distance", currentDistance);
 			SmartDashboard.putNumber("Center of Target", currentCenter);
 			SmartDashboard.putNumber("Rotation", rotate);
@@ -413,9 +374,187 @@ public class VisionLift extends Subsystem {
 			SmartDashboard.putNumber("rectY", rectY);
 			SmartDashboard.putNumber("rectWidth", rectWidth);
 			SmartDashboard.putNumber("rectHeight", rectHeight);
-			SmartDashboard.putNumber("Distance To Target", currentDistance);
+//			SmartDashboard.putNumber("Distance To Target", currentDistance);
 			SmartDashboard.putNumber("pipelineSize", pipelineSize);
+			SmartDashboard.putBoolean("Enable Vision Lift", enableVisionLift);
 		}
+	}
+	
+	public void runGearProcessing()
+	{
+		visionThread = new VisionThread(axisCamera, new GripPipelineGear(), pipeline -> {
+			pipelineSize = pipeline.filterContoursOutput().size();
+
+	    	
+	    	// if the grip pipeline filter "filterContoursOutput" sees the target
+	    	// loop through each contour image  
+	    	// grab the bounding rectangle values of each contour 
+	    	// to create the biggest rectangle around the 2 vertical retroreflective tapes 
+	    	// on either side of the lift peg
+	        if (!pipeline.filterContoursOutput().isEmpty()) {
+	        	
+	        	for (int i = 0; i < pipeline.filterContoursOutput().size(); i++) {
+	        		Rect r = Imgproc.boundingRect(pipeline.filterContoursOutput().get(i));
+	        		
+	        		// set the min/max values to match the values form the 1st image
+	        		if (i == 0) {
+	        			minX = r.x;
+	        			minY = r.y;
+	        			maxX = r.x + r.width;
+	        			maxY = r.y + r.height;
+	        		}
+	        		
+	        		// compare each value to the min/max and replace if a better one is found
+	        		if (r.x < minX) {
+	        			minX = r.x;
+	        		}
+	        		if (r.y < minY) {
+	        			minY = r.y;
+	        		}
+	        		if (r.x + r.width > maxX) {
+	        			maxX = r.x + r.width;
+	        		}
+	        		if (r.y + r.height> maxY) {
+	        			maxY = r.y + r.height;
+	        		}	        		
+	        	}
+	        	
+//				// this is a second method of looping through the contours in the filterContoursOutput Array of Mat Images	        	
+//	        	for (MatOfPoint contour : pipeline.filterContoursOutput()) {
+//	        		Rect r = Imgproc.boundingRect(contour);
+//	        		if (r.x < minX) {
+//	        			minX = r.x;
+//			        }
+//	        	}
+	        	
+
+	        	
+	            synchronized (imgLock) {
+	                currentCenter = minX + ((maxX - minX) / 2);
+	                
+		             // set values for the smartdashboard
+		             rectX = minX;
+		             rectY = minY;
+		             rectWidth = maxX - minX;
+		             rectHeight = maxY - minY;
+	
+		             // note - this formula was pulled from 1640's github code - need to find the specific reference
+			         // from 1640
+		             //Equation to determine the distance from a target (d) given the width in pixels of a vision target in the camera image (w): 
+			         //   	d = (TARGET_WIDTH*CAMERA_IMAGE_WIDTH)/(2*tan(FOV_ANGLE/2)*w) 
+			         //   	i.e. d and w are inversely related.
+		             currentDistance = liftTargetWidth * imageWidth / (2*(Math.tan(Math.toRadians(fovDegrees))/2)*rectWidth);
+		             
+		            // display the current image on the driver station 
+		             
+		            if (Constants.DEBUG){
+		  
+		  //          	outputStream.putFrame(pipeline.hslThresholdOutput()); 	
+		            	outputStream.putFrame(pipeline.rgbThresholdOutput());
+		            }  
+	            }
+	        } 
+	        
+	        
+	        //  the target is not in the camera (ie, pipeline is empty)
+	        else {
+	        	hasTarget = false;
+	        	minX = 0;
+	        	minY = 0;
+	        	maxX = 0;
+	        	maxY = 0;
+	        } 
+	       
+	    });
+	    visionThread.start();
+	}
+	
+	public void runLiftProcessing() {
+	    visionThread = new VisionThread(axisCamera, new GripPipelineLift(), pipeline -> {
+    	pipelineSize = pipeline.filterContoursOutput().size();
+
+	    	
+	    	// if the grip pipeline filter "filterContoursOutput" sees the target
+	    	// loop through each contour image  
+	    	// grab the bounding rectangle values of each contour 
+	    	// to create the biggest rectangle around the 2 vertical retroreflective tapes 
+	    	// on either side of the lift peg
+	        if (!pipeline.filterContoursOutput().isEmpty()) {
+	        	
+	        	for (int i = 0; i < pipeline.filterContoursOutput().size(); i++) {
+	        		Rect r = Imgproc.boundingRect(pipeline.filterContoursOutput().get(i));
+	        		
+	        		// set the min/max values to match the values form the 1st image
+	        		if (i == 0) {
+	        			minX = r.x;
+	        			minY = r.y;
+	        			maxX = r.x + r.width;
+	        			maxY = r.y + r.height;
+	        		}
+	        		
+	        		// compare each value to the min/max and replace if a better one is found
+	        		if (r.x < minX) {
+	        			minX = r.x;
+	        		}
+	        		if (r.y < minY) {
+	        			minY = r.y;
+	        		}
+	        		if (r.x + r.width > maxX) {
+	        			maxX = r.x + r.width;
+	        		}
+	        		if (r.y + r.height> maxY) {
+	        			maxY = r.y + r.height;
+	        		}	        		
+	        	}
+	        	
+//				// this is a second method of looping through the contours in the filterContoursOutput Array of Mat Images	        	
+//	        	for (MatOfPoint contour : pipeline.filterContoursOutput()) {
+//	        		Rect r = Imgproc.boundingRect(contour);
+//	        		if (r.x < minX) {
+//	        			minX = r.x;
+//			        }
+//	        	}
+	        	
+
+	        	
+	            synchronized (imgLock) {
+	                currentCenter = minX + ((maxX - minX) / 2);
+	                
+		             // set values for the smartdashboard
+		             rectX = minX;
+		             rectY = minY;
+		             rectWidth = maxX - minX;
+		             rectHeight = maxY - minY;
+	
+		             // note - this formula was pulled from 1640's github code - need to find the specific reference
+			         // from 1640
+		             //Equation to determine the distance from a target (d) given the width in pixels of a vision target in the camera image (w): 
+			         //   	d = (TARGET_WIDTH*CAMERA_IMAGE_WIDTH)/(2*tan(FOV_ANGLE/2)*w) 
+			         //   	i.e. d and w are inversely related.
+		             currentDistance = liftTargetWidth * imageWidth / (2*(Math.tan(Math.toRadians(fovDegrees))/2)*rectWidth);
+		             
+		            // display the current image on the driver station 
+		             
+		            if (Constants.DEBUG){
+		  
+		            	outputStream.putFrame(pipeline.hslThresholdOutput()); 	
+	
+		            }  
+	            }
+	        } 
+	        
+	        
+	        //  the target is not in the camera (ie, pipeline is empty)
+	        else {
+	        	hasTarget = false;
+	        	minX = 0;
+	        	minY = 0;
+	        	maxX = 0;
+	        	maxY = 0;
+	        } 
+	       
+	    });
+	    visionThread.start();
 	}
 
     public void initDefaultCommand() {

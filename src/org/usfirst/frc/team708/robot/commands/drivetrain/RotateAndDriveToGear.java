@@ -19,29 +19,32 @@ public class RotateAndDriveToGear extends Command {
 	 * Constructor
 	 * @param targetDistance - the distance to stop in front of the target
 	 */
-// VIET ARE WE STILL USING THE TARGET DISTANCE HERE - I THINK WE ARE ACTUALLY CALCULATING IT IN THE SUBSYSTEM
-    public RotateAndDriveToGear(double targetDistance) {
+    public RotateAndDriveToGear() {
         // Use requires() here to declare subsystem dependencies
         requires(Robot.drivetrain);
-        requires(Robot.visionGear);
+        requires(Robot.visionLift);
         
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.visionGear.putIsCentered(false);
-    	Robot.visionGear.putHasTarget(false);
-    	Robot.visionGear.putAtDistance(false);
-    	Robot.visionGear.putCounter(0);
-    	Robot.visionGear.putCurrentCenter(0);
+    	Robot.visionLift.putIsCentered(false);
+    	Robot.visionLift.putHasTarget(false);
+    	Robot.visionLift.putAtDistance(false);
+    	Robot.visionLift.putCounter(0);
+    	Robot.visionLift.putCurrentCenter(0);
+    	Robot.visionLift.putDistanceToStop(AutoConstants.DISTANCE_TO_GEAR);
+    	Robot.visionLift.putVisionType(AutoConstants.GEAR);
+
+    	
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
 
-    	Robot.visionGear.processData();
-    	rotate = Robot.visionGear.getRotate();  
-    	moveSpeed = Robot.visionGear.getMove();   // was + made -
+    	Robot.visionLift.processData();
+    	rotate = Robot.visionLift.getRotate();  
+    	moveSpeed = Robot.visionLift.getMove();   // was + made -
 
  
     	Robot.drivetrain.haloDrive(moveSpeed, rotate, false);
@@ -50,18 +53,18 @@ public class RotateAndDriveToGear extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	if (Robot.visionGear.getCounter() >= AutoConstants.SWEEP3_MAX){
+    	if (Robot.visionLift.getCounter() >= AutoConstants.SWEEP3_MAX){
     		
     		return true;
     	}
     	//Check if the sonar distance is less then the target Distance, end
 //    	if (Robot.drivetrain.getSonarDistance() < targetDistance  && Robot.visionProcessor.wasCentered()){
 //     	if (Robot.visionProcessor.isAtY() && Robot.visionProcessor.wasCentered()){
-        if (Robot.visionGear.isAtDistance() && Robot.visionGear.isCentered()){
+        if (Robot.visionLift.isAtDistance() && Robot.visionLift.isCentered()){
          		     		return true;
     	}
 //    	else if (Robot.drivetrain.getSonarDistance() < targetDistance && Robot.visionProcessor.isHasTarget()) {
-    	else if (Robot.visionGear.isAtDistance() && Robot.visionGear.isHasTarget()) {
+    	else if (Robot.visionLift.isAtDistance() && Robot.visionLift.isHasTarget()) {
     		return false;
     	}
     	
@@ -72,7 +75,7 @@ public class RotateAndDriveToGear extends Command {
     // Called once after isFinished returns true
     protected void end() {
     	Robot.drivetrain.stop();
-    	Robot.visionGear.putCounter(0);
+    	Robot.visionLift.putCounter(0);
     }
 
     // Called when another command which requires one or more of the same

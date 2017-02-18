@@ -21,11 +21,11 @@ public class RotateAndDriveToLift extends Command {
 	 */
 // VIET ARE WE STILL USING THE TARGET DISTANCE HERE - I THINK WE ARE ACTUALLY CALCULATING IT IN THE SUBSYSTEM
 // Mreh mreh mreh, I'm Mrs. P, I want to delete the targetDistance, mreh mreh mreh.
-    public RotateAndDriveToLift(double targetDistance) {
+    public RotateAndDriveToLift() {
         // Use requires() here to declare subsystem dependencies
         requires(Robot.drivetrain);
         requires(Robot.visionLift);
-        
+    
     }
 
     // Called just before this Command runs the first time
@@ -35,6 +35,10 @@ public class RotateAndDriveToLift extends Command {
     	Robot.visionLift.putAtDistance(false);
     	Robot.visionLift.putCounter(0);
     	Robot.visionLift.putCurrentCenter(0);
+    	Robot.visionLift.putEnableLift(true);
+    	Robot.visionLift.putDistanceToStop(AutoConstants.DISTANCE_TO_LIFT);
+        Robot.visionLift.putVisionType(AutoConstants.LIFT);
+        
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -74,6 +78,7 @@ public class RotateAndDriveToLift extends Command {
     protected void end() {
     	Robot.drivetrain.stop();
     	Robot.visionLift.putCounter(0);
+    	Robot.visionLift.putEnableLift(false);
     }
 
     // Called when another command which requires one or more of the same
