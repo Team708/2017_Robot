@@ -41,7 +41,6 @@ public class LED extends Subsystem {
 
 	public void send_to_led(byte command){
 		msg[0] = command;
-//		led_out.writeString(message.toString());
 		led_out.write(msg, 1);
         led_out.flush();
         

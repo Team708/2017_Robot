@@ -65,7 +65,7 @@ public class OI {
 	private static final int LOADER_STOP				= Gamepad.button_X;	
 	private static final int LOADER_SPIN				= Gamepad.button_Y;	
 	
-	private static final int VISION__TRIGGER			= Gamepad.button_Start;
+	private static final int VISION_TRIGGER				= Gamepad.button_Start;
 	
 	
 	/*
@@ -79,6 +79,8 @@ public class OI {
 	public static final Button  intakeGearDown 	= new JoystickButton(driverGamepad, INTAKE_GEAR_DOWN);
 	public static final Button 	led				= new JoystickButton(driverGamepad, LED_BUTTON);
 	
+	public static final Trigger  gearAdjust		= new AxisUp(driverGamepad, INTAKE_GEAR_ADJUST);
+
 	/*
 	 * Operator Button Commands
 	 */
@@ -93,6 +95,8 @@ public class OI {
 	public static final Button hoodLow			= new JoystickButton(operatorGamepad, HOOD_LOW);
 	public static final Trigger hoodAdjust		= new AxisUp(operatorGamepad, OPERATE_HOOD);
 	public static final Trigger hoodAdjustDown	= new AxisDown(operatorGamepad, OPERATE_HOOD);
+	
+	public static final Button  visionTrigger	= new JoystickButton(operatorGamepad, VISION_TRIGGER);
 
 	/**
 	 * Constructor
@@ -111,11 +115,11 @@ public class OI {
 		intakeBallOut.whileActive(new Intake_Ball_Out());
 		
 //		sonarOverride.whenPressed(new SonarOverride());
-//		
+		
 		spinShooter.whileHeld(new SpinShooter());
 		spinShooterBack.whileActive(new SpinShooterBack());
-		spinFeeder.whenPressed(new SpinFeeder());
-		spinFeederBack.whileActive(new SpinShooterBack());
+		spinFeeder.whileHeld(new SpinFeeder());
+		spinFeederBack.whileActive(new SpinFeederBack());
 		
 		loaderSpin.whenPressed(new LoaderSpin());
 		loaderOff.whenPressed(new LoaderOff());
@@ -125,6 +129,9 @@ public class OI {
 		hoodLow.whenPressed(new MoveHoodLow());
 		hoodAdjust.whileActive(new HoodAdjust());
 		hoodAdjustDown.whileActive(new HoodAdjust());
+		
+//		gearAdjust.whileActive(new Intake_Gear_Adjust());
+//		visionTrigger.whenPressed(new visionTrigger();
 
 		}
 }

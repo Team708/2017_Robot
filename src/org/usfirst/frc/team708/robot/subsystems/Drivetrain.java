@@ -29,9 +29,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Drivetrain extends PIDSubsystem {
 	
-	private boolean usePID = true;
+
+	private ADXRS450_Gyro gyro;
+	private int count =0;
 	
 	// Variables specific for drivetrain PID loop
+	private boolean usePID = false;
 	private double moveSpeed = 0.0;
 	private double pidOutput = 0.0;
 	
@@ -43,24 +46,22 @@ public class Drivetrain extends PIDSubsystem {
 	private Encoder encoder2;						// Encoder for the drivetrain
 
 	private double distancePerPulse;
-	private BuiltInAccelerometer accelerometer;				// Accelerometer that is built into the roboRIO
-	private ADXRS450_Gyro gyro;							// Gyro that is used for drift correction
+//	private BuiltInAccelerometer accelerometer;				// Accelerometer that is built into the roboRIO
 	
-	private IRSensor drivetrainIRSensor;					// IR Sensor for <=25inches
+	private IRSensor         drivetrainIRSensor;			// IR Sensor for <=25inches
 	private UltrasonicSensor drivetrainUltrasonicSensor;	// Sonar used for <=21feet
-	private DigitalInput opticalSensor;
+	private DigitalInput     opticalSensor;
 	
 	public int sonarOverride 	= 0;	//0 = default, 1 = high, 2 = low; Used for overriding sonar
-	private boolean brake 		= true;	// Whether the talons should be in coast or brake mode
-						// (this could be important if a jerky robot causes things to topple
+	private boolean brake 		= false;	// Whether the talons should be in coast or brake mode
 	
-    /**
-     * Constructor
-     */
+  
     public Drivetrain() {
     	// Passes variables from this class into the superclass constructor
     	super("Drivetrain", Constants.Kp, Constants.Ki, Constants.Kd);
     	
+    gyro 			= new ADXRS450_Gyro();			// Initializes the gyro
+    gyro.reset();									// Resets the gyro so that it starts with a 0.0 value
     	// Initializes motor controllers with device IDs from RobotMap
 	leftMaster  = new CANTalon(RobotMap.drivetrainLeftMotorMaster);
 	leftSlave   = new CANTalon(RobotMap.drivetrainLeftMotorSlave);
@@ -71,19 +72,23 @@ public class Drivetrain extends PIDSubsystem {
 	
 	setupMasterSlave();								// Sets up master and slave
 		
-	accelerometer 	= new BuiltInAccelerometer();	// Initializes the accelerometer from the roboRIO
-	gyro 			= new ADXRS450_Gyro();			// Initializes the gyro
-	gyro.reset();									// Resets the gyro so that it starts with a 0.0 value
+//	accelerometer 	= new BuiltInAccelerometer();	// Initializes the accelerometer from the roboRIO
+
 	encoder = new Encoder(RobotMap.drivetrainEncoderARt, RobotMap.drivetrainEncoderBRt, Constants.DRIVETRAIN_USE_LEFT_ENCODER);
 	encoder2 = new Encoder(RobotMap.drivetrainEncoderALeft, RobotMap.drivetrainEncoderBLeft, !Constants.DRIVETRAIN_USE_LEFT_ENCODER);
 													// Initializes the encoder
 	distancePerPulse = (Constants.DRIVETRAIN_WHEEL_DIAMETER * Math.PI) /
-					(Constants.DRIVETRAIN_ENCODER_PULSES_PER_REV);
+				                                    	(Constants.DRIVETRAIN_ENCODER_PULSES_PER_REV);
 											// Sets the distance per pulse of the encoder to read distance properly
 	encoder.setDistancePerPulse(distancePerPulse);
 	encoder.reset();								// Resets the encoder so that it starts with a 0.0 value
+
 	encoder2.setDistancePerPulse(distancePerPulse);
 	encoder2.reset();								// Resets the encoder so that it starts with a 0.0 value
+	
+	leftSlave.enableBrakeMode(brake);
+	rightMaster.enableBrakeMode(brake);
+	rightSlave.enableBrakeMode(brake);
 	
 	drivetrainIRSensor 	= new IRSensor(RobotMap.gearIRSensor, IRSensor.GP2Y0A21YK0F);
 	drivetrainUltrasonicSensor = new UltrasonicSensor(RobotMap.dtSonar, UltrasonicSensor.MB1010);
@@ -112,36 +117,36 @@ public class Drivetrain extends PIDSubsystem {
     	move = move * Constants.DRIVE_MOTOR_MAX_SPEED;
     	rotate = rotate * Constants.ROTATE_MOTOR_MAX_SPEED;
     	
-    	if (usePID) 
-    	    {
-	        // Enables the PID controller if it is not already
-	    	if (!getPIDController().isEnabled()) 
-	    	    {
-	    		getPIDController().setPID(Constants.Kp, Constants.Ki, Constants.Kd);
-	    		getPIDController().reset();
-	    		gyro.reset();
-	    		enable();
-	    		gyro.reset();
-	    		}
-	    	else 
-	    	    {
-	    		// Disables the PID controller if it enabled so the drivetrain can move freely
-	    		if (getPIDController().isEnabled()) 
-	    		    {
-	    			getPIDController().reset();
-	    		    }
-	    	    }
-	    	drivetrain.arcadeDrive(move, rotate);
-    	    } 
-    	    else 
-    	    {
+//    	if (usePID) 
+//    	    {
+//	        // Enables the PID controller if it is not already
+//	    	if (!getPIDController().isEnabled()) 
+//	    	    {
+//	    		getPIDController().setPID(Constants.Kp, Constants.Ki, Constants.Kd);
+//	    		getPIDController().reset();
+//	    		gyro.reset();
+//	    		enable();
+//	    		gyro.reset();
+//	    		}
+//	    	else 
+//	    	    {
+//	    		// Disables the PID controller if it enabled so the drivetrain can move freely
+//	    		if (getPIDController().isEnabled()) 
+//	    		    {
+//	    			getPIDController().reset();
+//	    		    }
+//	    	    }
+//	    	drivetrain.arcadeDrive(move, rotate);
+//    	    } 
+//    	    else 
+//    	    {
     		// Disables the PID controller if it enabled so the drivetrain can move freely
     		if (getPIDController().isEnabled()) 
     		    {
     			getPIDController().reset();
     		    }
     		drivetrain.arcadeDrive(move, rotate);
-    	    }
+//    	    }
     }
 	
 	public void haloDrive(double move, double rotate) {
@@ -173,6 +178,8 @@ public class Drivetrain extends PIDSubsystem {
      * Resets the gyro reading
      */
     public void resetGyro() {
+    	count++;
+    	SmartDashboard.putNumber("resetgyro: ", count);
     	gyro.reset();
     }
     
@@ -320,7 +327,7 @@ public class Drivetrain extends PIDSubsystem {
 //	    	SmartDashboard.putNumber("Gyro Rate", gyro.getRate());			// Gyro rate
 //	    	SmartDashboard.putNumber("PID Output", pidOutput);				// PID Info
 //	    	SmartDashboard.putNumber("DT Encoder Raw", encoder.get());		// Encoder raw count
-//	    	SmartDashboard.putBoolean("Brake", brake);						// Brake or Coast
+	    	SmartDashboard.putBoolean("Brake", brake);						// Brake or Coast
 	    	SmartDashboard.putNumber("DT IR Distance", getIRDistance());	// IR distance reading
 //	    	
 //	    	SmartDashboard.putNumber("DT Rt Master", rightMaster.getTemperature());

@@ -11,22 +11,23 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveInSquare extends CommandGroup {
 
+	
 	private static final double driveStraightSpeed = 0.4;
 	private static final double driveStraightTime = 2;
 	
-	private static final double turnSpeed = 0.4;
+	private static final double turnSpeed = -0.4;
 	private static final double turnDegrees = 90;
    
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.drivetrain.resetEncoder();
-    	Robot.drivetrain.resetEncoder2();
-    	Robot.drivetrain.resetGyro();
+//    	Robot.drivetrain.resetEncoder();
+//    	Robot.drivetrain.resetEncoder2();
+//    	Robot.drivetrain.resetGyro();
 
     }
 	
     public  DriveInSquare() {
-    	
+
     	addSequential(new WaitCommand(4.0));
     	addSequential(new DriveStraightForTime(driveStraightSpeed, driveStraightTime));
     	addSequential(new WaitCommand(0.1));

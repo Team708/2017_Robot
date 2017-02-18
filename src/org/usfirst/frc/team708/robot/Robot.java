@@ -124,19 +124,23 @@ public class Robot extends IterativeRobot {
 		sendStatistics();
 		prefs = Preferences.getInstance();
 	
-//		try{
-//		    if (ds.isFMSAttached())
-//		        {
-//			    alliance = ds.getAlliance();
-//	             if (ds.getAlliance() == Alliance.Blue)
-//	        	    led1.send_to_led(Constants.SET_ALLIANCE_BLUE);
-//    	        else if (ds.getAlliance() == Alliance.Red)
-//	            	led1.send_to_led(Constants.SET_ALLIANCE_RED);
-//	            else
-//	            	led1.send_to_led(Constants.SET_ALLIANCE_INVALID);	        
-//    		    }
-//	        }
-//		catch ( e){}
+		try {
+     		if (ds.isSysActive())
+	            if (ds.isFMSAttached())
+		        {
+			    alliance = ds.getAlliance();
+	             if (ds.getAlliance() == Alliance.Blue)
+	        	    led1.send_to_led(Constants.SET_ALLIANCE_BLUE);
+    	        else if (ds.getAlliance() == Alliance.Red)
+	            	led1.send_to_led(Constants.SET_ALLIANCE_RED);
+	            else
+	            	led1.send_to_led(Constants.SET_ALLIANCE_INVALID);	        
+    		    }
+		}
+		catch (Exception e)
+		{
+			led1.send_to_led(Constants.MAX_LED_CODE);
+		}
 	}
 
 	/**
@@ -211,9 +215,9 @@ public class Robot extends IterativeRobot {
             intake_gear.sendToDashboard();
             pivot_gear.sendToDashboard();
 //          visionProcessor.sendToDashboard();
-            visionLift.sendToDashboard();
-            visionBoiler.sendToDashboard();
-            visionGear.sendToDashboard();
+//            visionLift.sendToDashboard();
+//            visionBoiler.sendToDashboard();
+//            visionGear.sendToDashboard();
         }
     }
     
@@ -226,6 +230,7 @@ public class Robot extends IterativeRobot {
     	autonomousMode.addDefault("Do Nothing", new DoNothing());
 //		autonomousMode.addObject("Find Target", new DriveToTarget());
 		autonomousMode.addObject("Drive in Square", new DriveInSquare());
+		autonomousMode.addObject("turn", new turn());
 
     	SmartDashboard.putData("Autonomous Selection", autonomousMode);    	   	
     }
@@ -235,7 +240,7 @@ public class Robot extends IterativeRobot {
      */
     private void sendDashboardSubsystems() {
     	SmartDashboard.putData(shooter);
-    	SmartDashboard.putData(feeder);
+//    	SmartDashboard.putData(feeder);
     	SmartDashboard.putData(loader);
     	SmartDashboard.putData(drivetrain);
     	SmartDashboard.putData(led1);
@@ -243,9 +248,9 @@ public class Robot extends IterativeRobot {
     	SmartDashboard.putData(intake_gear);
     	SmartDashboard.putData(pivot_gear);
 //    	SmartDashboard.putData(visionProcessor);
-    	SmartDashboard.putData(visionLift);
-    	SmartDashboard.putData(visionBoiler);
-    	SmartDashboard.putData(visionGear);
+//    	SmartDashboard.putData(visionLift);
+//    	SmartDashboard.putData(visionBoiler);
+//    	SmartDashboard.putData(visionGear);
     	SmartDashboard.putData(climber);
     }
 }

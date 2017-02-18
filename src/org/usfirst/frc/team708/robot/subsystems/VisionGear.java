@@ -89,7 +89,7 @@ public class VisionGear extends Subsystem {
 
 
 		// define the Cameras:
-		usbCamera=CameraServer.getInstance().startAutomaticCapture("cam3", 0);
+//		usbCamera=CameraServer.getInstance().startAutomaticCapture("cam3", 0);
 //	 	axisCamera=CameraServer.getInstance().addAxisCamera("cam1", "10.7.8.11");
 //		axisCamera.setResolution(imageWidth, imageHeight);
 		
