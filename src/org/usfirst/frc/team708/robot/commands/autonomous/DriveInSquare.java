@@ -44,8 +44,6 @@ public class DriveInSquare extends CommandGroup {
     	addSequential(new DriveStraightForTime(driveStraightSpeed, driveStraightTime));
     	addSequential(new WaitCommand(0.1));
     	addSequential(new TurnToDegrees(turnSpeed, turnDegrees));
-    	
-
     }
     
     // Make this return true when this Command no longer needs to run execute()

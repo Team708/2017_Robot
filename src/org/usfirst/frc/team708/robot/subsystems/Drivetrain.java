@@ -118,36 +118,34 @@ public class Drivetrain extends PIDSubsystem {
     	move = move * Constants.DRIVE_MOTOR_MAX_SPEED;
     	rotate = rotate * Constants.ROTATE_MOTOR_MAX_SPEED;
     	
-//    	if (usePID) 
-//    	    {
-//	        // Enables the PID controller if it is not already
-//	    	if (!getPIDController().isEnabled()) 
-//	    	    {
-//	    		getPIDController().setPID(Constants.Kp, Constants.Ki, Constants.Kd);
-//	    		getPIDController().reset();
-//	    		gyro.reset();
-//	    		enable();
-//	    		gyro.reset();
-//	    		}
-//	    	else 
-//	    	    {
-//	    		// Disables the PID controller if it enabled so the drivetrain can move freely
-//	    		if (getPIDController().isEnabled()) 
-//	    		    {
-//	    			getPIDController().reset();
-//	    		    }
-//	    	    }
-//	    	drivetrain.arcadeDrive(move, rotate);
-//    	    } 
-//    	    else 
-//    	    {
+    	if (usePID) 
+    	    {
+	        // Enables the PID controller if it is not already
+	    	if (!getPIDController().isEnabled()) 
+	    	    {
+	    		getPIDController().setPID(Constants.Kp, Constants.Ki, Constants.Kd);
+	    		getPIDController().reset();
+	    		enable();
+	    		}
+	    	else 
+	    	    {
+	    		// Disables the PID controller if it enabled so the drivetrain can move freely
+	    		if (getPIDController().isEnabled()) 
+	    		    {
+	    			getPIDController().reset();
+	    		    }
+	    	    }
+	    	drivetrain.arcadeDrive(move, rotate);
+    	    } 
+    	    else 
+    	    {
     		// Disables the PID controller if it enabled so the drivetrain can move freely
     		if (getPIDController().isEnabled()) 
     		    {
     			getPIDController().reset();
     		    }
     		drivetrain.arcadeDrive(move, rotate);
-//    	    }
+    	    }
     }
 	
 	public void haloDrive(double move, double rotate) {
