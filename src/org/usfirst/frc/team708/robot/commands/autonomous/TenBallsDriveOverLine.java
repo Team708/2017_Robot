@@ -1,28 +1,63 @@
 package org.usfirst.frc.team708.robot.commands.autonomous;
 
-import edu.wpi.first.wpilibj.command.CommandGroup;
+import org.usfirst.frc.team708.robot.AutoConstants;
+import org.usfirst.frc.team708.robot.Robot;
+import org.usfirst.frc.team708.robot.commands.drivetrain.DriveStraightForTime;
+import org.usfirst.frc.team708.robot.commands.drivetrain.DriveStraightToEncoderDistance;
+import org.usfirst.frc.team708.robot.commands.drivetrain.RotateAndDriveToBoiler;
+import org.usfirst.frc.team708.robot.commands.drivetrain.TurnToDegrees;
+import org.usfirst.frc.team708.robot.commands.feeder.FeederOff;
+import org.usfirst.frc.team708.robot.commands.feeder.SpinFeeder;
+import org.usfirst.frc.team708.robot.commands.shooter.ShooterOff;
+import org.usfirst.frc.team708.robot.commands.shooter.SpinShooter;
 
-/**
- *
- */
+import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.WaitCommand;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 public class TenBallsDriveOverLine extends CommandGroup {
 
-    public TenBallsDriveOverLine() {
-        // Add Commands here:
-        // e.g. addSequential(new Command1());
-        //      addSequential(new Command2());
-        // these will run in order.
+	private static final double driveStraightSpeed = 0.4;
+	private static final double driveStraightTime = 2;
+	
+	private static final double turnSpeed = 0.4;
+	private static final double turnRight = 90;
+	private static final double turnLeft = -90;
+   
+    // Called just before this Command runs the first time
+    protected void initialize() {
+    	Robot.drivetrain.resetEncoder();
+    	Robot.drivetrain.resetEncoder2();
+    	Robot.drivetrain.resetGyro();
 
-        // To run multiple commands at the same time,
-        // use addParallel()
-        // e.g. addParallel(new Command1());
-        //      addSequential(new Command2());
-        // Command1 and Command2 will run in parallel.
+    }
+	
+    public  TenBallsDriveOverLine() {  	
+    	addSequential(new DriveStraightToEncoderDistance(72));
+    	addSequential(new WaitCommand(0.1));
+    	addSequential(new TurnToDegrees(turnSpeed, turnRight));
+    	addSequential(new RotateAndDriveToBoiler(40.0));
+    	addSequential(new SpinShooter());
+		addSequential(new WaitCommand(AutoConstants.SHOOTER_MOTOR_SPINUP_TIME));
+		addParallel(new SpinFeeder());
+		addSequential(new WaitCommand(AutoConstants.SHOOTING_TIME));
+		addSequential(new FeederOff());
+		addSequential(new ShooterOff());
+		addSequential(new TurnToDegrees(turnSpeed, -110));
+		addSequential(new DriveStraightToEncoderDistance(112));
+    }
+    
+    // Make this return true when this Command no longer needs to run execute()
+    protected boolean isFinished() {
+        return false;
+    }
 
-        // A command group will require all of the subsystems that each member
-        // would require.
-        // e.g. if Command1 requires chassis, and Command2 requires arm,
-        // a CommandGroup containing them would require both the chassis and the
-        // arm.
+    // Called once after isFinished returns true
+    protected void end() {
+    }
+
+    // Called when another command which requires one or more of the same
+    // subsystems is scheduled to run
+    protected void interrupted() {
     }
 }
