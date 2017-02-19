@@ -29,7 +29,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Drivetrain extends PIDSubsystem {
 	
-	private boolean usePID = true;
+	private boolean usePID = false;
 	
 	// Variables specific for drivetrain PID loop
 	private double moveSpeed = 0.0;
@@ -119,9 +119,9 @@ public class Drivetrain extends PIDSubsystem {
 	    	    {
 	    		getPIDController().setPID(Constants.Kp, Constants.Ki, Constants.Kd);
 	    		getPIDController().reset();
-	    		gyro.reset();
+	    	//	gyro.reset();
 	    		enable();
-	    		gyro.reset();
+	    	//	gyro.reset();
 	    		}
 	    	else 
 	    	    {

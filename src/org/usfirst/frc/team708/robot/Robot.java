@@ -224,7 +224,7 @@ public class Robot extends IterativeRobot {
     	
     	autonomousMode.addObject("Drive Straight for time", new DriveStraightForTime(.5, 3));
     	autonomousMode.addDefault("Do Nothing", new DoNothing());
-//		autonomousMode.addObject("Find Target", new DriveToTarget());
+		autonomousMode.addObject("Find Target", new RotateAndDriveToLift(12));
 		autonomousMode.addObject("Drive in Square", new DriveInSquare());
 		autonomousMode.addObject("One Gear to center lift and drive to line", new OneGearCenterDriveToLine());
 		autonomousMode.addObject("One Gear to left lift", new OneGearLeft());
