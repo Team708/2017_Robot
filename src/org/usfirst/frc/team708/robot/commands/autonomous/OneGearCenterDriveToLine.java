@@ -11,14 +11,14 @@ import org.usfirst.frc.team708.robot.subsystems.*;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-public class OneGearRight extends CommandGroup {
+public class OneGearCenterDriveToLine extends CommandGroup {
 
 	private static final double driveStraightSpeed = -0.4;
 	private static final double driveStraightDistance = 24;
 	private static final double driveStraightSpeedReverse = 0.4;
 	
 	private static final double turnSpeed = 0.4;
-	private static final double turnDegrees = -70; //Left is positive and Right is negative
+	private static final double turnDegrees = 90; //Right is positive and Left is negative
    
     // Called just before this Command runs the first time
     protected void initialize() {
@@ -28,19 +28,25 @@ public class OneGearRight extends CommandGroup {
 
     }
 	
-    public  OneGearRight() {
+    public  OneGearCenterDriveToLine() {
     	
     	addSequential(new WaitCommand(0.1));
     	addSequential(new DriveStraightToEncoderDistance(driveStraightDistance, driveStraightSpeed));
     	addSequential(new WaitCommand(0.1));
-    	addSequential(new TurnToDegrees(turnSpeed, turnDegrees));
-    	addSequential(new WaitCommand(0.1));
     	addSequential(new RotateAndDriveToLift(12));
     	addSequential(new WaitCommand(0.1));
     	addSequential(new Intake_Gear_Out());
+    	addSequential(new WaitCommand(0.1));
     	addSequential(new DriveStraightToEncoderDistance(driveStraightDistance, driveStraightSpeedReverse));
     	addSequential(new WaitCommand(0.1));
-    	
+    	addSequential(new TurnToDegrees(turnDegrees, turnSpeed));
+    	addSequential(new WaitCommand(0.1));
+    	addSequential(new DriveStraightToEncoderDistance(driveStraightDistance, driveStraightSpeedReverse));
+    	addSequential(new WaitCommand(0.1));
+    	addSequential(new TurnToDegrees(turnDegrees, turnSpeed));
+    	addSequential(new WaitCommand(0.1));
+    	addSequential(new DriveStraightToEncoderDistance(driveStraightDistance, driveStraightSpeedReverse));
+    	addSequential(new WaitCommand(0.1));
 
     }
     

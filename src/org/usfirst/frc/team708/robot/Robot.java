@@ -226,6 +226,9 @@ public class Robot extends IterativeRobot {
     	autonomousMode.addDefault("Do Nothing", new DoNothing());
 //		autonomousMode.addObject("Find Target", new DriveToTarget());
 		autonomousMode.addObject("Drive in Square", new DriveInSquare());
+		autonomousMode.addObject("One Gear to center lift and drive to line", new OneGearCenterDriveToLine());
+		autonomousMode.addObject("One Gear to left lift", new OneGearLeft());
+		autonomousMode.addObject("One Gear to right lift", new OneGearRight());
 
     	SmartDashboard.putData("Autonomous Selection", autonomousMode);    	   	
     }
