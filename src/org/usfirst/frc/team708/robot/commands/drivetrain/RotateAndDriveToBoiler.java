@@ -22,13 +22,13 @@ public class RotateAndDriveToBoiler extends Command {
 // VIET ARE WE STILL USING THE TARGET DISTANCE HERE - I THINK WE ARE ACTUALLY CALCULATING IT IN THE SUBSYSTEM
 // IN THE METHOD ISATDISTANCE
 // BUT WE NEED TO FIGURE OUT HOW WE ARE GOING TO MAKE THIS WORK WITH MULITPLE DISTANCES FOUND
-	public RotateAndDriveToBoiler(double stopAtHeight) {
+	public RotateAndDriveToBoiler(double stopAtDistance) {
         // Use requires() here to declare subsystem dependencies
         requires(Robot.drivetrain);
         requires(Robot.visionBoiler);
         
-        // save the height
-        Robot.visionBoiler.putStopAtHeight(stopAtHeight);
+        // save the distance
+        Robot.visionBoiler.putStopAtDistance(stopAtDistance);
     }
 
     // Called just before this Command runs the first time
@@ -45,7 +45,7 @@ public class RotateAndDriveToBoiler extends Command {
 
     	Robot.visionBoiler.processData();
     	rotate = Robot.visionBoiler.getRotate();  
-    	moveSpeed = Robot.visionBoiler.getMove();   // was + made -
+    	moveSpeed = Robot.visionBoiler.getMove();
 
  
     	Robot.drivetrain.haloDrive(moveSpeed, rotate, false);
@@ -59,11 +59,9 @@ public class RotateAndDriveToBoiler extends Command {
     		return true;
     	}
     	//Check if the sonar distance is less then the target Distance, end
-//    	if (Robot.drivetrain.getSonarDistance() < targetDistance  && Robot.visionProcessor.wasCentered()){
-        if (Robot.visionBoiler.isAtHeight() && Robot.visionBoiler.isCentered()){
+        if (Robot.visionBoiler.isAtDistance() && Robot.visionBoiler.isCentered()){
          		     		return true;
     	}
-//    	else if (Robot.drivetrain.getSonarDistance() < targetDistance && Robot.visionProcessor.isHasTarget()) {
     	else {
     		return false;
     	}

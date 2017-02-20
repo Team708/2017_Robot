@@ -25,18 +25,18 @@ import edu.wpi.first.wpilibj.vision.VisionThread;
 public class VisionLift extends Subsystem {
 	
 	// Camera Variables
-	private double fovDegrees = AutoConstants.USB_FOV_DEGREES;			// Field of View of the Camera
-	private double pipelineSize;										// Number of Contours in the Pipline- 0 = target not in view
-	private int imageWidth = AutoConstants.USB_IMG_WIDTH;				// Width of image
-	private int imageHeight = AutoConstants.USB_IMG_HEIGHT;			// Height of image
+	private double fovDegrees = AutoConstants.AXIS_FOV_DEGREES;		// Field of View of the Camera
+	private double pipelineSize;									// Number of Contours in the Pipline- 0 = target not in view
+	private int imageWidth = AutoConstants.AXIS_IMG_WIDTH;			// Width of image
+	private int imageHeight = AutoConstants.AXIS_IMG_HEIGHT;		// Height of image
 	
 	// Image OpenCV Image Processing Variables
-	private VisionThread visionThread;				// vision processing thread - processes grip code
-	private final Object imgLock = new Object();	// vision Lift object
+	private VisionThread visionThreadLift;				// vision processing thread - processes grip code
+	private final Object imgLockLift = new Object();	// vision Lift object
 
 	private AxisCamera axisCamera;			// Axis Camera
-	private UsbCamera usbCamera;			// USB Camera
-    private CvSource outputStream;			// Output stream to the Dashboard
+//	private UsbCamera usbCamera;			// USB Camera
+    private CvSource outputStreamLift;			// Output stream to the Dashboard
 
 	
 	// Targeting variables
@@ -89,16 +89,16 @@ public class VisionLift extends Subsystem {
 
 		// define the Cameras:
 //		usbCamera=CameraServer.getInstance().startAutomaticCapture("cam1", 0);
-//	 	axisCamera=CameraServer.getInstance().addAxisCamera("cam1", "10.7.8.11");
-//		axisCamera.setResolution(imageWidth, imageHeight);
+	 	axisCamera=CameraServer.getInstance().addAxisCamera("cam1", "10.7.8.11");
+		axisCamera.setResolution(imageWidth, imageHeight);
 		
 	   
 	    // define the output stream on the smart dashboard
-		outputStream = CameraServer.getInstance().putVideo("Target", imageWidth, imageHeight);
+		outputStreamLift = CameraServer.getInstance().putVideo("Target", imageWidth, imageHeight);
 		
 		
 		// Vision thread which processes the image contours
-	    visionThread = new VisionThread(usbCamera, new GripPipelineLift(), pipeline -> {
+	    visionThreadLift = new VisionThread(axisCamera, new GripPipelineLift(), pipeline -> {
 	    	pipelineSize = pipeline.filterContoursOutput().size();
 	    	
 	    	// if the grip pipeline filter "filterContoursOutput" sees the target
@@ -144,7 +144,7 @@ public class VisionLift extends Subsystem {
 	        	
 
 	        	
-	            synchronized (imgLock) {
+	            synchronized (imgLockLift) {
 	                currentCenter = minX + ((maxX - minX) / 2);
 	                
 		             // set values for the smartdashboard
@@ -162,9 +162,9 @@ public class VisionLift extends Subsystem {
 		             
 		            // display the current image on the driver station 
 		             
-		            if (Constants.DEBUG){
-		            	outputStream.putFrame(pipeline.hslThresholdOutput()); 	               
-		            }  
+
+		            	outputStreamLift.putFrame(pipeline.hslThresholdOutput()); 	               
+		            
 	            }
 	            
 	        }
@@ -179,7 +179,8 @@ public class VisionLift extends Subsystem {
 	        } 
 	       
 	    });
-	    visionThread.start();
+	    visionThreadLift.start();
+		SmartDashboard.putBoolean(" sue's processing - has target in vp", hasTarget);
 	}
 	
 	
@@ -192,7 +193,7 @@ public class VisionLift extends Subsystem {
 			
 			// use the sonar to get the distance from the target (backup plan if camera distance not available)
 //			currentDistance=Robot.drivetrain.getSonarDistance();
-		    
+			SmartDashboard.putBoolean(" sue's processing - has target", hasTarget);
 			// if robot sees the target (current X between its min and max)
 			if ((currentCenter > minThresholdX) && (currentCenter < maxThresholdX)) {
 				hasTarget = true;
@@ -230,6 +231,7 @@ public class VisionLift extends Subsystem {
 		else{
 			isCentered = false;
 		}
+		SmartDashboard.putBoolean(" sue's processing - iscentered", isCentered);
 			return isCentered;
 	}
 	
@@ -398,10 +400,9 @@ public class VisionLift extends Subsystem {
 	}
 
 	public void sendToDashboard() {
-		if (Constants.DEBUG) {
+
 			SmartDashboard.putBoolean("Has Target", isHasTarget());
 			SmartDashboard.putBoolean("Is At Distance", isAtDistance());
-			SmartDashboard.putNumber("Current Distance", currentDistance);
 			SmartDashboard.putNumber("Center of Target", currentCenter);
 			SmartDashboard.putNumber("Rotation", rotate);
 			SmartDashboard.putNumber("Rotate Difference", RotateDiff);
@@ -415,7 +416,7 @@ public class VisionLift extends Subsystem {
 			SmartDashboard.putNumber("rectHeight", rectHeight);
 			SmartDashboard.putNumber("Distance To Target", currentDistance);
 			SmartDashboard.putNumber("pipelineSize", pipelineSize);
-		}
+		
 	}
 
     public void initDefaultCommand() {

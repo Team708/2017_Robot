@@ -21,7 +21,7 @@ public class RotateAndDriveToLift extends Command {
 	 */
 // VIET ARE WE STILL USING THE TARGET DISTANCE HERE - I THINK WE ARE ACTUALLY CALCULATING IT IN THE SUBSYSTEM
 // Mreh mreh mreh, I'm Mrs. P, I want to delete the targetDistance, mreh mreh mreh.
-    public RotateAndDriveToLift(double targetDistance) {
+    public RotateAndDriveToLift() {
         // Use requires() here to declare subsystem dependencies
         requires(Robot.drivetrain);
         requires(Robot.visionLift);
