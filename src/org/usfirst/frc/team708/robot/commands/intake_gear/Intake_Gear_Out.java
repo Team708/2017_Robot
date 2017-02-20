@@ -20,7 +20,7 @@ protected void initialize() {
 
 protected void execute() {
 
-		Robot.intake_gear.moveMotor(Constants.INTAKE_REVERSE);
+		Robot.intake_gear.moveMotor(Constants.GEAR_REVERSE);
 }
 
 

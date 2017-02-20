@@ -1,4 +1,4 @@
-package org.usfirst.frc.team708.robot.commands.shooter;
+package org.usfirst.frc.team708.robot.commands.intake_gear;
 import org.usfirst.frc.team708.robot.Constants;
 import org.usfirst.frc.team708.robot.RobotMap;
 import org.usfirst.frc.team708.robot.util.Gamepad;
@@ -16,12 +16,10 @@ import edu.wpi.first.wpilibj.command.WaitCommand;
 /**
  *
  */
-public class SpinShooter extends Command {
-
-
-    public SpinShooter() {
-    	requires(Robot.shooter);
-    	requires(Robot.drivetrain);
+public class GearAdjust extends Command {
+    
+    public GearAdjust() {
+    	requires(Robot.intake_gear);
     }
     
 // Called just before this Command runs the first time
@@ -29,18 +27,10 @@ public class SpinShooter extends Command {
     }
 
     // Called repeatedly when this Command is scheduled to run
-    protected void execute() {   	
-   	    Robot.shooter.setFgain(Constants.SHOOTER_F);
-   	    if (Robot.drivetrain.getSonarDistance() > 60)
-   	    {
-   	    	Robot.shooter.moveHood(Constants.HOOD_GEAR);
-	        Robot.shooter.manualRPM(Constants.SHOOTER_MOTOR_SPEED_HIGH);
-   	    }
-   	    else
-   	    {
-   	    	Robot.shooter.manualRPM(Constants.SHOOTER_MOTOR_SPEED_LOW);
-   	    	Robot.shooter.moveHood(Constants.HOOD_BUMBER);
-   	    }
+    protected void execute() {
+    	double gearAngle = OI.operatorGamepad.getAxis(Gamepad.leftStick_Y); //Gets Input from operator's controller
+ 
+    	Robot.pivot_gear.moveMotor(gearAngle); //Defines move speed from the operator's controller
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -50,7 +40,7 @@ public class SpinShooter extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.shooter.stop();
+    	Robot.pivot_gear.stop();
     }
 
     // Called when another command which requires one or more of the same

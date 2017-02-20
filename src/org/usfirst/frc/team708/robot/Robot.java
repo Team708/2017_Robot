@@ -4,6 +4,7 @@ package org.usfirst.frc.team708.robot;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Preferences;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -75,11 +76,18 @@ public class Robot extends IterativeRobot {
     public static DriverStation 			ds;
     public static DriverStation.Alliance 	alliance;
     
+//    public static Solenoid			pwr0;
+//    public static Solenoid			pwr1;
+//    public static Solenoid			pwr2;
+//    public static Solenoid			pwr3;    
+//    public static Solenoid			gearLight;    
+//    public static Solenoid			boilerLight;    
+
     SendableChooser 	autonomousMode = new SendableChooser<>();
+    
     Command 			autonomousCommand;
     Preferences			prefs;
     
-
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -111,7 +119,21 @@ public class Robot extends IterativeRobot {
 	
 //	UsbCamera ucamera=CameraServer.getInstance().startAutomaticCapture("cam0", 0);
 //	AxisCamera camera=CameraServer.getInstance().addAxisCamera("cam1", "10.7.8.11");
-	
+    
+//    pwr0 			= new Solenoid(RobotMap.PWR0);
+//    pwr1 			= new Solenoid(RobotMap.PWR1);
+//    pwr2 			= new Solenoid(RobotMap.PWR2);
+//    pwr3 			= new Solenoid(RobotMap.PWR3);
+//    gearLight  		= new Solenoid(RobotMap.GEARLIGHT);
+//    boilerLight		= new Solenoid(RobotMap.BOILERLIGHT);
+//
+//    pwr0.set(true);
+//    pwr1.set(true);
+//    pwr2.set(true);
+//    pwr3.set(true);
+//    gearLight.set(true);
+//    boilerLight.set(true);
+    
 	sendDashboardSubsystems();		// Sends each subsystem's currently running command to the Smart Dashboard
 	queueAutonomousModes();			// Adds autonomous modes to the selection box    
     }
@@ -124,23 +146,30 @@ public class Robot extends IterativeRobot {
 		sendStatistics();
 		prefs = Preferences.getInstance();
 	
-		try {
-     		if (ds.isSysActive())
-	            if (ds.isFMSAttached())
-		        {
-			    alliance = ds.getAlliance();
-	             if (ds.getAlliance() == Alliance.Blue)
-	        	    led1.send_to_led(Constants.SET_ALLIANCE_BLUE);
-    	        else if (ds.getAlliance() == Alliance.Red)
-	            	led1.send_to_led(Constants.SET_ALLIANCE_RED);
-	            else
-	            	led1.send_to_led(Constants.SET_ALLIANCE_INVALID);	        
-    		    }
-		}
-		catch (Exception e)
-		{
-			led1.send_to_led(Constants.MAX_LED_CODE);
-		}
+//		try {
+//     		if (ds.isSysActive()){
+//	            if (ds.isFMSAttached())
+//		        {
+//			    alliance = ds.getAlliance();
+//	             if (ds.getAlliance() == Alliance.Blue){
+//	        	    led1.send_to_led(Constants.SET_ALLIANCE_BLUE);
+//					AllianceColor = -1;
+//				}
+//    	        else if (ds.getAlliance() == Alliance.Red){
+//	            	led1.send_to_led(Constants.SET_ALLIANCE_RED);
+//					AllianceColor = 1;
+//    	        }
+//	            else {
+//	            	led1.send_to_led(Constants.SET_ALLIANCE_INVALID);
+//					AllianceColor = 0;
+//	            }
+//		   }
+//	}
+//		}
+//		catch (Exception e)
+//		{
+//			led1.send_to_led(Constants.MAX_LED_CODE);
+//		}
 	}
 
 	/**

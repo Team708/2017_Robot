@@ -33,7 +33,7 @@ public class Climber extends Subsystem {
 
 	public void initDefaultCommand() {
         // Set the default command for a subsystem here.
-	setDefaultCommand(new ManualMoveClimber());
+ //       setDefaultCommand(new ManualMoveClimber());
 	}
 	//Sets the motor speed to the variable speed
 	public void manualMove(double speed) {

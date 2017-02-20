@@ -30,7 +30,7 @@ public class MoveHoodLow extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	 Robot.shooter.moveHood(Constants.HOOD_MIN);  // 25 is the lower bounds
+    	 Robot.shooter.moveHood(Constants.HOOD_BUMBER);  // 25 is the lower bounds
     }
 
     // Make this return true when this Command no longer needs to run execute()

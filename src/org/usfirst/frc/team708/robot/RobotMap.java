@@ -56,9 +56,9 @@ public class RobotMap {
 	public static final int drivetrainEncoderBRt		= 1;
 	public static final int drivetrainEncoderALeft		= 2;
 	public static final int drivetrainEncoderBLeft		= 3;
-	public static final int shooterEncoderA				= 4;
-	public static final int shooterEncoderB				= 5;
-	public static final int climberSwitchA				= 6;
+//	public static final int shooterEncoderA				= 4;
+//	public static final int shooterEncoderB				= 5;
+	public static final int gearSensorSwitch			= 6;
 //	public static final int 							= 7;
 //	public static final int 					 		= 8;
 //	public static final int 							= 9;
@@ -75,14 +75,14 @@ public class RobotMap {
 //	public static final int 					= 3;
 	
 	// PCM Ports
-//	public static final int 				= 0;
-//	public static final int   				= 1;
-//	public static final int  				= 2;
-//	public static final int 				= 3;
-//	public static final int 				= 4;
-//	public static final int 				= 5;
-//	public static final int					= 6;
-//	public static final int 				= 7;
+	public static final int PWR0				= 0;
+	public static final int PWR1  				= 1;
+	public static final int PWR2 				= 2;
+	public static final int PWR3				= 3;
+	public static final int GEARLIGHT			= 4;
+	public static final int BOILERLIGHT			= 5;
+//	public static final int	PWR6				= 6;
+//	public static final int PWR7				= 7;
 
 	
 //  PDP Board Mappings

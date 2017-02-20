@@ -31,10 +31,10 @@ public class ManualIntake_Gear extends Command {
 	    		Robot.intake_gear.moveMotor(Constants.INTAKE_FORWARD);
 	    	}
 	    	else if (OI.driverGamepad.getAxis(Gamepad.shoulderAxisLeft) != 0.0){
-	    		Robot.intake_gear.moveMotor(Constants.INTAKE_REVERSE);
+	    		Robot.intake_gear.moveMotor(Constants.GEAR_REVERSE);
 	    	}
 	    	else {
-	    		Robot.intake_gear.moveMotor(Constants.INTAKE_OFF);
+	    		Robot.intake_gear.moveMotor(Constants.GEAR_OFF);
 	    	}
 	    	
 	    }

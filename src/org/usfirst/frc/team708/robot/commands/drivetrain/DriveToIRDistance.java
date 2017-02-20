@@ -39,7 +39,7 @@ public class DriveToIRDistance extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	moveSpeed = Robot.drivetrain.moveByIR(targetDistance, minValue, maxValue, tolerance);
+//    	moveSpeed = Robot.drivetrain.moveByIR(targetDistance, minValue, maxValue, tolerance);
 //    	if (targetDistance)
     	Robot.drivetrain.haloDrive(moveSpeed, 0.0, false);
     }

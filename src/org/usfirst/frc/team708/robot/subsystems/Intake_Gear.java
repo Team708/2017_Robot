@@ -5,6 +5,7 @@ import org.usfirst.frc.team708.robot.Robot;
 import org.usfirst.frc.team708.robot.RobotMap;
 
 import com.ctre.CANTalon;
+import com.ctre.CANTalon.FeedbackDevice;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -21,7 +22,7 @@ public class Intake_Gear extends Subsystem {
 
 	//I'm trying to link the right motor to the intake code here
 	public Intake_Gear() {
-		intakeMotor = new CANTalon (RobotMap.intakeMotorGear);		
+		intakeMotor = new CANTalon (RobotMap.intakeMotorGear);
 	}
 	
 	public void initDefaultCommand() {
@@ -33,7 +34,8 @@ public class Intake_Gear extends Subsystem {
 	}
 	
 	public boolean hasGear() {
-		return ((Robot.drivetrain.getIRDistance() > 0) && (Robot.drivetrain.getIRDistance() < Constants.IR_HAS_GEAR_DISTANCE));
+//		return ((Robot.drivetrain.getIRDistance() > 0) && (Robot.drivetrain.getIRDistance() < Constants.IR_HAS_GEAR_DISTANCE));
+		return (Robot.drivetrain.hasGear());
 	}
 	//I believe this stops the motor
 	public void stop(){

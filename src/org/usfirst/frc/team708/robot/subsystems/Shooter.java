@@ -104,8 +104,8 @@ public class Shooter extends Subsystem {
 	
 	public void hoodAdjust(double angle) {
 
-		if ((angle > 0.0) && (hoodLocation<2000)) hoodLocation+=Constants.HOOD_CALIBRATION;
-		else if ((angle < 0.0) && (hoodLocation>25)) hoodLocation-=Constants.HOOD_CALIBRATION;
+		if ((angle > 0.0) && (hoodLocation<Constants.HOOD_MAX)) hoodLocation+=Constants.HOOD_CALIBRATION;
+		else if ((angle < 0.0) && (hoodLocation>Constants.HOOD_MIN)) hoodLocation-=Constants.HOOD_CALIBRATION;
 			
 		moveHood(hoodLocation);
 		if (Constants.DEBUG) {
