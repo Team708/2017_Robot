@@ -33,13 +33,13 @@ public class SpinShooter extends Command {
    	    Robot.shooter.setFgain(Constants.SHOOTER_F);
    	    if (Robot.drivetrain.getSonarDistance() > 60)
    	    {
-   	    	Robot.shooter.moveHood(Constants.HOOD_GEAR);
+//   	    	Robot.shooter.moveHood(Constants.HOOD_GEAR);
 	        Robot.shooter.manualRPM(Constants.SHOOTER_MOTOR_SPEED_HIGH);
    	    }
    	    else
    	    {
    	    	Robot.shooter.manualRPM(Constants.SHOOTER_MOTOR_SPEED_LOW);
-   	    	Robot.shooter.moveHood(Constants.HOOD_BUMBER);
+//   	    	Robot.shooter.moveHood(Constants.HOOD_BUMBER);
    	    }
     }
 

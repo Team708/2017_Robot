@@ -395,7 +395,7 @@ public class Drivetrain extends PIDSubsystem {
 //	    	SmartDashboard.putNumber("DT Lft Master", leftMaster.getTemperature());
 //	    	SmartDashboard.putNumber("DT Lft Slave", leftSlave.getTemperature());
     	}
-    	SmartDashboard.putNumber("AllianceColor", Robot.AllianceColor);
+    	SmartDashboard.putNumber("AllianceColor", Robot.allianceColor);
     	SmartDashboard.putBoolean("has gear", hasGear());
     	SmartDashboard.putNumber("Gyro angle", ( (int)gyro.getAngle()));			// Gyro angle
     	SmartDashboard.putNumber("DT Sonar Distance", getSonarDistance());			// Sonar distance reading

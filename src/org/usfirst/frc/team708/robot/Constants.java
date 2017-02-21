@@ -6,18 +6,24 @@ public final class Constants {
 	 * Motor Controllers
 	 */
 	public static final double INTAKE_FORWARD 		=  1.0;
-	public static final double INTAKE_REVERSE 		= -1.0;
+	public static final double INTAKE_REVERSE 		=  -1.0;
 	public static final double INTAKE_OFF 			=  0.0;
 	
 	public static final double CLIMB_FORWARD 		=  1.0;
 	public static final double CLIMB_REVERSE 		= -1.0;
 	public static final double CLIMB_OFF 			=  0.0;
 	
-	public static final double GEAR_FORWARD 		=  -.8;
-	public static final double GEAR_REVERSE 		= .8;
+	public static final double GEAR_UP 				=  0.4;
+	public static final double GEAR_DOWN	 		=  -0.4;
 	public static final double GEAR_OFF 			=  0.0;
+	public static final double GEAR_IN 				=  1.0;
+	public static final double GEAR_OUT 			=  -1.0;
+
 	
 	public static final int PIVOT_GEAR_ENCODER_COUNT	=  1024;
+	public static final int PIVOT_GEAR_ENCODER_HIGH		=  50;
+	public static final int PIVOT_GEAR_ENCODER_LOW		=  35;
+
 
 	public static final double MOTOR_FORWARD 		=  1.0;
 	public static final double MOTOR_REVERSE 		= -1.0;
@@ -40,8 +46,8 @@ public final class Constants {
 	public static final double SHOOTER_MOTOR_OFF			=  0.0;
 	public static final double SHOOTER_MOTOR_BACKWARD 		=  -1.0;
 	
-	public static final double SHOOTER_MOTOR_SPEED_LOW 		=  2100;
-	public static final double SHOOTER_MOTOR_SPEED_HIGH 	=  2500;
+	public static final double SHOOTER_MOTOR_SPEED_LOW 		=  2500;
+	public static final double SHOOTER_MOTOR_SPEED_HIGH 	=  3000;
 	
 	public static final int 	SHOOTER_ENCODER_PULSES	 	= 12;
 
@@ -58,7 +64,7 @@ public final class Constants {
 	
 	public static final int		HOOD_MAX 					=  2000;	
 	public static final int 	HOOD_MIN 					=  30;
-	public static final int 	HOOD_BUMBER 				=  1880;
+	public static final int 	HOOD_BUMBER 				=  1795;
 	public static final int 	HOOD_GEAR 					=  1600;
 
 	public static final int 	HOOD_CALIBRATION 			=  10;	
@@ -106,10 +112,20 @@ public final class Constants {
 	// LED CONTROLS
 	
 	public static final byte SET_ALLIANCE_INVALID 	= 	0x00;
-	public static final byte SET_ALLIANCE_BLUE 	 	=	0x01;
-	public static final byte SET_ALLIANCE_RED  	 	=	0x02;
-	public static final byte MAX_LED_CODE			=	0x10;
+	public static final byte SET_ALLIANCE_RED 	 	=	0x01;
+	public static final byte SET_ALLIANCE_BLUE  	=	0x02;
+	public static final byte SET_TARGETING  	 	=	0x03;
+	public static final byte SET_TARGET_FOUND  	 	=	0x04;
+	public static final byte SET_HAS_GEAR	  	 	=	0x05;
+//	public static final byte 	  	 				=	0x06;
+//	public static final byte 	  	 				=	0x07;
+//	public static final byte 		  			 	=	0x08;
+	public static final byte SET_OFF		  	 	=	0x09;
+	public static final byte MAX_LED_CODE			=	0x10;	
 	
+	public static final int ALLIANCE_RED 	 	=	1;
+	public static final int ALLIANCE_BLUE 	 	=	-1;
+
 	/*
 	 * Vision Processor
 	 */

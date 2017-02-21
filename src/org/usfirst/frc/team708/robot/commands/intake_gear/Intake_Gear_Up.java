@@ -16,7 +16,7 @@ public Intake_Gear_Up() {
 
 	protected void execute() {
         if (!Robot.pivot_gear.isFwdSwitch())
-		      Robot.pivot_gear.moveMotor(Constants.INTAKE_FORWARD);
+		      Robot.pivot_gear.moveMotor(Constants.GEAR_UP);
         else
         	Robot.pivot_gear.stop();
 	}

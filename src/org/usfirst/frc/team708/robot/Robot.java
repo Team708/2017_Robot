@@ -48,6 +48,7 @@ import org.usfirst.frc.team708.robot.commands.loader.*;
 import org.usfirst.frc.team708.robot.commands.shooter.*;
 import org.usfirst.frc.team708.robot.commands.visionProcessor.*;
 import org.usfirst.frc.team708.robot.commands.led_out.*;
+import org.usfirst.frc.team708.robot.commands.AllianceSelection.*;
 
 public class Robot extends IterativeRobot {
     
@@ -72,9 +73,9 @@ public class Robot extends IterativeRobot {
     
     public static OI	 			oi;
 
-    public static int 						AllianceColor;
     public static DriverStation 			ds;
     public static DriverStation.Alliance 	alliance;
+	public static int 						allianceColor;
     
 //    public static Solenoid			pwr0;
 //    public static Solenoid			pwr1;
@@ -83,10 +84,12 @@ public class Robot extends IterativeRobot {
 //    public static Solenoid			gearLight;    
 //    public static Solenoid			boilerLight;    
 
-    SendableChooser 	autonomousMode = new SendableChooser<>();
-    
+    SendableChooser 	autonomousMode 		= new SendableChooser<>();
+    SendableChooser 	AllianceSelection 	= new SendableChooser<>();
     Command 			autonomousCommand;
     Preferences			prefs;
+    
+    double             AllianceSelectionDouble;
     
     /**
      * This function is run when the robot is first started up and should be
@@ -146,30 +149,30 @@ public class Robot extends IterativeRobot {
 		sendStatistics();
 		prefs = Preferences.getInstance();
 	
-//		try {
-//     		if (ds.isSysActive()){
-//	            if (ds.isFMSAttached())
-//		        {
-//			    alliance = ds.getAlliance();
-//	             if (ds.getAlliance() == Alliance.Blue){
-//	        	    led1.send_to_led(Constants.SET_ALLIANCE_BLUE);
-//					AllianceColor = -1;
-//				}
-//    	        else if (ds.getAlliance() == Alliance.Red){
-//	            	led1.send_to_led(Constants.SET_ALLIANCE_RED);
-//					AllianceColor = 1;
-//    	        }
-//	            else {
-//	            	led1.send_to_led(Constants.SET_ALLIANCE_INVALID);
-//					AllianceColor = 0;
-//	            }
-//		   }
-//	}
-//		}
-//		catch (Exception e)
-//		{
-//			led1.send_to_led(Constants.MAX_LED_CODE);
-//		}
+		try {
+     		if (ds.isSysActive()){
+	            if (ds.isFMSAttached())
+		        {
+			    alliance = ds.getAlliance();
+	             if (ds.getAlliance() == Alliance.Blue){
+	        	    led1.send_to_led(Constants.SET_ALLIANCE_BLUE);
+					allianceColor = Constants.ALLIANCE_BLUE;
+				}
+    	        else if (ds.getAlliance() == Alliance.Red){
+	            	led1.send_to_led(Constants.SET_ALLIANCE_RED);
+					allianceColor = Constants.ALLIANCE_RED;
+    	        }
+	            else {
+	            	led1.send_to_led(Constants.SET_ALLIANCE_INVALID);
+					allianceColor = 0;
+	            }
+		   }
+	}
+		}
+		catch (Exception e)
+		{
+			led1.send_to_led(Constants.MAX_LED_CODE);
+		}
 	}
 
 	/**
@@ -177,8 +180,8 @@ public class Robot extends IterativeRobot {
 	 */
     	public void autonomousInit() {
     	
-//    	turnDirection = prefs.getDouble("TurnDirection", 4.0);
-    		
+    	AllianceSelectionDouble =  (Double)AllianceSelection.getSelected();
+
     	// schedule the autonomous command (example)   		
     	autonomousCommand = (Command)autonomousMode.getSelected();
         if (autonomousCommand != null) autonomousCommand.start();
@@ -249,8 +252,13 @@ public class Robot extends IterativeRobot {
 //            visionGear.sendToDashboard();
         }
     }
-    
-    /**
+	
+    private void queueAlliance() {
+    	AllianceSelection.addDefault("RED", new RedAlliance());
+    	AllianceSelection.addObject("BLUE", new BlueAlliance());
+    	
+    	SmartDashboard.putData("Alliance Color", AllianceSelection);
+    }    /**
      * Adds every autonomous mode to the selection box and adds the box to the Smart Dashboard
      */
     private void queueAutonomousModes() {

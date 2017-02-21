@@ -58,7 +58,7 @@ public class RobotMap {
 	public static final int drivetrainEncoderBLeft		= 3;
 //	public static final int shooterEncoderA				= 4;
 //	public static final int shooterEncoderB				= 5;
-	public static final int gearSensorSwitch			= 6;
+	public static final int gearSensorSwitch			= 5;
 //	public static final int 							= 7;
 //	public static final int 					 		= 8;
 //	public static final int 							= 9;

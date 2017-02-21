@@ -20,11 +20,11 @@ public class Intake_Gear_In extends Command {
 
 	protected void execute() {
 		if (!Robot.intake_gear.hasGear())
-		    Robot.intake_gear.moveMotor(Constants.GEAR_FORWARD);
+		    Robot.intake_gear.moveMotor(Constants.GEAR_IN);
 		else
 		{
 			Robot.intake_gear.stop();
-			Robot.pivot_gear.moveMotor(Constants.GEAR_FORWARD);
+			Robot.pivot_gear.moveMotor(Constants.GEAR_UP);
 		}
 	}
 

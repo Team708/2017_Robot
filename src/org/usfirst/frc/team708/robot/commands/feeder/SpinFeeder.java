@@ -19,6 +19,7 @@ public class SpinFeeder extends Command {
     	
     	requires(Robot.feeder);
     	requires(Robot.intake_ball);
+    	requires(Robot.drivetrain);
 
     }
     
