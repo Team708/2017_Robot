@@ -21,8 +21,8 @@ public final class Constants {
 
 	
 	public static final int PIVOT_GEAR_ENCODER_COUNT	=  1024;
-	public static final int PIVOT_GEAR_ENCODER_HIGH		=  50;
-	public static final int PIVOT_GEAR_ENCODER_LOW		=  35;
+	public static final int PIVOT_GEAR_ENCODER_HIGH		=  35;
+	public static final int PIVOT_GEAR_ENCODER_LOW		=  -2;
 
 
 	public static final double MOTOR_FORWARD 		=  1.0;
@@ -117,7 +117,7 @@ public final class Constants {
 	public static final byte SET_TARGETING  	 	=	0x03;
 	public static final byte SET_TARGET_FOUND  	 	=	0x04;
 	public static final byte SET_HAS_GEAR	  	 	=	0x05;
-//	public static final byte 	  	 				=	0x06;
+	public static final byte SET_HAS_GEAR_TARGETING	=	0x06;
 //	public static final byte 	  	 				=	0x07;
 //	public static final byte 		  			 	=	0x08;
 	public static final byte SET_OFF		  	 	=	0x09;

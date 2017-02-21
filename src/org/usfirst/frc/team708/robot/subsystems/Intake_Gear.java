@@ -35,6 +35,12 @@ public class Intake_Gear extends Subsystem {
 	
 	public boolean hasGear() {
 //		return ((Robot.drivetrain.getIRDistance() > 0) && (Robot.drivetrain.getIRDistance() < Constants.IR_HAS_GEAR_DISTANCE));
+		
+		if (Robot.drivetrain.hasGear())
+			Robot.led1.send_to_led(Constants.SET_HAS_GEAR_TARGETING);
+		else
+			Robot.led1.send_to_led(Constants.SET_ALLIANCE_BLUE);
+		
 		return (Robot.drivetrain.hasGear());
 	}
 	//I believe this stops the motor
@@ -47,6 +53,11 @@ public class Intake_Gear extends Subsystem {
      * Sends data about the subsystem to the Smart Dashboard
      */
     public void sendToDashboard() {
+//		if (Robot.drivetrain.hasGear())
+//			Robot.led1.send_to_led(Constants.SET_HAS_GEAR);
+//		else
+//			Robot.led1.send_to_led(Constants.SET_ALLIANCE_BLUE);
+		
 		if (Constants.DEBUG) {
 			
 		}

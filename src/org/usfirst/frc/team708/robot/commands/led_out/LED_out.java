@@ -37,7 +37,7 @@ static public byte count = 0x00;
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {    	
     	    count++;
-    	    if (count > Constants.MAX_LED_CODE) count = 0x00;
+    	    if (count > Constants.SET_OFF) count = 0x00;
     		Robot.led1.send_to_led(count);
 
 //    		if (count == 0x02) Robot.drivetrain.setGearLight(false);

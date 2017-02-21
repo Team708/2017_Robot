@@ -29,7 +29,6 @@ public class GearAdjust extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	double gearAngle = OI.operatorGamepad.getAxis(Gamepad.leftStick_Y); //Gets Input from operator's controller
-//    	Robot.pivot_gear.moveMotor(gearAngle);
     	if ((gearAngle >0) 
 //    			&& (!Robot.pivot_gear.isFwdSwitch())
     			)
