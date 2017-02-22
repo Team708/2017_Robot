@@ -7,13 +7,11 @@ import org.usfirst.frc.team708.robot.util.Gamepad;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class Intake_Gear_Out extends Command {
+public class Intake_Gear_Off extends Command {
     
-	
-public Intake_Gear_Out() {
+public Intake_Gear_Off() {
 	
 	requires(Robot.intake_gear);
-   	this.setTimeout(.1);
 }
 
 protected void initialize() {
@@ -21,15 +19,13 @@ protected void initialize() {
 }
 
 protected void execute() {
- 
-		Robot.intake_gear.moveMotor(Constants.GEAR_OUT);
+		Robot.intake_gear.stop();
 }
 
 
 protected boolean isFinished() {
 
-	return(isTimedOut());
-//	return(false);
+	return(false);
 }
 
 protected void end() {

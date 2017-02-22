@@ -45,7 +45,7 @@ public class DriveStraightToEncoderDistance extends Command {
     	Robot.drivetrain.resetEncoder();
     	Robot.drivetrain.resetGyro();
 //    	Robot.drivetrain.enable();
-    	Robot.drivetrain.disable();
+//    	Robot.drivetrain.disable(); //JNP disabled
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -66,9 +66,9 @@ public class DriveStraightToEncoderDistance extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.drivetrain.disable();
+//    	Robot.drivetrain.disable();
     	Robot.drivetrain.stop();
-    	Robot.drivetrain.resetEncoder();
+//    	Robot.drivetrain.resetEncoder();
     }
 
     // Called when another command which requires one or more of the same

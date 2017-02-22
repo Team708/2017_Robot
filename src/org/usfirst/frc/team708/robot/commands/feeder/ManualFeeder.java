@@ -15,6 +15,10 @@ public class ManualFeeder extends Command {
 
     public ManualFeeder() {
     	requires(Robot.feeder);
+    	requires(Robot.intake_ball);
+    	requires(Robot.drivetrain);
+    	requires(Robot.shooter);
+
     }
     
 
@@ -24,26 +28,18 @@ public class ManualFeeder extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	
-    	boolean Apressed = OI.operatorGamepad.getButton(Gamepad.button_A);
-    	boolean Xpressed = OI.operatorGamepad.getButton(Gamepad.button_X);
-    	boolean Ypressed = OI.operatorGamepad.getButton(Gamepad.button_Y);
-
-//  feeder_IN_BUTTON 	= Gamepad.button_Y;
-//  feeder_OUT_BUTTON 	= Gamepad.button_A;
-//  feeder_OFF_BUTTON 	= Gamepad.button_X;
-    	
-    	if (Ypressed == true){
-    		Robot.feeder.manualMove(Constants.MOTOR_FORWARD);
-    	}
-    	else
-    	if (Apressed == true){
-    		Robot.feeder.manualMove(Constants.MOTOR_REVERSE);
-    	}
-    	else
-    	if (Xpressed == true){
-    		Robot.feeder.manualMove(Constants.MOTOR_OFF);
-    	}
+  
+		Robot.feeder.manualMove(Constants.FEEDER_MOTOR_FORWARD);
+		Robot.intake_ball.moveMotor(Constants.INTAKE_FORWARD);
+		
+		
+//    	boolean R_Shoulderpressed = OI.operatorGamepad.getButton(Gamepad.button_R_Shoulder);
+//    	
+//    	if (R_Shoulderpressed == true){
+//    		Robot.feeder.manualMove(Constants.MOTOR_FORWARD);
+//    	}
+//    	else
+//    		Robot.feeder.manualMove(Constants.MOTOR_OFF);		
     	
     }
 
@@ -55,6 +51,7 @@ public class ManualFeeder extends Command {
     // Called once after isFinished returns true
     protected void end() {
     	Robot.feeder.stop();
+    	Robot.intake_ball.stop();
     }
 
     // Called when another command which requires one or more of the same

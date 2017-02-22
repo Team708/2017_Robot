@@ -20,6 +20,8 @@ public class HoodAdjust extends Command {
     
     public HoodAdjust() {
     	requires(Robot.shooter);
+    	requires(Robot.feeder);
+    	requires(Robot.drivetrain);
     }
     
 // Called just before this Command runs the first time

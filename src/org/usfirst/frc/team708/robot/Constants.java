@@ -1,5 +1,10 @@
 package org.usfirst.frc.team708.robot;
 
+
+//GEAR Camera is 20.5" from the floor
+//Boiler camera is 33.75"  from the floor
+
+
 public final class Constants {
 
 	/*
@@ -46,13 +51,13 @@ public final class Constants {
 	public static final double SHOOTER_MOTOR_OFF			=  0.0;
 	public static final double SHOOTER_MOTOR_BACKWARD 		=  -1.0;
 	
-	public static final double SHOOTER_MOTOR_SPEED_LOW 		=  2500;
-	public static final double SHOOTER_MOTOR_SPEED_HIGH 	=  3000;
+	public static final double SHOOTER_MOTOR_SPEED_LOW 		=  2000;
+	public static final double SHOOTER_MOTOR_SPEED_HIGH 	=  2500;
 	
 	public static final int 	SHOOTER_ENCODER_PULSES	 	= 12;
 
 	public static final double 	SHOOTER_P 					=  5.00;
-	public static final double 	SHOOTER_I 					=  0.005;
+	public static final double	SHOOTER_I 					=  0.005;
 	public static final double 	SHOOTER_D 					=  10.0;
 	public static final double 	SHOOTER_F 					=  2.6;
 	public static final int 	SHOOTER_IZONE 				=  00;
@@ -93,7 +98,7 @@ public final class Constants {
 	 */
 	public static final double 	TANK_STICK_TOLERANCE 				= .30;
 	public static final double  DRIVETRAIN_WHEEL_DIAMETER 			= 4.0;
-	public static final int 	DRIVETRAIN_ENCODER_PULSES_PER_REV 	= 1024;
+	public static final int 	DRIVETRAIN_ENCODER_PULSES_PER_REV 	= 5704; //encoder 1024 * gear ratio 5.57
 	public static final boolean DRIVE_USE_SQUARED_INPUT 			= false;
 	public static final boolean DRIVETRAIN_USE_LEFT_ENCODER			= true; // variable to determine which side encoder is on
 	public static final double 	PEAK_POS 							= 4.0;

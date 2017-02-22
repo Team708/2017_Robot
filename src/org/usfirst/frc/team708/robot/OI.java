@@ -122,9 +122,9 @@ public class OI {
 		
 //		sonarOverride.whenPressed(new SonarOverride());
 		
-		spinShooter.whileHeld(new SpinShooter());
+		spinShooter.whileHeld(new ManualShoot());
 		spinShooterBack.whileActive(new SpinShooterBack());
-		spinFeeder.whileHeld(new SpinFeeder());
+		spinFeeder.whileHeld(new ManualFeeder());
 		spinFeederBack.whileActive(new SpinFeederBack());
 		
 //		loaderSpin.whenPressed(new LoaderSpin());

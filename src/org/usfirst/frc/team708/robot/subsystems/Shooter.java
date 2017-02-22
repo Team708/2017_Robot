@@ -31,9 +31,9 @@ public class Shooter extends Subsystem {
 	// Put methods for controlling this subsystem here. Call these
 	// from Commands.
 	
-	private CANTalon shooter, shooterSlave;	// Motor Controllers
-	private Servo	 hood;
-	private int	 hoodLocation;
+	private CANTalon 	shooter, shooterSlave;	// Motor Controllers
+	private Servo	 	hood;
+	private int	 		hoodLocation;
 
 	/**
 	 * Constructor
@@ -96,10 +96,10 @@ public class Shooter extends Subsystem {
 
 		if (Constants.DEBUG) {
 			SmartDashboard.putNumber("Servo passed in: ", angle);
-			SmartDashboard.putNumber("Servo Raw", hood.getRaw());
+			SmartDashboard.putNumber("Servo Raw", 	hood.getRaw());
 		}
 		hoodLocation = angle;
-                hood.setRaw(angle);		
+        hood.setRaw(angle);		
 	}
 	
 	public void hoodAdjust(double angle) {
@@ -120,9 +120,9 @@ public class Shooter extends Subsystem {
 	public void sendToDashboard() {
 		if (Constants.DEBUG) {
 		}
-		SmartDashboard.putNumber("Encoder Position", shooter.getEncPosition());
-		SmartDashboard.putNumber("Encoder Speed", shooter.getSpeed());
-		SmartDashboard.putNumber("Encoder Velocity", shooter.getEncVelocity());
+		SmartDashboard.putNumber("Encoder Position", 	shooter.getEncPosition());
+		SmartDashboard.putNumber("Encoder Speed", 		shooter.getSpeed());
+		SmartDashboard.putNumber("Encoder Velocity", 	shooter.getEncVelocity());
 	}
 }
 

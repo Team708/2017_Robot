@@ -85,11 +85,13 @@ public class Robot extends IterativeRobot {
 //    public static Solenoid			boilerLight;    
 
     SendableChooser 	autonomousMode 		= new SendableChooser<>();
-    SendableChooser 	AllianceSelection 	= new SendableChooser<>();
+    SendableChooser 	allianceSelection 	= new SendableChooser<>();
+    
     Command 			autonomousCommand;
+    Command 			allianceCommand;
     Preferences			prefs;
     
-    double             AllianceSelectionDouble;
+    int		            AllianceSelectionInt;
     
     /**
      * This function is run when the robot is first started up and should be
@@ -180,11 +182,13 @@ public class Robot extends IterativeRobot {
 	 */
     	public void autonomousInit() {
     	
-    	AllianceSelectionDouble =  (Double)AllianceSelection.getSelected();
+//    	AllianceSelectionDouble =  (Double)AllianceSelection.getSelected();
 
     	// schedule the autonomous command (example)   		
     	autonomousCommand = (Command)autonomousMode.getSelected();
         if (autonomousCommand != null) autonomousCommand.start();
+        allianceCommand = (Command)allianceSelection.getSelected();
+        if (allianceCommand != null) allianceCommand.start();
     }
 
     /**
@@ -254,22 +258,35 @@ public class Robot extends IterativeRobot {
     }
 	
     private void queueAlliance() {
-    	AllianceSelection.addDefault("RED", new RedAlliance());
-    	AllianceSelection.addObject("BLUE", new BlueAlliance());
+    	allianceSelection.addDefault("RED", new RedAlliance());
+    	allianceSelection.addObject("BLUE", new BlueAlliance());
     	
-    	SmartDashboard.putData("Alliance Color", AllianceSelection);
-    }    /**
+//    	SmartDashboard.putData("Alliance Color", allianceSelection);
+    }   
+	
+	/**
      * Adds every autonomous mode to the selection box and adds the box to the Smart Dashboard
      */
     private void queueAutonomousModes() {
     	
-    	autonomousMode.addObject("Drive Straight for time", new DriveStraightForTime(.5, 3));
+//    	autonomousMode.addObject("Drive Straight for time", new DriveStraightForTime(.5, 3));
     	autonomousMode.addDefault("Do Nothing", new DoNothing());
-//		autonomousMode.addObject("Find Target", new DriveToTarget());
-		autonomousMode.addObject("Drive in Square", new DriveInSquare());
-		autonomousMode.addObject("turn", new turn());
+    	autonomousMode.addObject("Drive Over Line", new driveDistance());
+    	autonomousMode.addObject("One Gear Center", new OneGearCenter());
+    	autonomousMode.addObject("One Gear Left", new OneGearLeft());
+    	autonomousMode.addObject("10 Ball", new TenBalls());
 
-    	SmartDashboard.putData("Autonomous Selection", autonomousMode);    	   	
+
+//		autonomousMode.addObject("Find Target", new DriveToTarget());
+//		autonomousMode.addObject("Drive in Square", new DriveInSquare());
+//		autonomousMode.addObject("turn", new turn());
+
+	   	allianceSelection.addDefault("RED", new RedAlliance());
+    	allianceSelection.addObject("BLUE", new BlueAlliance());
+    	
+    	SmartDashboard.putData("Autonomous Selection", autonomousMode);    	
+    	SmartDashboard.putData("Alliance Color", allianceSelection);    	   	
+
     }
     
     /**

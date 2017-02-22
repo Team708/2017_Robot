@@ -21,7 +21,9 @@ public class MoveHoodLow extends Command {
 
     public MoveHoodLow() {
     	requires(Robot.shooter);
-    }
+    	requires(Robot.feeder);
+    	requires(Robot.drivetrain);
+    	}
     
 // Called just before this Command runs the first time
     protected void initialize() {
