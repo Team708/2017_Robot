@@ -20,15 +20,17 @@ public class ManualShoot extends Command {
 
 
     public ManualShoot() {
-    	requires(Robot.feeder);
-    	requires(Robot.intake_ball);
-    	requires(Robot.drivetrain);
-    	requires(Robot.shooter);
+//    	requires(Robot.feeder);
+//    	requires(Robot.intake_ball);
+//    	requires(Robot.drivetrain);
+//    	requires(Robot.shooter);
     }
     
 // Called just before this Command runs the first time
     protected void initialize() {
-		Robot.shooter.setFgain(Constants.SHOOTER_F);
+		Robot.shooter.manualSpeed(Constants.SHOOTER_MOTOR_SPEED_HIGH);
+
+//		Robot.shooter.setFgain(Constants.SHOOTER_F);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -36,7 +38,7 @@ public class ManualShoot extends Command {
 //    	boolean L_Shoulderpressed = OI.operatorGamepad.getButton(Gamepad.button_L_Shoulder);
     	
 //    	if (L_Shoulderpressed == true){
-    		Robot.shooter.manualSpeed(Constants.SHOOTER_MOTOR_SPEED_HIGH);
+//    		Robot.shooter.manualSpeed(Constants.SHOOTER_MOTOR_SPEED_HIGH);
 //    	}
 //    	else
 //    		Robot.shooter.manualSpeed(Constants.SHOOTER_MOTOR_OFF);		

@@ -28,7 +28,6 @@ public class Pivot_Gear extends Subsystem {
 //		pivotMotor.reverseSensor(true);
 		pivotMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
 		pivotMotor.configEncoderCodesPerRev(Constants.PIVOT_GEAR_ENCODER_COUNT);
-//        pivotMotor.reset();
 	}
 	
 	public void initDefaultCommand() {
@@ -52,15 +51,9 @@ public class Pivot_Gear extends Subsystem {
 		pivotMotor.set(Constants.INTAKE_OFF);	
 	}
 	
-    /**
-     * Sends data about the subsystem to the Smart Dashboard
-     */
     public void sendToDashboard() {
 		if (Constants.DEBUG) {
-//			SmartDashboard.putBoolean("Pivot forward switch", pivotMotor.isFwdLimitSwitchClosed());
-//			SmartDashboard.putBoolean("Pivot reverse switch", pivotMotor.isRevLimitSwitchClosed());
 			SmartDashboard.putNumber("Pivot encoder", pivotMotor.getPosition());
-//			SmartDashboard.putNumber("Pivot encoder", pivotMotor.);
 		}
     }
 }

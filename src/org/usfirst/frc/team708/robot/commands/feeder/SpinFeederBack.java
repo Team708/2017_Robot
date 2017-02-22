@@ -8,27 +8,20 @@ import org.usfirst.frc.team708.robot.util.Gamepad;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-/**
- *
- */
 public class SpinFeederBack extends Command {
 
-
     public SpinFeederBack() {
-    	requires(Robot.feeder);
+//    	requires(Robot.feeder);
     }
     
 
     // Called just before this Command runs the first time
     protected void initialize() {
-
+    	Robot.feeder.manualMove(Constants.FEEDER_MOTOR_REVERSE);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.feeder.manualMove(Constants.FEEDER_MOTOR_REVERSE);
-
-    	
     }
 
     // Make this return true when this Command no longer needs to run execute()

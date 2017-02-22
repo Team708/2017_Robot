@@ -43,16 +43,15 @@ public class LED extends Subsystem {
 		msg[0] = command;
 		led_out.write(msg, 1);
         led_out.flush();
-        
 		}
 	
 	public void sendToDashboard() {
-		SmartDashboard.putNumber("LED code sent", msg[0]);
+		if (Constants.DEBUG) {
+		    SmartDashboard.putNumber("LED code sent", msg[0]);
+		}
 	}
 
     public void initDefaultCommand() {
-		if (Constants.DEBUG) {
-		}    	
     }
 }
 

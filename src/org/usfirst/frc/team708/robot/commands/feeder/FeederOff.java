@@ -8,25 +8,19 @@ import org.usfirst.frc.team708.robot.util.Gamepad;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-/**
- *
- */
 public class FeederOff extends Command {
 
-
     public FeederOff() {
-    	requires(Robot.feeder);
+//    	requires(Robot.feeder);
     }
     
-
     // Called just before this Command runs the first time
     protected void initialize() {
-
+    	Robot.feeder.manualMove(Constants.MOTOR_OFF); 	
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.feeder.manualMove(Constants.MOTOR_OFF); 	
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -39,8 +33,6 @@ public class FeederOff extends Command {
     	Robot.feeder.stop();
     }
 
-    // Called when another command which requires one or more of the same
-    // subsystems are scheduled to run
     protected void interrupted() {
     	end();
     }

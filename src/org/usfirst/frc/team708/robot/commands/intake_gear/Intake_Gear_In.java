@@ -11,8 +11,8 @@ import edu.wpi.first.wpilibj.command.Command;
 public class Intake_Gear_In extends Command {
 
 	public Intake_Gear_In() {	
-		requires(Robot.intake_gear);
-		requires(Robot.pivot_gear);
+//		requires(Robot.intake_gear);
+//		requires(Robot.pivot_gear);
 	}
 
 	protected void initialize() {

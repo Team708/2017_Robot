@@ -24,8 +24,8 @@ import edu.wpi.cscore.AxisCamera;
 
 import org.usfirst.frc.team708.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team708.robot.subsystems.Shooter;
-import org.usfirst.frc.team708.robot.subsystems.Loader;
 import org.usfirst.frc.team708.robot.subsystems.Feeder;
+//import org.usfirst.frc.team708.robot.subsystems.Loader;
 import org.usfirst.frc.team708.robot.subsystems.Intake_Ball;
 import org.usfirst.frc.team708.robot.subsystems.Intake_Gear;
 import org.usfirst.frc.team708.robot.subsystems.Pivot_Gear;
@@ -60,7 +60,7 @@ public class Robot extends IterativeRobot {
     public static Intake_Ball		intake_ball;
     public static Intake_Gear		intake_gear;
     public static Pivot_Gear		pivot_gear;
-    public static Loader	 		loader;
+//    public static Loader	 		loader;
 
     public static Climber			climber;
     
@@ -76,6 +76,7 @@ public class Robot extends IterativeRobot {
     public static DriverStation 			ds;
     public static DriverStation.Alliance 	alliance;
 	public static int 						allianceColor;
+	public static byte						ledAllianceColor;
     
 //    public static Solenoid			pwr0;
 //    public static Solenoid			pwr1;
@@ -112,7 +113,7 @@ public class Robot extends IterativeRobot {
     intake_gear			= new Intake_Gear();
     pivot_gear			= new Pivot_Gear();
     feeder				= new Feeder();
-    loader				= new Loader();
+//    loader				= new Loader();
     led1				= new LED();
     climber				= new Climber();
     visionLift			= new VisionLift();
@@ -159,10 +160,12 @@ public class Robot extends IterativeRobot {
 	             if (ds.getAlliance() == Alliance.Blue){
 	        	    led1.send_to_led(Constants.SET_ALLIANCE_BLUE);
 					allianceColor = Constants.ALLIANCE_BLUE;
+					ledAllianceColor = Constants.SET_ALLIANCE_BLUE;
 				}
     	        else if (ds.getAlliance() == Alliance.Red){
 	            	led1.send_to_led(Constants.SET_ALLIANCE_RED);
 					allianceColor = Constants.ALLIANCE_RED;
+					ledAllianceColor = Constants.SET_ALLIANCE_RED;
     	        }
 	            else {
 	            	led1.send_to_led(Constants.SET_ALLIANCE_INVALID);
@@ -243,7 +246,7 @@ public class Robot extends IterativeRobot {
             // Various debug information
             drivetrain.sendToDashboard();
             feeder.sendToDashboard();
-            loader.sendToDashboard();
+//            loader.sendToDashboard();
             shooter.sendToDashboard();
             led1.sendToDashboard();
             climber.sendToDashboard();
@@ -295,7 +298,7 @@ public class Robot extends IterativeRobot {
     private void sendDashboardSubsystems() {
     	SmartDashboard.putData(shooter);
 //    	SmartDashboard.putData(feeder);
-    	SmartDashboard.putData(loader);
+//    	SmartDashboard.putData(loader);
     	SmartDashboard.putData(drivetrain);
     	SmartDashboard.putData(led1);
     	SmartDashboard.putData(intake_ball);

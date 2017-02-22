@@ -28,14 +28,11 @@ public class Climber extends Subsystem {
 	public Climber() {
 	// Initializes the motor for the Climber
 		climberMotor = new CANTalon (RobotMap.climberMotor);
-		
 	}
 
 	public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
- //       setDefaultCommand(new ManualMoveClimber());
 	}
-	//Sets the motor speed to the variable speed
+
 	public void manualMove(double speed) {
 		climberMotor.set(speed);
 	}

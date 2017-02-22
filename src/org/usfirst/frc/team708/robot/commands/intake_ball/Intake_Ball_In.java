@@ -7,34 +7,26 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class Intake_Ball_In extends Command {
 
-	public Intake_Ball_In() {
-		
-		requires(Robot.intake_ball);
+	public Intake_Ball_In() {		
+//		requires(Robot.intake_ball);
 	}
 
 	protected void initialize() {
-
-	}
-
-	protected void execute() {
-
 		Robot.intake_ball.moveMotor(Constants.INTAKE_FORWARD);
 	}
 
+	protected void execute() {
+	}
 
 	protected boolean isFinished() {
-
 		return(false);
 	}
 
 	protected void end() {
-	
 		Robot.intake_ball.stop();
-	
 	}
 
 	protected void interrupted() {
-
 		end();
 	}
 	

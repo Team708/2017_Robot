@@ -12,19 +12,13 @@ public class ManualIntake_Ball extends Command {
 	 public ManualIntake_Ball() {
 	    }
 	    
-
 	    // Called just before this Command runs the first time
 	    protected void initialize() {
-
 	    }
 
 	    // Called repeatedly when this Command is scheduled to run
-	    protected void execute() {
-	    	
+	    protected void execute() {	
 	    	boolean R_Shoulderpressed = OI.driverGamepad.getButton(Gamepad.button_R_Shoulder);
-
-	//  LOADER_IN_BUTTON 	= Gamepad.Button_R_Shoulder;
-	//  LOADER_OUT_BUTTON 	= Gamepad.shoulderAxisRight;
 	    	
 	    	if (R_Shoulderpressed == true){
 	    		Robot.intake_ball.moveMotor(Constants.INTAKE_FORWARD);

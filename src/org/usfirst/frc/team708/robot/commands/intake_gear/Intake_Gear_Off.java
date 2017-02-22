@@ -9,34 +9,27 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class Intake_Gear_Off extends Command {
     
-public Intake_Gear_Off() {
+	public Intake_Gear_Off() {
+//		requires(Robot.intake_gear);
+	}
 	
-	requires(Robot.intake_gear);
-}
-
-protected void initialize() {
-
-}
-
-protected void execute() {
+	protected void initialize() {
 		Robot.intake_gear.stop();
-}
-
-
-protected boolean isFinished() {
-
-	return(false);
-}
-
-protected void end() {
-
-	Robot.intake_gear.stop();
-
-}
-
-protected void interrupted() {
-
-	end();
-}
+	}
+	
+	protected void execute() {
+	}
+	
+	protected boolean isFinished() {
+		return(false);
+	}
+	
+	protected void end() {
+		Robot.intake_gear.stop();
+	}
+	
+	protected void interrupted() {
+		end();
+	}
 
 }

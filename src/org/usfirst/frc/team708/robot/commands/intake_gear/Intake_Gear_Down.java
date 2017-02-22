@@ -6,8 +6,8 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class Intake_Gear_Down extends Command {
 
-public Intake_Gear_Down() {
-		requires(Robot.pivot_gear);
+	public Intake_Gear_Down() {
+//		requires(Robot.pivot_gear);
 	}
 
 	protected void initialize() {
@@ -20,7 +20,6 @@ public Intake_Gear_Down() {
         	Robot.pivot_gear.stop();
         }
 
-
 	protected boolean isFinished() {
 		return(false);
 	}
@@ -32,7 +31,6 @@ public Intake_Gear_Down() {
 	protected void interrupted() {
 		end();
 	}
-	
 }
 	
 

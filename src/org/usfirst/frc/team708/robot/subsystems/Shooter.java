@@ -24,9 +24,6 @@ import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-/**
- *
- */
 public class Shooter extends Subsystem {
 	// Put methods for controlling this subsystem here. Call these
 	// from Commands.
@@ -72,9 +69,7 @@ public class Shooter extends Subsystem {
     }
 	
 	public void manualSpeed(double speed) {
-//		shooter.changeControlMode(TalonControlMode.Speed);
 		shooter.changeControlMode(TalonControlMode.PercentVbus);
-
 		shooter.set(speed);
 }
 	
@@ -83,21 +78,15 @@ public class Shooter extends Subsystem {
 		shooter.set(rpm);
 }
 	
-	public void setFgain(double F){
+//	public void setFgain(double F){
 //		shooter.setF(F);
-	}
+//	}
 	
 	public void stop(){
-//		shooter.changeControlMode(TalonControlMode.PercentVbus);
 		shooter.set(Constants.MOTOR_OFF);
 }
 	
 	public void moveHood(int angle) {
-
-		if (Constants.DEBUG) {
-			SmartDashboard.putNumber("Servo passed in: ", angle);
-			SmartDashboard.putNumber("Servo Raw", 	hood.getRaw());
-		}
 		hoodLocation = angle;
         hood.setRaw(angle);		
 	}
@@ -108,11 +97,6 @@ public class Shooter extends Subsystem {
 		else if ((angle < 0.0) && (hoodLocation>Constants.HOOD_MIN)) hoodLocation-=Constants.HOOD_CALIBRATION;
 			
 		moveHood(hoodLocation);
-		if (Constants.DEBUG) {
-			SmartDashboard.putNumber("Servo angle",hoodLocation);
-			SmartDashboard.putNumber("Servo joystick value", angle);
-		}
-    	
 	}
 	/**
 	 * Sends data to the Smart Dashboard
@@ -123,6 +107,8 @@ public class Shooter extends Subsystem {
 		SmartDashboard.putNumber("Encoder Position", 	shooter.getEncPosition());
 		SmartDashboard.putNumber("Encoder Speed", 		shooter.getSpeed());
 		SmartDashboard.putNumber("Encoder Velocity", 	shooter.getEncVelocity());
+		SmartDashboard.putNumber("Servo Location", 		hoodLocation);
+
 	}
 }
 

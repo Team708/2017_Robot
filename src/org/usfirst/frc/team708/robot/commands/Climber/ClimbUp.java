@@ -9,21 +9,18 @@ import edu.wpi.first.wpilibj.command.Command;
  **/
 public class ClimbUp extends Command {
 	
-	
 	public ClimbUp(){		
-		requires(Robot.climber); //Gets Climber from IO.Java
+//		requires(Robot.climber); //Gets Climber from IO.Java
 	}
 
 	   // Called just before this Command runs the first time
     protected void initialize() {
+    	Robot.climber.manualMove(Constants.CLIMB_FORWARD); //Defines move speed from the operator's controller
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	
 //    	double moveSpeed = OI.operatorGamepad.getAxis(Gamepad.leftStick_Y); //Gets Input from operator's controller
-    	Robot.climber.manualMove(Constants.CLIMB_FORWARD); //Defines move speed from the operator's controller
-
     }
 
     // Make this return true when this Command no longer needs to run execute()

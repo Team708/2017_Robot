@@ -9,11 +9,12 @@ import edu.wpi.first.wpilibj.command.Command;
     	    }
     	    
     	    protected void initialize() {
+    	    	Robot.allianceColor = Constants.ALLIANCE_RED;  
+    	    	Robot.ledAllianceColor = Constants.SET_ALLIANCE_RED;
+    	    	Robot.led1.send_to_led(Constants.SET_ALLIANCE_RED);
     	    }
 
     	    protected void execute() {    	
-        		Robot.allianceColor = Constants.ALLIANCE_RED;  
-        	    Robot.led1.send_to_led(Constants.SET_ALLIANCE_RED);
     	    }
 
     	    protected boolean isFinished() {

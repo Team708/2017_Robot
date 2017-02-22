@@ -7,40 +7,25 @@ import org.usfirst.frc.team708.robot.util.Gamepad;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-/**
- *
- */
 public class ManualFeeder extends Command {
 
 
     public ManualFeeder() {
-    	requires(Robot.feeder);
-    	requires(Robot.intake_ball);
-    	requires(Robot.drivetrain);
-    	requires(Robot.shooter);
-
+//    	requires(Robot.feeder);
+//    	requires(Robot.intake_ball);
+//    	requires(Robot.drivetrain);
+//    	requires(Robot.shooter);
     }
     
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	Robot.feeder.manualMove(Constants.FEEDER_MOTOR_FORWARD);
+    	Robot.intake_ball.moveMotor(Constants.INTAKE_FORWARD);
     }
 
     // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
-  
-		Robot.feeder.manualMove(Constants.FEEDER_MOTOR_FORWARD);
-		Robot.intake_ball.moveMotor(Constants.INTAKE_FORWARD);
-		
-		
-//    	boolean R_Shoulderpressed = OI.operatorGamepad.getButton(Gamepad.button_R_Shoulder);
-//    	
-//    	if (R_Shoulderpressed == true){
-//    		Robot.feeder.manualMove(Constants.MOTOR_FORWARD);
-//    	}
-//    	else
-//    		Robot.feeder.manualMove(Constants.MOTOR_OFF);		
-    	
+    protected void execute() {    	
     }
 
     // Make this return true when this Command no longer needs to run execute()

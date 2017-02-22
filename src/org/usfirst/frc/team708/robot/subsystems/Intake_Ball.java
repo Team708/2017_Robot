@@ -17,38 +17,27 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Intake_Ball extends Subsystem {
 	
     private CANTalon intakeMotor;
-
-	//I'm trying to link the right motor to the intake code here
+    
 	public Intake_Ball() {
-		
-		intakeMotor = new CANTalon (RobotMap.intakeMotorBall);
-		
+		intakeMotor = new CANTalon (RobotMap.intakeMotorBall);	
 	}
 	
 	public void initDefaultCommand() {
-        
     }
 	
 	//I believe this sets the speed of the motor
 	public void moveMotor(double speed) {
-		
 		intakeMotor.set(speed);
 	}
 	//I believe this stops the motor
 	public void stop(){
-		
 		intakeMotor.set(Constants.INTAKE_OFF);
-		
 	}
-    
-    /**
-     * Sends data about the subsystem to the Smart Dashboard
-     */
-    public void sendToDashboard() {
+
+//Sends data about the subsystem to the Smart Dashboard
+      public void sendToDashboard() {
 		if (Constants.DEBUG) {
 		}
     }
-    
-    
 }
 

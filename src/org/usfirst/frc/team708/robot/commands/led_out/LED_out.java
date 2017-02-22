@@ -27,19 +27,22 @@ public class LED_out extends Command {
 static public byte count = 0x00;
 
     public LED_out() {
-    	requires(Robot.led1);    	
+//    	requires(Robot.led1);    	
     }
     
 // Called just before this Command runs the first time
     protected void initialize() {
-    }
+	    count++;
+	    if (count > Constants.SET_OFF) count = 0x00;
+		Robot.led1.send_to_led(count);
+	}
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {    	
-    	    count++;
-    	    if (count > Constants.SET_OFF) count = 0x00;
-    		Robot.led1.send_to_led(count);
-
+//    	    count++;
+//    	    if (count > Constants.SET_OFF) count = 0x00;
+//    		Robot.led1.send_to_led(count);
+    	
 //    		if (count == 0x02) Robot.drivetrain.setGearLight(false);
 //    		if (count == 0x03) Robot.drivetrain.setBoilerLight(false);
     }

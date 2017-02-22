@@ -34,12 +34,12 @@ public class Drivetrain extends PIDSubsystem {
 	
 
 	private ADXRS450_Gyro gyro;
-	private int count =0;
+	private int count = 0;
 	
 	// Variables specific for drivetrain PID loop
-	private boolean usePID = false;
-	private double moveSpeed = 0.0;
-	private double pidOutput = 0.0;
+	private boolean usePID 		= false;
+	private double moveSpeed 	= 0.0;
+	private double pidOutput 	= 0.0;
 	
 	private CANTalon leftMaster, leftSlave, rightMaster, rightSlave;	// Motor Controllers
 
@@ -54,10 +54,10 @@ public class Drivetrain extends PIDSubsystem {
 //	private IRSensor         	drivetrainIRSensor;			// IR Sensor for <=25inches
 	private UltrasonicSensor 	drivetrainUltrasonicSensor;	// Sonar used for <=21feet
 //	private DigitalInput     	opticalSensor;
-	private DigitalInput		gearSensor;
+//	private DigitalInput		gearSensor;
 	
-	public int sonarOverride 	= 0;	//0 = default, 1 = high, 2 = low; Used for overriding sonar
-	private boolean brake 		= true;	// Whether the talons should be in coast or brake mode
+	public int sonarOverride 	= 0;		//0 = default, 1 = high, 2 = low; Used for overriding sonar
+	private boolean brake 		= true;		// Whether the talons should be in coast or brake mode
 	private boolean nobrake 	= false;	// Whether the talons should be in coast or brake mode
 
     public static Solenoid			pwr0;
@@ -86,36 +86,33 @@ public class Drivetrain extends PIDSubsystem {
 	setupMasterSlave();								// Sets up master and slave
 		
 //	accelerometer 	= new BuiltInAccelerometer();	// Initializes the accelerometer from the roboRIO
+	
 	encoder = new Encoder(RobotMap.drivetrainEncoderARt, RobotMap.drivetrainEncoderBRt, Constants.DRIVETRAIN_USE_LEFT_ENCODER);
 //	encoder = new Encoder(leftMaster.getPinStateQuadA(), leftMaster.getPinStateQuadB(), Constants.DRIVETRAIN_USE_LEFT_ENCODER);
 	
 	encoder2 = new Encoder(RobotMap.drivetrainEncoderALeft, RobotMap.drivetrainEncoderBLeft, !Constants.DRIVETRAIN_USE_LEFT_ENCODER);
 //	encoder2 = new Encoder(rightMaster.getPinStateQuadA(), rightMaster.getPinStateQuadB(), !Constants.DRIVETRAIN_USE_LEFT_ENCODER);
 	
-//													// Initializes the encoder
 	distancePerPulse = (Constants.DRIVETRAIN_WHEEL_DIAMETER * Math.PI) /
 				                                    	(Constants.DRIVETRAIN_ENCODER_PULSES_PER_REV);
+
 	leftMaster.configEncoderCodesPerRev(Constants.DRIVETRAIN_ENCODER_PULSES_PER_REV);
 	rightMaster.configEncoderCodesPerRev(Constants.DRIVETRAIN_ENCODER_PULSES_PER_REV);
 
-											// Sets the distance per pulse of the encoder to read distance properly
-	encoder.setDistancePerPulse(distancePerPulse);
-	encoder.reset();							
-
-//	Resets the encoder so that it starts with a 0.0 value
+	encoder.setDistancePerPulse(distancePerPulse);  // Sets the distance per pulse of the encoder to read distance properly
+	encoder.reset();								//	Resets the encoder so that it starts with a 0.0 value
 
 	encoder2.setDistancePerPulse(distancePerPulse);
-	encoder2.reset();								// Resets the encoder so that it starts with a 0.0 value
+	encoder2.reset();								
 	
 	leftSlave.enableBrakeMode(brake);
 	rightMaster.enableBrakeMode(brake);
 	rightSlave.enableBrakeMode(brake);
 	
-//	drivetrainIRSensor 	= new IRSensor(RobotMap.gearIRSensor, IRSensor.GP2Y0A21YK0F);
-	drivetrainUltrasonicSensor = new UltrasonicSensor(RobotMap.dtSonar, UltrasonicSensor.MB1010);
-//	drivetrainUltrasonicSensor = new UltrasonicSensor(RobotMap.dtSonar, UltrasonicSensor.MB1340);
+//	drivetrainIRSensor 			= new IRSensor(RobotMap.gearIRSensor, IRSensor.GP2Y0A21YK0F);
+	drivetrainUltrasonicSensor 	= new UltrasonicSensor(RobotMap.dtSonar, UltrasonicSensor.MB1010);
 
-    gearSensor = new DigitalInput(RobotMap.gearSensorSwitch);
+//  gearSensor = new DigitalInput(RobotMap.gearSensorSwitch);
     
     pwr0 			= new Solenoid(RobotMap.PWR0);
     pwr1 			= new Solenoid(RobotMap.PWR1);
@@ -128,9 +125,10 @@ public class Drivetrain extends PIDSubsystem {
     pwr1.set(true);
     pwr2.set(true);
     pwr3.set(true);
-    gearLight.set(true);
-    boilerLight.set(true);
-    }
+    
+    setGearLight(true);  
+    setBoilerLight(true); 
+}
     
 
     /**
@@ -227,10 +225,10 @@ public class Drivetrain extends PIDSubsystem {
     	gyro.reset();
     }
     
-    public boolean hasGear() {
-    	return gearSensor.get();
-  
-    }
+//    public boolean hasGear() {
+//    	return gearSensor.get();
+//  
+//    }
     public double rotateByGyro(double targetAngle, double tolerance) {
     	double difference = getAngle() - targetAngle;
  
@@ -396,7 +394,6 @@ public class Drivetrain extends PIDSubsystem {
 //	    	SmartDashboard.putNumber("DT Lft Slave", leftSlave.getTemperature());
     	}
     	SmartDashboard.putNumber("AllianceColor", Robot.allianceColor);
-    	SmartDashboard.putBoolean("has gear", hasGear());
     	SmartDashboard.putNumber("Gyro angle", ( (int)gyro.getAngle()));			// Gyro angle
     	SmartDashboard.putNumber("DT Sonar Distance", getSonarDistance());			// Sonar distance reading
     	SmartDashboard.putNumber("DT Encoder 1 Distance", encoder.getDistance());	// Encoder reading
