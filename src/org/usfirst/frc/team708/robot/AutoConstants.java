@@ -29,14 +29,14 @@ public final class AutoConstants {
 	// Lift Constants (Field)
 	public static final int LIFT_TARGET_HEIGHT 				= 5;
 	public static final int LIFT_TARGET_WIDTH 				= 10;
-	public static final int DISTANCE_TO_LIFT_TARGET 		= 20;	// Distance to stop at to place gear on lift peg
+	public static final int DISTANCE_TO_LIFT_TARGET 		= 12;	// Distance to stop at to place gear on lift peg
 	
 	
 	// Boiler Constants (Field)
 	public static final int BOILER_TARGET_HEIGHT 			= 10;
 	public static final int BOILER_TARGET_WIDTH 			= 14;
-	public static final double DISTANCE_TO_BOILER_LOCATION1 = 0;	// A distance to stop at and shoot for high goal in inches
-	public static final double DISTANCE_TO_BOILER_LOCATION2	= 144;	// A distance to stop at and shoot for high goal in inches (12')
+	public static final double DISTANCE_TO_BOILER_LOCATION1 = 25;	// A distance to stop at and shoot for high goal in inches
+	public static final double DISTANCE_TO_BOILER_LOCATION2	= 108;	// A distance to stop at and shoot for high goal in inches (9')
 	
 	// Gear Constants (Game piece)
 	public static final double DISTANCE_TO_GEAR				= 35;
@@ -55,19 +55,19 @@ public final class AutoConstants {
 	public static final int AXIS_IMG_HEIGHT 				= 240;			// height of the AXIS image - resolution
 	
 	// USB Camera Constants
-	public static final double USB_FOV_DEGREES 				= 75;			// Field of View of the AXIS Camera
+	public static final double USB_FOV_DEGREES 				= 75;			// Field of View of the USB Camera
 	public static final int USB_IMG_WIDTH 					= 320;			// width of the USB image - resolution
 	public static final int USB_IMG_HEIGHT 					= 240;			// height of the USB image - resolution
 	
 	
 	// USB Lift Camera Constants
-	public static final double USB_LIFT_FOV_DEGREES 			= 75;			// Field of View of the AXIS Camera
+	public static final double USB_LIFT_FOV_DEGREES 			= 43.5;			// Field of View of the AXIS Camera
 	public static final int USB_LIFT_IMG_WIDTH 					= 320;			// width of the USB image - resolution
 	public static final int USB_LIFT_IMG_HEIGHT 				= 240;			// height of the USB image - resolution
 
 	
 	// USB Camera Constants
-	public static final double USB_BOILER_FOV_DEGREES 				= 75;			// Field of View of the AXIS Camera
+	public static final double USB_BOILER_FOV_DEGREES 				= 43.5;			// Field of View of the AXIS Camera
 	public static final int USB_BOILER_IMG_WIDTH 					= 320;			// width of the USB image - resolution
 	public static final int USB_BOILER_IMG_HEIGHT 					= 240;			// height of the USB image - resolution
 

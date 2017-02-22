@@ -231,6 +231,7 @@ public class Robot extends IterativeRobot {
 //		autonomousMode.addObject("Find Target", new DriveToTarget());
 		autonomousMode.addObject("Drive in Square", new DriveInSquare());
 		autonomousMode.addObject("turn", new turn());
+		autonomousMode.addObject("driveDistance", new driveDistance());
 		autonomousMode.addObject("Rotate And Drive To Lift", new RotateAndDriveToLift());
 		autonomousMode.addObject("Drive to Boiler Location 1", new RotateAndDriveToBoiler(AutoConstants.DISTANCE_TO_BOILER_LOCATION1));
 		autonomousMode.addObject("Drive to Boiler Location 2", new RotateAndDriveToBoiler(AutoConstants.DISTANCE_TO_BOILER_LOCATION2));
@@ -244,16 +245,16 @@ public class Robot extends IterativeRobot {
     private void sendDashboardSubsystems() {
 //    	SmartDashboard.putData(shooter);
 //    	SmartDashboard.putData(feeder);
-    	SmartDashboard.putData(loader);
+//    	SmartDashboard.putData(loader);
     	SmartDashboard.putData(drivetrain);
-    	SmartDashboard.putData(led1);
-    	SmartDashboard.putData(intake_ball);
-    	SmartDashboard.putData(intake_gear);
-    	SmartDashboard.putData(pivot_gear);
+//    	SmartDashboard.putData(led1);
+//    	SmartDashboard.putData(intake_ball);
+//    	SmartDashboard.putData(intake_gear);
+//    	SmartDashboard.putData(pivot_gear);
 //    	SmartDashboard.putData(visionProcessor);
     	SmartDashboard.putData(visionLift);
     	SmartDashboard.putData(visionBoiler);
 //    	SmartDashboard.putData(visionGear);
-    	SmartDashboard.putData(climber);
+//    	SmartDashboard.putData(climber);
     }
 }
