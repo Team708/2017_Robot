@@ -31,7 +31,7 @@ import org.usfirst.frc.team708.robot.subsystems.Intake_Gear;
 import org.usfirst.frc.team708.robot.subsystems.Pivot_Gear;
 import org.usfirst.frc.team708.robot.subsystems.Climber;
 import org.usfirst.frc.team708.robot.subsystems.VisionLift;
-import org.usfirst.frc.team708.robot.subsystems.VisionGear;
+//import org.usfirst.frc.team708.robot.subsystems.VisionGear;
 import org.usfirst.frc.team708.robot.subsystems.VisionBoiler;
 //import org.usfirst.frc.team708.robot.subsystems.VisionProcessor;
 import org.usfirst.frc.team708.robot.subsystems.LED;
@@ -67,7 +67,7 @@ public class Robot extends IterativeRobot {
 //    public static VisionProcessor 	visionProcessor;
     public static VisionLift 	visionLift;
     public static VisionBoiler 	visionBoiler;
-    public static VisionGear 	visionGear;
+//    public static VisionGear 	visionGear;
 
     public static LED				led1;
     
@@ -118,7 +118,7 @@ public class Robot extends IterativeRobot {
     climber				= new Climber();
     visionLift			= new VisionLift();
     visionBoiler		= new VisionBoiler();
-    visionGear			= new VisionGear();
+//    visionGear			= new VisionGear();
             
     oi 					= new OI();		// Initializes the OI. 
 						// This MUST BE LAST or a NullPointerException will be thrown
@@ -254,8 +254,8 @@ public class Robot extends IterativeRobot {
             intake_gear.sendToDashboard();
             pivot_gear.sendToDashboard();
 //          visionProcessor.sendToDashboard();
-//            visionLift.sendToDashboard();
-//            visionBoiler.sendToDashboard();
+            visionLift.sendToDashboard();
+            visionBoiler.sendToDashboard();
 //            visionGear.sendToDashboard();
         }
     }
@@ -279,6 +279,9 @@ public class Robot extends IterativeRobot {
     	autonomousMode.addObject("One Gear Left", new OneGearLeft());
     	autonomousMode.addObject("10 Ball", new TenBalls());
 
+		autonomousMode.addObject("Rotate And Drive To Lift", new RotateAndDriveToLift());
+		autonomousMode.addObject("Drive to Boiler Location 1", new RotateAndDriveToBoiler(AutoConstants.DISTANCE_TO_BOILER_LOCATION1));
+		autonomousMode.addObject("Drive to Boiler Location 2", new RotateAndDriveToBoiler(AutoConstants.DISTANCE_TO_BOILER_LOCATION2));
 
 //		autonomousMode.addObject("Find Target", new DriveToTarget());
 //		autonomousMode.addObject("Drive in Square", new DriveInSquare());
@@ -305,8 +308,8 @@ public class Robot extends IterativeRobot {
     	SmartDashboard.putData(intake_gear);
     	SmartDashboard.putData(pivot_gear);
 //    	SmartDashboard.putData(visionProcessor);
-//    	SmartDashboard.putData(visionLift);
-//    	SmartDashboard.putData(visionBoiler);
+    	SmartDashboard.putData(visionLift);
+    	SmartDashboard.putData(visionBoiler);
 //    	SmartDashboard.putData(visionGear);
     	SmartDashboard.putData(climber);
     }

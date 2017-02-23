@@ -9,7 +9,6 @@ import org.usfirst.frc.team708.robot.Robot;
 import org.usfirst.frc.team708.robot.commands.visionProcessor.GripPipelineBoiler;
 import org.usfirst.frc.team708.robot.util.Math708;
 
-import edu.wpi.cscore.AxisCamera;
 import edu.wpi.cscore.CvSource;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
@@ -25,63 +24,62 @@ import edu.wpi.first.wpilibj.vision.VisionThread;
 public class VisionBoiler extends Subsystem {
 	
 	// Camera Variables
-	private double fovDegrees = AutoConstants.USB_FOV_DEGREES;			// Field of View of the Camera
-	private double pipelineSize;										// Number of Contours in the Pipline- 0 = target not in view
-	private int imageWidth = AutoConstants.USB_IMG_WIDTH;				// Width of image
-	private int imageHeight = AutoConstants.USB_IMG_HEIGHT;			// Height of image
+	private double fovDegrees = AutoConstants.USB_BOILER_FOV_DEGREES;		// Field of View of the Camera
+	private double bPipelineSize;											// Number of Contours in the Pipline- 0 = target not in view
+	private int bImageWidth = AutoConstants.USB_BOILER_IMG_WIDTH;			// Width of image
+	private int bImageHeight = AutoConstants.USB_BOILER_IMG_HEIGHT;			// Height of image
 	
 	// Image OpenCV Image Processing Variables
-	private VisionThread visionThread;				// vision processing thread - processes grip code
-	private final Object imgLock = new Object();	// vision boiler object
+	private VisionThread visionThreadBoiler;				// vision processing thread - processes grip code
+	private final Object imgLockBoiler = new Object();	// vision boiler object
 
-	private AxisCamera axisCamera;			// Axis Camera
-	private UsbCamera usbCamera;			// USB Camera
-    private CvSource outputStream;			// Output stream to the Dashboard
+	private UsbCamera usbCameraBoiler;			// USB Camera
+    private CvSource outputStreamBoiler;			// Output stream to the Dashboard
 
 	
 	// Targeting variables
-	private int rectX = 0; 		// the 4 values used which define the full rectangle around the target
-	private int rectY = 0;
-	private int rectWidth = 0;
-	private int rectHeight = 0;
+	private int brectX = 0; 		// the 4 values used which define the full rectangle around the target
+	private int brectY = 0;
+	private int brectWidth = 0;
+	private int brectHeight = 0;
 	
-	private int minX = 0;		// the 4 values used to create maximum rectangle around the target (used when evaluating each of the contour images)
-	private int minY = 0;
-	private int maxX = 0;
-	private int maxY = 0;
+	private int bminX = 0;		// the 4 values used to create maximum rectangle around the target (used when evaluating each of the contour images)
+	private int bminY = 0;
+	private int bmaxX = 0;
+	private int bmaxY = 0;
 	
-	private boolean hasTarget		= false;		// flag indicating whether the robot sees the target
-	private boolean isCentered 		= false;		// flag indicating whether the robot sees the center of the target
-	private boolean isAtDistance 	= false;		// flag indicating whether the robot is at the correct distance from the target			
-	private boolean isAtHeight 		= false;		// Determine if the robot is at height (eyy, that's the name of the boolean!)
+	private boolean boilerHasTarget		= false;		// flag indicating whether the robot sees the target
+	private boolean boilerIsCentered 		= false;		// flag indicating whether the robot sees the center of the target
+	private boolean boilerIsAtDistance 	= false;		// flag indicating whether the robot is at the correct distance from the target			
+	private boolean boilerIsAtHeight 		= false;		// Determine if the robot is at height (eyy, that's the name of the boolean!)
 								
-	private int TargetHeight = AutoConstants.BOILER_TARGET_HEIGHT;		//Target height
-	private int TargetWidth = AutoConstants.BOILER_TARGET_WIDTH;		//Target width
+	private int boilerTargetHeight = AutoConstants.BOILER_TARGET_HEIGHT;		//actual height of the boilers tape
+	private int boilerTargetWidth = AutoConstants.BOILER_TARGET_WIDTH;		//actual width of the boilers tape
 	
-	private double trueCenter = imageWidth/2; 									// horizontal value of the center of the target 
+	private double trueCenter = bImageWidth/2; 									// horizontal value of the center of the target 
 
-	private double distanceToStop = AutoConstants.DISTANCE_TO_LIFT_TARGET; 	// distance to stop at in front of lift target
-	private double currentCenter = 0.0; 											// horizontal value of where robot is looking
-	private double currentDistance = 0.0; 									// distance robot is from the target
-	private double stopAtHeight = 0;										// distance to stop at based on height
+	private double boilerDistanceToStop 	= 0.0;		// distance to stop at in front of lift target
+	private double boilerCurrentCenter 	= 0.0; 		// horizontal value of where robot is looking
+	private double boilerCurrentDistance	= 0.0; 		// distance robot is from the target
+	private double boilerStopAtHeight 	= 0.0;		// distance to stop at based on height
+	private double boilerStopAtDistance 	= 0.0;		// distance to stop at based on sonar
 
 	private double thresholdX = AutoConstants.X_THRESHOLD_CENTER;					// threshold for determining center of the target
 	private double thresholdDistance = AutoConstants.DISTANCE_TARGET_THRESHOLD; 	// threshold for determining threshold for stopping at the lift peg
 	private double minThresholdX = AutoConstants.X_THRESHOLD_HAS_TARGET_MIN;	// threshold for determining min value for whether the robot sees the target
 	private double maxThresholdX = AutoConstants.X_THRESHOLD_HAS_TARGET_MAX;	// threshold for determining max value for whether the robot sees the target
-	private double thresholdHeight = AutoConstants.HEIGHT_THRESHOLD;			// threshold for determining the height which the robot will stop at
 	
 	// Sweep Variables
-	private boolean inSweep = false;		// flag indicating whether the robot is sweeping left and right looking for the target
-	private double  sweepDirection = 0.0;	// value indicating the direction of the sweep -1 = right; 1 = left
-	private int sweepCounter = 0;			// value indicating when the sweep will change direction
+	private boolean boilerInSweep = false;		// flag indicating whether the robot is sweeping left and right looking for the target
+	private double  boilerSweepDirection = 0.0;	// value indicating the direction of the sweep -1 = right; 1 = left
+	private int boilerSweepCounter = 0;			// value indicating when the sweep will change direction
 	
 	
 	// drive variables
-	private double RotateDiff = 0;			// for smartdashboard - how far away from center 
-    private double MoveDiff = 0;			// for smartdashboard - how far away from target
-	double rotate;							// speed of the rotate being returned to the command
-	double move; 							// speed of the move forward being returned to the command
+	private double boilerRotateDiff = 0;			// for smartdashboard - how far away from center 
+    private double boilerMoveDiff = 0;			// for smartdashboard - how far away from target
+	double boilerRotate;							// speed of the rotate being returned to the command
+	double boilerMove; 							// speed of the move forward being returned to the command
 
     
 	// Vision Processing 
@@ -90,18 +88,17 @@ public class VisionBoiler extends Subsystem {
 
 
 		// define the Cameras:
-//		usbCamera=CameraServer.getInstance().startAutomaticCapture("cam0", 0);
-//		axisCamera=CameraServer.getInstance().addAxisCamera("cam1", "10.7.8.11");
+		usbCameraBoiler=CameraServer.getInstance().startAutomaticCapture("cam0", 0);
 //		axisCamera.setResolution(imageWidth, imageHeight);
 		
 	   
 	    // define the output stream on the smart dashboard
-		outputStream = CameraServer.getInstance().putVideo("Target", imageWidth, imageHeight);
+		outputStreamBoiler = CameraServer.getInstance().putVideo("Target Boiler", bImageWidth, bImageHeight);
 		
 		
 		// Vision thread which processes the image contours
-	    visionThread = new VisionThread(usbCamera, new GripPipelineBoiler(), pipeline -> {
-	    	pipelineSize = pipeline.filterContoursOutput().size();
+	    visionThreadBoiler = new VisionThread(usbCameraBoiler, new GripPipelineBoiler(), pipeline -> {
+	    	bPipelineSize = pipeline.filterContoursOutput().size();
 	    	
 	    	// if the grip pipeline filter "filterContoursOutput" sees the target
 	    	// loop through each contour image  
@@ -115,24 +112,24 @@ public class VisionBoiler extends Subsystem {
 	        		
 	        		// set the min/max values to match the values form the 1st image
 	        		if (i == 0) {
-	        			minX = r.x;
-	        			minY = r.y;
-	        			maxX = r.x + r.width;
-	        			maxY = r.y + r.height;
+	        			bminX = r.x;
+	        			bminY = r.y;
+	        			bmaxX = r.x + r.width;
+	        			bmaxY = r.y + r.height;
 	        		}
 	        		
 	        		// compare each value to the min/max and replace if a better one is found
-	        		if (r.x < minX) {
-	        			minX = r.x;
+	        		if (r.x < bminX) {
+	        			bminX = r.x;
 	        		}
-	        		if (r.y < minY) {
-	        			minY = r.y;
+	        		if (r.y < bminY) {
+	        			bminY = r.y;
 	        		}
-	        		if (r.x + r.width > maxX) {
-	        			maxX = r.x + r.width;
+	        		if (r.x + r.width > bmaxX) {
+	        			bmaxX = r.x + r.width;
 	        		}
-	        		if (r.y + r.height> maxY) {
-	        			maxY = r.y + r.height;
+	        		if (r.y + r.height> bmaxY) {
+	        			bmaxY = r.y + r.height;
 	        		}	        		
 	        	}
 	        	
@@ -146,14 +143,14 @@ public class VisionBoiler extends Subsystem {
 	        	
 
 	        	
-	            synchronized (imgLock) {
-	                currentCenter = minX + ((maxX - minX) / 2);
+	            synchronized (imgLockBoiler) {
+	                boilerCurrentCenter = bminX + ((bmaxX - bminX) / 2);
 	                
 		             // set values for the smartdashboard
-		             rectX = minX;
-		             rectY = minY;
-		             rectWidth = maxX - minX;
-		             rectHeight = maxY - minY;
+		             brectX = bminX;
+		             brectY = bminY;
+		             brectWidth = bmaxX - bminX;
+		             brectHeight = bmaxY - bminY;
 	
 		             // note - this formula was pulled from 1640's github code - need to find the specific reference
 			         // from 1640
@@ -161,12 +158,12 @@ public class VisionBoiler extends Subsystem {
 			         //   	d = (TARGET_WIDTH*CAMERA_IMAGE_WIDTH)/(2*tan(FOV_ANGLE/2)*w) 
 			         //   	i.e. d and w are inversely related.
 		      //	test the fovDegrees values      
-		             currentDistance = TargetWidth * imageWidth / (2*(Math.tan(Math.toRadians(fovDegrees))/2)*rectWidth);
+		      //    boilerCurrentDistance = boilerTargetWidth * bImageWidth / (2*(Math.tan(Math.toRadians(fovDegrees))/2)*brectWidth);
 		            
 		            // display the current image on the driver station 
 		             
 		            if (Constants.DEBUG){
-		            	outputStream.putFrame(pipeline.rgbThresholdOutput()); 	               
+		            	outputStreamBoiler.putFrame(pipeline.hsvThresholdOutput()); 	               
 		            }  
 	            }
 	            
@@ -174,46 +171,47 @@ public class VisionBoiler extends Subsystem {
 	        
 	        //  the target is not in the camera (ie, pipeline is empty)
 	        else {
-	        	hasTarget = false;
-	        	minX = 0;
-	        	minY = 0;
-	        	maxX = 0;
-	        	maxY = 0;
+	        	boilerHasTarget = false;
+	        	bminX = 0;
+	        	bminY = 0;
+	        	bmaxX = 0;
+	        	bmaxY = 0;
 	        } 
 	       
 	    });
-	    visionThread.start();
+	    visionThreadBoiler.start();
 	}
 	
 	/*
 	 * GetClosestLocation
 	 * Determine which shooting location is closer to the robot
+	 * Will not use right now
 	 */
-	public double getClosestLocation() {
-		if(Robot.drivetrain.getSonarDistance() >= AutoConstants.DISTANCE_TO_BOILER_LOCATION2/2) {
-			return AutoConstants.DISTANCE_TO_BOILER_LOCATION2;
-		}
-		else {
-			return AutoConstants.DISTANCE_TO_BOILER_LOCATION1;
-		}
-	}
+//	public double getClosestLocation() {
+//		if(Robot.drivetrain.getSonarDistance() >= AutoConstants.DISTANCE_TO_BOILER_LOCATION2/2) {
+//			return AutoConstants.DISTANCE_TO_BOILER_LOCATION2;
+//		}
+//		else {
+//			return AutoConstants.DISTANCE_TO_BOILER_LOCATION1;
+//		}
+//	}
 
 	/*
 	 * ProcessData
 	 * Method to interpret the camera data received above
 	 */
-	public void processData() {
+	public void boilerProcessData() {
 		try {
 			
 			// use the sonar to get the distance from the target (backup plan if camera distance not available)
-//			currentDistance=Robot.drivetrain.getSonarDistance();
+			boilerCurrentDistance = Robot.drivetrain.getSonarDistance();
 		    
 			// if robot sees the target (current X between its min and max)
-			if ((currentCenter > minThresholdX) && (currentCenter < maxThresholdX)) {
-				hasTarget = true;
+			if ((boilerCurrentCenter > minThresholdX) && (boilerCurrentCenter < maxThresholdX)) {
+				boilerHasTarget = true;
 			} 
 			else {
-				hasTarget = false;
+				boilerHasTarget = false;
 			}
 			
 		} catch (TableKeyNotDefinedException e) {
@@ -225,34 +223,34 @@ public class VisionBoiler extends Subsystem {
 	 * isCentered
 	 * Method to determine whether the robot sees the center of the target (within the threshold value)
 	 */
-	public boolean isCentered() {
+	public boolean boilerIsCentered() {
 		
 		// if the robot sees the target 
 		// determine whether the horizontal value the robot sees is within the threshold defining the center of the target
 		// set isCentered according to whether the robot is aligned with the center of the target
-		if (hasTarget) 
+		if (boilerHasTarget) 
 		{
 			
-			double difference = trueCenter - (currentCenter);			
+			double difference = trueCenter - (boilerCurrentCenter);			
 			if (Math.abs(difference) <= thresholdX) {
-				isCentered = true;
+				boilerIsCentered = true;
 			}
 			else if (Math.abs(difference) > thresholdX) {
-				isCentered = false;
+				boilerIsCentered = false;
 			}
-			RotateDiff = difference;
+			boilerRotateDiff = difference;
 		}
 		else{
-			isCentered = false;
+			boilerIsCentered = false;
 		}
-			return isCentered;
+			return boilerIsCentered;
 	}
 	
 	/*
 	 * getRotate
 	 * Method to determine whether the robot is at the center of the target so it can drive towards target
 	 */
-	public double getRotate() {
+	public double boilerGetRotate() {
 		double difference=0;
 		
 		// currently we are only running 1 cycle of the sweep and stopping
@@ -262,26 +260,26 @@ public class VisionBoiler extends Subsystem {
 //		}
 		
 		// if robot sees target and is centered - no need to rotate the robot
-		if (hasTarget && isCentered) 
+		if (boilerHasTarget && boilerIsCentered) 
 		{
-			rotate = 0.0;
+			boilerRotate = 0.0;
 		}
 		
 		// if the robot sees the target but is not centered
 		// check to see whether the robot is within the threshold
 		// rotate based on the math function
-		else if (hasTarget && !isCentered){
-			difference = trueCenter - (currentCenter);
+		else if (boilerHasTarget && !boilerIsCentered){
+			difference = trueCenter - (boilerCurrentCenter);
 
-			rotate = Math708.getSignClippedPercentError(currentCenter, trueCenter, AutoConstants.DRIVE_ROTATE_MIN, AutoConstants.DRIVE_ROTATE_MAX);
+			boilerRotate = Math708.getSignClippedPercentError(boilerCurrentCenter, trueCenter, AutoConstants.DRIVE_ROTATE_MIN, AutoConstants.DRIVE_ROTATE_MAX);
 		
 			
 			if (Math.abs(difference) > thresholdX) {
-				if (currentCenter < trueCenter){
-					rotate = Math.abs(rotate);
+				if (boilerCurrentCenter < trueCenter){
+					boilerRotate = Math.abs(boilerRotate);
 				}
 				else {
-					rotate = Math.abs(rotate) * -1;
+					boilerRotate = Math.abs(boilerRotate) * -1;
 				}
 			}
 		}
@@ -291,33 +289,33 @@ public class VisionBoiler extends Subsystem {
 		// sweep is defined as rotating the robot right, left, right in predefined counts 
 		// if in the sweep the robot does not find the target, it stops after 3 sweeps
 		// otherwise it will jump back into the hasTarget logic identified above
-		else if (!hasTarget){
-			if (Math.abs(sweepDirection) < .1){
-				sweepDirection = AutoConstants.SWEEP_DIRECTION_RIGHT;
-				rotate = -AutoConstants.SWEEP_ROTATE;
+		else if (!boilerHasTarget){
+			if (Math.abs(boilerSweepDirection) < .1){
+				boilerSweepDirection = AutoConstants.SWEEP_DIRECTION_RIGHT;
+				boilerRotate = -AutoConstants.SWEEP_ROTATE;
 			}
-			else if (sweepDirection > AutoConstants.SWEEP1_MIN){
-				if ((sweepCounter >= AutoConstants.SWEEP1_MIN && sweepCounter <= AutoConstants.SWEEP1_MAX)
-				|| (sweepCounter >= AutoConstants.SWEEP3_MIN && sweepCounter <= AutoConstants.SWEEP3_MAX)){
+			else if (boilerSweepDirection > AutoConstants.SWEEP1_MIN){
+				if ((boilerSweepCounter >= AutoConstants.SWEEP1_MIN && boilerSweepCounter <= AutoConstants.SWEEP1_MAX)
+				|| (boilerSweepCounter >= AutoConstants.SWEEP3_MIN && boilerSweepCounter <= AutoConstants.SWEEP3_MAX)){
 				
-					rotate = -AutoConstants.SWEEP_ROTATE;
-					if (sweepCounter== AutoConstants.SWEEP1_MAX || sweepCounter== AutoConstants.SWEEP3_MAX){
-						sweepDirection = AutoConstants.SWEEP_DIRECTION_LEFT;
+					boilerRotate = -AutoConstants.SWEEP_ROTATE;
+					if (boilerSweepCounter== AutoConstants.SWEEP1_MAX || boilerSweepCounter== AutoConstants.SWEEP3_MAX){
+						boilerSweepDirection = AutoConstants.SWEEP_DIRECTION_LEFT;
 					}
 				}
 			}
 			else {
-				if (sweepCounter >= AutoConstants.SWEEP2_MIN && sweepCounter <= AutoConstants.SWEEP2_MAX)
-					rotate = AutoConstants.SWEEP_ROTATE;
-					if (sweepCounter== AutoConstants.SWEEP2_MAX){
-						sweepDirection = AutoConstants.SWEEP_DIRECTION_RIGHT;
+				if (boilerSweepCounter >= AutoConstants.SWEEP2_MIN && boilerSweepCounter <= AutoConstants.SWEEP2_MAX)
+					boilerRotate = AutoConstants.SWEEP_ROTATE;
+					if (boilerSweepCounter== AutoConstants.SWEEP2_MAX){
+						boilerSweepDirection = AutoConstants.SWEEP_DIRECTION_RIGHT;
 				}
 			}
 				
-			sweepCounter++;
+			boilerSweepCounter++;
 		}
-		RotateDiff = difference;
-		return rotate;
+		boilerRotateDiff = difference;
+		return boilerRotate;
 	}
 	
 	/*
@@ -325,149 +323,134 @@ public class VisionBoiler extends Subsystem {
 	 * Method to determine if the robot is close enough to target so it can stop
 	 */
 
-	public double getMove() {
-//VIET - HOW DO WE WANT TO HANDLE MULTIPLE DISTANCES HERE?		
+	public double boilerGetMove() {	
 		// if the robot sees the target
 		// Method to determine whether the robot is at the correct distance to the target so stop
-		if (hasTarget) 
+		if (boilerHasTarget) 
 		{
 			//maxY is used as height of the target
-			double difference = distanceToStop - maxY;			
-			move = Math708.getSignClippedPercentError(maxY, stopAtHeight, AutoConstants.DRIVE_MOVE_MIN, AutoConstants.DRIVE_MOVE_MAX); 
+			double difference = boilerDistanceToStop - bmaxY;			
+			boilerMove = Math708.getSignClippedPercentError(bmaxY, boilerStopAtDistance, AutoConstants.DRIVE_MOVE_MIN, AutoConstants.DRIVE_MOVE_MAX); 
 
 			//Check if target is at correct distance within threshold
 			if (Math.abs(difference) <= thresholdDistance) {
-				move = 0.0;
-				isAtHeight = true;
+				boilerMove = 0.0;
+				boilerIsAtDistance = true;
 			} else {
-				isAtHeight = false;
+				boilerIsAtDistance = false;
 			}
-			MoveDiff = difference;
+			boilerMoveDiff = difference;
 		} else {
- 			move = 0.0;
+ 			boilerMove = 0.0;
 		}
 		
-		return move;
+		return boilerMove;
 	}
+	
+
+
+
+	
+	/**
+	 * GETTERS and PUTTERS to return the private variables
+	 * @return
+	 */
 	
 	/*
 	 * isAtDistance
 	 * Method to determine whether the robot is at the distance from the target based on the threshold value
 	 */
 
-	public boolean isAtDistance() {
-		double difference = getClosestLocation() - Robot.drivetrain.getSonarDistance();			
+	public boolean boilerIsAtDistance() {
+		double difference = boilerStopAtDistance - Robot.drivetrain.getSonarDistance();			
 		//Check if target is at correct level within threshold
 		if (Math.abs(difference) <= thresholdDistance) {
-			isAtDistance = true;
+			boilerIsAtDistance = true;
 		} else {
-			isAtDistance = false;
+			boilerIsAtDistance = false;
 		}
-		return isAtDistance;
+		return boilerIsAtDistance;
 	}
-
-	//VIET - UPDATE THIS METHOD TO RETURN WHETHER IT IS AT ANY OF THE SHOOTING DISTANCES FROM THE BOILER
-//	public boolean isAtDistance() {
-//		double difference = distanceToStop - currentDistance;			
-//		//Check if target is at correct level within threshold
-//		if (Math.abs(difference) <= thresholdDistance) {
-//			isAtDistance = true;
-//		} else {
-//			isAtDistance = false;
-//		}
-//		return isAtDistance;
-//	}
-
 	
 	/*
 	 * isAtHeight
 	 * Method to determine whether the robot is at the distance from the target based on the threshold value
 	 */
 // VIET update this
-	public boolean isAtHeight() {
-		double difference = stopAtHeight - maxY;			
-		//Check if target is at correct level within threshold
-		if (Math.abs(difference) <= thresholdHeight) {
-			isAtHeight = true;
-		} else {
-			isAtHeight = false;
-		}
-		return isAtHeight;
-	}
+//	public boolean isAtHeight() {
+//		double difference = stopAtHeight - maxY;			
+//		//Check if target is at correct level within threshold
+//		if (Math.abs(difference) <= thresholdHeight) {
+//			isAtHeight = true;
+//		} else {
+//			isAtHeight = false;
+//		}
+//		return isAtHeight;
+//	}
 	
-	/**
-	 * GETTERS and PUTTERS to return the private variables
-	 * @return
-	 */
-	public boolean isHasTarget() {
-		return hasTarget;
+	public boolean boilerIsHasTarget() {
+		return boilerHasTarget;
 	}
 	
 	
-	public void putCurrentCenter(double cc) {
-		currentCenter = cc;
+	public void putBoilerCurrentCenter(double cc) {
+		boilerCurrentCenter = cc;
 	}
 	
 	
-	public void putHasTarget(boolean ht) {
-		hasTarget = ht;
-	}
-
-	public void putStopAtHeight(double sah) {
-		stopAtHeight = sah;
+	public void putBoilerHasTarget(boolean ht) {
+		boilerHasTarget = ht;
 	}
 	
-	public double getStopAtHeight() {
-		return stopAtHeight;
+	public int getBoilerCounter() {
+		return boilerSweepCounter;
 	}
 	
-	public int getCounter() {
-		return sweepCounter;
+	public void putBoilerCounter(int ct) {
+		boilerSweepCounter = ct;
 	}
 	
-	
-	public void putCounter(int ct) {
-		sweepCounter = ct;
+	public void putBoilerIsCentered(boolean ic) {
+		boilerIsCentered = ic;
 	}
 	
-	public void putIsCentered(boolean ic) {
-		isCentered = ic;
+	public void putBoilerStopAtDistance (double sad) {
+		boilerStopAtDistance = sad;
+		// :(
 	}
 	
-	
-	public void putAtDistance(boolean ad) {
-		isAtDistance = ad;
+	public void putBoilerAtDistance(boolean ad) {
+		boilerIsAtDistance = ad;
 	}
 	
-	public boolean isInSweep() {
-		if (hasTarget) {
-			inSweep = false;
-			sweepCounter=1;
+	public boolean boilerIsInSweep() {
+		if (boilerHasTarget) {
+			boilerInSweep = false;
+			boilerSweepCounter=1;
 		}
 		else {
-			inSweep = true;
+			boilerInSweep = true;
 		}
-		return inSweep;
+		return boilerInSweep;
 	}
 
 	public void sendToDashboard() {
-		if (Constants.DEBUG) {
-			SmartDashboard.putBoolean("Has Target", isHasTarget());
-			SmartDashboard.putBoolean("Is At Height", isAtHeight());
-			SmartDashboard.putNumber("Current Distance", currentDistance);
-			SmartDashboard.putNumber("Center of Target", currentCenter);
-			SmartDashboard.putNumber("Rotation", rotate);
-			SmartDashboard.putNumber("Rotate Difference", RotateDiff);
-			SmartDashboard.putNumber("Distance Difference", MoveDiff);
-			SmartDashboard.putNumber("Sweep Counter", sweepCounter);
-			SmartDashboard.putNumber("SweepDirection", sweepDirection);
-			SmartDashboard.putBoolean("isCentered", isCentered());
-			SmartDashboard.putNumber("rectX", rectX);
-			SmartDashboard.putNumber("rectY", rectY);
-			SmartDashboard.putNumber("rectWidth", rectWidth);
-			SmartDashboard.putNumber("rectHeight", rectHeight);
-			SmartDashboard.putNumber("Distance To Target", currentDistance);
-			SmartDashboard.putNumber("pipelineSize", pipelineSize);
+		if (Constants.BOILER_DEBUG) {
+			SmartDashboard.putBoolean("b-Has Target", boilerIsHasTarget());
+			SmartDashboard.putNumber("b-Center of Target", boilerCurrentCenter);
+			SmartDashboard.putNumber("b-Rotation", boilerRotate);
+			SmartDashboard.putNumber("b-Rotate Difference", boilerRotateDiff);
+			SmartDashboard.putNumber("b-Distance Difference", boilerMoveDiff);
+			SmartDashboard.putNumber("b-Sweep Counter", boilerSweepCounter);
+			SmartDashboard.putNumber("b-SweepDirection", boilerSweepDirection);
+			SmartDashboard.putBoolean("b-isCentered", boilerIsCentered());
+			SmartDashboard.putNumber("b-rectX", brectX);
+			SmartDashboard.putNumber("b-rectY", brectY);
+			SmartDashboard.putNumber("b-rectWidth", brectWidth);
+			SmartDashboard.putNumber("b-rectHeight", brectHeight);
+			SmartDashboard.putNumber("b-Distance To Target", boilerCurrentDistance);
+			SmartDashboard.putNumber("b-pipelineSize", bPipelineSize);
+			SmartDashboard.putNumber("b-stop at distance", boilerStopAtDistance);
 		}
 	}
 

@@ -29,6 +29,7 @@ public class LED extends Subsystem {
     public static byte[] msg     = new byte[10];
 
     public static String messageback;
+    static public byte count = 0x00;
     
 	public LED() {		
 		
@@ -47,7 +48,7 @@ public class LED extends Subsystem {
 	
 	public void sendToDashboard() {
 		if (Constants.DEBUG) {
-		    SmartDashboard.putNumber("LED code sent", msg[0]);
+		    SmartDashboard.putNumber("LED code sent", count);
 		}
 	}
 

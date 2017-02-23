@@ -22,46 +22,47 @@ import edu.wpi.first.wpilibj.vision.VisionThread;
  *@authors Viet & Sue
  *This subsystem is specific to the 2017 Game FIRST Steamworks Lift Peg
  */
-public class VisionLift extends Subsystem {
-	
+
+public  class VisionLift extends Subsystem {
+
 	// Camera Variables
-	private double fovDegrees = AutoConstants.USB_FOV_DEGREES;			// Field of View of the Camera
-	private double pipelineSize;										// Number of Contours in the Pipline- 0 = target not in view
-	private int imageWidth = AutoConstants.USB_IMG_WIDTH;				// Width of image
-	private int imageHeight = AutoConstants.USB_IMG_HEIGHT;			// Height of image
+	private double fovDegrees = AutoConstants.USB_LIFT_FOV_DEGREES;		// Field of View of the Camera
+	private double liftPipelineSize;									// Number of Contours in the Pipline- 0 = target not in view
+	private int liftImageWidth = AutoConstants.USB_LIFT_IMG_WIDTH;		// Width of image from camera stream
+	private int liftImageHeight = AutoConstants.USB_LIFT_IMG_HEIGHT;	// Height of image from camera stream
 	
 	// Image OpenCV Image Processing Variables
-	private VisionThread visionThread;				// vision processing thread - processes grip code
-	private final Object imgLock = new Object();	// vision Lift object
+	private VisionThread visionThreadLift;				// vision processing thread - processes grip code
+	private final Object imgLockLift = new Object();	// vision Lift object
 
-	private AxisCamera axisCamera;			// Axis Camera
-	private UsbCamera usbCamera;			// USB Camera
-    private CvSource outputStream;			// Output stream to the Dashboard
+//	private AxisCamera axisCamera;			// Axis Camera
+	private UsbCamera usbCameraLift;			// USB Camera
+    private CvSource outputStreamLift;			// Output stream to the Dashboard
 
 	
 	// Targeting variables
-	private int rectX = 0; 		// the 4 values used which define the full rectangle around the target
-	private int rectY = 0;
-	private int rectWidth = 0;
-	private int rectHeight = 0;
+	private int lrectX = 0; 		// the 4 values used which define the full rectangle around the target
+	private int lrectY = 0;
+	private int lrectWidth = 0;
+	private int lrectHeight = 0;
 	
-	private int minX = 0;		// the 4 values used to create maximum rectangle around the target (used when evaluating each of the contour images)
-	private int minY = 0;
-	private int maxX = 0;
-	private int maxY = 0;
+	private int lminX = 0;		// the 4 values used to create maximum rectangle around the target (used when evaluating each of the contour images)
+	private int lminY = 0;
+	private int lmaxX = 0;
+	private int lmaxY = 0;
 	
-	private boolean hasTarget = false;		// flag indicating whether the robot sees the target
-	private boolean isCentered = false;		// flag indicating whether the robot sees the center of the target
-	private boolean isAtDistance = false;	// flag indicating whether the robot is at the correct distance from the target			
+	private boolean liftHasTarget = false;		// flag indicating whether the robot sees the target
+	private boolean liftIsCentered = false;		// flag indicating whether the robot sees the center of the target
+	private boolean liftIsAtDistance = false;	// flag indicating whether the robot is at the correct distance from the target			
 	
 								
-	private int liftTargetHeight = AutoConstants.LIFT_TARGET_HEIGHT;	//Target height
-	private int liftTargetWidth = AutoConstants.LIFT_TARGET_WIDTH;		//Target width
+	private int liftTargetHeight = AutoConstants.LIFT_TARGET_HEIGHT;	//height of actual target reflective tape
+	private int liftTargetWidth = AutoConstants.LIFT_TARGET_WIDTH;		//width of actual target reflective tape
 	
-	private double trueCenter = imageWidth/2; 									// horizontal value of the center of the target 
-	private double distanceToStop = AutoConstants.DISTANCE_TO_LIFT_TARGET; 	// distance to stop at in front of lift target
-	private double currentCenter = 0.0; 											// horizontal value of where robot is looking
-	private double currentDistance = 0.0; 									// distance robot is from the target
+	private double trueCenter = liftImageWidth/2; 									// horizontal value of the center of the camera image  
+	private double liftDistanceToStop = AutoConstants.DISTANCE_TO_LIFT_TARGET; 	// distance to stop at in front of lift target
+	private double liftCurrentCenter = 0.0; 									// horizontal value of where robot is looking
+	private double liftCurrentDistance = 0.0; 									// distance robot is from the target
 
 	private double thresholdX = AutoConstants.X_THRESHOLD_CENTER;					// threshold for determining center of the target
 	private double thresholdDistance = AutoConstants.DISTANCE_TARGET_THRESHOLD; 	// threshold for determining threshold for stopping at the lift peg
@@ -70,67 +71,66 @@ public class VisionLift extends Subsystem {
 
 	
 	// Sweep Variables
-	private boolean inSweep = false;		// flag indicating whether the robot is sweeping left and right looking for the target
-	private double  sweepDirection = 0.0;	// value indicating the direction of the sweep -1 = right; 1 = left
-	private int sweepCounter = 0;			// value indicating when the sweep will change direction
+	private boolean liftInSweep = false;		// flag indicating whether the robot is sweeping left and right looking for the target
+	private double  liftSweepDirection = 0.0;	// value indicating the direction of the sweep -1 = right; 1 = left
+	private int liftSweepCounter = 0;			// value indicating when the sweep will change direction
 	
 	
 	// drive variables
-	private double RotateDiff = 0;			// for smartdashboard - how far away from center 
-    private double MoveDiff = 0;			// for smartdashboard - how far away from target
+	private double liftRotateDiff = 0;			// for smartdashboard - how far away from center 
+    private double liftMoveDiff = 0;			// for smartdashboard - how far away from target
 	double rotate;							// speed of the rotate being returned to the command
 	double move; 							// speed of the move forward being returned to the command
 
-    
 	// Vision Processing 
 	public VisionLift() {
 		super("Vision Processor");
 
 
 		// define the Cameras:
-//		usbCamera=CameraServer.getInstance().startAutomaticCapture("cam1", 0);
+		// on little bot - cam2, 1
+		usbCameraLift=CameraServer.getInstance().startAutomaticCapture("cam1", 1);
 //	 	axisCamera=CameraServer.getInstance().addAxisCamera("cam1", "10.7.8.11");
-//		axisCamera.setResolution(imageWidth, imageHeight);
-		
-	   
+		usbCameraLift.setResolution(liftImageWidth, liftImageHeight);
+
+		   
 	    // define the output stream on the smart dashboard
-		outputStream = CameraServer.getInstance().putVideo("Target", imageWidth, imageHeight);
-		
-		
+		outputStreamLift = CameraServer.getInstance().putVideo("Target", liftImageWidth, liftImageHeight);
+
 		// Vision thread which processes the image contours
-	    visionThread = new VisionThread(usbCamera, new GripPipelineLift(), pipeline -> {
-	    	pipelineSize = pipeline.filterContoursOutput().size();
+	    visionThreadLift = new VisionThread(usbCameraLift, new GripPipelineLift(), lPipeline -> {
+	    	liftPipelineSize = lPipeline.filterContoursOutput().size();
 	    	
 	    	// if the grip pipeline filter "filterContoursOutput" sees the target
 	    	// loop through each contour image  
 	    	// grab the bounding rectangle values of each contour 
 	    	// to create the biggest rectangle around the 2 vertical retroreflective tapes 
 	    	// on either side of the lift peg
-	        if (!pipeline.filterContoursOutput().isEmpty()) {
+	        if (!lPipeline.filterContoursOutput().isEmpty()) {
 	        	
-	        	for (int i = 0; i < pipeline.filterContoursOutput().size(); i++) {
-	        		Rect r = Imgproc.boundingRect(pipeline.filterContoursOutput().get(i));
+	        	for (int i = 0; i < lPipeline.filterContoursOutput().size(); i++) {
+	        		Rect r = Imgproc.boundingRect(lPipeline.filterContoursOutput().get(i));
 	        		
 	        		// set the min/max values to match the values form the 1st image
 	        		if (i == 0) {
-	        			minX = r.x;
-	        			minY = r.y;
-	        			maxX = r.x + r.width;
-	        			maxY = r.y + r.height;
+	        			lminX = r.x;
+	        			lminY = r.y;
+	        			lmaxX = r.x + r.width;
+	        			lmaxY = r.y + r.height;
 	        		}
 	        		
 	        		// compare each value to the min/max and replace if a better one is found
-	        		if (r.x < minX) {
-	        			minX = r.x;
+	        		if (r.x < lminX) {
+	        			lminX = r.x;
 	        		}
-	        		if (r.y < minY) {
-	        			minY = r.y;
+	        		if (r.y < lminY) {
+	        			lminY = r.y;
 	        		}
-	        		if (r.x + r.width > maxX) {
-	        			maxX = r.x + r.width;
+	        		if (r.x + r.width > lmaxX) {
+	        			lmaxX = r.x + r.width;
 	        		}
-	        		if (r.y + r.height> maxY) {
-	        			maxY = r.y + r.height;
+	        		if (r.y + r.height> lmaxY) {
+	        			lmaxY = r.y + r.height;
 	        		}	        		
 	        	}
 	        	
@@ -144,61 +144,62 @@ public class VisionLift extends Subsystem {
 	        	
 
 	        	
-	            synchronized (imgLock) {
-	                currentCenter = minX + ((maxX - minX) / 2);
+	            synchronized (imgLockLift) {
+	                liftCurrentCenter = lminX + ((lmaxX - lminX) / 2);
 	                
 		             // set values for the smartdashboard
-		             rectX = minX;
-		             rectY = minY;
-		             rectWidth = maxX - minX;
-		             rectHeight = maxY - minY;
+		             lrectX = lminX;
+		             lrectY = lminY;
+		             lrectWidth = lmaxX - lminX;
+		             lrectHeight = lmaxY - lminY;
 	
 		             // note - this formula was pulled from 1640's github code - need to find the specific reference
 			         // from 1640
 		             //Equation to determine the distance from a target (d) given the width in pixels of a vision target in the camera image (w): 
 			         //   	d = (TARGET_WIDTH*CAMERA_IMAGE_WIDTH)/(2*tan(FOV_ANGLE/2)*w) 
 			         //   	i.e. d and w are inversely related.
-		             currentDistance = liftTargetWidth * imageWidth / (2*(Math.tan(Math.toRadians(fovDegrees))/2)*rectWidth);
+		             liftCurrentDistance = liftTargetWidth * liftImageWidth / (2*(Math.tan(Math.toRadians(fovDegrees))/2)*lrectWidth);
 		             
 		            // display the current image on the driver station 
 		             
-		            if (Constants.DEBUG){
-		            	outputStream.putFrame(pipeline.hslThresholdOutput()); 	               
-		            }  
+
+		            	outputStreamLift.putFrame(lPipeline.hslThresholdOutput()); 	               
+		            
 	            }
-	            
 	        }
+	            
+
 	        
 	        //  the target is not in the camera (ie, pipeline is empty)
 	        else {
-	        	hasTarget = false;
-	        	minX = 0;
-	        	minY = 0;
-	        	maxX = 0;
-	        	maxY = 0;
+	        	liftHasTarget = false;
+	        	lminX = 0;
+	        	lminY = 0;
+	        	lmaxX = 0;
+	        	lmaxY = 0;
 	        } 
 	       
 	    });
-	    visionThread.start();
-	}
-	
-	
+	    visionThreadLift.start();
+	}	    	
+
+
 	/*
-	 * ProcessData
+	 * liftProcessData
 	 * Method to interpret the camera data received above
 	 */
-	public void processData() {
+	public void liftProcessData() {
 		try {
 			
 			// use the sonar to get the distance from the target (backup plan if camera distance not available)
-//			currentDistance=Robot.drivetrain.getSonarDistance();
-		    
+	//		currentDistance=Robot.drivetrain.getSonarDistance();
+	
 			// if robot sees the target (current X between its min and max)
-			if ((currentCenter > minThresholdX) && (currentCenter < maxThresholdX)) {
-				hasTarget = true;
+			if ((liftCurrentCenter > minThresholdX) && (liftCurrentCenter < maxThresholdX)) {
+				liftHasTarget = true;
 			} 
 			else {
-				hasTarget = false;
+				liftHasTarget = false;
 			}
 			
 		} catch (TableKeyNotDefinedException e) {
@@ -210,44 +211,46 @@ public class VisionLift extends Subsystem {
 	 * isCentered
 	 * Method to determine whether the robot sees the center of the target (within the threshold value)
 	 */
-	public boolean isCentered() {
+	public boolean liftIsCentered() {
 		
 		// if the robot sees the target 
 		// determine whether the horizontal value the robot sees is within the threshold defining the center of the target
 		// set isCentered according to whether the robot is aligned with the center of the target
-		if (hasTarget) 
+		if (liftHasTarget) 
 		{
 			
-			double difference = trueCenter - (currentCenter);			
+			double difference = trueCenter - (liftCurrentCenter);			
 			if (Math.abs(difference) <= thresholdX) {
-				isCentered = true;
+				liftIsCentered = true;
 			}
 			else if (Math.abs(difference) > thresholdX) {
-				isCentered = false;
+				liftIsCentered = false;
 			}
-			RotateDiff = difference;
+			liftRotateDiff = difference;
 		}
 		else{
-			isCentered = false;
+			liftIsCentered = false;
 		}
-			return isCentered;
+	
+			return liftIsCentered;
 	}
+	
 	
 	/*
 	 * getRotate
 	 * Method to determine whether the robot is at the center of the target so it can drive towards target
 	 */
-	public double getRotate() {
+	public double liftGetRotate() {
 		double difference=0;
 		
 		// currently we are only running 1 cycle of the sweep and stopping
 		// if in the future additional sweeps are required, this is where the reset should occur
-//		if (sweepCounter > 400){
-//			sweepCounter = 0;
-//		}
+	//	if (sweepCounter > 400){
+	//		sweepCounter = 0;
+	//	}
 		
 		// if robot sees target and is centered - no need to rotate the robot
-		if (hasTarget && isCentered) 
+		if (liftHasTarget && liftIsCentered) 
 		{
 			rotate = 0.0;
 		}
@@ -255,14 +258,14 @@ public class VisionLift extends Subsystem {
 		// if the robot sees the target but is not centered
 		// check to see whether the robot is within the threshold
 		// rotate based on the math function
-		else if (hasTarget && !isCentered){
-			difference = trueCenter - (currentCenter);
-
-			rotate = Math708.getSignClippedPercentError(currentCenter, trueCenter, AutoConstants.DRIVE_ROTATE_MIN, AutoConstants.DRIVE_ROTATE_MAX);
+		else if (liftHasTarget && !liftIsCentered){
+			difference = trueCenter - (liftCurrentCenter);
+	
+			rotate = Math708.getSignClippedPercentError(liftCurrentCenter, trueCenter, AutoConstants.DRIVE_ROTATE_MIN, AutoConstants.DRIVE_ROTATE_MAX);
 		
 			
 			if (Math.abs(difference) > thresholdX) {
-				if (currentCenter < trueCenter){
+				if (liftCurrentCenter < trueCenter){
 					rotate = Math.abs(rotate);
 				}
 				else {
@@ -276,32 +279,32 @@ public class VisionLift extends Subsystem {
 		// sweep is defined as rotating the robot right, left, right in predefined counts 
 		// if in the sweep the robot does not find the target, it stops after 3 sweeps
 		// otherwise it will jump back into the hasTarget logic identified above
-		else if (!hasTarget){
-			if (Math.abs(sweepDirection) < .1){
-				sweepDirection = AutoConstants.SWEEP_DIRECTION_RIGHT;
+		else if (!liftHasTarget){
+			if (Math.abs(liftSweepDirection) < .1){
+				liftSweepDirection = AutoConstants.SWEEP_DIRECTION_RIGHT;
 				rotate = -AutoConstants.SWEEP_ROTATE;
 			}
-			else if (sweepDirection > AutoConstants.SWEEP1_MIN){
-				if ((sweepCounter >= AutoConstants.SWEEP1_MIN && sweepCounter <= AutoConstants.SWEEP1_MAX)
-				|| (sweepCounter >= AutoConstants.SWEEP3_MIN && sweepCounter <= AutoConstants.SWEEP3_MAX)){
+			else if (liftSweepDirection > AutoConstants.SWEEP1_MIN){
+				if ((liftSweepCounter >= AutoConstants.SWEEP1_MIN && liftSweepCounter <= AutoConstants.SWEEP1_MAX)
+				|| (liftSweepCounter >= AutoConstants.SWEEP3_MIN && liftSweepCounter <= AutoConstants.SWEEP3_MAX)){
 				
 					rotate = -AutoConstants.SWEEP_ROTATE;
-					if (sweepCounter== AutoConstants.SWEEP1_MAX || sweepCounter== AutoConstants.SWEEP3_MAX){
-						sweepDirection = AutoConstants.SWEEP_DIRECTION_LEFT;
+					if (liftSweepCounter== AutoConstants.SWEEP1_MAX || liftSweepCounter== AutoConstants.SWEEP3_MAX){
+						liftSweepDirection = AutoConstants.SWEEP_DIRECTION_LEFT;
 					}
 				}
 			}
 			else {
-				if (sweepCounter >= AutoConstants.SWEEP2_MIN && sweepCounter <= AutoConstants.SWEEP2_MAX)
+				if (liftSweepCounter >= AutoConstants.SWEEP2_MIN && liftSweepCounter <= AutoConstants.SWEEP2_MAX)
 					rotate = AutoConstants.SWEEP_ROTATE;
-					if (sweepCounter== AutoConstants.SWEEP2_MAX){
-						sweepDirection = AutoConstants.SWEEP_DIRECTION_RIGHT;
+					if (liftSweepCounter== AutoConstants.SWEEP2_MAX){
+						liftSweepDirection = AutoConstants.SWEEP_DIRECTION_RIGHT;
 				}
 			}
 				
-			sweepCounter++;
+			liftSweepCounter++;
 		}
-		RotateDiff = difference;
+		liftRotateDiff = difference;
 		return rotate;
 	}
 	
@@ -309,118 +312,114 @@ public class VisionLift extends Subsystem {
 	 * getMove
 	 * Method to determine if the robot is close enough to target so it can stop
 	 */
-
-	public double getMove() {
+	
+	public double liftGetMove() {
 		
 		// if the robot sees the target
 		// Method to determine whether the robot is at the correct distance to the target so stop
-		if (hasTarget) 
+		if (liftHasTarget) 
 		{
-			double difference = distanceToStop - currentDistance;			
-			move = Math708.getSignClippedPercentError(currentDistance, distanceToStop, AutoConstants.DRIVE_MOVE_MIN, AutoConstants.DRIVE_MOVE_MAX); 
-
+			double difference = liftDistanceToStop - liftCurrentDistance;			
+			move = Math708.getSignClippedPercentError(liftCurrentDistance, liftDistanceToStop, AutoConstants.DRIVE_MOVE_MIN, AutoConstants.DRIVE_MOVE_MAX); 
+	
 			//Check if target is at correct distance within threshold
 			if (Math.abs(difference) <= thresholdDistance) {
 				move = 0.0;
-				isAtDistance = true;
+				liftIsAtDistance = true;
 			} else {
-				isAtDistance = false;
+				liftIsAtDistance = false;
 			}
-			MoveDiff = difference;
+			liftMoveDiff = difference;
 		} else {
- 			move = 0.0;
+				move = 0.0;
 		}
 		
 		return move;
-	}
-	/*
-	 * isAtDistance
-	 * Method to determine whether the robot is at the distance from the target based on the threshold value
-	 */
-	public boolean isAtDistance() {
-		double difference = distanceToStop - currentDistance;			
-		//Check if target is at correct level within threshold
-		if (Math.abs(difference) <= thresholdDistance) {
-			isAtDistance = true;
-		} else {
-			isAtDistance = false;
-		}
-		return isAtDistance;
 	}
 	
 	/**
 	 * GETTERS and PUTTERS to return the private variables
 	 * @return
 	 */
-	public boolean isHasTarget() {
-		return hasTarget;
+	
+	
+	public boolean liftIsAtDistance() {
+		double difference = liftDistanceToStop - liftCurrentDistance;			
+		//Check if target is at correct level within threshold
+		if (Math.abs(difference) <= thresholdDistance) {
+			liftIsAtDistance = true;
+		} else {
+			liftIsAtDistance = false;
+		}
+		return liftIsAtDistance;
+	}
+	
+	public boolean liftIsHasTarget() {
+		return liftHasTarget;
+	}
+	
+	public void putLiftHasTarget(boolean ht) {
+		liftHasTarget = ht;
+	}
+	
+	public void putLiftCurrentCenter(double cc) {
+		liftCurrentCenter = cc;
+	}
+	
+	public int getLiftCounter() {
+		return liftSweepCounter;
 	}
 	
 	
-	public void putCurrentCenter(double cc) {
-		currentCenter = cc;
+	public void putLiftCounter(int ct) {
+		liftSweepCounter = ct;
+	}
+	
+	public void putLiftIsCentered(boolean ic) {
+		liftIsCentered = ic;
 	}
 	
 	
-	public void putHasTarget(boolean ht) {
-		hasTarget = ht;
-	}
-
-	
-	public int getCounter() {
-		return sweepCounter;
+	public void putLiftAtDistance(boolean ay) {
+		liftIsAtDistance = ay;
 	}
 	
 	
-	public void putCounter(int ct) {
-		sweepCounter = ct;
-	}
-	
-	public void putIsCentered(boolean ic) {
-		isCentered = ic;
-	}
-	
-	
-	public void putAtDistance(boolean ay) {
-		isAtDistance = ay;
-	}
-	
-	
-	public boolean isInSweep() {
-		if (hasTarget) {
-			inSweep = false;
-			sweepCounter=1;
+	public boolean liftIsInSweep() {
+		if (liftHasTarget) {
+			liftInSweep = false;
+			liftSweepCounter=1;
 		}
 		else {
-			inSweep = true;
+			liftInSweep = true;
 		}
-		return inSweep;
+		return liftInSweep;
 	}
-
+	
 	public void sendToDashboard() {
-		if (Constants.DEBUG) {
-			SmartDashboard.putBoolean("Has Target", isHasTarget());
-			SmartDashboard.putBoolean("Is At Distance", isAtDistance());
-			SmartDashboard.putNumber("Current Distance", currentDistance);
-			SmartDashboard.putNumber("Center of Target", currentCenter);
-			SmartDashboard.putNumber("Rotation", rotate);
-			SmartDashboard.putNumber("Rotate Difference", RotateDiff);
-			SmartDashboard.putNumber("Distance Difference", MoveDiff);
-			SmartDashboard.putNumber("Sweep Counter", sweepCounter);
-			SmartDashboard.putNumber("SweepDirection", sweepDirection);
-			SmartDashboard.putBoolean("isCentered", isCentered());
-			SmartDashboard.putNumber("rectX", rectX);
-			SmartDashboard.putNumber("rectY", rectY);
-			SmartDashboard.putNumber("rectWidth", rectWidth);
-			SmartDashboard.putNumber("rectHeight", rectHeight);
-			SmartDashboard.putNumber("Distance To Target", currentDistance);
-			SmartDashboard.putNumber("pipelineSize", pipelineSize);
+		if (Constants.LIFT_DEBUG) {
+		   
+			SmartDashboard.putBoolean("L-Has Target", liftIsHasTarget());
+			SmartDashboard.putBoolean("L-Is At Distance", liftIsAtDistance());
+			SmartDashboard.putNumber("L-Center of Target", liftCurrentCenter);
+			SmartDashboard.putNumber("L-Rotation", rotate);
+			SmartDashboard.putNumber("L-Rotate Difference", liftRotateDiff);
+			SmartDashboard.putNumber("L-Distance Difference", liftMoveDiff);
+			SmartDashboard.putNumber("L-Sweep Counter", liftSweepCounter);
+			SmartDashboard.putNumber("L-SweepDirection", liftSweepDirection);
+			SmartDashboard.putBoolean("L-isCentered", liftIsCentered());
+			SmartDashboard.putNumber("L-rectX", lrectX);
+			SmartDashboard.putNumber("L-rectY", lrectY);
+			SmartDashboard.putNumber("L-rectWidth", lrectWidth);
+			SmartDashboard.putNumber("L-rectHeight", lrectHeight);
+			SmartDashboard.putNumber("L-Distance To Target", liftCurrentDistance);
+			SmartDashboard.putNumber("L-pipelineSize", liftPipelineSize);
 		}
 	}
-
-    public void initDefaultCommand() {
-		if (Constants.DEBUG) {
+	
+	public void initDefaultCommand() {
+		if (Constants.LIFT_DEBUG) {
 		}    	
-    }
-}
+	}
 
+}

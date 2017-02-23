@@ -24,7 +24,7 @@ public class MoveHoodHigh extends Command {
     
 // Called just before this Command runs the first time
     protected void initialize() {
-   	 Robot.shooter.moveHood(Constants.HOOD_GEAR);  // 2000 is upper bounds
+    	Robot.shooter.moveHood(Constants.HOOD_GEAR);  // 2000 is upper bounds
     }
 
     // Called repeatedly 50 times/sec
@@ -33,11 +33,11 @@ public class MoveHoodHigh extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	return false;
+    	return true;
     }
 
     protected void end() {
-    	Robot.shooter.stop();
+    	//Robot.shooter.stop();
     }
 
     protected void interrupted() {

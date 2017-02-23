@@ -17,7 +17,7 @@ public class MoveHoodLow extends Command {
 
 
     public MoveHoodLow() {
-//    	requires(Robot.shooter);
+//   	requires(Robot.shooter);
 //    	requires(Robot.feeder);
 //    	requires(Robot.drivetrain);
     	}
@@ -33,11 +33,11 @@ public class MoveHoodLow extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	return false;
+    	return true;
     }
 
     protected void end() {
-    	Robot.shooter.stop();
+    	//Robot.shooter.stop();
     }
 
     protected void interrupted() {

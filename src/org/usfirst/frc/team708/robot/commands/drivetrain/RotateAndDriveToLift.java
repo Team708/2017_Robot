@@ -30,39 +30,39 @@ public class RotateAndDriveToLift extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.visionLift.putIsCentered(false);
-    	Robot.visionLift.putHasTarget(false);
-    	Robot.visionLift.putAtDistance(false);
-    	Robot.visionLift.putCounter(0);
-    	Robot.visionLift.putCurrentCenter(0);
+    	Robot.visionLift.putLiftIsCentered(false);
+    	Robot.visionLift.putLiftHasTarget(false);
+    	Robot.visionLift.putLiftAtDistance(false);
+    	Robot.visionLift.putLiftCounter(0);
+    	Robot.visionLift.putLiftCurrentCenter(0);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
 
-    	Robot.visionLift.processData();
-    	rotate = Robot.visionLift.getRotate();  
-    	moveSpeed = Robot.visionLift.getMove();   // was + made -
+    	Robot.visionLift.liftProcessData();
+    	rotate = Robot.visionLift.liftGetRotate();  
+    	moveSpeed = Robot.visionLift.liftGetMove();   
 
  
-    	Robot.drivetrain.haloDrive(moveSpeed, rotate, false);
+    	Robot.drivetrain.haloDrive(-1 * moveSpeed, rotate, false);
 
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	if (Robot.visionLift.getCounter() >= AutoConstants.SWEEP3_MAX){
+    	if (Robot.visionLift.getLiftCounter() >= AutoConstants.SWEEP3_MAX){
     		
     		return true;
     	}
     	//Check if the sonar distance is less then the target Distance, end
 //    	if (Robot.drivetrain.getSonarDistance() < targetDistance  && Robot.visionProcessor.wasCentered()){
 //     	if (Robot.visionProcessor.isAtY() && Robot.visionProcessor.wasCentered()){
-        if (Robot.visionLift.isAtDistance() && Robot.visionLift.isCentered()){
+        if (Robot.visionLift.liftIsAtDistance() && Robot.visionLift.liftIsCentered()){
          		     		return true;
     	}
 //    	else if (Robot.drivetrain.getSonarDistance() < targetDistance && Robot.visionProcessor.isHasTarget()) {
-    	else if (Robot.visionLift.isAtDistance() && Robot.visionLift.isHasTarget()) {
+    	else if (Robot.visionLift.liftIsAtDistance() && Robot.visionLift.liftIsHasTarget()) {
     		return false;
     	}
     	
@@ -73,7 +73,7 @@ public class RotateAndDriveToLift extends Command {
     // Called once after isFinished returns true
     protected void end() {
     	Robot.drivetrain.stop();
-    	Robot.visionLift.putCounter(0);
+    	Robot.visionLift.putLiftCounter(0);
     }
 
     // Called when another command which requires one or more of the same

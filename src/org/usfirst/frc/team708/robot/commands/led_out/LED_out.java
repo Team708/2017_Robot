@@ -24,7 +24,7 @@ import edu.wpi.first.wpilibj.command.WaitCommand;
  */
 public class LED_out extends Command {
 
-static public byte count = 0x00;
+//static public byte count = 0x00;
 
     public LED_out() {
 //    	requires(Robot.led1);    	
@@ -32,9 +32,9 @@ static public byte count = 0x00;
     
 // Called just before this Command runs the first time
     protected void initialize() {
-	    count++;
-	    if (count > Constants.SET_OFF) count = 0x00;
-		Robot.led1.send_to_led(count);
+	    Robot.led1.count++;
+	    if (Robot.led1.count > Constants.SET_OFF) Robot.led1.count = 0x00;
+		Robot.led1.send_to_led(Robot.led1.count);
 	}
 
     // Called repeatedly when this Command is scheduled to run

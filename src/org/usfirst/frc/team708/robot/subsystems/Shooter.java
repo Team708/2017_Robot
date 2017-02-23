@@ -89,6 +89,7 @@ public class Shooter extends Subsystem {
 	public void moveHood(int angle) {
 		hoodLocation = angle;
         hood.setRaw(angle);		
+		SmartDashboard.putNumber("Move Hood", hoodLocation);
 	}
 	
 	public void hoodAdjust(double angle) {
@@ -96,6 +97,7 @@ public class Shooter extends Subsystem {
 		if ((angle > 0.0) && (hoodLocation<Constants.HOOD_MAX)) hoodLocation+=Constants.HOOD_CALIBRATION;
 		else if ((angle < 0.0) && (hoodLocation>Constants.HOOD_MIN)) hoodLocation-=Constants.HOOD_CALIBRATION;
 			
+		SmartDashboard.putNumber("Servo Location", 		hoodLocation);
 		moveHood(hoodLocation);
 	}
 	/**
@@ -107,7 +109,6 @@ public class Shooter extends Subsystem {
 		SmartDashboard.putNumber("Encoder Position", 	shooter.getEncPosition());
 		SmartDashboard.putNumber("Encoder Speed", 		shooter.getSpeed());
 		SmartDashboard.putNumber("Encoder Velocity", 	shooter.getEncVelocity());
-		SmartDashboard.putNumber("Servo Location", 		hoodLocation);
 
 	}
 }

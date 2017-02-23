@@ -49,7 +49,7 @@ public class RobotMap {
 	// Shooter CAN Device ID
 	public static final int feederMotor					= 51;
 		
-	public static final int loaderMotor					= 61;
+//	public static final int loaderMotor					= 61;
 
 	// Digital IO
 	public static final int drivetrainEncoderARt		= 0;

@@ -80,8 +80,10 @@ public final class Constants {
 	 * Smart Dashboard
 	 */
 	public static final double SEND_STATS_INTERVAL	= .5;	// Interval for reporting in seconds
-	public static final boolean DEBUG 		= true;
-	
+	public static final boolean DEBUG 				= true;
+	public static final boolean LIFT_DEBUG 			= true;
+	public static final boolean BOILER_DEBUG 		= true;
+	public static final boolean GEAR_DEBUG 			= false;
 
 	/*
 	 * Sensors
@@ -130,10 +132,5 @@ public final class Constants {
 	
 	public static final int ALLIANCE_RED 	 	=	1;
 	public static final int ALLIANCE_BLUE 	 	=	-1;
-
-	/*
-	 * Vision Processor
-	 */
-	// public static final double ;
 	
 }
