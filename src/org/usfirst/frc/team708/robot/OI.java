@@ -102,6 +102,7 @@ public class OI {
 		
 //	Operator		
 		spinShooter.whileHeld(new ManualShoot());
+		spinShooter.whenReleased(new StopShooter());
 		spinShooterBack.whileActive(new SpinShooterBack());
 
 		spinFeeder.whileHeld(new ManualFeeder());

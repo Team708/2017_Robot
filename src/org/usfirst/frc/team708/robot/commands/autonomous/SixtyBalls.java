@@ -18,14 +18,21 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class TenBalls extends CommandGroup {
+public class SixtyBalls extends CommandGroup {
    
     // Called just before this Command runs the first time
     protected void initialize() {
     }
 	
-    public  TenBalls() {  	
-    	addSequential(new DriveStraightToEncoderDistance(85, .4, false));  //55, .4, false
+    public  SixtyBalls() {  	
+    	addSequential(new DriveStraightToEncoderDistance(125, .4, false));  //55, .4, false
+    	addSequential(new TurnToDegrees(Robot.allianceColor*.6, Robot.allianceColor * 90));
+    	addSequential(new DriveStraightToEncoderDistance(25, .5, true));
+		addSequential(new WaitCommand(4));
+    	addSequential(new DriveStraightToEncoderDistance(25, .5, false));
+    	addSequential(new TurnToDegrees(-Robot.allianceColor*.6, -Robot.allianceColor * 90));
+    	addSequential(new DriveStraightToEncoderDistance(40, .4, true));  //55, .4, false
+
     	addSequential(new TurnToDegrees(Robot.allianceColor*.6, Robot.allianceColor * 45));
  //    	addSequential(new RotateAndDriveToBoiler(10));
 		addSequential(new WaitCommand(4));

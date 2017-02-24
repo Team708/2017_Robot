@@ -272,17 +272,19 @@ public class Robot extends IterativeRobot {
      */
     private void queueAutonomousModes() {
     	
-//    	autonomousMode.addObject("Drive Straight for time", new DriveStraightForTime(.5, 3));
-    	autonomousMode.addDefault("Do Nothing", new DoNothing());
-    	autonomousMode.addObject("Drive Over Line", new driveDistance());
-    	autonomousMode.addObject("One Gear Center", new OneGearCenter());
-    	autonomousMode.addObject("One Gear Left", new OneGearLeft());
-    	autonomousMode.addObject("10 Ball", new TenBalls());
+    	autonomousMode.addDefault("Do Nothing", 		new DoNothing());
+    	autonomousMode.addObject("Drive Over Line", 	new driveDistance());
+    	autonomousMode.addObject("One Gear Center", 	new OneGearCenter());
+    	autonomousMode.addObject("One Gear Open Side", 	new OneGearLeft());
+    	autonomousMode.addObject("10 Ball", 			new TenBalls());
+//    	autonomousMode.addObject("60 Ball", 			new SitxyBalls());
 
 		autonomousMode.addObject("Rotate And Drive To Lift", new RotateAndDriveToLift());
 		autonomousMode.addObject("Drive to Boiler Location 1", new RotateAndDriveToBoiler(AutoConstants.DISTANCE_TO_BOILER_LOCATION1));
 		autonomousMode.addObject("Drive to Boiler Location 2", new RotateAndDriveToBoiler(AutoConstants.DISTANCE_TO_BOILER_LOCATION2));
+//		autonomousMode.addObject("Rotate And Drive To Gear", new RotateAndDriveToGear());
 
+//    	autonomousMode.addObject("Drive Straight for time", new DriveStraightForTime(.5, 3));
 //		autonomousMode.addObject("Find Target", new DriveToTarget());
 //		autonomousMode.addObject("Drive in Square", new DriveInSquare());
 //		autonomousMode.addObject("turn", new turn());

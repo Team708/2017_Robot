@@ -41,7 +41,7 @@ public class DriveToIRDistance extends Command {
     protected void execute() {
 //    	moveSpeed = Robot.drivetrain.moveByIR(targetDistance, minValue, maxValue, tolerance);
 //    	if (targetDistance)
-    	Robot.drivetrain.haloDrive(moveSpeed, 0.0, false);
+//    		Robot.drivetrain.haloDrive(moveSpeed, 0.0, false);
     }
 
     // Make this return true when this Command no longer needs to run execute()

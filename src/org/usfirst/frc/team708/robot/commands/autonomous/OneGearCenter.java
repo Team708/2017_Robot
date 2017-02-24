@@ -14,37 +14,48 @@ import edu.wpi.first.wpilibj.command.WaitCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class OneGearCenter extends CommandGroup {
-
-	
-	private static final double driveStraightSpeed = 0.4;
-	private static final double driveStraightTime = 2;
-	
-	private static final double turnSpeed = -0.4;
-	private static final double turnDegrees = 90;
    
-    // Called just before this Command runs the first time
     protected void initialize() {
 //    	Robot.drivetrain.resetEncoder();
 //    	Robot.drivetrain.resetEncoder2();
 //    	Robot.drivetrain.resetGyro();
-
     }
 	
     public  OneGearCenter() {
 
 //    	addSequential(new WaitCommand(1.0));
     	addSequential(new DriveStraightToEncoderDistance(55, .4, false));
+    	
     	addSequential(new RotateAndDriveToLift());
-
-//    	addSequential(new WaitCommand(4));
-
+    	
     	addSequential(new DriveStraightToEncoderDistance(6, .4, false));
+    	
     	addSequential(new Intake_Gear_Out());
- //   	addSequential(new WaitCommand(.1));
- //   	addSequential(new Intake_Gear_Off());
+    	
     	addSequential(new DriveStraightToEncoderDistance(50, .4, true));
-    	addSequential(new TurnToDegrees(.6, 45));
-    	addSequential(new DriveStraightToEncoderDistance(110, .6, false));
+    	
+ //this is a test replace with 3 gear
+    	addSequential(new TurnToDegrees(Robot.allianceColor*.6, Robot.allianceColor * 45));  //add alliance direction
+    	addSequential(new DriveStraightToEncoderDistance(110, .4, false));
+    	
+// get gear 2
+//    	addSequential(new TurnToDegrees(Robot.allianceColor*.6, Robot.allianceColor * 135));
+//    	ddSequential(new RotateAndDriveToGear());
+//    	addSequential(new TurnToDegrees(-Robot.allianceColor*.6, -Robot.allianceColor * 135));
+//    	addSequential(new DriveStraightToEncoderDistance(40, .4, false));
+//    	addSequential(new RotateAndDriveToLift());
+//    	addSequential(new DriveStraightToEncoderDistance(6, .4, false));
+//    	addSequential(new Intake_Gear_Out());
+//    	addSequential(new DriveStraightToEncoderDistance(50, .4, true));
+// get gear 3
+//    	addSequential(new TurnToDegrees(-Robot.allianceColor*.6, -Robot.allianceColor * 135));
+//    	ddSequential(new RotateAndDriveToGear());
+//    	addSequential(new TurnToDegrees(Robot.allianceColor*.6, Robot.allianceColor * 135));
+//    	addSequential(new DriveStraightToEncoderDistance(40, .4, false));
+//    	addSequential(new RotateAndDriveToLift());
+//    	addSequential(new DriveStraightToEncoderDistance(6, .4, false));
+//    	addSequential(new Intake_Gear_Out());
+//    	addSequential(new DriveStraightToEncoderDistance(50, .4, true));
     }
     
     // Make this return true when this Command no longer needs to run execute()

@@ -192,7 +192,7 @@ public class Drivetrain extends PIDSubsystem {
 	}
 	
 	public void setBoilerLight(boolean on) {
-	   boilerLight.set(on);
+		boilerLight.set(on);
 	}
 	
 	public boolean getUsePID() {
@@ -220,8 +220,8 @@ public class Drivetrain extends PIDSubsystem {
      * Resets the gyro reading
      */
     public void resetGyro() {
-    	count++;
-    	SmartDashboard.putNumber("resetgyro: ", count);
+//    	count++;
+//    	SmartDashboard.putNumber("resetgyro: ", count);
     	gyro.reset();
     }
     
@@ -229,6 +229,7 @@ public class Drivetrain extends PIDSubsystem {
 //    	return gearSensor.get();
 //  
 //    }
+    
     public double rotateByGyro(double targetAngle, double tolerance) {
     	double difference = getAngle() - targetAngle;
  
@@ -385,19 +386,20 @@ public class Drivetrain extends PIDSubsystem {
 //	    	SmartDashboard.putNumber("Gyro Rate", gyro.getRate());			// Gyro rate
 //	    	SmartDashboard.putNumber("PID Output", pidOutput);				// PID Info
 //	    	SmartDashboard.putNumber("DT Encoder Raw", encoder.get());		// Encoder raw count
-	    	SmartDashboard.putBoolean("Brake", brake);						// Brake or Coast
 //	    	SmartDashboard.putNumber("DT IR Distance", getIRDistance());	// IR distance reading
 //	    	
 //	    	SmartDashboard.putNumber("DT Rt Master", rightMaster.getTemperature());
 //	    	SmartDashboard.putNumber("DT Rt Slave", rightSlave.getTemperature());
 //	    	SmartDashboard.putNumber("DT Lft Master", leftMaster.getTemperature());
 //	    	SmartDashboard.putNumber("DT Lft Slave", leftSlave.getTemperature());
+    		SmartDashboard.putBoolean("Brake", brake);						// Brake or Coast
+    		SmartDashboard.putNumber("DT Encoder 1 Distance", encoder.getDistance());	// Encoder reading
+    		SmartDashboard.putNumber("DT Encoder 2 Distance", encoder2.getDistance());	// Encoder reading
     	}
+    	
     	SmartDashboard.putNumber("AllianceColor", Robot.allianceColor);
     	SmartDashboard.putNumber("Gyro angle", ( (int)gyro.getAngle()));			// Gyro angle
     	SmartDashboard.putNumber("DT Sonar Distance", getSonarDistance());			// Sonar distance reading
-    	SmartDashboard.putNumber("DT Encoder 1 Distance", encoder.getDistance());	// Encoder reading
-    	SmartDashboard.putNumber("DT Encoder 2 Distance", encoder2.getDistance());	// Encoder reading
 //    	SmartDashboard.putNumber("Sonar Mode", sonarOverride);		
     }
 }

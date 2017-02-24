@@ -69,9 +69,9 @@ public class DriveStraightToEncoderDistanceOrTime extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.drivetrain.disable();
+//    	Robot.drivetrain.disable();
     	Robot.drivetrain.stop();
-    	Robot.drivetrain.resetEncoder();
+//    	Robot.drivetrain.resetEncoder();
     }
 
     // Called when another command which requires one or more of the same

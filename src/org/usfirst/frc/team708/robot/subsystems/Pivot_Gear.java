@@ -6,6 +6,7 @@ import org.usfirst.frc.team708.robot.RobotMap;
 
 import com.ctre.CANTalon;
 import com.ctre.CANTalon.FeedbackDevice;
+import com.ctre.CANTalon.TalonControlMode;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -27,6 +28,7 @@ public class Pivot_Gear extends Subsystem {
 
 //		pivotMotor.reverseSensor(true);
 		pivotMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+		pivotMotor.changeControlMode(com.ctre.CANTalon.TalonControlMode.Position);
 		pivotMotor.configEncoderCodesPerRev(Constants.PIVOT_GEAR_ENCODER_COUNT);
 	}
 	

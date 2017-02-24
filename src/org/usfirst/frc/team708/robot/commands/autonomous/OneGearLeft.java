@@ -13,37 +13,23 @@ import edu.wpi.first.wpilibj.command.WaitCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class OneGearLeft extends CommandGroup {
-
-	
-	private static final double driveStraightSpeed = 0.4;
-	private static final double driveStraightTime = 2;
-	
-	private static final double turnSpeed = -0.4;
-	private static final double turnDegrees = 90;
    
-    // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.drivetrain.resetEncoder();
-    	Robot.drivetrain.resetEncoder2();
-    	Robot.drivetrain.resetGyro();
-
     }
 	
     public  OneGearLeft() {
 
-    	addSequential(new WaitCommand(1.0));
-    	addSequential(new DriveStraightToEncoderDistance(-70, .4));
-    	addSequential(new TurnToDegrees(-45,-0.4));
+    	addSequential(new DriveStraightToEncoderDistance(70, .4, false));
+
+    	addSequential(new TurnToDegrees(-Robot.allianceColor*45,-Robot.allianceColor*0.6));
 
     	addSequential(new RotateAndDriveToLift());
-    	addSequential(new DriveStraightToEncoderDistance(-6, .2));
-    	addSequential(new Intake_Gear_Out());
-    	addSequential(new WaitCommand(.1));
-    	addSequential(new Intake_Gear_Off());
-    	addSequential(new DriveStraightToEncoderDistance(12, .2));
-    	addSequential(new TurnToDegrees(45, 0.4));
-    	addSequential(new DriveStraightToEncoderDistance(90, .4));
 
+    	addSequential(new DriveStraightToEncoderDistance(6, .4, false));
+
+    	addSequential(new Intake_Gear_Out());
+
+    	addSequential(new DriveStraightToEncoderDistance(12, .4, true));
     }
     
     // Make this return true when this Command no longer needs to run execute()

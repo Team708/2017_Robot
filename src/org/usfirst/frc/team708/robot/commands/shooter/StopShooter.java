@@ -16,30 +16,16 @@ import edu.wpi.first.wpilibj.command.WaitCommand;
 /**
  *
  */
-public class ManualShoot extends Command {
+public class StopShooter extends Command {
 
 
-    public ManualShoot() {
-//    	requires(Robot.feeder);
-//    	requires(Robot.intake_ball);
-//    	requires(Robot.drivetrain);
+    public StopShooter() {
 //    	requires(Robot.shooter);
     }
     
 // Called just before this Command runs the first time
     protected void initialize() {
-    	if (Robot.drivetrain.getSonarDistance() > 60)
-    	{
-    		Robot.shooter.moveHood(Constants.HOOD_GEAR);
-    		Robot.shooter.manualRPM(Constants.SHOOTER_MOTOR_SPEED_HIGH);
-    	}
-    	else
-    	{
-    		Robot.shooter.manualRPM(Constants.SHOOTER_MOTOR_SPEED_LOW);
-    		Robot.shooter.moveHood(Constants.HOOD_BUMBER);
-    	}
-		
-//		Robot.shooter.setFgain(Constants.SHOOTER_F);
+		Robot.shooter.manualSpeed(Constants.SHOOTER_MOTOR_OFF);	
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -48,7 +34,7 @@ public class ManualShoot extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	return false;
+    	return true;
     }
 
     // Called once after isFinished returns true
