@@ -280,12 +280,14 @@ public class Robot extends IterativeRobot {
     	autonomousMode.addObject("10 Ball", new TenBalls());
 
 		autonomousMode.addObject("Rotate And Drive To Lift", new RotateAndDriveToLift());
-		autonomousMode.addObject("Drive to Boiler Location 1", new RotateAndDriveToBoiler(AutoConstants.DISTANCE_TO_BOILER_LOCATION1));
-		autonomousMode.addObject("Drive to Boiler Location 2", new RotateAndDriveToBoiler(AutoConstants.DISTANCE_TO_BOILER_LOCATION2));
 
 //		autonomousMode.addObject("Find Target", new DriveToTarget());
 //		autonomousMode.addObject("Drive in Square", new DriveInSquare());
 //		autonomousMode.addObject("turn", new turn());
+//		autonomousMode.addObject("Drive to Boiler Location 1", new RotateAndDriveToBoiler(25));
+		autonomousMode.addObject("Drive to Boiler Location 2", new RotateAndDriveToBoiler(108));
+
+
 
 	   	allianceSelection.addDefault("RED", new RedAlliance());
     	allianceSelection.addObject("BLUE", new BlueAlliance());

@@ -50,7 +50,8 @@ public class Shooter extends Subsystem {
         shooter.reset();
 		shooter.enable();
 
-		shooter.reverseSensor(true);
+//		shooter.reverseSensor(true); Steve
+		shooter.reverseSensor(false);
     	shooter.setFeedbackDevice(FeedbackDevice.QuadEncoder);    
 //    	shooter.changeControlMode(TalonControlMode.PercentVbus);
     	shooter.changeControlMode(TalonControlMode.Speed);
@@ -69,7 +70,8 @@ public class Shooter extends Subsystem {
     }
 	
 	public void manualSpeed(double speed) {
-		shooter.changeControlMode(TalonControlMode.PercentVbus);
+//		shooter.changeControlMode(TalonControlMode.PercentVbus); Steve
+
 		shooter.set(speed);
 }
 	

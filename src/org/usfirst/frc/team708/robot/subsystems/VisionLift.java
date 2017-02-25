@@ -89,7 +89,7 @@ public  class VisionLift extends Subsystem {
 
 		// define the Cameras:
 		// on little bot - cam2, 1
-		usbCameraLift=CameraServer.getInstance().startAutomaticCapture("cam1", 1);
+		usbCameraLift=CameraServer.getInstance().startAutomaticCapture("cam3", 0);
 //	 	axisCamera=CameraServer.getInstance().addAxisCamera("cam1", "10.7.8.11");
 		usbCameraLift.setResolution(liftImageWidth, liftImageHeight);
 
