@@ -113,7 +113,7 @@ public class Math708 {
      */
     public static double getPercentError(double currentValue, double goalValue)
     {
-    	return (currentValue - goalValue) / goalValue;
+    	return Math.abs(currentValue - goalValue) / goalValue;
     }
     
     /**
@@ -127,20 +127,10 @@ public class Math708 {
      * @return
      */
     public static double getClippedPercentError(double currentValue, double goalValue, double minimumValue, double maximumValue) {
-    	return makeWithin(getPercentError(currentValue, goalValue), minimumValue, maximumValue);
-    }
-    
-    public static double getSignClippedPercentError(double currentValue, double goalValue, double minimumValue, double maximumValue) {
-    	double sign = Math.signum(getPercentError(currentValue, goalValue));
-    	if (sign < 0) {
-    		return makeWithin(getPercentError(currentValue, goalValue), minimumValue * sign, maximumValue * sign);
-    	}
-    	else if (sign > 0) {
-    		return makeWithin(getPercentError(currentValue, goalValue), minimumValue * sign, maximumValue * sign);
-    	}
-    	else {
-    		return 0;
-    	}
+    	double percentError = getPercentError(currentValue, goalValue);
+    	double sign = Math.signum(percentError);
+    	
+    	return sign * makeWithin(Math.abs(getPercentError(currentValue, goalValue)), minimumValue, maximumValue);
     }
     
     public double accelerateToSpeed(double maxSpeed, double accel){

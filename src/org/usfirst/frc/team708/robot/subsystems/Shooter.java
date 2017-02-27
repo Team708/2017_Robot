@@ -31,6 +31,7 @@ public class Shooter extends Subsystem {
 	private CANTalon 	shooter, shooterSlave;	// Motor Controllers
 	private Servo	 	hood;
 	private int	 		hoodLocation;
+	private int			spinSpeed;
 
 	/**
 	 * Constructor
@@ -62,6 +63,7 @@ public class Shooter extends Subsystem {
     	
     	hood = new Servo(RobotMap.hoodAngle);
     	hoodLocation = Constants.HOOD_MIN;
+    	spinSpeed = 0;
 	}
 
 	public void initDefaultCommand() {
@@ -81,6 +83,16 @@ public class Shooter extends Subsystem {
 //	public void setFgain(double F){
 //		shooter.setF(F);
 //	}
+	
+	public void setSpinSpeed(int speed)
+	{
+		spinSpeed = speed;
+	}
+	
+	public int getSpinSpeed()
+	{
+		return(spinSpeed);
+	}
 	
 	public void stop(){
 		shooter.set(Constants.MOTOR_OFF);

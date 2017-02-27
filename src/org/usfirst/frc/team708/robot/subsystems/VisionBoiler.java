@@ -1,6 +1,7 @@
 package org.usfirst.frc.team708.robot.subsystems;
 
 import org.opencv.core.Rect;
+import edu.wpi.cscore.AxisCamera;
 import org.opencv.imgproc.Imgproc;
 import org.usfirst.frc.team708.robot.AutoConstants;
 
@@ -34,6 +35,8 @@ public class VisionBoiler extends Subsystem {
 	private final Object imgLockBoiler = new Object();	// vision boiler object
 
 	private UsbCamera usbCameraBoiler;			// USB Camera
+	private AxisCamera axisCameraBoiler;			// Axis Camera
+
     private CvSource outputStreamBoiler;			// Output stream to the Dashboard
 
 	
@@ -51,21 +54,21 @@ public class VisionBoiler extends Subsystem {
 	private boolean boilerHasTarget		= false;		// flag indicating whether the robot sees the target
 	private boolean boilerIsCentered 		= false;		// flag indicating whether the robot sees the center of the target
 	private boolean boilerIsAtDistance 	= false;		// flag indicating whether the robot is at the correct distance from the target			
-	private boolean boilerIsAtHeight 		= false;		// Determine if the robot is at height (eyy, that's the name of the boolean!)
+//	private boolean boilerIsAtHeight 		= false;		// Determine if the robot is at height (eyy, that's the name of the boolean!)
 								
-	private int boilerTargetHeight = AutoConstants.BOILER_TARGET_HEIGHT;		//actual height of the boilers tape
-	private int boilerTargetWidth = AutoConstants.BOILER_TARGET_WIDTH;		//actual width of the boilers tape
+//	private int boilerTargetHeight = AutoConstants.BOILER_TARGET_HEIGHT;		//actual height of the boilers tape
+//	private int boilerTargetWidth = AutoConstants.BOILER_TARGET_WIDTH;		//actual width of the boilers tape
 	
 	private double trueCenter = bImageWidth/2; 									// horizontal value of the center of the target 
 
-	private double boilerDistanceToStop 	= 0.0;		// distance to stop at in front of lift target
+//	private double boilerDistanceToStop 	= 0.0;		// distance to stop at in front of lift target
 	private double boilerCurrentCenter 	= 0.0; 		// horizontal value of where robot is looking
 	private double boilerCurrentDistance	= 0.0; 		// distance robot is from the target
-	private double boilerStopAtHeight 	= 0.0;		// distance to stop at based on height
+//	private double boilerStopAtHeight 	= 0.0;		// distance to stop at based on height
 	private double boilerStopAtDistance 	= 0.0;		// distance to stop at based on sonar
 
 	private double thresholdX = AutoConstants.X_THRESHOLD_CENTER;					// threshold for determining center of the target
-	private double thresholdDistance = AutoConstants.DISTANCE_TARGET_THRESHOLD; 	// threshold for determining threshold for stopping at the lift peg
+	private double thresholdDistance = AutoConstants.DISTANCE_TARGET_THRESHOLD; 	// threshold for determining threshold for stopping at the target
 	private double minThresholdX = AutoConstants.X_THRESHOLD_HAS_TARGET_MIN;	// threshold for determining min value for whether the robot sees the target
 	private double maxThresholdX = AutoConstants.X_THRESHOLD_HAS_TARGET_MAX;	// threshold for determining max value for whether the robot sees the target
 	
@@ -87,9 +90,11 @@ public class VisionBoiler extends Subsystem {
 		super("Vision Processor");
 
 
-		// define the Cameras:
-		usbCameraBoiler=CameraServer.getInstance().startAutomaticCapture("cam0", 0);
-//		axisCamera.setResolution(imageWidth, imageHeight);
+		// define the Cameras: -- 
+		axisCameraBoiler=CameraServer.getInstance().addAxisCamera(AutoConstants.AXIS_CAMERA_ID, AutoConstants.AXIS_IP_ADDRESS);
+
+//		usbCameraBoiler=CameraServer.getInstance().startAutomaticCapture("cam0", 0);
+		axisCameraBoiler.setResolution(bImageWidth, bImageHeight);
 		
 	   
 	    // define the output stream on the smart dashboard
@@ -97,18 +102,18 @@ public class VisionBoiler extends Subsystem {
 		
 		
 		// Vision thread which processes the image contours
-	    visionThreadBoiler = new VisionThread(usbCameraBoiler, new GripPipelineBoiler(), pipeline -> {
-	    	bPipelineSize = pipeline.filterContoursOutput().size();
+	    visionThreadBoiler = new VisionThread(axisCameraBoiler, new GripPipelineBoiler(), boilerPipeline -> {
+	    	bPipelineSize = boilerPipeline.filterContoursOutput().size();
 	    	
 	    	// if the grip pipeline filter "filterContoursOutput" sees the target
 	    	// loop through each contour image  
 	    	// grab the bounding rectangle values of each contour 
 	    	// to create the biggest rectangle around the 2 vertical retroreflective tapes 
 	    	// on either side of the lift peg
-	        if (!pipeline.filterContoursOutput().isEmpty()) {
+	        if (!boilerPipeline.filterContoursOutput().isEmpty()) {
 	        	
-	        	for (int i = 0; i < pipeline.filterContoursOutput().size(); i++) {
-	        		Rect r = Imgproc.boundingRect(pipeline.filterContoursOutput().get(i));
+	        	for (int i = 0; i < boilerPipeline.filterContoursOutput().size(); i++) {
+	        		Rect r = Imgproc.boundingRect(boilerPipeline.filterContoursOutput().get(i));
 	        		
 	        		// set the min/max values to match the values form the 1st image
 	        		if (i == 0) {
@@ -163,7 +168,7 @@ public class VisionBoiler extends Subsystem {
 		            // display the current image on the driver station 
 		             
 		            if (Constants.DEBUG){
-		            	outputStreamBoiler.putFrame(pipeline.hsvThresholdOutput()); 	               
+		            	outputStreamBoiler.putFrame(boilerPipeline.hsvThresholdOutput()); 	               
 		            }  
 	            }
 	            
@@ -204,7 +209,10 @@ public class VisionBoiler extends Subsystem {
 		try {
 			
 			// use the sonar to get the distance from the target (backup plan if camera distance not available)
-			boilerCurrentDistance = Robot.drivetrain.getSonarDistance();
+			
+//UPDATE THIS TO FIX DISTANCE
+			boilerCurrentDistance = Robot.drivetrain.getSonarDistance() - 22;
+			putBoilerCurrentDistance(boilerCurrentDistance);
 		    
 			// if robot sees the target (current X between its min and max)
 			if ((boilerCurrentCenter > minThresholdX) && (boilerCurrentCenter < maxThresholdX)) {
@@ -271,8 +279,8 @@ public class VisionBoiler extends Subsystem {
 		else if (boilerHasTarget && !boilerIsCentered){
 			difference = trueCenter - (boilerCurrentCenter);
 
-			boilerRotate = Math708.getSignClippedPercentError(boilerCurrentCenter, trueCenter, AutoConstants.DRIVE_ROTATE_MIN, AutoConstants.DRIVE_ROTATE_MAX);
-		
+			boilerRotate = Math708.getClippedPercentError(boilerCurrentCenter, trueCenter, AutoConstants.DRIVE_ROTATE_MIN, AutoConstants.DRIVE_ROTATE_MAX);
+		    boilerRotate = .3;
 			
 			if (Math.abs(difference) > thresholdX) {
 				if (boilerCurrentCenter < trueCenter){
@@ -315,6 +323,7 @@ public class VisionBoiler extends Subsystem {
 			boilerSweepCounter++;
 		}
 		boilerRotateDiff = difference;
+		
 		return boilerRotate;
 	}
 	
@@ -328,10 +337,17 @@ public class VisionBoiler extends Subsystem {
 		// Method to determine whether the robot is at the correct distance to the target so stop
 		if (boilerHasTarget) 
 		{
+			
 			//maxY is used as height of the target
-			double difference = boilerDistanceToStop - bmaxY;			
-			boilerMove = Math708.getSignClippedPercentError(bmaxY, boilerStopAtDistance, AutoConstants.DRIVE_MOVE_MIN, AutoConstants.DRIVE_MOVE_MAX); 
-
+			double difference = boilerStopAtDistance - boilerCurrentDistance;		
+			
+			boilerMove = Math708.getClippedPercentError(boilerCurrentDistance, boilerStopAtDistance, AutoConstants.DRIVE_MOVE_MIN, AutoConstants.DRIVE_MOVE_MAX); 
+			boilerMove = .3;
+			//if the target distance is farther than the current distance move backwards
+			if(difference >= 0){
+				boilerMove = boilerMove * -1;
+			}
+			
 			//Check if target is at correct distance within threshold
 			if (Math.abs(difference) <= thresholdDistance) {
 				boilerMove = 0.0;
@@ -343,7 +359,7 @@ public class VisionBoiler extends Subsystem {
 		} else {
  			boilerMove = 0.0;
 		}
-		
+
 		return boilerMove;
 	}
 	
@@ -362,7 +378,8 @@ public class VisionBoiler extends Subsystem {
 	 */
 
 	public boolean boilerIsAtDistance() {
-		double difference = boilerStopAtDistance - Robot.drivetrain.getSonarDistance();			
+		double difference = boilerStopAtDistance - getBoilerCurrentDistance();			
+		SmartDashboard.putNumber("difference in IsAtDistance", difference);
 		//Check if target is at correct level within threshold
 		if (Math.abs(difference) <= thresholdDistance) {
 			boilerIsAtDistance = true;
@@ -406,6 +423,10 @@ public class VisionBoiler extends Subsystem {
 		return boilerSweepCounter;
 	}
 	
+	public double getBoilerCurrentDistance() {
+		return boilerCurrentDistance;
+	}
+	
 	public void putBoilerCounter(int ct) {
 		boilerSweepCounter = ct;
 	}
@@ -418,6 +439,12 @@ public class VisionBoiler extends Subsystem {
 		boilerStopAtDistance = sad;
 		// :(
 	}
+	
+	public void putBoilerCurrentDistance (double cd) {
+		boilerCurrentDistance = cd;
+		// :(
+	}
+
 	
 	public void putBoilerAtDistance(boolean ad) {
 		boilerIsAtDistance = ad;
@@ -436,7 +463,9 @@ public class VisionBoiler extends Subsystem {
 
 	public void sendToDashboard() {
 		if (Constants.BOILER_DEBUG) {
+			SmartDashboard.putNumber("b-True Center", trueCenter);
 			SmartDashboard.putBoolean("b-Has Target", boilerIsHasTarget());
+			SmartDashboard.putBoolean("b-IsAtDistance", boilerIsAtDistance());
 			SmartDashboard.putNumber("b-Center of Target", boilerCurrentCenter);
 			SmartDashboard.putNumber("b-Rotation", boilerRotate);
 			SmartDashboard.putNumber("b-Rotate Difference", boilerRotateDiff);
@@ -445,12 +474,14 @@ public class VisionBoiler extends Subsystem {
 			SmartDashboard.putNumber("b-SweepDirection", boilerSweepDirection);
 			SmartDashboard.putBoolean("b-isCentered", boilerIsCentered());
 			SmartDashboard.putNumber("b-rectX", brectX);
+			SmartDashboard.putNumber("b-maxY", bmaxY);
 			SmartDashboard.putNumber("b-rectY", brectY);
 			SmartDashboard.putNumber("b-rectWidth", brectWidth);
 			SmartDashboard.putNumber("b-rectHeight", brectHeight);
 			SmartDashboard.putNumber("b-Distance To Target", boilerCurrentDistance);
 			SmartDashboard.putNumber("b-pipelineSize", bPipelineSize);
 			SmartDashboard.putNumber("b-stop at distance", boilerStopAtDistance);
+
 		}
 	}
 

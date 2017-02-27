@@ -24,7 +24,8 @@ public class MoveHoodHigh extends Command {
     
 // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.shooter.moveHood(Constants.HOOD_GEAR);  // 2000 is upper bounds
+    	Robot.shooter.moveHood(Constants.HOOD_LEVER);  // 2000 is upper bounds
+    	Robot.shooter.setSpinSpeed(Constants.SHOOTER_MOTOR_SPEED_LEVER);
     }
 
     // Called repeatedly 50 times/sec

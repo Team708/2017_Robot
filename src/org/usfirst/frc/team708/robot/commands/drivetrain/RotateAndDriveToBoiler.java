@@ -3,6 +3,7 @@ package org.usfirst.frc.team708.robot.commands.drivetrain;
 import org.usfirst.frc.team708.robot.AutoConstants;
 import org.usfirst.frc.team708.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 
@@ -22,13 +23,16 @@ public class RotateAndDriveToBoiler extends Command {
 // VIET ARE WE STILL USING THE TARGET DISTANCE HERE - I THINK WE ARE ACTUALLY CALCULATING IT IN THE SUBSYSTEM
 // IN THE METHOD ISATDISTANCE
 // BUT WE NEED TO FIGURE OUT HOW WE ARE GOING TO MAKE THIS WORK WITH MULITPLE DISTANCES FOUND
-	public RotateAndDriveToBoiler(double stopAtDistance) {
+	public RotateAndDriveToBoiler(double bstopAtDistance){
+		double test = bstopAtDistance;
+		SmartDashboard.putNumber("STOP-stop at distance", test);
         // Use requires() here to declare subsystem dependencies
         requires(Robot.drivetrain);
         requires(Robot.visionBoiler);
         
         // save the distance
-        Robot.visionBoiler.putBoilerStopAtDistance(stopAtDistance);
+        Robot.visionBoiler.putBoilerStopAtDistance(bstopAtDistance);
+
     }
 
     // Called just before this Command runs the first time

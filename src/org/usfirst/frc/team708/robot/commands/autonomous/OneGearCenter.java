@@ -8,6 +8,7 @@ import org.usfirst.frc.team708.robot.commands.drivetrain.ToggleBrakeMode;
 import org.usfirst.frc.team708.robot.commands.drivetrain.TurnToDegrees;
 import org.usfirst.frc.team708.robot.commands.intake_gear.Intake_Gear_Off;
 import org.usfirst.frc.team708.robot.commands.intake_gear.Intake_Gear_Out;
+//import org.usfirst.frc.team708.robot.commands.intake_gear.AquireGear;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
@@ -40,7 +41,8 @@ public class OneGearCenter extends CommandGroup {
     	
 // get gear 2
 //    	addSequential(new TurnToDegrees(Robot.allianceColor*.6, Robot.allianceColor * 135));
-//    	ddSequential(new RotateAndDriveToGear());
+//    	addSequential(new RotateAndDriveToGear());
+//    	addSequential(new AcquireGear());
 //    	addSequential(new TurnToDegrees(-Robot.allianceColor*.6, -Robot.allianceColor * 135));
 //    	addSequential(new DriveStraightToEncoderDistance(40, .4, false));
 //    	addSequential(new RotateAndDriveToLift());
@@ -50,6 +52,7 @@ public class OneGearCenter extends CommandGroup {
 // get gear 3
 //    	addSequential(new TurnToDegrees(-Robot.allianceColor*.6, -Robot.allianceColor * 135));
 //    	ddSequential(new RotateAndDriveToGear());
+//    	addSequential(new AcquireGear());
 //    	addSequential(new TurnToDegrees(Robot.allianceColor*.6, Robot.allianceColor * 135));
 //    	addSequential(new DriveStraightToEncoderDistance(40, .4, false));
 //    	addSequential(new RotateAndDriveToLift());

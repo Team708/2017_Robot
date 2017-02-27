@@ -24,7 +24,8 @@ public class MoveHoodLow extends Command {
     
 // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.shooter.moveHood(Constants.HOOD_BUMBER);  // 25 is the lower bounds
+    	Robot.shooter.moveHood(Constants.HOOD_BOILER);  // 25 is the lower bounds
+        Robot.shooter.setSpinSpeed(Constants.SHOOTER_MOTOR_SPEED_BOILER);
     }
 
     // Called repeatedly 50 times/sec when this Command is scheduled to run

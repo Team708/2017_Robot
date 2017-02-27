@@ -101,7 +101,7 @@ public class VisionProcessor extends Subsystem {
 		{
 			
 			double difference = centerX - (currentX);
-			rotate = Math708.getSignClippedPercentError(currentX, centerX, 0.3, 0.5);
+			rotate = Math708.getClippedPercentError(currentX, centerX, 0.3, 0.5);
 			
 //			if (Math.abs(difference) <= thresholdX) {
 //				rotate = 0.0;
