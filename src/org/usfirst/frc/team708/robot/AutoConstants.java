@@ -39,7 +39,7 @@ public final class AutoConstants {
 	public static final double DISTANCE_TO_BOILER_LOCATION2	= 108;	// A distance to stop at and shoot for high goal in inches (9')
 	
 	// Gear Constants (Game piece)
-	public static final double DISTANCE_TO_GEAR				= 35;
+	public static final double DISTANCE_TO_GEAR				= 30;
 	public static final int GEAR_TARGET_HEIGHT 				= 4;
 	public static final int GEAR_TARGET_WIDTH 				= 10;
 
@@ -71,4 +71,10 @@ public final class AutoConstants {
 	public static final int USB_BOILER_IMG_WIDTH 					= 320;			// width of the USB image - resolution
 	public static final int USB_BOILER_IMG_HEIGHT 					= 240;			// height of the USB image - resolution
 
+	public static final String AXIS_IP_ADDRESS					= "10.7.8.12";      // lift -practice - 10.7.8.2
+	public static final String AXIS_CAMERA_ID					=  "cam1";			// lift - practice - cam1
+	public static final String USB_CAMERA_ID					=  "cam3";			// boiler - practice - cam3
+	public static final int USB_VIDEO_PORT						=  0;				// boiler - practice - 0
+																					// NOTE IF USING 2 USB - the video ports must be different numbers
+	
 }

@@ -55,6 +55,10 @@ public class Shooter extends Subsystem {
     	shooter.setFeedbackDevice(FeedbackDevice.QuadEncoder);    
 //    	shooter.changeControlMode(TalonControlMode.PercentVbus);
     	shooter.changeControlMode(TalonControlMode.Speed);
+//    	shooter.enableForwardSoftLimit(true);
+//     	shooter.setForwardSoftLimit(10000);
+     	shooter.enableReverseSoftLimit(true);
+     	shooter.setReverseSoftLimit(-1);
 
     	shooter.configNominalOutputVoltage(Constants.NOMINAL_POS, Constants.NOMINAL_NEG);
     	shooter.configPeakOutputVoltage(Constants.SHOOTER_PEAK_POS, Constants.SHOOTER_PEAK_NEG);

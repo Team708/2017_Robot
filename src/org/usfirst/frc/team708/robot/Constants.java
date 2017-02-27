@@ -51,8 +51,8 @@ public final class Constants {
 	public static final double SHOOTER_MOTOR_OFF			=  0.0;
 	public static final double SHOOTER_MOTOR_BACKWARD 		=  -1.0;
 	
-	public static final double SHOOTER_MOTOR_SPEED_LOW 		=  2400;//2000
-	public static final double SHOOTER_MOTOR_SPEED_HIGH 	=  2400; //2500
+	public static final double SHOOTER_MOTOR_SPEED_LOW 		=  2300;//2300
+	public static final double SHOOTER_MOTOR_SPEED_HIGH 	=  3000; //3000
 	
 	public static final int 	SHOOTER_ENCODER_PULSES	 	= 12;
 
@@ -67,10 +67,10 @@ public final class Constants {
 	public static final double 	SHOOTER_PEAK_POS 			=  12.0;
 	public static final double 	SHOOTER_PEAK_NEG			= -12.0;
 	
-	public static final int		HOOD_MAX 					=  2000;	
+	public static final int		HOOD_MAX 					=  2000;
 	public static final int 	HOOD_MIN 					=  30;
-	public static final int 	HOOD_BUMBER 				=  1795;
-	public static final int 	HOOD_GEAR 					=  1600;
+	public static final int 	HOOD_BUMBER 				=  760;  //1795;
+	public static final int 	HOOD_GEAR 					=  220;  //1600;
 
 	public static final int 	HOOD_CALIBRATION 			=  10;	
 
@@ -83,7 +83,7 @@ public final class Constants {
 	public static final boolean DEBUG 				= true;
 	public static final boolean LIFT_DEBUG 			= true;
 	public static final boolean BOILER_DEBUG 		= true;
-	public static final boolean GEAR_DEBUG 			= false;
+	public static final boolean GEAR_DEBUG 			= true;
 
 	/*
 	 * Sensors
