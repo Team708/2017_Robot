@@ -51,8 +51,8 @@ public final class Constants {
 	public static final double SHOOTER_MOTOR_OFF			=  0.0;
 	public static final double SHOOTER_MOTOR_BACKWARD 		=  -1.0;
 	
-	public static final int SHOOTER_MOTOR_SPEED_BOILER 		=  2300;
-	public static final int SHOOTER_MOTOR_SPEED_LEVER 		=  3000;
+	public static final int SHOOTER_MOTOR_SPEED_BOILER 		=  2100;
+	public static final int SHOOTER_MOTOR_SPEED_LEVER 		=  2800;
 	public static final int SHOOTER_MOTOR_SPEED_MID 		=  2700;
 	public static final int SHOOTER_CLOSE_SHOT			=  40;
 	
@@ -62,9 +62,9 @@ public final class Constants {
 	
 	public static final int 	HOOD_MIN 				=  30;
 	public static final int		HOOD_MAX 				=  2000;	
-	public static final int 	HOOD_BOILER 				=  30;
+	public static final int 	HOOD_BOILER 			=  1110;
 	public static final int 	HOOD_MID	 			=  760;
-	public static final int 	HOOD_LEVER				=  1600;
+	public static final int 	HOOD_LEVER				=  955;
 
 	public static final int 	SHOOTER_ENCODER_PULSES	 	= 12;
 	
