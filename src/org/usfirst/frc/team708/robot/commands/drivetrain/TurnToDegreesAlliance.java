@@ -12,6 +12,7 @@ public class TurnToDegreesAlliance extends Command {
 	
 	private double rotationSpeed;
 	private double goalDegrees;
+	private double localColor;
 
 	/**
 	 * Constructor
@@ -29,14 +30,23 @@ public class TurnToDegreesAlliance extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	Robot.drivetrain.resetGyro();
-    	goalDegrees = goalDegrees * Robot.allianceColor;
+//    	goalDegrees = goalDegrees * SmartDashboard.getInt("AllianceColor");
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	System.out.println("Color = " + SmartDashboard.getInt("AllianceColor"));
-    	System.out.println("GoalDegress = " + goalDegrees);
-//    	SmartDashboard.putNumber("gaolDegress", goalDegrees);
+//    	System.out.println("Color from dashbaord= " + SmartDashboard.getInt("AllianceColor"));
+//    	System.out.println("GoalDegress passed in  = " + goalDegrees);
+//    	System.out.println("local color  = " + localColor);
+//    	System.out.println("robot.allianceColor  = " + Robot.allianceColor);
+    	if (localColor != Robot.allianceColor){
+        	System.out.println("resetting goal degress");
+    		localColor = Robot.allianceColor;
+    		goalDegrees = Math.abs(goalDegrees) * Robot.allianceColor;
+    	}
+    		
+//    	System.out.println("local color after = " + localColor);
+//    	System.out.println("goalDegress after =" + goalDegrees);
     	
     	if (goalDegrees >= 0) {
     		Robot.drivetrain.haloDrive(0.0, -rotationSpeed, false);
@@ -47,10 +57,15 @@ public class TurnToDegreesAlliance extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	if (goalDegrees >= 0) {
+    	if (goalDegrees > 0) {
+    		System.out.println("returning goal degress >=, " + goalDegrees + " return = " + (Robot.drivetrain.getAngle() >= goalDegrees));
     		return (Robot.drivetrain.getAngle() >= goalDegrees);
+    	} else if (goalDegrees < 0){
+    		System.out.println("returning goal degress <=, " + goalDegrees + " return = " + (Robot.drivetrain.getAngle() < goalDegrees));
+    		return (Robot.drivetrain.getAngle() < goalDegrees);
     	} else {
-    		return (Robot.drivetrain.getAngle() <= goalDegrees);
+    		System.out.println("returening goalDegress = 0???");
+    		return false;
     	}
     }
 
