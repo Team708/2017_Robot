@@ -39,8 +39,8 @@ public final class Constants {
  
 	public static final double VISION_ROTATE_MOTOR_SPEED		= 0.8;
 	
-	public static final double FEEDER_MOTOR_FORWARD 		=  1.0;
-	public static final double FEEDER_MOTOR_REVERSE 		= -1.0;
+	public static final double FEEDER_MOTOR_FORWARD 		=  0.8;    //1.0;
+	public static final double FEEDER_MOTOR_REVERSE 		=  -0.8;   //-1.0;
 	public static final double FEEDER_OFF 				=  0.0;	
 	
 	public static final double LOADER_MOTOR_FORWARD 		=  1.0;
@@ -87,7 +87,7 @@ public final class Constants {
 	public static final boolean DEBUG 			= true;
 	public static final boolean LIFT_DEBUG 			= true;
 	public static final boolean BOILER_DEBUG 		= true;
-	public static final boolean GEAR_DEBUG 			= false;
+	public static final boolean GEAR_DEBUG 			= true;
 
 	/*
 	 * Sensors

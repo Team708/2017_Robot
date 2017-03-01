@@ -3,13 +3,13 @@ import org.usfirst.frc.team708.robot.Constants;
 import org.usfirst.frc.team708.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
-    public class BlueAlliance  extends Command {
+    public class GetAlliance  extends Command {
  
-    	public BlueAlliance() {
+    	public GetAlliance() {
     	    }
     	    
     	    protected void initialize() {
-    	    	//Robot.drivetrain.setAlliance(Constants.ALLIANCE_BLUE);
+    	    	Robot.allianceColor = Constants.ALLIANCE_BLUE;
     	    	Robot.ledAllianceColor = Constants.SET_ALLIANCE_BLUE;
     	    	Robot.led1.send_to_led(Constants.SET_ALLIANCE_BLUE);
     	    }

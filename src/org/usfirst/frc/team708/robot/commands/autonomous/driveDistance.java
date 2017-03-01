@@ -28,7 +28,7 @@ public class driveDistance extends CommandGroup {
     public  driveDistance() {
 
     	addSequential(new WaitCommand(2.0));
-    	addSequential(new DriveStraightToEncoderDistance(110, .4));
+    	addSequential(new DriveStraightToEncoderDistance(80, .4, false));
 
     }
     

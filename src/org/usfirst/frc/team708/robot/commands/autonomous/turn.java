@@ -3,7 +3,7 @@ package org.usfirst.frc.team708.robot.commands.autonomous;
 import org.usfirst.frc.team708.robot.Robot;
 import org.usfirst.frc.team708.robot.commands.drivetrain.DriveStraightForTime;
 import org.usfirst.frc.team708.robot.commands.drivetrain.TurnToDegrees;
-
+import org.usfirst.frc.team708.robot.commands.drivetrain.TurnToDegreesAlliance;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
@@ -12,11 +12,18 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class turn extends CommandGroup {
 
     protected void initialize() {
+    	
     }
-    public  turn() {
-    	addSequential(new TurnToDegrees(-.3, 90));
+    public turn(int c) {
+    	
+//    	addSequential(new TurnToDegrees(.3, -90));
+//    	addSequential(new WaitCommand(2));
+    	addSequential(new TurnToDegreesAlliance(0.3, 90));  //add alliance direction
+//    	System.out.println();System.out.println();System.out.println();System.out.println();System.out.println();System.out.println();System.out.println();System.out.println();
+//    	addSequential(new TurnToDegrees(-.5, 90));  //add alliance direction
     }
-    // Make this return true when this Command no longer needs to run execute()
+	
+	// Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
         return false;
     }
@@ -24,4 +31,5 @@ public class turn extends CommandGroup {
     }
     protected void interrupted() {
     }
+    
 }

@@ -53,9 +53,9 @@ public class GripPipelineLiftGear implements VisionPipeline {
 
 		// Step HSL_Threshold0:
 		Mat hslThresholdInput = resizeImageOutput;
-		double[] hslThresholdHue = {0.0, 42.12121212121212};
-		double[] hslThresholdSaturation = {0.0, 57.52525252525252};
-		double[] hslThresholdLuminance = {222.4370503597122, 255.0};
+		double[] hslThresholdHue = {0.0, 44.63972054996753};
+		double[] hslThresholdSaturation = {0.0, 57.52525252525253};
+		double[] hslThresholdLuminance = {227.023381294964, 255.0};
 		hslThreshold(hslThresholdInput, hslThresholdHue, hslThresholdSaturation, hslThresholdLuminance, hslThresholdOutput);
 
 		// Step Find_Contours0:
@@ -80,9 +80,9 @@ public class GripPipelineLiftGear implements VisionPipeline {
 
 		// Step RGB_Threshold0:
 		Mat rgbThresholdInput = resizeImageOutput;
-		double[] rgbThresholdRed = {138.23671831765355, 255.0};
-		double[] rgbThresholdGreen = {138.47191477587162, 255.0};
-		double[] rgbThresholdBlue = {41.276978417266186, 117.23666459111665};
+		double[] rgbThresholdRed = {156.58204205866073, 255.0};
+		double[] rgbThresholdGreen = {156.8172385168788, 255.0};
+		double[] rgbThresholdBlue = {55.03597122302158, 115.090199944652};
 		rgbThreshold(rgbThresholdInput, rgbThresholdRed, rgbThresholdGreen, rgbThresholdBlue, rgbThresholdOutput);
 
 		// Step Find_Contours1:
@@ -92,7 +92,7 @@ public class GripPipelineLiftGear implements VisionPipeline {
 
 		// Step Filter_Contours1:
 		ArrayList<MatOfPoint> filterContours1Contours = findContours1Output;
-		double filterContours1MinArea = 100.0;
+		double filterContours1MinArea = 25.0;
 		double filterContours1MinPerimeter = 0.0;
 		double filterContours1MinWidth = 0.0;
 		double filterContours1MaxWidth = 1000.0;

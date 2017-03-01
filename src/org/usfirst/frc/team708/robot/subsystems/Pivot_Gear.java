@@ -3,6 +3,7 @@ package org.usfirst.frc.team708.robot.subsystems;
 import org.usfirst.frc.team708.robot.Constants;
 import org.usfirst.frc.team708.robot.Robot;
 import org.usfirst.frc.team708.robot.RobotMap;
+import org.usfirst.frc.team708.robot.util.Math708;
 
 import com.ctre.CANTalon;
 import com.ctre.CANTalon.FeedbackDevice;
@@ -27,8 +28,9 @@ public class Pivot_Gear extends Subsystem {
 		pivotMotor.enable();
 
 //		pivotMotor.reverseSensor(true);
+		pivotMotor.enableBrakeMode(true);
 		pivotMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-		pivotMotor.changeControlMode(com.ctre.CANTalon.TalonControlMode.Position);
+//		pivotMotor.changeControlMode(com.ctre.CANTalon.TalonControlMode.Position);
 		pivotMotor.configEncoderCodesPerRev(Constants.PIVOT_GEAR_ENCODER_COUNT);
 	}
 	

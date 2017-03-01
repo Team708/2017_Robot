@@ -3,11 +3,12 @@ package org.usfirst.frc.team708.robot.commands.drivetrain;
 import org.usfirst.frc.team708.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
  */
-public class TurnToDegrees extends Command {
+public class TurnToDegreesAlliance extends Command {
 	
 	private double rotationSpeed;
 	private double goalDegrees;
@@ -17,7 +18,7 @@ public class TurnToDegrees extends Command {
 	 * @param rotationSpeed
 	 * @param goalDegrees
 	 */
-    public TurnToDegrees(double rotationSpeed, double goalDegrees) {
+    public TurnToDegreesAlliance(double rotationSpeed, double goalDegrees) {
         // Use requires() here to declare subsystem dependencies
         requires(Robot.drivetrain);
         
@@ -28,10 +29,15 @@ public class TurnToDegrees extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	Robot.drivetrain.resetGyro();
+    	goalDegrees = goalDegrees * Robot.allianceColor;
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	System.out.println("Color = " + SmartDashboard.getInt("AllianceColor"));
+    	System.out.println("GoalDegress = " + goalDegrees);
+//    	SmartDashboard.putNumber("gaolDegress", goalDegrees);
+    	
     	if (goalDegrees >= 0) {
     		Robot.drivetrain.haloDrive(0.0, -rotationSpeed, false);
     	} else {

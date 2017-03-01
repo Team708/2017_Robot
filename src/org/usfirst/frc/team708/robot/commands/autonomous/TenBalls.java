@@ -6,7 +6,7 @@ import org.usfirst.frc.team708.robot.commands.drivetrain.DriveStraightForTime;
 import org.usfirst.frc.team708.robot.commands.drivetrain.DriveStraightToEncoderDistance;
 import org.usfirst.frc.team708.robot.commands.drivetrain.RotateAndDriveToBoiler;
 import org.usfirst.frc.team708.robot.commands.drivetrain.RotateAndDriveToLift;
-import org.usfirst.frc.team708.robot.commands.drivetrain.TurnToDegrees;
+import org.usfirst.frc.team708.robot.commands.drivetrain.TurnToDegreesAlliance;
 import org.usfirst.frc.team708.robot.commands.feeder.FeederOff;
 import org.usfirst.frc.team708.robot.commands.feeder.SpinFeeder;
 import org.usfirst.frc.team708.robot.commands.intake_gear.Intake_Gear_Off;
@@ -25,22 +25,31 @@ public class TenBalls extends CommandGroup {
     }
 	
     public  TenBalls() {  	
-    	addSequential(new DriveStraightToEncoderDistance(85, .4, false));  //55, .4, false
-    	addSequential(new TurnToDegrees(Robot.allianceColor*.6, Robot.allianceColor * 45));
- //    	addSequential(new RotateAndDriveToBoiler(10));
-		addSequential(new WaitCommand(4));
+       	addSequential(new DriveStraightToEncoderDistance(75, .4, false));
+    	addSequential(new TurnToDegreesAlliance(.5, 45));
+    	addSequential(new RotateAndDriveToLift());
+
+//    	addSequential(new DriveStraightToEncoderDistance(6, .4, false));
+
+    	addSequential(new Intake_Gear_Out());
+    	addSequential(new DriveStraightToEncoderDistance(12, .4, true));
+    	
+//    	addSequential(new DriveStraightToEncoderDistance(85, .4, false));  //55, .4, false
+//    	addSequential(new TurnToDegreesAlliance(.6, -45));
+     	addSequential(new RotateAndDriveToBoiler(108));
 
     	addSequential(new SpinShooter());
-		addSequential(new WaitCommand(1.0));
+//		addSequential(new WaitCommand(1.0));
 		addParallel(new SpinFeeder());
+		
 		addSequential(new WaitCommand(5));
 		addSequential(new FeederOff());
 		addSequential(new StopShooter());
 		
-    	addSequential(new DriveStraightToEncoderDistance(50, .4, false));
-//    	addSequential(new TurnToDegrees(-Robot.allianceColor*45,-Robot.allianceColor*0.6));
+//    	addSequential(new TurnToDegreesAlliance(.6, -80));
+//    	addSequential(new DriveStraightToEncoderDistance(50, .4, false));
     	addSequential(new RotateAndDriveToLift());
-    	addSequential(new DriveStraightToEncoderDistance(6, .4, false));
+//    	addSequential(new DriveStraightToEncoderDistance(6, .4, false));
     	addSequential(new Intake_Gear_Out());
     	addSequential(new DriveStraightToEncoderDistance(12, .4, true));
     }

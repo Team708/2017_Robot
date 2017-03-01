@@ -105,6 +105,7 @@ public class Drivetrain extends PIDSubsystem {
 	encoder2.setDistancePerPulse(distancePerPulse);
 	encoder2.reset();								
 	
+	leftMaster.enableBrakeMode(brake);
 	leftSlave.enableBrakeMode(brake);
 	rightMaster.enableBrakeMode(brake);
 	rightSlave.enableBrakeMode(brake);
@@ -213,7 +214,7 @@ public class Drivetrain extends PIDSubsystem {
      * @return
      */
     public double getAngle() {
-    	return gyro.getAngle();
+    	return -gyro.getAngle(); //gyro is mounted upside down
     }
     
     /**
@@ -373,6 +374,15 @@ public class Drivetrain extends PIDSubsystem {
         drivetrain.arcadeDrive(moveSpeed, -output);
     }
     
+    public int getAlliance(){
+    	return Robot.allianceColor;
+    }
+    
+    public void setAlliance(int c)
+    {
+    	Robot.allianceColor = c;
+    }
+    
     /**
      * Sends data for this subsystem to the dashboard
      */
@@ -397,8 +407,8 @@ public class Drivetrain extends PIDSubsystem {
     		SmartDashboard.putNumber("DT Encoder 2 Distance", encoder2.getDistance());	// Encoder reading
     	}
     	
-    	SmartDashboard.putNumber("AllianceColor", Robot.allianceColor);
-    	SmartDashboard.putNumber("Gyro angle", ( (int)gyro.getAngle()));			// Gyro angle
+    	SmartDashboard.putNumber("AllianceColor", getAlliance());
+    	SmartDashboard.putNumber("Gyro angle", ( (int)getAngle()));			// Gyro angle
     	SmartDashboard.putNumber("DT Sonar Distance", getSonarDistance());			// Sonar distance reading
 //    	SmartDashboard.putNumber("Sonar Mode", sonarOverride);		
     }

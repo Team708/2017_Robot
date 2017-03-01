@@ -122,7 +122,7 @@ public class Robot extends IterativeRobot {
             
     oi 				= new OI();	// Initializes the OI. 
 						// This MUST BE LAST or a NullPointerException will be thrown
-	
+
 //	UsbCamera ucamera=CameraServer.getInstance().startAutomaticCapture("cam0", 0);
 //	AxisCamera camera=CameraServer.getInstance().addAxisCamera("cam1", "10.7.8.11");
     
@@ -151,8 +151,7 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 		sendStatistics();
 		prefs = Preferences.getInstance();
-	
-		try {
+		/*try {
      		if (ds.isSysActive()){
 	            if (ds.isFMSAttached())
 		        {
@@ -177,7 +176,7 @@ public class Robot extends IterativeRobot {
 		catch (Exception e)
 		{
 			led1.send_to_led(Constants.MAX_LED_CODE);
-		}
+		}*/
 	}
 
 	/**
@@ -187,11 +186,20 @@ public class Robot extends IterativeRobot {
     	
 //    	AllianceSelectionDouble =  (Double)AllianceSelection.getSelected();
 
-    	// schedule the autonomous command (example)   		
+    	// schedule the autonomous command (example)  
+    	allianceCommand = (Command)allianceSelection.getSelected();
+    	SmartDashboard.putString("From Alliance Command", allianceCommand.getName());
+    	
+    	if(allianceCommand.getName().equals("BlueAlliance"))
+    		allianceColor = Constants.ALLIANCE_BLUE;
+    	else
+    		allianceColor = Constants.ALLIANCE_RED;
+    	
+    	if (allianceCommand != null) 
+    		allianceCommand.start();
     	autonomousCommand = (Command)autonomousMode.getSelected();
         if (autonomousCommand != null) autonomousCommand.start();
-        allianceCommand = (Command)allianceSelection.getSelected();
-        if (allianceCommand != null) allianceCommand.start();
+        
     }
 
     /**
@@ -260,13 +268,6 @@ public class Robot extends IterativeRobot {
         }
     }
 	
-    private void queueAlliance() {
-    	allianceSelection.addDefault("RED", new RedAlliance());
-    	allianceSelection.addObject("BLUE", new BlueAlliance());
-    	
-//    	SmartDashboard.putData("Alliance Color", allianceSelection);
-    }   
-	
 	/**
      * Adds every autonomous mode to the selection box and adds the box to the Smart Dashboard
      */
@@ -277,23 +278,23 @@ public class Robot extends IterativeRobot {
     	autonomousMode.addObject("One Gear Center", 	new OneGearCenter());
     	autonomousMode.addObject("One Gear Open Side", 	new OneGearLeft());
     	autonomousMode.addObject("10 Ball", 			new TenBalls());
-//    	autonomousMode.addObject("60 Ball", 			new SitxyBalls());
+    	autonomousMode.addObject("60 Ball", 			new SixtyBalls());
 
 	autonomousMode.addObject("Rotate And Drive To Lift", new RotateAndDriveToLift());
 	autonomousMode.addObject("Drive to Boiler Location 1", new RotateAndDriveToBoiler(AutoConstants.DISTANCE_TO_BOILER_LOCATION1));
 	autonomousMode.addObject("Drive to Boiler Location 2", new RotateAndDriveToBoiler(AutoConstants.DISTANCE_TO_BOILER_LOCATION2));
 	autonomousMode.addObject("Rotate And Drive To Gear", new RotateAndDriveToGear());
 
-//    	autonomousMode.addObject("Drive Straight for time", new DriveStraightForTime(.5, 3));
+//  autonomousMode.addObject("Drive Straight for time", new DriveStraightForTime(.5, 3));
 //	autonomousMode.addObject("Find Target", new DriveToTarget());
 //	autonomousMode.addObject("Drive in Square", new DriveInSquare());
-//	autonomousMode.addObject("turn", new turn());
+	autonomousMode.addObject("turn", new turn(allianceColor));
 
-	allianceSelection.addDefault("RED", new RedAlliance());
+		allianceSelection.addDefault("RED", new RedAlliance());
     	allianceSelection.addObject("BLUE", new BlueAlliance());
     	
-    	SmartDashboard.putData("Autonomous Selection", autonomousMode);    	
     	SmartDashboard.putData("Alliance Color", allianceSelection);    	   	
+    	SmartDashboard.putData("Autonomous Selection", autonomousMode);    	
 
     }
     

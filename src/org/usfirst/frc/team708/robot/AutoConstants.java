@@ -18,7 +18,7 @@ public final class AutoConstants {
 	public static final int SWEEP3_MAX 						= 400;
 	public static final int SWEEP_DIRECTION_LEFT 			= -1;
 	public static final int SWEEP_DIRECTION_RIGHT 			= 1;
-	public static final double SWEEP_ROTATE 				= .3;
+	public static final double SWEEP_ROTATE 				= .5;
 
 	// Drivetrain Constants
 	public static final double DRIVE_ROTATE_MIN 			= .2;
@@ -35,11 +35,11 @@ public final class AutoConstants {
 	// Boiler Constants (Field)
 	public static final int BOILER_TARGET_HEIGHT 			= 10;
 	public static final int BOILER_TARGET_WIDTH 			= 14;
-	public static final double DISTANCE_TO_BOILER_LOCATION1 = 25;	// A distance to stop at and shoot for high goal in inches
+	public static final double DISTANCE_TO_BOILER_LOCATION1 = 54;	// A distance to stop at and shoot for high goal in inches
 	public static final double DISTANCE_TO_BOILER_LOCATION2	= 108;	// A distance to stop at and shoot for high goal in inches (9')
 	
 	// Gear Constants (Game piece)
-	public static final double DISTANCE_TO_GEAR				= 30;
+	public static final double DISTANCE_TO_GEAR				= 15;
 	public static final int GEAR_TARGET_HEIGHT 				= 4;
 	public static final int GEAR_TARGET_WIDTH 				= 10;
 
@@ -72,8 +72,8 @@ public final class AutoConstants {
 	public static final int USB_BOILER_IMG_HEIGHT 					= 240;			// height of the USB image - resolution
 
 	public static final String AXIS_IP_ADDRESS				= "10.7.8.12";      // lift -practice - 10.7.8.2
-	public static final String AXIS_CAMERA_ID				=  "cam1";			// lift - practice - cam1
-	public static final String USB_CAMERA_ID				=  "cam3";			// boiler - practice - cam3
+	public static final String AXIS_CAMERA_ID				=  "cam3";			// lift - practice - cam1    comp - 3
+	public static final String USB_CAMERA_ID				=  "cam2";			// boiler - practice - cam3   comp - 2
 	public static final int USB_VIDEO_PORT					=  0;				// boiler - practice - 0
 							
 }

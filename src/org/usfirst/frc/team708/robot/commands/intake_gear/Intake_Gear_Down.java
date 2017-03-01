@@ -21,7 +21,10 @@ public class Intake_Gear_Down extends Command {
         }
 
 	protected boolean isFinished() {
-		return(false);
+		if (Robot.pivot_gear.isRevSwitch())
+	      	return(true);
+        else
+      	    return(false);
 	}
 
 	protected void end() {

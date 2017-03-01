@@ -4,7 +4,7 @@ import org.usfirst.frc.team708.robot.Robot;
 import org.usfirst.frc.team708.robot.commands.drivetrain.DriveStraightToEncoderDistance;
 import org.usfirst.frc.team708.robot.commands.drivetrain.RotateAndDriveToLift;
 import org.usfirst.frc.team708.robot.commands.drivetrain.ToggleBrakeMode;
-import org.usfirst.frc.team708.robot.commands.drivetrain.TurnToDegrees;
+import org.usfirst.frc.team708.robot.commands.drivetrain.TurnToDegreesAlliance;
 import org.usfirst.frc.team708.robot.commands.intake_gear.Intake_Gear_Off;
 import org.usfirst.frc.team708.robot.commands.intake_gear.Intake_Gear_Out;
 
@@ -19,13 +19,13 @@ public class OneGearLeft extends CommandGroup {
 	
     public  OneGearLeft() {
 
-    	addSequential(new DriveStraightToEncoderDistance(70, .4, false));
+ //   	addSequential(new DriveStraightToEncoderDistance(70, .4, false));
 
-    	addSequential(new TurnToDegrees(-Robot.allianceColor*45,-Robot.allianceColor*0.6));
+    	addSequential(new TurnToDegreesAlliance(.5, 45));
 
     	addSequential(new RotateAndDriveToLift());
 
-    	addSequential(new DriveStraightToEncoderDistance(6, .4, false));
+//    	addSequential(new DriveStraightToEncoderDistance(6, .4, false));
 
     	addSequential(new Intake_Gear_Out());
 
