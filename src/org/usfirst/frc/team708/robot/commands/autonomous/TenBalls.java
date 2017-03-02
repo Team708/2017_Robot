@@ -1,6 +1,7 @@
 package org.usfirst.frc.team708.robot.commands.autonomous;
 
 import org.usfirst.frc.team708.robot.AutoConstants;
+import org.usfirst.frc.team708.robot.Constants;
 import org.usfirst.frc.team708.robot.Robot;
 import org.usfirst.frc.team708.robot.commands.drivetrain.DriveStraightForTime;
 import org.usfirst.frc.team708.robot.commands.drivetrain.DriveStraightToEncoderDistance;
@@ -25,8 +26,8 @@ public class TenBalls extends CommandGroup {
     }
 	
     public  TenBalls() {  	
-       	addSequential(new DriveStraightToEncoderDistance(75, .4, false));
-    	addSequential(new TurnToDegreesAlliance(.5, 45, 1));
+        addSequential(new DriveStraightToEncoderDistance(75, .4, false));
+    	addSequential(new TurnToDegreesAlliance(.5, 45, Constants.COUNTERCLOCKWISE));
     	addSequential(new RotateAndDriveToLift());
 
 //    	addSequential(new DriveStraightToEncoderDistance(6, .4, false));
@@ -36,21 +37,15 @@ public class TenBalls extends CommandGroup {
     	
 //    	addSequential(new DriveStraightToEncoderDistance(85, .4, false));  //55, .4, false
 //    	addSequential(new TurnToDegreesAlliance(.6, -45));
-     	addSequential(new RotateAndDriveToBoiler(108));
+     	addSequential(new RotateAndDriveToBoiler(AutoConstants.DISTANCE_TO_BOILER_LOCATION2));
 
-    	addSequential(new SpinShooter());
-//		addSequential(new WaitCommand(1.0));
-		addParallel(new SpinFeeder());
+		addParallel(new SpinShooter(10));
+		addSequential(new SpinFeeder(9));
 		
-		addSequential(new WaitCommand(5));
-		addSequential(new FeederOff());
+//		addSequential(new WaitCommand(10));
+//		addSequential(new FeederOff());
+		
 		addSequential(new StopShooter());
-		
-//    	addSequential(new TurnToDegreesAlliance(.6, -80));
-//    	addSequential(new DriveStraightToEncoderDistance(50, .4, false));
-    	addSequential(new RotateAndDriveToLift());
-//    	addSequential(new DriveStraightToEncoderDistance(6, .4, false));
-    	addSequential(new Intake_Gear_Out());
     	addSequential(new DriveStraightToEncoderDistance(12, .4, true));
     }
     
