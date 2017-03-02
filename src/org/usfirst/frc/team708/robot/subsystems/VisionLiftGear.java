@@ -192,8 +192,8 @@ public  class VisionLiftGear extends Subsystem {
 		            // display the current image on the driver station 
 		             
 
-		            	outputStreamLift.putFrame(lgPipeline.hslThresholdOutput()); 	               
-		            
+//		            	outputStreamLift.putFrame(lgPipeline.hslThresholdOutput()); 	               
+		            	outputStreamLift.putFrame(lgPipeline.resizeImageOutput());
 	            }
 	        }
 	            	        
@@ -263,8 +263,8 @@ public  class VisionLiftGear extends Subsystem {
   		            // display the current image on the driver station 
   		             
 
-  		            	outputStreamGear.putFrame(lgPipeline.rgbThresholdOutput()); 	               
-  		            
+//  		            	outputStreamGear.putFrame(lgPipeline.rgbThresholdOutput()); 	               
+		            	outputStreamLift.putFrame(lgPipeline.resizeImageOutput());
   	            }
   	        }
   	            	        

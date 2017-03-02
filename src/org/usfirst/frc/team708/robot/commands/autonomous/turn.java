@@ -19,7 +19,8 @@ public class turn extends CommandGroup {
 //    	addSequential(new TurnToDegrees(.3, -90));  // turn counter clockwise
 //    	addSequential(new TurnToDegrees(.3, 90));  // turn  clockwise
 //    	addSequential(new WaitCommand(2));
-    	addSequential(new TurnToDegreesAlliance(0.5, 90));  //add alliance direction
+    	addSequential(new TurnToDegreesAlliance(0.5, 15, 1));  //red clock blue clounter
+//    	addSequential(new TurnToDegreesAlliance(0.5, 15, -1));  //blue clockwise, red counter
 //    	System.out.println();System.out.println();System.out.println();System.out.println();System.out.println();System.out.println();System.out.println();System.out.println();
 //    	addSequential(new TurnToDegrees(-.5, 90));  //add alliance direction
     }

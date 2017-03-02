@@ -120,6 +120,10 @@ public final class Constants {
 	
 	public static final double pid_tolerance = 1;
 	
+	
+	 public static final int CLOCKWISE = 1;
+	 public static final int COUNTERCLOCKWISE = -1;
+	 
 	// LED CONTROLS
 	
 	public static final byte SET_ALLIANCE_INVALID 		= 	0x00;

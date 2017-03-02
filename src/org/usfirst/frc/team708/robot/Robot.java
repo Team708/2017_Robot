@@ -288,7 +288,7 @@ public class Robot extends IterativeRobot {
 //  autonomousMode.addObject("Drive Straight for time", new DriveStraightForTime(.5, 3));
 //	autonomousMode.addObject("Find Target", new DriveToTarget());
 //	autonomousMode.addObject("Drive in Square", new DriveInSquare());
-	autonomousMode.addObject("turn", new turn(allianceColor));
+//	autonomousMode.addObject("turn", new turn(allianceColor));
 
 		allianceSelection.addDefault("RED", new RedAlliance());
     	allianceSelection.addObject("BLUE", new BlueAlliance());

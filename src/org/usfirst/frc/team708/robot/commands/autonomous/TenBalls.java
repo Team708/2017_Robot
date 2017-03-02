@@ -26,7 +26,7 @@ public class TenBalls extends CommandGroup {
 	
     public  TenBalls() {  	
        	addSequential(new DriveStraightToEncoderDistance(75, .4, false));
-    	addSequential(new TurnToDegreesAlliance(.5, 45));
+    	addSequential(new TurnToDegreesAlliance(.5, 45, 1));
     	addSequential(new RotateAndDriveToLift());
 
 //    	addSequential(new DriveStraightToEncoderDistance(6, .4, false));

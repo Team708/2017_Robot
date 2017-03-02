@@ -26,14 +26,14 @@ public class SixtyBalls extends CommandGroup {
 	
     public  SixtyBalls() {  	
     	addSequential(new DriveStraightToEncoderDistance(100, .4, false));  //55, .4, false
-    	addSequential(new TurnToDegreesAlliance(.6, 75));
+    	addSequential(new TurnToDegreesAlliance(.6, 75, 1));
     	addSequential(new DriveStraightToEncoderDistance(25, .5, true));
 		addSequential(new WaitCommand(4));
     	addSequential(new DriveStraightToEncoderDistance(25, .5, false));
-    	addSequential(new TurnToDegreesAlliance(.6, -90));
+    	addSequential(new TurnToDegreesAlliance(.6, 90, -1));
     	addSequential(new DriveStraightToEncoderDistance(40, .4, true));  //55, .4, false
 
-    	addSequential(new TurnToDegreesAlliance(.6, 45));
+    	addSequential(new TurnToDegreesAlliance(.6, 45, 1));
      	addSequential(new RotateAndDriveToBoiler(10));
 		addSequential(new WaitCommand(4));
 
@@ -44,7 +44,7 @@ public class SixtyBalls extends CommandGroup {
 		addSequential(new FeederOff());
 		addSequential(new StopShooter());
 		
-    	addSequential(new TurnToDegreesAlliance(.6, -80));
+    	addSequential(new TurnToDegreesAlliance(.6, 80, -1));
     	addSequential(new DriveStraightToEncoderDistance(50, .4, false));
     	addSequential(new RotateAndDriveToLift());
 //    	addSequential(new DriveStraightToEncoderDistance(6, .4, false));

@@ -1,5 +1,6 @@
 package org.usfirst.frc.team708.robot.commands.autonomous;
 
+import org.usfirst.frc.team708.robot.Constants;
 import org.usfirst.frc.team708.robot.Robot;
 import org.usfirst.frc.team708.robot.commands.drivetrain.DriveStraightToEncoderDistance;
 import org.usfirst.frc.team708.robot.commands.drivetrain.RotateAndDriveToLift;
@@ -19,16 +20,13 @@ public class OneGearLeft extends CommandGroup {
 	
     public  OneGearLeft() {
 
- //   	addSequential(new DriveStraightToEncoderDistance(70, .4, false));
-
-    	addSequential(new TurnToDegreesAlliance(.5, 45));
-
+    	addSequential(new DriveStraightToEncoderDistance(70, .4, false));
+    	addSequential(new TurnToDegreesAlliance(.5, 45, Constants.CLOCKWISE));
     	addSequential(new RotateAndDriveToLift());
 
 //    	addSequential(new DriveStraightToEncoderDistance(6, .4, false));
 
     	addSequential(new Intake_Gear_Out());
-
     	addSequential(new DriveStraightToEncoderDistance(12, .4, true));
     }
     
