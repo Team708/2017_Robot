@@ -27,7 +27,7 @@ public class AquireGear extends CommandGroup {
 	
     public  AquireGear() {
 
-    	addParallel(new DriveStraightToEncoderDistanceOrTimeOrGear(24, .4, false, 2));
+    	addParallel(new DriveStraightToEncoderDistanceOrTimeOrGear(24, .4, false, 3));
     	addParallel(new Intake_Gear_In());
     }
     

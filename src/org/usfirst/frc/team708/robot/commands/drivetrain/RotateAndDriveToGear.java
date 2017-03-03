@@ -57,14 +57,14 @@ public class RotateAndDriveToGear extends Command {
     	//Check if the sonar distance is less then the target Distance, end
 //    	if (Robot.drivetrain.getSonarDistance() < targetDistance  && Robot.visionProcessor.wasCentered()){
 //     	if (Robot.visionProcessor.isAtY() && Robot.visionProcessor.wasCentered()){
-        if (Robot.visionLiftGear.gearIsAtDistance() && Robot.visionLiftGear.gearIsCentered()){
+        if ((Robot.visionLiftGear.gearIsAtDistance() && Robot.visionLiftGear.gearIsCentered()) || Robot.intake_gear.hasGear()) {
          		     		return true;
     	}
 //    	else if (Robot.drivetrain.getSonarDistance() < targetDistance && Robot.visionProcessor.isHasTarget()) {
     	else if (Robot.visionLiftGear.gearIsAtDistance() && Robot.visionLiftGear.gearIsHasTarget()) {
     		return false;
     	}
-    	
+    	        
     	return false;
     	
     }
