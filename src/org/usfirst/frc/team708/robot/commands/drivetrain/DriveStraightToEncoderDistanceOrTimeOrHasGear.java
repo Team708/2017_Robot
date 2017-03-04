@@ -61,9 +61,9 @@ public class DriveStraightToEncoderDistanceOrTimeOrHasGear extends Command {
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
         if(goForward) {
-        	return (Robot.drivetrain.getEncoderDistance() >= targetDistance) || isTimedOut() || Robot.intake_gear.hasGear();
+        	return (Robot.drivetrain.getEncoderDistance() >= targetDistance) || isTimedOut();
         } else {
-        	return (Robot.drivetrain.getEncoderDistance() <= targetDistance) || isTimedOut() || Robot.intake_gear.hasGear();
+        	return (Robot.drivetrain.getEncoderDistance() <= targetDistance) || isTimedOut();
         }
     }
 

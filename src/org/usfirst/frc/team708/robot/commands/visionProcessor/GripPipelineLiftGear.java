@@ -80,9 +80,9 @@ public class GripPipelineLiftGear implements VisionPipeline {
 
 		// Step RGB_Threshold0:
 		Mat rgbThresholdInput = resizeImageOutput;
-		double[] rgbThresholdRed = {156.58204205866073, 255.0};
-		double[] rgbThresholdGreen = {156.8172385168788, 255.0};
-		double[] rgbThresholdBlue = {55.03597122302158, 143.37518287980558};
+		double[] rgbThresholdRed = {124.0, 255.0}; //{156.58204205866073, 255.0};
+		double[] rgbThresholdGreen = {116.0, 223.0}; //{156.8172385168788, 255.0}
+		double[] rgbThresholdBlue = {0.0, 139.0}; //{55.03597122302158, 115.090199944652}
 		rgbThreshold(rgbThresholdInput, rgbThresholdRed, rgbThresholdGreen, rgbThresholdBlue, rgbThresholdOutput);
 
 		// Step Find_Contours1:
@@ -92,10 +92,10 @@ public class GripPipelineLiftGear implements VisionPipeline {
 
 		// Step Filter_Contours1:
 		ArrayList<MatOfPoint> filterContours1Contours = findContours1Output;
-		double filterContours1MinArea = 5.0;
+		double filterContours1MinArea = 3.0; //25.0;
 		double filterContours1MinPerimeter = 0.0;
 		double filterContours1MinWidth = 0.0;
-		double filterContours1MaxWidth = 1000.0;
+		double filterContours1MaxWidth = 50.0; //1000.0;
 		double filterContours1MinHeight = 0.0;
 		double filterContours1MaxHeight = 998.0;
 		double[] filterContours1Solidity = {0.0, 100.0};
