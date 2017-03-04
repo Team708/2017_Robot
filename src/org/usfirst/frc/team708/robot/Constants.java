@@ -52,7 +52,7 @@ public final class Constants {
 	public static final double SHOOTER_MOTOR_BACKWARD 		=  -1.0;
 	
 	public static final int SHOOTER_MOTOR_SPEED_BOILER 		=  2100;
-	public static final int SHOOTER_MOTOR_SPEED_LEVER 		=  2800;
+	public static final int SHOOTER_MOTOR_SPEED_LEVER 		=  2750;
 	public static final int SHOOTER_MOTOR_SPEED_MID 		=  2700;
 	public static final int SHOOTER_CLOSE_SHOT			=  40;
 	

@@ -3,6 +3,7 @@ package org.usfirst.frc.team708.robot.commands.autonomous;
 import org.usfirst.frc.team708.robot.Constants;
 import org.usfirst.frc.team708.robot.Robot;
 import org.usfirst.frc.team708.robot.commands.drivetrain.DriveStraightToEncoderDistance;
+import org.usfirst.frc.team708.robot.commands.drivetrain.DriveStraightToEncoderDistanceOrTimeOrGear;
 import org.usfirst.frc.team708.robot.commands.drivetrain.RotateAndDriveToLift;
 import org.usfirst.frc.team708.robot.commands.drivetrain.RotateAndDriveToGear;
 import org.usfirst.frc.team708.robot.commands.drivetrain.ToggleBrakeMode;
@@ -12,6 +13,7 @@ import org.usfirst.frc.team708.robot.commands.intake_gear.Intake_Gear_Off;
 import org.usfirst.frc.team708.robot.commands.intake_gear.Intake_Gear_Out;
 import org.usfirst.frc.team708.robot.commands.shooter.SpinShooter;
 import org.usfirst.frc.team708.robot.commands.intake_gear.Intake_Gear_Down;
+import org.usfirst.frc.team708.robot.commands.intake_gear.Intake_Gear_In;
 import org.usfirst.frc.team708.robot.commands.intake_gear.AquireGear;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -28,7 +30,7 @@ public class OneGearCenter extends CommandGroup {
 	
     public  OneGearCenter() {
 
-    	addSequential(new DriveStraightToEncoderDistance(55, .4, false));
+    	addSequential(new DriveStraightToEncoderDistance(55, .3, false));
     	addSequential(new RotateAndDriveToLift());
     	
 //    	addSequential(new DriveStraightToEncoderDistance(6, .4, false));
@@ -44,8 +46,10 @@ public class OneGearCenter extends CommandGroup {
     	addSequential(new TurnToDegreesAlliance(.6, 125, Constants.CLOCKWISE));
     	addSequential(new Intake_Gear_Down());
 
+    	addParallel(new Intake_Gear_In());
     	addParallel(new RotateAndDriveToGear());
-    	addSequential(new AquireGear());
+    	addSequential(new DriveStraightToEncoderDistanceOrTimeOrGear(24, .4, false, 3));
+//    	addSequential(new AquireGear());
     	
     	addSequential(new TurnToDegreesAlliance(.6, 120, Constants.COUNTERCLOCKWISE));
     	addSequential(new RotateAndDriveToLift());
@@ -59,8 +63,10 @@ public class OneGearCenter extends CommandGroup {
     	addSequential(new TurnToDegreesAlliance(.6, 120, Constants.CLOCKWISE));
     	addSequential(new Intake_Gear_Down());
     	
+    	addParallel(new Intake_Gear_In());
     	addParallel(new RotateAndDriveToGear());
-    	addSequential(new AquireGear());
+    	addSequential(new DriveStraightToEncoderDistanceOrTimeOrGear(24, .4, false, 3));
+//    	addSequential(new AquireGear());
    	
     	addSequential(new TurnToDegreesAlliance(.6, 120, Constants.COUNTERCLOCKWISE));
     	addSequential(new RotateAndDriveToLift());
