@@ -41,7 +41,7 @@ public class Feeder extends Subsystem {
 	}
 	
 	public void sendToDashboard() {
-		SmartDashboard.putNumber("Loader Motor Speed", feedMotor.getSpeed());
+//		SmartDashboard.putNumber("Loader Motor Speed", feedMotor.getSpeed());
 
 		if (Constants.DEBUG) {
 		}

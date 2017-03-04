@@ -1,4 +1,4 @@
-package org.usfirst.frc.team708.robot.commands.shooter;
+package org.usfirst.frc.team708.robot.commands.intake_gear;
 import org.usfirst.frc.team708.robot.Constants;
 import org.usfirst.frc.team708.robot.RobotMap;
 import org.usfirst.frc.team708.robot.util.Gamepad;
@@ -16,23 +16,30 @@ import edu.wpi.first.wpilibj.command.WaitCommand;
 /**
  *
  */
-public class MoveHoodHigh extends Command {
-
-
-    public MoveHoodHigh() {
-    	requires(Robot.shooter);
+public class GearAdjust extends Command {
+    
+    public GearAdjust() {
+    	requires(Robot.intake_gear);
     }
     
 // Called just before this Command runs the first time
     protected void initialize() {
-
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	 Robot.shooter.moveHood(Constants.HOOD_GEAR);  // 2000 is upper bounds
+    	double gearAngle = OI.operatorGamepad.getAxis(Gamepad.leftStick_Y); //Gets Input from operator's controller
+    	if ((gearAngle >0) 
+//    			&& (!Robot.pivot_gear.isFwdSwitch())
+    			)
+    			Robot.pivot_gear.moveMotor(Constants.GEAR_UP);
+    	else if ((gearAngle <0) 
+//    			&& (!Robot.pivot_gear.isRevSwitch())
+    			)
+    			Robot.pivot_gear.moveMotor(Constants.GEAR_DOWN); //Defines move speed from the operator's controller
     }
 
+    
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
     	return false;
@@ -40,7 +47,7 @@ public class MoveHoodHigh extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.shooter.stop();
+    	Robot.pivot_gear.stop();
     }
 
     // Called when another command which requires one or more of the same

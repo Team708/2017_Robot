@@ -4,6 +4,7 @@ package org.usfirst.frc.team708.robot;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Preferences;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -47,6 +48,7 @@ import org.usfirst.frc.team708.robot.commands.loader.*;
 import org.usfirst.frc.team708.robot.commands.shooter.*;
 import org.usfirst.frc.team708.robot.commands.visionProcessor.*;
 import org.usfirst.frc.team708.robot.commands.led_out.*;
+import org.usfirst.frc.team708.robot.commands.AllianceSelection.*;
 
 public class Robot extends IterativeRobot {
     
@@ -71,15 +73,24 @@ public class Robot extends IterativeRobot {
     
     public static OI	 			oi;
 
-    public static int 						AllianceColor;
     public static DriverStation 			ds;
     public static DriverStation.Alliance 	alliance;
+	public static int 						allianceColor;
     
-    SendableChooser 	autonomousMode = new SendableChooser<>();
+//    public static Solenoid			pwr0;
+//    public static Solenoid			pwr1;
+//    public static Solenoid			pwr2;
+//    public static Solenoid			pwr3;    
+//    public static Solenoid			gearLight;    
+//    public static Solenoid			boilerLight;    
+
+    SendableChooser 	autonomousMode 		= new SendableChooser<>();
+    SendableChooser 	AllianceSelection 	= new SendableChooser<>();
     Command 			autonomousCommand;
     Preferences			prefs;
     
-
+    double             AllianceSelectionDouble;
+    
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -111,7 +122,21 @@ public class Robot extends IterativeRobot {
 	
 //	UsbCamera ucamera=CameraServer.getInstance().startAutomaticCapture("cam0", 0);
 //	AxisCamera camera=CameraServer.getInstance().addAxisCamera("cam1", "10.7.8.11");
-	
+    
+//    pwr0 			= new Solenoid(RobotMap.PWR0);
+//    pwr1 			= new Solenoid(RobotMap.PWR1);
+//    pwr2 			= new Solenoid(RobotMap.PWR2);
+//    pwr3 			= new Solenoid(RobotMap.PWR3);
+//    gearLight  		= new Solenoid(RobotMap.GEARLIGHT);
+//    boilerLight		= new Solenoid(RobotMap.BOILERLIGHT);
+//
+//    pwr0.set(true);
+//    pwr1.set(true);
+//    pwr2.set(true);
+//    pwr3.set(true);
+//    gearLight.set(true);
+//    boilerLight.set(true);
+    
 	sendDashboardSubsystems();		// Sends each subsystem's currently running command to the Smart Dashboard
 	queueAutonomousModes();			// Adds autonomous modes to the selection box    
     }
@@ -124,19 +149,30 @@ public class Robot extends IterativeRobot {
 		sendStatistics();
 		prefs = Preferences.getInstance();
 	
-//		try{
-//		    if (ds.isFMSAttached())
-//		        {
-//			    alliance = ds.getAlliance();
-//	             if (ds.getAlliance() == Alliance.Blue)
-//	        	    led1.send_to_led(Constants.SET_ALLIANCE_BLUE);
-//    	        else if (ds.getAlliance() == Alliance.Red)
-//	            	led1.send_to_led(Constants.SET_ALLIANCE_RED);
-//	            else
-//	            	led1.send_to_led(Constants.SET_ALLIANCE_INVALID);	        
-//    		    }
-//	        }
-//		catch ( e){}
+		try {
+     		if (ds.isSysActive()){
+	            if (ds.isFMSAttached())
+		        {
+			    alliance = ds.getAlliance();
+	             if (ds.getAlliance() == Alliance.Blue){
+	        	    led1.send_to_led(Constants.SET_ALLIANCE_BLUE);
+					allianceColor = Constants.ALLIANCE_BLUE;
+				}
+    	        else if (ds.getAlliance() == Alliance.Red){
+	            	led1.send_to_led(Constants.SET_ALLIANCE_RED);
+					allianceColor = Constants.ALLIANCE_RED;
+    	        }
+	            else {
+	            	led1.send_to_led(Constants.SET_ALLIANCE_INVALID);
+					allianceColor = 0;
+	            }
+		   }
+	}
+		}
+		catch (Exception e)
+		{
+			led1.send_to_led(Constants.MAX_LED_CODE);
+		}
 	}
 
 	/**
@@ -144,8 +180,8 @@ public class Robot extends IterativeRobot {
 	 */
     	public void autonomousInit() {
     	
-//    	turnDirection = prefs.getDouble("TurnDirection", 4.0);
-    		
+    	AllianceSelectionDouble =  (Double)AllianceSelection.getSelected();
+
     	// schedule the autonomous command (example)   		
     	autonomousCommand = (Command)autonomousMode.getSelected();
         if (autonomousCommand != null) autonomousCommand.start();
@@ -211,13 +247,18 @@ public class Robot extends IterativeRobot {
             intake_gear.sendToDashboard();
             pivot_gear.sendToDashboard();
 //          visionProcessor.sendToDashboard();
-            visionLift.sendToDashboard();
-            visionBoiler.sendToDashboard();
-            visionGear.sendToDashboard();
+//            visionLift.sendToDashboard();
+//            visionBoiler.sendToDashboard();
+//            visionGear.sendToDashboard();
         }
     }
-    
-    /**
+	
+    private void queueAlliance() {
+    	AllianceSelection.addDefault("RED", new RedAlliance());
+    	AllianceSelection.addObject("BLUE", new BlueAlliance());
+    	
+    	SmartDashboard.putData("Alliance Color", AllianceSelection);
+    }    /**
      * Adds every autonomous mode to the selection box and adds the box to the Smart Dashboard
      */
     private void queueAutonomousModes() {
@@ -226,6 +267,7 @@ public class Robot extends IterativeRobot {
     	autonomousMode.addDefault("Do Nothing", new DoNothing());
 //		autonomousMode.addObject("Find Target", new DriveToTarget());
 		autonomousMode.addObject("Drive in Square", new DriveInSquare());
+		autonomousMode.addObject("turn", new turn());
 
     	SmartDashboard.putData("Autonomous Selection", autonomousMode);    	   	
     }
@@ -235,7 +277,7 @@ public class Robot extends IterativeRobot {
      */
     private void sendDashboardSubsystems() {
     	SmartDashboard.putData(shooter);
-    	SmartDashboard.putData(feeder);
+//    	SmartDashboard.putData(feeder);
     	SmartDashboard.putData(loader);
     	SmartDashboard.putData(drivetrain);
     	SmartDashboard.putData(led1);
@@ -243,9 +285,9 @@ public class Robot extends IterativeRobot {
     	SmartDashboard.putData(intake_gear);
     	SmartDashboard.putData(pivot_gear);
 //    	SmartDashboard.putData(visionProcessor);
-    	SmartDashboard.putData(visionLift);
-    	SmartDashboard.putData(visionBoiler);
-    	SmartDashboard.putData(visionGear);
+//    	SmartDashboard.putData(visionLift);
+//    	SmartDashboard.putData(visionBoiler);
+//    	SmartDashboard.putData(visionGear);
     	SmartDashboard.putData(climber);
     }
 }

@@ -2,6 +2,8 @@ package org.usfirst.frc.team708.robot.subsystems;
 
 import org.usfirst.frc.team708.robot.Constants;
 import org.usfirst.frc.team708.robot.OI;
+import org.usfirst.frc.team708.robot.Robot;
+
 import org.usfirst.frc.team708.robot.RobotMap;
 import org.usfirst.frc.team708.robot.commands.drivetrain.JoystickDrive;
 import org.usfirst.frc.team708.robot.commands.visionProcessor.SonarOverride;
@@ -16,6 +18,7 @@ import com.ctre.CANTalon.FeedbackDevice;
 import com.ctre.CanTalonJNI;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.Solenoid;
 //import edu.wpi.first.wpilibj.interfaces.Gyro;
 //import edu.wpi.first.wpilibj.GyroBase;
 //import edu.wpi.first.wpilibj.AnalogGyro;
@@ -29,9 +32,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Drivetrain extends PIDSubsystem {
 	
-	private boolean usePID = true;
+
+	private ADXRS450_Gyro gyro;
+	private int count =0;
 	
 	// Variables specific for drivetrain PID loop
+	private boolean usePID = false;
 	private double moveSpeed = 0.0;
 	private double pidOutput = 0.0;
 	
@@ -43,24 +49,32 @@ public class Drivetrain extends PIDSubsystem {
 	private Encoder encoder2;						// Encoder for the drivetrain
 
 	private double distancePerPulse;
-	private BuiltInAccelerometer accelerometer;				// Accelerometer that is built into the roboRIO
-	private ADXRS450_Gyro gyro;							// Gyro that is used for drift correction
+//	private BuiltInAccelerometer accelerometer;				// Accelerometer that is built into the roboRIO
 	
-	private IRSensor drivetrainIRSensor;					// IR Sensor for <=25inches
-	private UltrasonicSensor drivetrainUltrasonicSensor;	// Sonar used for <=21feet
-	private DigitalInput opticalSensor;
+//	private IRSensor         	drivetrainIRSensor;			// IR Sensor for <=25inches
+	private UltrasonicSensor 	drivetrainUltrasonicSensor;	// Sonar used for <=21feet
+//	private DigitalInput     	opticalSensor;
+	private DigitalInput		gearSensor;
 	
 	public int sonarOverride 	= 0;	//0 = default, 1 = high, 2 = low; Used for overriding sonar
 	private boolean brake 		= true;	// Whether the talons should be in coast or brake mode
-						// (this could be important if a jerky robot causes things to topple
-	
-    /**
-     * Constructor
-     */
+	private boolean nobrake 	= false;	// Whether the talons should be in coast or brake mode
+
+    public static Solenoid			pwr0;
+    public static Solenoid			pwr1;
+    public static Solenoid			pwr2;
+    public static Solenoid			pwr3;    
+    public static Solenoid			gearLight;    
+    public static Solenoid			boilerLight;    
+
     public Drivetrain() {
     	// Passes variables from this class into the superclass constructor
     	super("Drivetrain", Constants.Kp, Constants.Ki, Constants.Kd);
     	
+    gyro = new ADXRS450_Gyro();						// Initializes the gyro
+    gyro.reset();									// Resets the gyro so that it starts with a 0.0 value
+    
+ 
     	// Initializes motor controllers with device IDs from RobotMap
 	leftMaster  = new CANTalon(RobotMap.drivetrainLeftMotorMaster);
 	leftSlave   = new CANTalon(RobotMap.drivetrainLeftMotorSlave);
@@ -71,22 +85,51 @@ public class Drivetrain extends PIDSubsystem {
 	
 	setupMasterSlave();								// Sets up master and slave
 		
-	accelerometer 	= new BuiltInAccelerometer();	// Initializes the accelerometer from the roboRIO
-	gyro 			= new ADXRS450_Gyro();			// Initializes the gyro
-	gyro.reset();									// Resets the gyro so that it starts with a 0.0 value
+//	accelerometer 	= new BuiltInAccelerometer();	// Initializes the accelerometer from the roboRIO
 	encoder = new Encoder(RobotMap.drivetrainEncoderARt, RobotMap.drivetrainEncoderBRt, Constants.DRIVETRAIN_USE_LEFT_ENCODER);
+//	encoder = new Encoder(leftMaster.getPinStateQuadA(), leftMaster.getPinStateQuadB(), Constants.DRIVETRAIN_USE_LEFT_ENCODER);
+	
 	encoder2 = new Encoder(RobotMap.drivetrainEncoderALeft, RobotMap.drivetrainEncoderBLeft, !Constants.DRIVETRAIN_USE_LEFT_ENCODER);
-													// Initializes the encoder
+//	encoder2 = new Encoder(rightMaster.getPinStateQuadA(), rightMaster.getPinStateQuadB(), !Constants.DRIVETRAIN_USE_LEFT_ENCODER);
+	
+//													// Initializes the encoder
 	distancePerPulse = (Constants.DRIVETRAIN_WHEEL_DIAMETER * Math.PI) /
-					(Constants.DRIVETRAIN_ENCODER_PULSES_PER_REV);
+				                                    	(Constants.DRIVETRAIN_ENCODER_PULSES_PER_REV);
+	leftMaster.configEncoderCodesPerRev(Constants.DRIVETRAIN_ENCODER_PULSES_PER_REV);
+	rightMaster.configEncoderCodesPerRev(Constants.DRIVETRAIN_ENCODER_PULSES_PER_REV);
+
 											// Sets the distance per pulse of the encoder to read distance properly
 	encoder.setDistancePerPulse(distancePerPulse);
-	encoder.reset();								// Resets the encoder so that it starts with a 0.0 value
+	encoder.reset();							
+
+//	Resets the encoder so that it starts with a 0.0 value
+
 	encoder2.setDistancePerPulse(distancePerPulse);
 	encoder2.reset();								// Resets the encoder so that it starts with a 0.0 value
 	
-	drivetrainIRSensor 	= new IRSensor(RobotMap.gearIRSensor, IRSensor.GP2Y0A21YK0F);
+	leftSlave.enableBrakeMode(brake);
+	rightMaster.enableBrakeMode(brake);
+	rightSlave.enableBrakeMode(brake);
+	
+//	drivetrainIRSensor 	= new IRSensor(RobotMap.gearIRSensor, IRSensor.GP2Y0A21YK0F);
 	drivetrainUltrasonicSensor = new UltrasonicSensor(RobotMap.dtSonar, UltrasonicSensor.MB1010);
+//	drivetrainUltrasonicSensor = new UltrasonicSensor(RobotMap.dtSonar, UltrasonicSensor.MB1340);
+
+    gearSensor = new DigitalInput(RobotMap.gearSensorSwitch);
+    
+    pwr0 			= new Solenoid(RobotMap.PWR0);
+    pwr1 			= new Solenoid(RobotMap.PWR1);
+    pwr2 			= new Solenoid(RobotMap.PWR2);
+    pwr3 			= new Solenoid(RobotMap.PWR3);
+    gearLight  		= new Solenoid(RobotMap.GEARLIGHT);
+    boilerLight		= new Solenoid(RobotMap.BOILERLIGHT);
+
+    pwr0.set(true);
+    pwr1.set(true);
+    pwr2.set(true);
+    pwr3.set(true);
+    gearLight.set(true);
+    boilerLight.set(true);
     }
     
 
@@ -119,9 +162,7 @@ public class Drivetrain extends PIDSubsystem {
 	    	    {
 	    		getPIDController().setPID(Constants.Kp, Constants.Ki, Constants.Kd);
 	    		getPIDController().reset();
-	    		gyro.reset();
 	    		enable();
-	    		gyro.reset();
 	    		}
 	    	else 
 	    	    {
@@ -148,6 +189,14 @@ public class Drivetrain extends PIDSubsystem {
 		haloDrive(move, rotate, this.usePID);
 	}
 
+	public void setGearLight(boolean on) {
+	    gearLight.set(on);
+	}
+	
+	public void setBoilerLight(boolean on) {
+	   boilerLight.set(on);
+	}
+	
 	public boolean getUsePID() {
 		return usePID;
 	}
@@ -173,9 +222,15 @@ public class Drivetrain extends PIDSubsystem {
      * Resets the gyro reading
      */
     public void resetGyro() {
+    	count++;
+    	SmartDashboard.putNumber("resetgyro: ", count);
     	gyro.reset();
     }
     
+    public boolean hasGear() {
+    	return gearSensor.get();
+  
+    }
     public double rotateByGyro(double targetAngle, double tolerance) {
     	double difference = getAngle() - targetAngle;
  
@@ -186,9 +241,9 @@ public class Drivetrain extends PIDSubsystem {
     	return difference / targetAngle;
     }
     
-    public double getIRDistance() {
-    	return drivetrainIRSensor.getAverageDistance();
-    }
+//    public double getIRDistance() {
+//    	return drivetrainIRSensor.getAverageDistance();
+//    }
     
     public double getSonarDistance() {
     	return drivetrainUltrasonicSensor.getClippedAverageDistance();
@@ -200,17 +255,17 @@ public class Drivetrain extends PIDSubsystem {
      * @param targetDistance
      * @return
      */
-    public double moveByIR(double targetDistance, double minSpeed, double maxSpeed, double tolerance) {
-    	double current_location = getIRDistance();
-    	
-    	double value = Math708.getClippedPercentError(current_location, targetDistance, minSpeed, maxSpeed);
-    	
-    	if (value <= 0.0 || ((Math.abs(current_location - targetDistance)) <= tolerance)) {
-    		
-    		return 0.0;
-    	}
-    	return value;
-    }
+//    public double moveByIR(double targetDistance, double minSpeed, double maxSpeed, double tolerance) {
+//    	double current_location = getIRDistance();
+//    	
+//    	double value = Math708.getClippedPercentError(current_location, targetDistance, minSpeed, maxSpeed);
+//    	
+//    	if (value <= 0.0 || ((Math.abs(current_location - targetDistance)) <= tolerance)) {
+//    		
+//    		return 0.0;
+//    	}
+//    	return value;
+//    }
 
     /**
      * Returns the move speed of the robot needed to get to a certain Sonar distance reading.
@@ -252,15 +307,23 @@ public class Drivetrain extends PIDSubsystem {
     	rightSlave.enableBrakeMode(brake);
     }
     
+    public void setBrakeMode(Boolean brake) {
+    	leftMaster.enableBrakeMode(brake);
+    	leftSlave.enableBrakeMode(brake);
+    	rightMaster.enableBrakeMode(brake);
+    	rightSlave.enableBrakeMode(brake);
+    }
     /**
      * Sets encoder direction depending on which side of the drivetrain it is on
      */
     public void setEncoderReading() {
     	encoder.setReverseDirection(Constants.DRIVETRAIN_USE_LEFT_ENCODER);
+ //   	leftMaster.setInverted(true);
     }
     
     public void setEncoderReading2() {
-    	encoder.setReverseDirection(!Constants.DRIVETRAIN_USE_LEFT_ENCODER);
+    	encoder2.setReverseDirection(!Constants.DRIVETRAIN_USE_LEFT_ENCODER);
+//    	rightMaster.setInverted(true);
     }
     
     /**
@@ -269,9 +332,13 @@ public class Drivetrain extends PIDSubsystem {
      */
     public double getEncoderDistance() {
     	return encoder.getDistance();
+//   	    return leftMaster.getEncPosition();
+   	    
+
     }
     public double getEncoderDistance2() {
     	return encoder2.getDistance();
+//   	    return rightMaster.getEncPosition();
     }
     /**
      * Resets the encoder to 0.0
@@ -286,9 +353,9 @@ public class Drivetrain extends PIDSubsystem {
      * Returns if the optical sensor detects the color white
      * @return
      */
-    public boolean isOpticalSensorWhite() {
-    	return opticalSensor.get();
-    }
+//    public boolean isOpticalSensorWhite() {
+//    	return opticalSensor.get();
+//    }
     
     /**
      * Returns a process variable to the PIDSubsystem for correction
@@ -320,18 +387,19 @@ public class Drivetrain extends PIDSubsystem {
 //	    	SmartDashboard.putNumber("Gyro Rate", gyro.getRate());			// Gyro rate
 //	    	SmartDashboard.putNumber("PID Output", pidOutput);				// PID Info
 //	    	SmartDashboard.putNumber("DT Encoder Raw", encoder.get());		// Encoder raw count
-//	    	SmartDashboard.putBoolean("Brake", brake);						// Brake or Coast
-	    	SmartDashboard.putNumber("DT IR Distance", getIRDistance());	// IR distance reading
+	    	SmartDashboard.putBoolean("Brake", brake);						// Brake or Coast
+//	    	SmartDashboard.putNumber("DT IR Distance", getIRDistance());	// IR distance reading
 //	    	
 //	    	SmartDashboard.putNumber("DT Rt Master", rightMaster.getTemperature());
 //	    	SmartDashboard.putNumber("DT Rt Slave", rightSlave.getTemperature());
 //	    	SmartDashboard.putNumber("DT Lft Master", leftMaster.getTemperature());
 //	    	SmartDashboard.putNumber("DT Lft Slave", leftSlave.getTemperature());
     	}
-    	
+    	SmartDashboard.putNumber("AllianceColor", Robot.allianceColor);
+    	SmartDashboard.putBoolean("has gear", hasGear());
     	SmartDashboard.putNumber("Gyro angle", ( (int)gyro.getAngle()));			// Gyro angle
     	SmartDashboard.putNumber("DT Sonar Distance", getSonarDistance());			// Sonar distance reading
-    	SmartDashboard.putNumber("DT Encoder Distance", encoder.getDistance());		// Encoder reading
+    	SmartDashboard.putNumber("DT Encoder 1 Distance", encoder.getDistance());	// Encoder reading
     	SmartDashboard.putNumber("DT Encoder 2 Distance", encoder2.getDistance());	// Encoder reading
 //    	SmartDashboard.putNumber("Sonar Mode", sonarOverride);		
     }

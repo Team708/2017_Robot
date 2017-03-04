@@ -50,15 +50,17 @@ public class Shooter extends Subsystem {
         shooterSlave.changeControlMode(CANTalon.TalonControlMode.Follower);
         shooterSlave.set(shooter.getDeviceID());
 
+        shooter.reset();
 		shooter.enable();
+
 		shooter.reverseSensor(true);
     	shooter.setFeedbackDevice(FeedbackDevice.QuadEncoder);    
-    	shooter.changeControlMode(TalonControlMode.PercentVbus);
+//    	shooter.changeControlMode(TalonControlMode.PercentVbus);
+    	shooter.changeControlMode(TalonControlMode.Speed);
 
     	shooter.configNominalOutputVoltage(Constants.NOMINAL_POS, Constants.NOMINAL_NEG);
-    	shooter.configPeakOutputVoltage(Constants.PEAK_POS, Constants.PEAK_NEG);
+    	shooter.configPeakOutputVoltage(Constants.SHOOTER_PEAK_POS, Constants.SHOOTER_PEAK_NEG);
     	shooter.configEncoderCodesPerRev(Constants.SHOOTER_ENCODER_PULSES);
-
     	shooter.setPID(Constants.SHOOTER_P, Constants.SHOOTER_I, Constants.SHOOTER_D, Constants.SHOOTER_F, Constants.SHOOTER_IZONE, Constants.SHOOTER_RAMPRATE, Constants.SHOOTER_PROFILE);
     	
     	hood = new Servo(RobotMap.hoodAngle);
@@ -82,11 +84,11 @@ public class Shooter extends Subsystem {
 }
 	
 	public void setFgain(double F){
-		shooter.setF(F);
+//		shooter.setF(F);
 	}
 	
 	public void stop(){
-		shooter.changeControlMode(TalonControlMode.PercentVbus);
+//		shooter.changeControlMode(TalonControlMode.PercentVbus);
 		shooter.set(Constants.MOTOR_OFF);
 }
 	
@@ -102,8 +104,8 @@ public class Shooter extends Subsystem {
 	
 	public void hoodAdjust(double angle) {
 
-		if ((angle > 0.0) && (hoodLocation<2000)) hoodLocation+=Constants.HOOD_CALIBRATION;
-		else if ((angle < 0.0) && (hoodLocation>25)) hoodLocation-=Constants.HOOD_CALIBRATION;
+		if ((angle > 0.0) && (hoodLocation<Constants.HOOD_MAX)) hoodLocation+=Constants.HOOD_CALIBRATION;
+		else if ((angle < 0.0) && (hoodLocation>Constants.HOOD_MIN)) hoodLocation-=Constants.HOOD_CALIBRATION;
 			
 		moveHood(hoodLocation);
 		if (Constants.DEBUG) {

@@ -5,6 +5,7 @@ import org.usfirst.frc.team708.robot.Robot;
 import org.usfirst.frc.team708.robot.RobotMap;
 
 import com.ctre.CANTalon;
+import com.ctre.CANTalon.FeedbackDevice;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -22,6 +23,12 @@ public class Pivot_Gear extends Subsystem {
 	//I'm trying to link the right motor to the intake code here
 	public Pivot_Gear() {
 		pivotMotor 	= new CANTalon (RobotMap.pivotGearMotor);
+		pivotMotor.enable();
+
+//		pivotMotor.reverseSensor(true);
+		pivotMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+		pivotMotor.configEncoderCodesPerRev(Constants.PIVOT_GEAR_ENCODER_COUNT);
+//        pivotMotor.reset();
 	}
 	
 	public void initDefaultCommand() {
@@ -29,18 +36,15 @@ public class Pivot_Gear extends Subsystem {
 	
 	//I believe this sets the speed of the motor
 	public void moveMotor(double speed) {
-        if (!(Robot.pivot_gear.isFwdSwitch() || Robot.pivot_gear.isRevSwitch()))
     		pivotMotor.set(speed);
-        else
-        	pivotMotor.set(Constants.INTAKE_OFF);
 	}
 	
 	public boolean isFwdSwitch() {
-		return (pivotMotor.isFwdLimitSwitchClosed());
+		return (pivotMotor.getPosition()>= Constants.PIVOT_GEAR_ENCODER_HIGH);
 	}
 	
 	public boolean isRevSwitch() {
-		return (pivotMotor.isRevLimitSwitchClosed());
+		return (pivotMotor.getPosition()<= Constants.PIVOT_GEAR_ENCODER_LOW);
 	}
 	
 	//I believe this stops the motor
@@ -53,8 +57,10 @@ public class Pivot_Gear extends Subsystem {
      */
     public void sendToDashboard() {
 		if (Constants.DEBUG) {
-			SmartDashboard.putBoolean("Pivot forward switch", pivotMotor.isFwdLimitSwitchClosed());
-			SmartDashboard.putBoolean("Pivot reverse switch", pivotMotor.isRevLimitSwitchClosed());
+//			SmartDashboard.putBoolean("Pivot forward switch", pivotMotor.isFwdLimitSwitchClosed());
+//			SmartDashboard.putBoolean("Pivot reverse switch", pivotMotor.isRevLimitSwitchClosed());
+			SmartDashboard.putNumber("Pivot encoder", pivotMotor.getPosition());
+//			SmartDashboard.putNumber("Pivot encoder", pivotMotor.);
 		}
     }
 }

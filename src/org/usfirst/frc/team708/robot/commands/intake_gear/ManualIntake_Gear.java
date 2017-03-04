@@ -27,15 +27,15 @@ public class ManualIntake_Gear extends Command {
 	//  LOADER_IN_BUTTON 	= Gamepad.Button_L_Shoulder;
 	//  LOADER_OUT_BUTTON 	= Gamepad.shoulderAxisLeft;
 	    	
-	    	if (L_Shoulderpressed == true){
-	    		Robot.intake_gear.moveMotor(Constants.INTAKE_FORWARD);
-	    	}
-	    	else if (OI.driverGamepad.getAxis(Gamepad.shoulderAxisLeft) != 0.0){
-	    		Robot.intake_gear.moveMotor(Constants.INTAKE_REVERSE);
-	    	}
-	    	else {
-	    		Robot.intake_gear.moveMotor(Constants.INTAKE_OFF);
-	    	}
+//	    	if (L_Shoulderpressed == true){
+//	    		Robot.intake_gear.moveMotor(Constants.GEAR_IN);
+//	    	}
+//	    	else if (OI.driverGamepad.getAxis(Gamepad.shoulderAxisLeft) != 0.0){
+//	    		Robot.intake_gear.moveMotor(Constants.GEAR_DOWN);
+//	    	}
+//	    	else {
+//	    		Robot.intake_gear.moveMotor(Constants.GEAR_OFF);
+//	    	}
 	    	
 	    }
 
