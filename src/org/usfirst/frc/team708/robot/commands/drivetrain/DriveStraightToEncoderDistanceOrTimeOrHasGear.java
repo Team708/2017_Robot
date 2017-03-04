@@ -28,7 +28,7 @@ public class DriveStraightToEncoderDistanceOrTimeOrHasGear extends Command {
     
     public DriveStraightToEncoderDistanceOrTimeOrHasGear(double distance, double speed, boolean goForward, double maxTime) {
     	// Use requires() here to declare subsystem dependencies
-    	requires(Robot.drivetrain);
+    	//requires(Robot.drivetrain);
     	
     	if(goForward) {
     		targetDistance = distance;

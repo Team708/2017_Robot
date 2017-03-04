@@ -30,13 +30,13 @@ public class GearIntake extends Command {
 		else if (gearAngle<0)
 		{
 			Robot.intake_gear.moveMotor(Constants.GEAR_OUT);
-			Robot.led1.send_to_led(Robot.ledAllianceColor);
+//			Robot.led1.send_to_led(Robot.ledAllianceColor);
 		}
 		else
 		{
 			Robot.intake_gear.stop();
 			Robot.pivot_gear.moveMotor(Constants.GEAR_UP);
-			Robot.led1.send_to_led(Robot.ledAllianceColor);
+//			Robot.led1.send_to_led(Robot.ledAllianceColor);
 		}
 	}
 

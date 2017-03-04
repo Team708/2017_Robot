@@ -62,9 +62,9 @@ public final class Constants {
 	
 	public static final int 	HOOD_MIN 				=  30;
 	public static final int		HOOD_MAX 				=  2000;	
-	public static final int 	HOOD_BOILER 			=  640;
+	public static final int 	HOOD_BOILER 			=  400;
 	public static final int 	HOOD_MID	 			=  500;
-	public static final int 	HOOD_LEVER				=  300;
+	public static final int 	HOOD_LEVER				=  60;
 
 	public static final int 	SHOOTER_ENCODER_PULSES	 	= 12;
 	
