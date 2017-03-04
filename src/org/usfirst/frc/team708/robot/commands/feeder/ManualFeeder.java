@@ -22,6 +22,7 @@ public class ManualFeeder extends Command {
     protected void initialize() {
     	Robot.feeder.manualMove(Constants.FEEDER_MOTOR_FORWARD);
     	Robot.intake_ball.moveMotor(Constants.INTAKE_FORWARD);
+		Robot.led1.send_to_led(Constants.SET_TARGET_FOUND);
     }
 
     // Called repeatedly when this Command is scheduled to run

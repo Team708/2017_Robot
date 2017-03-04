@@ -1,6 +1,7 @@
 package org.usfirst.frc.team708.robot.commands.shooter;
 import org.usfirst.frc.team708.robot.Constants;
 import org.usfirst.frc.team708.robot.RobotMap;
+import org.usfirst.frc.team708.robot.commands.led_out.SetLED;
 import org.usfirst.frc.team708.robot.util.Gamepad;
 import org.usfirst.frc.team708.robot.Robot;
 import org.usfirst.frc.team708.robot.OI;
@@ -41,7 +42,7 @@ public class ManualShoot extends Command {
     		Robot.shooter.setSpinSpeed(Constants.SHOOTER_MOTOR_SPEED_BOILER);
 
     	}
-		
+		Robot.led1.send_to_led(Constants.SET_TARGETING);
 //		Robot.shooter.setFgain(Constants.SHOOTER_F);
     }
 
