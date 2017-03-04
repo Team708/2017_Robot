@@ -37,6 +37,7 @@ public class OI {
 	private static final int INTAKE_BALL_OUT			= Gamepad.shoulderAxisRight;
 	
 	public static final int LED_BUTTON 					= Gamepad.button_X;
+	public static final int BRAKE_BUTTON 					= Gamepad.button_B;
 
 	
 	/*
@@ -65,7 +66,7 @@ public class OI {
 	public static final Button  intakeBallIn 	= new JoystickButton(driverGamepad, INTAKE_BALL_IN);
 	public static final Trigger intakeBallOut	= new AxisUp(driverGamepad, INTAKE_BALL_OUT);
 	public static final Button 	led				= new JoystickButton(driverGamepad, LED_BUTTON);
-	
+	public static final Button 	brake				= new JoystickButton(driverGamepad, BRAKE_BUTTON);
 
 // Operator Button Commands
 	
@@ -114,6 +115,7 @@ public class OI {
 		hoodAdjustDown.whileActive(new HoodAdjust());
 		
 		led.whenPressed(new LED_out());
+		brake.whenPressed(new ToggleBrakeMode());
 
 		gearUp.whileActive(new GearAdjust());
 		gearDown.whileActive(new GearAdjust());

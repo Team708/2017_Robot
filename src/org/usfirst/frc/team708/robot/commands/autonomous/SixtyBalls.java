@@ -12,6 +12,7 @@ import org.usfirst.frc.team708.robot.commands.feeder.FeederOff;
 import org.usfirst.frc.team708.robot.commands.feeder.SpinFeeder;
 import org.usfirst.frc.team708.robot.commands.intake_gear.Intake_Gear_Off;
 import org.usfirst.frc.team708.robot.commands.intake_gear.Intake_Gear_Out;
+import org.usfirst.frc.team708.robot.commands.led_out.SetLED;
 //import org.usfirst.frc.team708.robot.commands.led_out.SetLED;
 import org.usfirst.frc.team708.robot.commands.shooter.StopShooter;
 import org.usfirst.frc.team708.robot.commands.shooter.SpinShooter;
@@ -37,7 +38,7 @@ public class SixtyBalls extends CommandGroup {
 
     	addSequential(new TurnToDegreesAlliance(.6, 45, 1));
     	
-//    	addSequential(new SetLED(Constants.SET_TARGETING));
+    	addSequential(new SetLED(Constants.SET_TARGETING));
      	addSequential(new RotateAndDriveToBoiler(10));
 
 		addParallel(new SpinShooter(11));
