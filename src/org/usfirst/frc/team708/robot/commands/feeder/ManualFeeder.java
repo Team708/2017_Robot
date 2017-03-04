@@ -38,6 +38,7 @@ public class ManualFeeder extends Command {
     protected void end() {
     	Robot.feeder.stop();
     	Robot.intake_ball.stop();
+    	Robot.led1.send_to_led(Robot.ledAllianceColor);
     }
 
     // Called when another command which requires one or more of the same
