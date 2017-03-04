@@ -3,6 +3,7 @@ package org.usfirst.frc.team708.robot.commands.autonomous;
 import org.usfirst.frc.team708.robot.AutoConstants;
 import org.usfirst.frc.team708.robot.Constants;
 import org.usfirst.frc.team708.robot.Robot;
+import org.usfirst.frc.team708.robot.commands.led_out.SetLED;
 import org.usfirst.frc.team708.robot.commands.drivetrain.DriveStraightForTime;
 import org.usfirst.frc.team708.robot.commands.drivetrain.DriveStraightToEncoderDistance;
 import org.usfirst.frc.team708.robot.commands.drivetrain.RotateAndDriveToBoiler;
@@ -37,6 +38,7 @@ public class TenBalls extends CommandGroup {
     	
 //    	addSequential(new DriveStraightToEncoderDistance(85, .4, false));  //55, .4, false
 //    	addSequential(new TurnToDegreesAlliance(.6, -45));
+    	addSequential(new SetLED(Constants.SET_TARGETING));
      	addSequential(new RotateAndDriveToBoiler(AutoConstants.DISTANCE_TO_BOILER_LOCATION2));
 
 		addParallel(new SpinShooter(10));

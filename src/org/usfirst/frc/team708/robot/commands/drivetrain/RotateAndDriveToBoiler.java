@@ -1,6 +1,7 @@
 package org.usfirst.frc.team708.robot.commands.drivetrain;
 
 import org.usfirst.frc.team708.robot.AutoConstants;
+import org.usfirst.frc.team708.robot.Constants;
 import org.usfirst.frc.team708.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -64,7 +65,8 @@ public class RotateAndDriveToBoiler extends Command {
     	}
     	//Check if the sonar distance is less then the target Distance, end
         if (Robot.visionBoiler.boilerIsAtDistance() && Robot.visionBoiler.boilerIsCentered()){
-         		     		return true;
+			Robot.led1.send_to_led(Constants.SET_TARGET_FOUND);
+     		return true;
     	}
     	else {
     		return false;

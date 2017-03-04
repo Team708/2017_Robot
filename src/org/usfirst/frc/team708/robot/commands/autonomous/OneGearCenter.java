@@ -11,6 +11,7 @@ import org.usfirst.frc.team708.robot.commands.drivetrain.TurnToDegreesAlliance;
 import org.usfirst.frc.team708.robot.commands.feeder.SpinFeeder;
 import org.usfirst.frc.team708.robot.commands.intake_gear.Intake_Gear_Off;
 import org.usfirst.frc.team708.robot.commands.intake_gear.Intake_Gear_Out;
+import org.usfirst.frc.team708.robot.commands.led_out.SetLED;
 import org.usfirst.frc.team708.robot.commands.shooter.SpinShooter;
 import org.usfirst.frc.team708.robot.commands.intake_gear.Intake_Gear_Down;
 import org.usfirst.frc.team708.robot.commands.intake_gear.Intake_Gear_In;
@@ -46,6 +47,8 @@ public class OneGearCenter extends CommandGroup {
     	addSequential(new TurnToDegreesAlliance(.6, 125, Constants.CLOCKWISE));
     	addSequential(new Intake_Gear_Down());
 
+    	addSequential(new SetLED(Constants.SET_HAS_GEAR_TARGETING));
+
     	addParallel(new Intake_Gear_In());
     	addParallel(new RotateAndDriveToGear());
     	addSequential(new DriveStraightToEncoderDistanceOrTimeOrGear(24, .4, false, 3));
@@ -62,7 +65,9 @@ public class OneGearCenter extends CommandGroup {
 // get gear 3
     	addSequential(new TurnToDegreesAlliance(.6, 120, Constants.CLOCKWISE));
     	addSequential(new Intake_Gear_Down());
-    	
+
+    	addSequential(new SetLED(Constants.SET_HAS_GEAR_TARGETING));
+
     	addParallel(new Intake_Gear_In());
     	addParallel(new RotateAndDriveToGear());
     	addSequential(new DriveStraightToEncoderDistanceOrTimeOrGear(24, .4, false, 3));
