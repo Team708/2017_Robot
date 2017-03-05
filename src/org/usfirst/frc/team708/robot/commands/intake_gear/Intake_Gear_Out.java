@@ -11,18 +11,19 @@ public class Intake_Gear_Out extends Command {
 	
 	public Intake_Gear_Out() {		
 //		requires(Robot.intake_gear);
-	   	this.setTimeout(1.0);
+//	   	this.setTimeout(1.0);
 	}
 	
 	protected void initialize() {
-		Robot.intake_gear.moveMotor(0.4);
+		Robot.intake_gear.moveMotor(-.3);
 	}
 	
 	protected void execute() {
 	}
 	
 	protected boolean isFinished() {
-		return(isTimedOut());
+//		return(isTimedOut());
+		return false;
 	}
 	
 	protected void end() {

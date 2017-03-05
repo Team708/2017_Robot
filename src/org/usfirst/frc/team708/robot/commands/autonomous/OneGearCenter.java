@@ -10,6 +10,7 @@ import org.usfirst.frc.team708.robot.commands.drivetrain.TurnToDegreesAlliance;
 import org.usfirst.frc.team708.robot.commands.feeder.SpinFeeder;
 import org.usfirst.frc.team708.robot.commands.intake_gear.Intake_Gear_Off;
 import org.usfirst.frc.team708.robot.commands.intake_gear.Intake_Gear_Out;
+import org.usfirst.frc.team708.robot.commands.intake_gear.ReleaseGear;
 import org.usfirst.frc.team708.robot.commands.led_out.SetLED;
 //import org.usfirst.frc.team708.robot.commands.led_out.SetLED;
 import org.usfirst.frc.team708.robot.commands.shooter.SpinShooter;
@@ -37,10 +38,12 @@ public class OneGearCenter extends CommandGroup {
     	addSequential(new WaitCommand(0.5));
 //    	addSequential(new DriveStraightToEncoderDistance(6, .4, false));
     	
-    	addParallel(new Intake_Gear_Down());
-    	addSequential(new Intake_Gear_Out());
+    	addParallel(new Intake_Gear_Out());
+    	addSequential(new WaitCommand(0.5));
+    	addSequential(new Intake_Gear_Off());
+    	
+
     	addSequential(new DriveStraightToEncoderDistance(5, .3, true));
-//    	addSequential(new Intake_Gear_Out());
     	addSequential(new DriveStraightToEncoderDistance(45, .4, true));
     	
 //this is a test replace with 3 gear
@@ -62,8 +65,12 @@ public class OneGearCenter extends CommandGroup {
     	
 //    	addSequential(new DriveStraightToEncoderDistance(6, .4, false));
     	
-    	addParallel(new Intake_Gear_Down());
-    	addSequential(new Intake_Gear_Out());
+//    	addParallel(new Intake_Gear_Down());
+//    	addSequential(new Intake_Gear_Out());
+    	addParallel(new Intake_Gear_Out());
+    	addSequential(new WaitCommand(0.5));
+    	addSequential(new Intake_Gear_Off());
+    	
     	addSequential(new DriveStraightToEncoderDistance(5, .3, true));
     	addSequential(new DriveStraightToEncoderDistance(45, .4, true));
     	
@@ -82,9 +89,11 @@ public class OneGearCenter extends CommandGroup {
     	
 //    	addSequential(new DriveStraightToEncoderDistance(6, .4, false));
     	
-    	addParallel(new Intake_Gear_Down());
-    	addSequential(new Intake_Gear_Out());
-    	addSequential(new DriveStraightToEncoderDistance(5, .3, true));
+    	addParallel(new Intake_Gear_Out());
+    	addSequential(new WaitCommand(0.5));
+    	addSequential(new Intake_Gear_Off());
+    	
+    	addSequential(new DriveStraightToEncoderDistance(5, .4, true));
 //    	addSequential(new Intake_Gear_Out());
     	addSequential(new DriveStraightToEncoderDistance(12, .4, true));
     }

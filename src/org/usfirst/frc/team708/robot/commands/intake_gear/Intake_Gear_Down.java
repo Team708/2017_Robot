@@ -22,10 +22,7 @@ public class Intake_Gear_Down extends Command {
         }
 
 	protected boolean isFinished() {
-		if (Robot.pivot_gear.isRevSwitch()|| isTimedOut())
-	      	return(true);
-        else
-      	    return(false);
+		return Robot.pivot_gear.isRevSwitch()|| isTimedOut();
 	}
 
 	protected void end() {

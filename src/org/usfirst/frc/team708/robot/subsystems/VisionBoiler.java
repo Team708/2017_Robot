@@ -211,7 +211,7 @@ public class VisionBoiler extends Subsystem {
 			// use the sonar to get the distance from the target (backup plan if camera distance not available)
 			
 //UPDATE THIS TO FIX DISTANCE
-			boilerCurrentDistance = Robot.drivetrain.getSonarDistance() - 22;
+			boilerCurrentDistance = Robot.drivetrain.getSonarDistance();
 			putBoilerCurrentDistance(boilerCurrentDistance);
 		    
 			// if robot sees the target (current X between its min and max)

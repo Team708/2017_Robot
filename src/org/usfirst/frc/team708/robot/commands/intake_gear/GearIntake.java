@@ -35,7 +35,7 @@ public class GearIntake extends Command {
 		else
 		{
 			Robot.intake_gear.stop();
-			Robot.pivot_gear.moveMotor(Constants.GEAR_UP);
+//			Robot.pivot_gear.moveMotor(Constants.GEAR_UP);
 			Robot.led1.send_to_led(Robot.ledAllianceColor);
 		}
 	}
@@ -48,7 +48,7 @@ public class GearIntake extends Command {
     // Called once after isFinished returns true
     protected void end() {
     	Robot.intake_gear.stop();
-    	Robot.pivot_gear.stop();
+//    	Robot.pivot_gear.stop();
     }
 
     protected void interrupted() {

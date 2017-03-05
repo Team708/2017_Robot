@@ -1,6 +1,7 @@
 package org.usfirst.frc.team708.robot.commands.autonomous;
 
 import org.usfirst.frc.team708.robot.Constants;
+import org.usfirst.frc.team708.robot.commands.intake_gear.ReleaseGear;
 import org.usfirst.frc.team708.robot.Robot;
 import org.usfirst.frc.team708.robot.commands.drivetrain.DriveStraightToEncoderDistance;
 import org.usfirst.frc.team708.robot.commands.drivetrain.RotateAndDriveToLift;
@@ -20,18 +21,19 @@ public class OneGearLeft extends CommandGroup {
     }
 	
     public  OneGearLeft() {
-    	addSequential(new DriveStraightToEncoderDistance(75, .3, false));
-    	addSequential(new TurnToDegreesAlliance(.5, 45, Constants.CLOCKWISE));
+    	addSequential(new DriveStraightToEncoderDistance(80, .3, false));
+    	addSequential(new TurnToDegreesAlliance(.5, 40, Constants.CLOCKWISE));
+    	addSequential(new DriveStraightToEncoderDistance(6, .3, false));
 
     	addSequential(new WaitCommand(1.0));
     	addSequential(new RotateAndDriveToLift());
     	
 //    	addSequential(new DriveStraightToEncoderDistance(6, .4, false));
     	
-    	addParallel(new Intake_Gear_Down());
-    	addSequential(new Intake_Gear_Out());
-    	
-    	addSequential(new DriveStraightToEncoderDistance(5, .3, true));
+    	addParallel(new Intake_Gear_Out());
+    	addSequential(new WaitCommand(0.5));
+    	addSequential(new Intake_Gear_Off());  	
+     	addSequential(new DriveStraightToEncoderDistance(25, .4, true));
 //    	addSequential(new Intake_Gear_Out());
     	addSequential(new DriveStraightToEncoderDistance(5, .4, true));
     	

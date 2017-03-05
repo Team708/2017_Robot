@@ -48,7 +48,7 @@ public class DriveStraightToEncoderDistanceOrTime extends Command {
     	Robot.drivetrain.resetEncoder();
     	Robot.drivetrain.resetGyro();
 //    	Robot.drivetrain.enable();
-    	Robot.drivetrain.disable();
+//    	Robot.drivetrain.disable();
     }
 
     // Called repeatedly when this Command is scheduled to run

@@ -21,7 +21,7 @@ public class Intake_Gear_Off extends Command {
 	}
 	
 	protected boolean isFinished() {
-		return(false);
+		return(true);
 	}
 	
 	protected void end() {

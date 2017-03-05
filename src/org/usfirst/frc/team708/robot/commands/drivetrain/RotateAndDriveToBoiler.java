@@ -28,7 +28,7 @@ public class RotateAndDriveToBoiler extends Command {
 		double test = bstopAtDistance;
 		SmartDashboard.putNumber("STOP-stop at distance", test);
         // Use requires() here to declare subsystem dependencies
-        requires(Robot.drivetrain);
+//        requires(Robot.drivetrain);
         requires(Robot.visionBoiler);
         
         // save the distance
