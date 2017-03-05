@@ -8,6 +8,7 @@ public class Intake_Gear_Down extends Command {
 
 	public Intake_Gear_Down() {
 //		requires(Robot.pivot_gear);
+		this.setTimeout(1.0);
 	}
 
 	protected void initialize() {
@@ -21,7 +22,7 @@ public class Intake_Gear_Down extends Command {
         }
 
 	protected boolean isFinished() {
-		if (Robot.pivot_gear.isRevSwitch())
+		if (Robot.pivot_gear.isRevSwitch()|| isTimedOut())
 	      	return(true);
         else
       	    return(false);

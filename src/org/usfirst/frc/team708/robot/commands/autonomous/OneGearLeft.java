@@ -6,6 +6,7 @@ import org.usfirst.frc.team708.robot.commands.drivetrain.DriveStraightToEncoderD
 import org.usfirst.frc.team708.robot.commands.drivetrain.RotateAndDriveToLift;
 import org.usfirst.frc.team708.robot.commands.drivetrain.ToggleBrakeMode;
 import org.usfirst.frc.team708.robot.commands.drivetrain.TurnToDegreesAlliance;
+import org.usfirst.frc.team708.robot.commands.intake_gear.Intake_Gear_Down;
 import org.usfirst.frc.team708.robot.commands.intake_gear.Intake_Gear_Off;
 import org.usfirst.frc.team708.robot.commands.intake_gear.Intake_Gear_Out;
 
@@ -19,15 +20,33 @@ public class OneGearLeft extends CommandGroup {
     }
 	
     public  OneGearLeft() {
-
-    	addSequential(new DriveStraightToEncoderDistance(70, .4, false));
+    	addSequential(new DriveStraightToEncoderDistance(75, .3, false));
     	addSequential(new TurnToDegreesAlliance(.5, 45, Constants.CLOCKWISE));
+
+    	addSequential(new WaitCommand(1.0));
     	addSequential(new RotateAndDriveToLift());
-
+    	
 //    	addSequential(new DriveStraightToEncoderDistance(6, .4, false));
-
+    	
+    	addParallel(new Intake_Gear_Down());
     	addSequential(new Intake_Gear_Out());
-    	addSequential(new DriveStraightToEncoderDistance(12, .4, true));
+    	
+    	addSequential(new DriveStraightToEncoderDistance(5, .3, true));
+//    	addSequential(new Intake_Gear_Out());
+    	addSequential(new DriveStraightToEncoderDistance(5, .4, true));
+    	
+//
+//    	addSequential(new DriveStraightToEncoderDistance(75, .4, false));
+//    	addSequential(new TurnToDegreesAlliance(.5, 45, Constants.CLOCKWISE));
+//    	addSequential(new RotateAndDriveToLift());
+//
+////    	addSequential(new DriveStraightToEncoderDistance(6, .4, false));
+//
+//    	addParallel(new Intake_Gear_Down());
+//    	addSequential(new DriveStraightToEncoderDistance(5, .3, true));
+//    	
+////    	addSequential(new Intake_Gear_Out());
+//    	addSequential(new DriveStraightToEncoderDistance(5, .4, true));
     }
     
     // Make this return true when this Command no longer needs to run execute()

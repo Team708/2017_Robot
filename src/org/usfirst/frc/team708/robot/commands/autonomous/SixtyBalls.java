@@ -10,6 +10,7 @@ import org.usfirst.frc.team708.robot.commands.drivetrain.RotateAndDriveToLift;
 import org.usfirst.frc.team708.robot.commands.drivetrain.TurnToDegreesAlliance;
 import org.usfirst.frc.team708.robot.commands.feeder.FeederOff;
 import org.usfirst.frc.team708.robot.commands.feeder.SpinFeeder;
+import org.usfirst.frc.team708.robot.commands.intake_gear.Intake_Gear_Down;
 import org.usfirst.frc.team708.robot.commands.intake_gear.Intake_Gear_Off;
 import org.usfirst.frc.team708.robot.commands.intake_gear.Intake_Gear_Out;
 import org.usfirst.frc.team708.robot.commands.led_out.SetLED;
@@ -48,8 +49,10 @@ public class SixtyBalls extends CommandGroup {
     	addSequential(new DriveStraightToEncoderDistance(12, .4, true));
 		
     	addSequential(new RotateAndDriveToLift());
-    	addSequential(new Intake_Gear_Out());
-    	addSequential(new DriveStraightToEncoderDistance(12, .4, true));
+    	addParallel(new Intake_Gear_Down());
+    	addSequential(new DriveStraightToEncoderDistance(5, .3, true));
+//    	addSequential(new Intake_Gear_Out());
+    	addSequential(new DriveStraightToEncoderDistance(6, .4, true));
     }
     
     // Make this return true when this Command no longer needs to run execute()

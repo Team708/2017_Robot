@@ -62,7 +62,7 @@ public final class Constants {
 	
 	public static final int 	HOOD_MIN 				=  30;
 	public static final int		HOOD_MAX 				=  2000;	
-	public static final int 	HOOD_BOILER 			=  400;
+	public static final int 	HOOD_BOILER 			=  380;
 	public static final int 	HOOD_MID	 			=  500;
 	public static final int 	HOOD_LEVER				=  60;
 
