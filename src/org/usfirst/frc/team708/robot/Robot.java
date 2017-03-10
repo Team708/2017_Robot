@@ -30,8 +30,7 @@ import org.usfirst.frc.team708.robot.subsystems.Intake_Ball;
 import org.usfirst.frc.team708.robot.subsystems.Intake_Gear;
 import org.usfirst.frc.team708.robot.subsystems.Pivot_Gear;
 import org.usfirst.frc.team708.robot.subsystems.Climber;
-import org.usfirst.frc.team708.robot.subsystems.VisionLiftGear;
-//import org.usfirst.frc.team708.robot.subsystems.VisionGear;
+import org.usfirst.frc.team708.robot.subsystems.VisionLift;
 import org.usfirst.frc.team708.robot.subsystems.VisionBoiler;
 //import org.usfirst.frc.team708.robot.subsystems.VisionProcessor;
 import org.usfirst.frc.team708.robot.subsystems.LED;
@@ -55,28 +54,26 @@ public class Robot extends IterativeRobot {
     Timer statsTimer;										// Timer used for Smart Dash statistics
     
     public static Drivetrain 		drivetrain;
-    public static Shooter	 	shooter;
-    public static Feeder	 	feeder;
+    public static Shooter	 		shooter;
+    public static Feeder	 		feeder;
     public static Intake_Ball		intake_ball;
     public static Intake_Gear		intake_gear;
     public static Pivot_Gear		pivot_gear;
-//    public static Loader	 	loader;
 
-    public static Climber		climber;
+    public static Climber			climber;
     
 //    public static VisionProcessor 	visionProcessor;
-    public static VisionLiftGear 		visionLiftGear;
-    public static VisionBoiler 		visionBoiler;
-//    public static VisionGear 		visionGear;
+    public static VisionLift 			visionLift;
+    public static VisionBoiler 			visionBoiler;
 
     public static LED			led1;
     
     public static OI	 		oi;
 
-    public static DriverStation 		ds;
+    public static DriverStation 			ds;
     public static DriverStation.Alliance 	alliance;
-    public static int 				allianceColor;
-    public static byte				ledAllianceColor;
+    public static int 						allianceColor;
+    public static byte						ledAllianceColor;
     
 //    public static Solenoid			pwr0;
 //    public static Solenoid			pwr1;
@@ -108,17 +105,15 @@ public class Robot extends IterativeRobot {
 // Subsystem Initialization
 
     drivetrain 			= new Drivetrain();
-    shooter			= new Shooter();
+    shooter				= new Shooter();
     intake_ball			= new Intake_Ball();
     intake_gear			= new Intake_Gear();
     pivot_gear			= new Pivot_Gear();
-    feeder			= new Feeder();
-//    loader			= new Loader();
-    led1			= new LED();
-    climber			= new Climber();
-    visionLiftGear			= new VisionLiftGear();
+    feeder				= new Feeder();
+    led1				= new LED();
+    climber				= new Climber();
+    visionLift			= new VisionLift();
     visionBoiler		= new VisionBoiler();
-//    visionGear		= new VisionGear();
             
     oi 				= new OI();	// Initializes the OI. 
 						// This MUST BE LAST or a NullPointerException will be thrown
@@ -256,7 +251,6 @@ public class Robot extends IterativeRobot {
             // Various debug information
             drivetrain.sendToDashboard();
             feeder.sendToDashboard();
-//            loader.sendToDashboard();
             shooter.sendToDashboard();
             led1.sendToDashboard();
             climber.sendToDashboard();
@@ -264,9 +258,8 @@ public class Robot extends IterativeRobot {
             intake_gear.sendToDashboard();
             pivot_gear.sendToDashboard();
 //          visionProcessor.sendToDashboard();
-            visionLiftGear.sendToDashboard();
+            visionLift.sendToDashboard();
             visionBoiler.sendToDashboard();
-//            visionGear.sendToDashboard();
         }
     }
 	
@@ -285,13 +278,13 @@ public class Robot extends IterativeRobot {
 	autonomousMode.addObject("Rotate And Drive To Lift", new RotateAndDriveToLift());
 	autonomousMode.addObject("Drive to Boiler Location 1", new RotateAndDriveToBoiler(AutoConstants.DISTANCE_TO_BOILER_LOCATION1));
 	autonomousMode.addObject("Drive to Boiler Location 2", new RotateAndDriveToBoiler(AutoConstants.DISTANCE_TO_BOILER_LOCATION2));
-	autonomousMode.addObject("Rotate And Drive To Gear", new RotateAndDriveToGear());
+//	autonomousMode.addObject("Rotate And Drive To Gear", new RotateAndDriveToGear());
 
 //  autonomousMode.addObject("Drive Straight for time", new DriveStraightForTime(.5, 3));
-//	autonomousMode.addObject("Find Target", new DriveToTarget());
+//	autonomousMode.addObject("Find Target", new FindTarget());
 //	autonomousMode.addObject("Drive in Square", new DriveInSquare());
 //	autonomousMode.addObject("turn", new turn(allianceColor));
-	autonomousMode.addObject("Realease Gear Test", new AutoGearTest());
+//	autonomousMode.addObject("Realease Gear Test", new AutoGearTest());
 
 		allianceSelection.addDefault("RED", new RedAlliance());
     	allianceSelection.addObject("BLUE", new BlueAlliance());
@@ -306,17 +299,15 @@ public class Robot extends IterativeRobot {
      */
     private void sendDashboardSubsystems() {
     	SmartDashboard.putData(shooter);
-//    	SmartDashboard.putData(feeder);
-//    	SmartDashboard.putData(loader);
+    	SmartDashboard.putData(feeder);
     	SmartDashboard.putData(drivetrain);
     	SmartDashboard.putData(led1);
     	SmartDashboard.putData(intake_ball);
     	SmartDashboard.putData(intake_gear);
     	SmartDashboard.putData(pivot_gear);
 //    	SmartDashboard.putData(visionProcessor);
-    	SmartDashboard.putData(visionLiftGear);
+    	SmartDashboard.putData(visionLift);
     	SmartDashboard.putData(visionBoiler);
-//    	SmartDashboard.putData(visionGear);
     	SmartDashboard.putData(climber);
     }
 }

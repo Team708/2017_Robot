@@ -26,10 +26,10 @@ public class RotateAndDriveToBoiler extends Command {
 // BUT WE NEED TO FIGURE OUT HOW WE ARE GOING TO MAKE THIS WORK WITH MULITPLE DISTANCES FOUND
 	public RotateAndDriveToBoiler(double bstopAtDistance){
 		double test = bstopAtDistance;
-		SmartDashboard.putNumber("STOP-stop at distance", test);
-        // Use requires() here to declare subsystem dependencies
+//		SmartDashboard.putNumber("Bstop at distance", test);
+
 //        requires(Robot.drivetrain);
-        requires(Robot.visionBoiler);
+//        requires(Robot.visionBoiler);
         
         // save the distance
         Robot.visionBoiler.putBoilerStopAtDistance(bstopAtDistance);
@@ -49,7 +49,7 @@ public class RotateAndDriveToBoiler extends Command {
     protected void execute() {
 
     	Robot.visionBoiler.boilerProcessData();
-    	rotate = Robot.visionBoiler.boilerGetRotate();  
+    	rotate 	  = Robot.visionBoiler.boilerGetRotate();  
     	moveSpeed = Robot.visionBoiler.boilerGetMove();
 
  
@@ -64,7 +64,7 @@ public class RotateAndDriveToBoiler extends Command {
     		return true;
     	}
     	//Check if the sonar distance is less then the target Distance, end
-        if (Robot.visionBoiler.boilerIsAtDistance() && Robot.visionBoiler.boilerIsCentered()){
+    	else if (Robot.visionBoiler.boilerIsAtDistance() && Robot.visionBoiler.boilerIsCentered()){
 			Robot.led1.send_to_led(Constants.SET_TARGET_FOUND);
      		return true;
     	}

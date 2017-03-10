@@ -11,7 +11,7 @@ public class Intake_Gear_Out extends Command {
 	
 	public Intake_Gear_Out() {		
 //		requires(Robot.intake_gear);
-//	   	this.setTimeout(1.0);
+	   	this.setTimeout(.5);
 	}
 	
 	protected void initialize() {
@@ -22,8 +22,8 @@ public class Intake_Gear_Out extends Command {
 	}
 	
 	protected boolean isFinished() {
-//		return(isTimedOut());
-		return false;
+		return(isTimedOut());
+//		return false;
 	}
 	
 	protected void end() {

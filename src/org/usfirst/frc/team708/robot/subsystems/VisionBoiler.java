@@ -167,7 +167,7 @@ public class VisionBoiler extends Subsystem {
 		            
 		            // display the current image on the driver station 
 		             
-		            if (Constants.DEBUG){
+		            if (Constants.BOILER_DEBUG){
 		            	outputStreamBoiler.putFrame(boilerPipeline.hsvThresholdOutput()); 	               
 		            }  
 	            }
@@ -379,7 +379,7 @@ public class VisionBoiler extends Subsystem {
 
 	public boolean boilerIsAtDistance() {
 		double difference = boilerStopAtDistance - getBoilerCurrentDistance();			
-		SmartDashboard.putNumber("difference in IsAtDistance", difference);
+		SmartDashboard.putNumber("Boilre difference in IsAtDistance", difference);
 		//Check if target is at correct level within threshold
 		if (Math.abs(difference) <= thresholdDistance) {
 			boilerIsAtDistance = true;
@@ -463,24 +463,24 @@ public class VisionBoiler extends Subsystem {
 
 	public void sendToDashboard() {
 		if (Constants.BOILER_DEBUG) {
-			SmartDashboard.putNumber("b-True Center", trueCenter);
-			SmartDashboard.putBoolean("b-Has Target", boilerIsHasTarget());
-			SmartDashboard.putBoolean("b-IsAtDistance", boilerIsAtDistance());
-			SmartDashboard.putNumber("b-Center of Target", boilerCurrentCenter);
-			SmartDashboard.putNumber("b-Rotation", boilerRotate);
-			SmartDashboard.putNumber("b-Rotate Difference", boilerRotateDiff);
-			SmartDashboard.putNumber("b-Distance Difference", boilerMoveDiff);
-			SmartDashboard.putNumber("b-Sweep Counter", boilerSweepCounter);
-			SmartDashboard.putNumber("b-SweepDirection", boilerSweepDirection);
-			SmartDashboard.putBoolean("b-isCentered", boilerIsCentered());
-			SmartDashboard.putNumber("b-rectX", brectX);
-			SmartDashboard.putNumber("b-maxY", bmaxY);
-			SmartDashboard.putNumber("b-rectY", brectY);
-			SmartDashboard.putNumber("b-rectWidth", brectWidth);
-			SmartDashboard.putNumber("b-rectHeight", brectHeight);
-			SmartDashboard.putNumber("b-Distance To Target", boilerCurrentDistance);
-			SmartDashboard.putNumber("b-pipelineSize", bPipelineSize);
-			SmartDashboard.putNumber("b-stop at distance", boilerStopAtDistance);
+			SmartDashboard.putNumber("b-True Center", 			trueCenter);
+			SmartDashboard.putBoolean("b-Has Target", 			boilerIsHasTarget());
+			SmartDashboard.putBoolean("b-IsAtDistance", 		boilerIsAtDistance());
+			SmartDashboard.putNumber("b-Center of Target", 		boilerCurrentCenter);
+			SmartDashboard.putNumber("b-Rotation", 				boilerRotate);
+			SmartDashboard.putNumber("b-Rotate Difference", 	boilerRotateDiff);
+			SmartDashboard.putNumber("b-Distance Difference", 	boilerMoveDiff);
+			SmartDashboard.putNumber("b-Sweep Counter", 		boilerSweepCounter);
+			SmartDashboard.putNumber("b-SweepDirection", 		boilerSweepDirection);
+			SmartDashboard.putBoolean("b-isCentered", 			boilerIsCentered());
+			SmartDashboard.putNumber("b-rectX", 				brectX);
+			SmartDashboard.putNumber("b-maxY", 					bmaxY);
+			SmartDashboard.putNumber("b-rectY", 				brectY);
+			SmartDashboard.putNumber("b-rectWidth", 			brectWidth);
+			SmartDashboard.putNumber("b-rectHeight", 			brectHeight);
+			SmartDashboard.putNumber("b-Distance To Target",	boilerCurrentDistance);
+			SmartDashboard.putNumber("b-pipelineSize", 			bPipelineSize);
+			SmartDashboard.putNumber("b-stop at distance", 		boilerStopAtDistance);
 
 		}
 	}

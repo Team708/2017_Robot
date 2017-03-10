@@ -29,12 +29,11 @@ public class GripPipelineLiftGear implements VisionPipeline {
 
 	//Outputs
 	private Mat resizeImageOutput = new Mat();
-	private Mat hslThresholdOutput = new Mat();
+	private Mat rgbThreshold0Output = new Mat();
 	private ArrayList<MatOfPoint> findContours0Output = new ArrayList<MatOfPoint>();
-	private ArrayList<MatOfPoint> filterContours0Output = new ArrayList<MatOfPoint>();
-	private Mat rgbThresholdOutput = new Mat();
+	private Mat rgbThreshold1Output = new Mat();
 	private ArrayList<MatOfPoint> findContours1Output = new ArrayList<MatOfPoint>();
-	private ArrayList<MatOfPoint> filterContours1Output = new ArrayList<MatOfPoint>();
+	private ArrayList<MatOfPoint> filterContoursOutput = new ArrayList<MatOfPoint>();
 
 	static {
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
@@ -51,59 +50,44 @@ public class GripPipelineLiftGear implements VisionPipeline {
 		int resizeImageInterpolation = Imgproc.INTER_CUBIC;
 		resizeImage(resizeImageInput, resizeImageWidth, resizeImageHeight, resizeImageInterpolation, resizeImageOutput);
 
-		// Step HSL_Threshold0:
-		Mat hslThresholdInput = resizeImageOutput;
-		double[] hslThresholdHue = {0.0, 44.63972054996753};
-		double[] hslThresholdSaturation = {0.0, 57.52525252525253};
-		double[] hslThresholdLuminance = {227.023381294964, 255.0};
-		hslThreshold(hslThresholdInput, hslThresholdHue, hslThresholdSaturation, hslThresholdLuminance, hslThresholdOutput);
+		// Step RGB_Threshold0:
+		Mat rgbThreshold0Input = resizeImageOutput;
+		double[] rgbThreshold0Red = {0.0, 0.0};
+		double[] rgbThreshold0Green = {74.43502824858757, 141.36363636363637};
+		double[] rgbThreshold0Blue = {0.0, 0.0};
+		rgbThreshold(rgbThreshold0Input, rgbThreshold0Red, rgbThreshold0Green, rgbThreshold0Blue, rgbThreshold0Output);
 
 		// Step Find_Contours0:
-		Mat findContours0Input = hslThresholdOutput;
+		Mat findContours0Input = rgbThreshold0Output;
 		boolean findContours0ExternalOnly = false;
 		findContours(findContours0Input, findContours0ExternalOnly, findContours0Output);
 
-		// Step Filter_Contours0:
-		ArrayList<MatOfPoint> filterContours0Contours = findContours0Output;
-		double filterContours0MinArea = 160.0;
-		double filterContours0MinPerimeter = 60.0;
-		double filterContours0MinWidth = 15.0;
-		double filterContours0MaxWidth = 70.0;
-		double filterContours0MinHeight = 15.0;
-		double filterContours0MaxHeight = 110.0;
-		double[] filterContours0Solidity = {40.46762589928058, 100};
-		double filterContours0MaxVertices = 1000000.0;
-		double filterContours0MinVertices = 0.0;
-		double filterContours0MinRatio = 0.0;
-		double filterContours0MaxRatio = 5.0;
-		filterContours(filterContours0Contours, filterContours0MinArea, filterContours0MinPerimeter, filterContours0MinWidth, filterContours0MaxWidth, filterContours0MinHeight, filterContours0MaxHeight, filterContours0Solidity, filterContours0MaxVertices, filterContours0MinVertices, filterContours0MinRatio, filterContours0MaxRatio, filterContours0Output);
-
-		// Step RGB_Threshold0:
-		Mat rgbThresholdInput = resizeImageOutput;
-		double[] rgbThresholdRed = {204.73851687880463, 255.0};
-		double[] rgbThresholdGreen = {122.41975650249032, 255.0};
-		double[] rgbThresholdBlue = {13.758992805755396, 160.55555555555557};
-		rgbThreshold(rgbThresholdInput, rgbThresholdRed, rgbThresholdGreen, rgbThresholdBlue, rgbThresholdOutput);
+		// Step RGB_Threshold1:
+		Mat rgbThreshold1Input = resizeImageOutput;
+		double[] rgbThreshold1Red = {255.0, 255.0};   //{156.58204205866073, 255.0};
+		double[] rgbThreshold1Green = {255.0, 255.0};  //{156.8172385168788, 255.0};
+		double[] rgbThreshold1Blue = {0.0, 150.0};   // {55.03597122302158, 143.37518287980558};
+		rgbThreshold(rgbThreshold1Input, rgbThreshold1Red, rgbThreshold1Green, rgbThreshold1Blue, rgbThreshold1Output);
 
 		// Step Find_Contours1:
-		Mat findContours1Input = rgbThresholdOutput;
+		Mat findContours1Input = rgbThreshold1Output;
 		boolean findContours1ExternalOnly = false;
 		findContours(findContours1Input, findContours1ExternalOnly, findContours1Output);
 
-		// Step Filter_Contours1:
-		ArrayList<MatOfPoint> filterContours1Contours = findContours1Output;
-		double filterContours1MinArea = 26.0;
-		double filterContours1MinPerimeter = 0.0;
-		double filterContours1MinWidth = 0.0;
-		double filterContours1MaxWidth = 50.0;
-		double filterContours1MinHeight = 0.0;
-		double filterContours1MaxHeight = 998.0;
-		double[] filterContours1Solidity = {0.0, 100.0};
-		double filterContours1MaxVertices = 1000000.0;
-		double filterContours1MinVertices = 0.0;
-		double filterContours1MinRatio = 0.0;
-		double filterContours1MaxRatio = 1000.0;
-		filterContours(filterContours1Contours, filterContours1MinArea, filterContours1MinPerimeter, filterContours1MinWidth, filterContours1MaxWidth, filterContours1MinHeight, filterContours1MaxHeight, filterContours1Solidity, filterContours1MaxVertices, filterContours1MinVertices, filterContours1MinRatio, filterContours1MaxRatio, filterContours1Output);
+		// Step Filter_Contours0:
+		ArrayList<MatOfPoint> filterContoursContours = findContours1Output;
+		double filterContoursMinArea = 5.0;
+		double filterContoursMinPerimeter = 0.0;
+		double filterContoursMinWidth = 0.0;
+		double filterContoursMaxWidth = 1000.0;
+		double filterContoursMinHeight = 0.0;
+		double filterContoursMaxHeight = 998.0;
+		double[] filterContoursSolidity = {0.0, 100.0};
+		double filterContoursMaxVertices = 1000000.0;
+		double filterContoursMinVertices = 0.0;
+		double filterContoursMinRatio = 0.0;
+		double filterContoursMaxRatio = 1000.0;
+		filterContours(filterContoursContours, filterContoursMinArea, filterContoursMinPerimeter, filterContoursMinWidth, filterContoursMaxWidth, filterContoursMinHeight, filterContoursMaxHeight, filterContoursSolidity, filterContoursMaxVertices, filterContoursMinVertices, filterContoursMinRatio, filterContoursMaxRatio, filterContoursOutput);
 
 	}
 
@@ -116,11 +100,11 @@ public class GripPipelineLiftGear implements VisionPipeline {
 	}
 
 	/**
-	 * This method is a generated getter for the output of a HSL_Threshold.
-	 * @return Mat output from HSL_Threshold.
+	 * This method is a generated getter for the output of a RGB_Threshold.
+	 * @return Mat output from RGB_Threshold.
 	 */
-	public Mat hslThresholdOutput() {
-		return hslThresholdOutput;
+	public Mat rgbThreshold0Output() {
+		return rgbThreshold0Output;
 	}
 
 	/**
@@ -132,19 +116,11 @@ public class GripPipelineLiftGear implements VisionPipeline {
 	}
 
 	/**
-	 * This method is a generated getter for the output of a Filter_Contours.
-	 * @return ArrayList<MatOfPoint> output from Filter_Contours.
-	 */
-	public ArrayList<MatOfPoint> filterContours0Output() {
-		return filterContours0Output;
-	}
-
-	/**
 	 * This method is a generated getter for the output of a RGB_Threshold.
 	 * @return Mat output from RGB_Threshold.
 	 */
-	public Mat rgbThresholdOutput() {
-		return rgbThresholdOutput;
+	public Mat rgbThreshold1Output() {
+		return rgbThreshold1Output;
 	}
 
 	/**
@@ -159,8 +135,8 @@ public class GripPipelineLiftGear implements VisionPipeline {
 	 * This method is a generated getter for the output of a Filter_Contours.
 	 * @return ArrayList<MatOfPoint> output from Filter_Contours.
 	 */
-	public ArrayList<MatOfPoint> filterContours1Output() {
-		return filterContours1Output;
+	public ArrayList<MatOfPoint> filterContoursOutput() {
+		return filterContoursOutput;
 	}
 
 
@@ -175,22 +151,6 @@ public class GripPipelineLiftGear implements VisionPipeline {
 	private void resizeImage(Mat input, double width, double height,
 		int interpolation, Mat output) {
 		Imgproc.resize(input, output, new Size(width, height), 0.0, 0.0, interpolation);
-	}
-
-	/**
-	 * Segment an image based on hue, saturation, and luminance ranges.
-	 *
-	 * @param input The image on which to perform the HSL threshold.
-	 * @param hue The min and max hue
-	 * @param sat The min and max saturation
-	 * @param lum The min and max luminance
-	 * @param output The image in which to store the output.
-	 */
-	private void hslThreshold(Mat input, double[] hue, double[] sat, double[] lum,
-		Mat out) {
-		Imgproc.cvtColor(input, out, Imgproc.COLOR_BGR2HLS);
-		Core.inRange(out, new Scalar(hue[0], lum[0], sat[0]),
-			new Scalar(hue[1], lum[1], sat[1]), out);
 	}
 
 	/**

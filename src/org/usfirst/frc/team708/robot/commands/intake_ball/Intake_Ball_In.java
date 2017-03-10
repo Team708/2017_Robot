@@ -7,8 +7,11 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class Intake_Ball_In extends Command {
 
-	public Intake_Ball_In() {		
+	private double maxTime;
+
+	public Intake_Ball_In(double maxTime) {		
 //		requires(Robot.intake_ball);
+		this.setTimeout(maxTime);
 	}
 
 	protected void initialize() {
@@ -19,7 +22,7 @@ public class Intake_Ball_In extends Command {
 	}
 
 	protected boolean isFinished() {
-		return(false);
+		return(isTimedOut());
 	}
 
 	protected void end() {

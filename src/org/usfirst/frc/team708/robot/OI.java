@@ -98,8 +98,10 @@ public class OI {
 	public OI() {
 
 //	Driver
-		intakeBallIn.whileHeld(new Intake_Ball_In());
-		intakeBallOut.whileActive(new Intake_Ball_Out());
+//		intakeBallIn.whileHeld(new Intake_Ball_In());
+//		intakeBallOut.whileActive(new Intake_Ball_Out());
+		intakeBallIn.whileHeld(new ManualIntake_Ball());
+		intakeBallOut.whileActive(new ManualIntake_Ball());
 		
 //	Operator		
 		spinShooter.whileHeld(new ManualShoot());

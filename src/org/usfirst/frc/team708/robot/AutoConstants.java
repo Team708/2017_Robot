@@ -18,7 +18,7 @@ public final class AutoConstants {
 	public static final int SWEEP3_MAX 						= 400;
 	public static final int SWEEP_DIRECTION_LEFT 			= -1;
 	public static final int SWEEP_DIRECTION_RIGHT 			= 1;
-	public static final double SWEEP_ROTATE 				= .5;
+	public static final double SWEEP_ROTATE 				= .25;
 
 	// Drivetrain Constants
 	public static final double DRIVE_ROTATE_MIN 			= .2;
@@ -50,9 +50,9 @@ public final class AutoConstants {
 
 	
 	// Axis Camera constants
-	public static final double AXIS_FOV_DEGREES 			= 43.5;			// Field of View of the AXIS Camera
-	public static final int AXIS_IMG_WIDTH 					= 320;			// width of the AXIS image - resolution
-	public static final int AXIS_IMG_HEIGHT 				= 240;			// height of the AXIS image - resolution
+	public static final double	 AXIS_FOV_DEGREES 			= 43.5;			// Field of View of the AXIS Camera
+	public static final int 	AXIS_IMG_WIDTH 				= 320;			// width of the AXIS image - resolution
+	public static final int 	AXIS_IMG_HEIGHT 			= 240;			// height of the AXIS image - resolution
 	
 	// USB Camera Constants
 	public static final double USB_FOV_DEGREES 				= 75;			// Field of View of the USB Camera
@@ -61,15 +61,15 @@ public final class AutoConstants {
 	
 	
 	// USB Lift Camera Constants
-	public static final double USB_LIFT_FOV_DEGREES 			= 43.5;			// Field of View of the AXIS Camera
-	public static final int USB_LIFT_IMG_WIDTH 				= 320;			// width of the USB image - resolution
-	public static final int USB_LIFT_IMG_HEIGHT 				= 240;			// height of the USB image - resolution
+	public static final double 	USB_LIFT_FOV_DEGREES 		= 43.5;			// Field of View of the AXIS Camera
+	public static final int 	USB_LIFT_IMG_WIDTH 			= 320;			// width of the USB image - resolution
+	public static final int 	USB_LIFT_IMG_HEIGHT 		= 240;			// height of the USB image - resolution
 
 	
 	// USB Camera Constants
-	public static final double USB_BOILER_FOV_DEGREES 				= 43.5;			// Field of View of the AXIS Camera
-	public static final int USB_BOILER_IMG_WIDTH 					= 320;			// width of the USB image - resolution
-	public static final int USB_BOILER_IMG_HEIGHT 					= 240;			// height of the USB image - resolution
+	public static final double 	USB_BOILER_FOV_DEGREES 			= 43.5;			// Field of View of the AXIS Camera
+	public static final int 	USB_BOILER_IMG_WIDTH 			= 320;			// width of the USB image - resolution
+	public static final int 	USB_BOILER_IMG_HEIGHT 			= 240;			// height of the USB image - resolution
 
 	public static final String AXIS_IP_ADDRESS				= "10.7.8.12";      // lift -practice - 10.7.8.2
 	public static final String AXIS_CAMERA_ID				=  "cam3";			// lift - practice - cam1    comp - 3

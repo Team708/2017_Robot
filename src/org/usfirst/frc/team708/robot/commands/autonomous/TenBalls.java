@@ -31,56 +31,35 @@ public class TenBalls extends CommandGroup {
     }
 	
     public  TenBalls() {  	
+// go to lever
     	addSequential(new DriveStraightToEncoderDistance(80, .3, false));
-    	addSequential(new TurnToDegreesAlliance(.5, 40, Constants.COUNTERCLOCKWISE));
-    	addSequential(new DriveStraightToEncoderDistance(6, .3, false));
+    	addSequential(new TurnToDegreesAlliance(.4, 40, Constants.COUNTERCLOCKWISE));
+    	addSequential(new DriveStraightToEncoderDistance(10, .3, false));
 
+//  target lever
     	addSequential(new WaitCommand(1.0));
     	addSequential(new RotateAndDriveToLift());
     	
-//    	addSequential(new DriveStraightToEncoderDistance(6, .4, false));
-    	
-    	addParallel(new Intake_Gear_Out());
+//  place gear on lever and back away    	
     	addSequential(new WaitCommand(0.5));
-    	addSequential(new Intake_Gear_Off());  	
+    	addParallel(new Intake_Gear_Out());
+    	addParallel(new Intake_Gear_Down());
+    	addSequential(new DriveStraightToEncoderDistance(5, .3, true));
     	
-    	addSequential(new DriveStraightToEncoderDistance(25, .4, true));
-//    	addSequential(new Intake_Gear_Out());
-    	
-    	
-//        addSequential(new DriveStraightToEncoderDistance(75, .4, false));
-//    	addSequential(new TurnToDegreesAlliance(.5, 45, Constants.COUNTERCLOCKWISE));
-//    	addSequential(new RotateAndDriveToLift());
-//    	
-////    	addSequential(new DriveStraightToEncoderDistance(6, .4, false));
-//
-//    	addParallel(new Intake_Gear_Down());
-//    	addParallel(new Intake_Gear_Out());
-//    	addSequential(new WaitCommand(1.0));
-//    	addSequential(new DriveStraightToEncoderDistance(5, .3, true));
-//    	addParallel(new Intake_Gear_Down());
-//    	addSequential(new DriveStraightToEncoderDistance(5, .3, true));
-////    	addSequential(new Intake_Gear_Out());
-//    	addSequential(new DriveStraightToEncoderDistance(5, .4, true));
-    	
-//    	addSequential(new DriveStraightToEncoderDistance(85, .4, false));  //55, .4, false
-//    	addSequential(new TurnToDegreesAlliance(.6, -45));
-    	
+// get off lever and go for some balls
+    	addSequential(new DriveStraightToEncoderDistance(15, .3, true));
+    
+// target Boiler
     	addSequential(new WaitCommand(1.0));
     	addSequential(new SetLED(Constants.SET_TARGETING));
     	addSequential(new RotateAndDriveToBoiler(AutoConstants.DISTANCE_TO_BOILER_LOCATION1));
 
+//drive to bumper
     	addSequential(new DriveStraightToEncoderDistanceOrTime(50, .3, true, 3));
-    	addSequential(new WaitCommand(1.0));
 
-		addParallel(new SpinShooter(8));
-		addSequential(new SpinFeeder(6));
-		
-//		addSequential(new WaitCommand(10));
-//		addSequential(new FeederOff());
-		
-		addSequential(new StopShooter());
-    	addSequential(new DriveStraightToEncoderDistance(12, .4, true));
+// unload balls
+    			addParallel(new SpinShooter(8));
+    			addSequential(new SpinFeeder(6));  
     }
     
     // Make this return true when this Command no longer needs to run execute()
