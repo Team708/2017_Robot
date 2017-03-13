@@ -31,29 +31,38 @@ public class SixtyBalls extends CommandGroup {
 	
     public  SixtyBalls() {  	
 // goto Hopper
-    	addSequential(new DriveStraightToEncoderDistance(100, .4, false));
-    	addSequential(new TurnToDegreesAlliance(.4, 80, Constants.COUNTERCLOCKWISE));
+//    	addSequential(new DriveStraightForTime(-.3, 4.0));
+    	addSequential(new DriveStraightToEncoderDistance(55, .4, false));
+    	
+    	addSequential(new TurnToDegreesAlliance(.5, 85, Constants.COUNTERCLOCKWISE));
+
+    	
+//    	addSequential(new DriveStraightForTime(.3, .5));
     	addSequential(new DriveStraightToEncoderDistance(25, .5, true));
+    	
     	addSequential(new Intake_Ball_In(4));
     	
 // back off hopper and turn toward boiler		
-		addSequential(new DriveStraightToEncoderDistance(25, .5, false));
-    	addSequential(new TurnToDegreesAlliance(.4, 45, -1));
+//    	addSequential(new DriveStraightForTime(-.3, 2.0));
+    	addSequential(new DriveStraightToEncoderDistance(25, .5, false));
+    	
+    	addSequential(new TurnToDegreesAlliance(.5, 45, Constants.CLOCKWISE));
 
 //    	addSequential(new DriveStraightToEncoderDistance(40, .4, true));
-    	
+ 
 // target Boiler
     	addSequential(new WaitCommand(1.0));
     	addSequential(new SetLED(Constants.SET_TARGETING));
     	addSequential(new RotateAndDriveToBoiler(AutoConstants.DISTANCE_TO_BOILER_LOCATION2));
-
+    	
 // unload balls
-		addParallel(new SpinShooter(8));
-		addSequential(new SpinFeeder(6));
-		
-// go to lever
-    	addSequential(new TurnToDegreesAlliance(.4, 20, Constants.COUNTERCLOCKWISE));
+    	addParallel(new SpinShooter(6));
+    	addSequential(new SpinFeeder(4));
+    	addSequential(new StopShooter());
 
+// go to lever
+//    	addSequential(new TurnToDegreesAlliance(.4, 20, Constants.COUNTERCLOCKWISE));
+    	
 //  target lever
     	addSequential(new WaitCommand(1.0));
     	addSequential(new RotateAndDriveToLift());
@@ -62,8 +71,9 @@ public class SixtyBalls extends CommandGroup {
     	addSequential(new WaitCommand(0.5));
     	addParallel(new Intake_Gear_Out());
     	addParallel(new Intake_Gear_Down());
-    	addSequential(new DriveStraightToEncoderDistance(5, .3, true));
-    	    }
+    	
+    	addSequential(new DriveStraightToEncoderDistance(15, .3, true));    	
+    }
     
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {

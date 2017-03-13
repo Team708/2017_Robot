@@ -58,7 +58,7 @@ public class GripPipelineBoiler implements VisionPipeline {
 		double filterContoursMinPerimeter = 40.0;
 		double filterContoursMinWidth = 20.0;
 		double filterContoursMaxWidth = 100.0;
-		double filterContoursMinHeight = 10.0;
+		double filterContoursMinHeight = 5.0;
 		double filterContoursMaxHeight = 1000.0;
 		double[] filterContoursSolidity = {0, 100};
 		double filterContoursMaxVertices = 1000000.0;

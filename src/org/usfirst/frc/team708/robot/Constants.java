@@ -27,7 +27,7 @@ public final class Constants {
 	
 	public static final int PIVOT_GEAR_ENCODER_COUNT	=  1024;
 	public static final int PIVOT_GEAR_ENCODER_HIGH		=  35;
-	public static final int PIVOT_GEAR_ENCODER_LOW		=  0;
+	public static final int PIVOT_GEAR_ENCODER_LOW		=  5;
 
 
 	public static final double MOTOR_FORWARD 		=  1.0;
@@ -85,9 +85,9 @@ public final class Constants {
 	 */
 	public static final double  SEND_STATS_INTERVAL		= .5;	// Interval for reporting in seconds
 	public static final boolean DEBUG 					= true;
-	public static final boolean LIFT_DEBUG 				= false;
-	public static final boolean BOILER_DEBUG 			= false;
-	public static final boolean GEAR_DEBUG 				= true;
+	public static final boolean LIFT_DEBUG 				= true;
+	public static final boolean BOILER_DEBUG 			= true;
+	public static final boolean GEAR_DEBUG 				= false;
 
 	/*
 	 * Sensors

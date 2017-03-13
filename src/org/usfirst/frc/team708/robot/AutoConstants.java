@@ -18,18 +18,18 @@ public final class AutoConstants {
 	public static final int SWEEP3_MAX 						= 400;
 	public static final int SWEEP_DIRECTION_LEFT 			= -1;
 	public static final int SWEEP_DIRECTION_RIGHT 			= 1;
-	public static final double SWEEP_ROTATE 				= .25;
+	public static final double SWEEP_ROTATE 				= .6;
 
 	// Drivetrain Constants
-	public static final double DRIVE_ROTATE_MIN 			= .2;
-	public static final double DRIVE_ROTATE_MAX 			= .3;
-	public static final double DRIVE_MOVE_MIN 				= .2;
-	public static final double DRIVE_MOVE_MAX 				= .3;
+	public static final double DRIVE_ROTATE_MIN 			= .4;
+	public static final double DRIVE_ROTATE_MAX 			= .5;
+	public static final double DRIVE_MOVE_MIN 				= .3;
+	public static final double DRIVE_MOVE_MAX 				= .4;
 	
 	// Lift Constants (Field)
 	public static final int LIFT_TARGET_HEIGHT 				= 5;
 	public static final int LIFT_TARGET_WIDTH 				= 10;
-	public static final int DISTANCE_TO_LIFT_TARGET 		= 12;	// Distance to stop at to place gear on lift peg
+	public static final int DISTANCE_TO_LIFT_TARGET 		= 14;	// Distance to stop at to place gear on lift peg
 	
 	
 	// Boiler Constants (Field)

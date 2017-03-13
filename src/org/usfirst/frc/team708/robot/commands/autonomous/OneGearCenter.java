@@ -38,28 +38,30 @@ public class OneGearCenter extends CommandGroup {
     public  OneGearCenter() {
 
  // go to lever
-    	addSequential(new DriveStraightToEncoderDistance(24, .3, false));
+ //   	addSequential(new DriveStraightToEncoderDistance(24, .3, false));
+ //   	addSequential(new DriveStraightForTime(-.3, .5));
+
 
 //  target lever
-    	addSequential(new WaitCommand(1.0));
+//    	addSequential(new WaitCommand(1.0));
     	addSequential(new RotateAndDriveToLift());
     	
 //  place gear on lever and back away    	
-    	addSequential(new WaitCommand(0.5));
+//    	addSequential(new WaitCommand(0.5));
 //    	addSequential(new DriveStraightToEncoderDistance(6, .4, false));
 
-    	addParallel(new Intake_Gear_Out());
+    	addSequential(new Intake_Gear_Out());
+    	addParallel(new Intake_Gear_Down());
 //    	addSequential(new WaitCommand(0.5));
 //    	addSequential(new Intake_Gear_Off());
-    	addParallel(new Intake_Gear_Down());
-//    	addSequential(new DriveStraightToEncoderDistance(5, .3, true));  put this back in!!!!
-    	addSequential(new DriveStraightForTime(.3, 2));
+//    	addSequential(new DriveStraightToEncoderDistance(5, .3, true));  //put this back in!!!!
+//    	addSequential(new DriveStraightForTime(.3, 1));
 
 // get off lever and go for some balls
-//    	addSequential(new DriveStraightToEncoderDistance(10, .3, true));  put this back in!!!!    	
+    	addSequential(new DriveStraightToEncoderDistance(15, .3, true));  //put this back in!!!!    	
 
 // turn toward boiler
-    	addSequential(new TurnToDegreesAlliance(.4, 50, Constants.COUNTERCLOCKWISE));
+    	addSequential(new TurnToDegreesAlliance(.5, 50, Constants.COUNTERCLOCKWISE));
 
 // target Boiler
     	addSequential(new WaitCommand(1.0));
@@ -67,8 +69,9 @@ public class OneGearCenter extends CommandGroup {
     	addSequential(new RotateAndDriveToBoiler(AutoConstants.DISTANCE_TO_BOILER_LOCATION2));
 
 // unload balls
-		addParallel(new SpinShooter(8));
-		addSequential(new SpinFeeder(6));  	
+		addParallel(new SpinShooter(7));
+		addSequential(new SpinFeeder(6));    
+		addSequential(new StopShooter());	
     	
 //this is a test replace with 3 gear
 //    	addSequential(new TurnToDegreesAlliance(.6, 45));  //add alliance direction
