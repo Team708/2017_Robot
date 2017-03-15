@@ -102,10 +102,10 @@ public  class VisionLift extends Subsystem {
 
 		usbCameraLiftGear=CameraServer.getInstance().startAutomaticCapture(AutoConstants.USB_CAMERA_ID, AutoConstants.USB_VIDEO_PORT);
 		usbCameraLiftGear.setResolution(liftImageWidth, liftImageHeight);
-		usbCameraLiftGear.setBrightness(40);        		//40 for lift  70 for gear
-		usbCameraLiftGear.setExposureManual(25);			//25 for lift  48 for gear
-		usbCameraLiftGear.setWhiteBalanceManual(10000);		//10000 for lift 2800 for gear
-//		usbCameraLiftGear.setFPS(20);
+//		usbCameraLiftGear.setBrightness(40);        		//40 for lift 
+//		usbCameraLiftGear.setExposureManual(0);			    //was 25 for lift 
+//		usbCameraLiftGear.setWhiteBalanceManual(10000);		//10000 for lift 2800 for gear
+		setLiftCamera();
 		
 	    // define the output stream on the smart dashboard
 		outputStreamLift = CameraServer.getInstance().putVideo("Target_Lift", liftImageWidth, liftImageHeight);
@@ -293,13 +293,13 @@ public  class VisionLift extends Subsystem {
 		else if (!liftHasTarget){
 			if (Math.abs(liftSweepDirection) < .1){
 				liftSweepDirection = AutoConstants.SWEEP_DIRECTION_RIGHT;
-				rotate = -AutoConstants.SWEEP_ROTATE;
+				rotate = AutoConstants.SWEEP_ROTATE;
 			}
 			else if (liftSweepDirection > AutoConstants.SWEEP1_MIN){
 				if ((liftSweepCounter >= AutoConstants.SWEEP1_MIN && liftSweepCounter <= AutoConstants.SWEEP1_MAX)
 				|| (liftSweepCounter >= AutoConstants.SWEEP3_MIN && liftSweepCounter <= AutoConstants.SWEEP3_MAX)){
 				
-					rotate = -AutoConstants.SWEEP_ROTATE;
+					rotate = AutoConstants.SWEEP_ROTATE;
 					if (liftSweepCounter== AutoConstants.SWEEP1_MAX || liftSweepCounter== AutoConstants.SWEEP3_MAX){
 						liftSweepDirection = AutoConstants.SWEEP_DIRECTION_LEFT;
 					}
@@ -307,7 +307,7 @@ public  class VisionLift extends Subsystem {
 			}
 			else {
 				if (liftSweepCounter >= AutoConstants.SWEEP2_MIN && liftSweepCounter <= AutoConstants.SWEEP2_MAX)
-					rotate = AutoConstants.SWEEP_ROTATE;
+					rotate = -AutoConstants.SWEEP_ROTATE;
 					if (liftSweepCounter== AutoConstants.SWEEP2_MAX){
 						liftSweepDirection = AutoConstants.SWEEP_DIRECTION_RIGHT;
 				}
@@ -408,9 +408,9 @@ public  class VisionLift extends Subsystem {
 	}
 	
 	public void setLiftCamera() {
-		usbCameraLiftGear.setBrightness(40);        		//40 for lift  70 for gear
-		usbCameraLiftGear.setExposureManual(25);			//25 for lift  48 for gear
-		usbCameraLiftGear.setWhiteBalanceManual(10000);		//10000 for lift 2800 for gear
+		usbCameraLiftGear.setBrightness(40);        		//40 for lift
+		usbCameraLiftGear.setExposureManual(0);			//25 for lift
+		usbCameraLiftGear.setWhiteBalanceManual(10000);		//10000
 		usbCameraLiftGear.setFPS(20);
 	}
 

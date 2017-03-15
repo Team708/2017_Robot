@@ -7,15 +7,15 @@ public final class AutoConstants {
 	public static final double X_THRESHOLD_CENTER 			= 20;	// threshold for determining center of the target 
 	public static final double X_THRESHOLD_HAS_TARGET_MIN 	= 20;	// threshold for determining min value for whether the robot sees the target	 
 	public static final double X_THRESHOLD_HAS_TARGET_MAX 	= 300;	// threshold for determining max value for whether the robot sees the target
-//	public static final double HEIGHT_THRESHOLD				= 20;
+	public static final double Y_HEIGHT_THRESHOLD			= 5;	// threshold for determining the stop location of height
 	
 	// Sweep Constants
 	public static final int SWEEP1_MIN						= 0;
-	public static final int SWEEP1_MAX 						= 100;
-	public static final int SWEEP2_MIN 						= 101;
-	public static final int SWEEP2_MAX 						= 300;
-	public static final int SWEEP3_MIN 						= 301;
-	public static final int SWEEP3_MAX 						= 400;
+	public static final int SWEEP1_MAX 						= 75;
+	public static final int SWEEP2_MIN 						= 76;
+	public static final int SWEEP2_MAX 						= 150;
+	public static final int SWEEP3_MIN 						= 151;
+	public static final int SWEEP3_MAX 						= 225;
 	public static final int SWEEP_DIRECTION_LEFT 			= -1;
 	public static final int SWEEP_DIRECTION_RIGHT 			= 1;
 	public static final double SWEEP_ROTATE 				= .6;
@@ -37,6 +37,8 @@ public final class AutoConstants {
 	public static final int BOILER_TARGET_WIDTH 			= 14;
 	public static final double DISTANCE_TO_BOILER_LOCATION1 = 54;	// A distance to stop at and shoot for high goal in inches
 	public static final double DISTANCE_TO_BOILER_LOCATION2	= 108;	// A distance to stop at and shoot for high goal in inches (9')
+
+	public static final double STOP_AT_BOILER_HEIGHT		= 100;  // y value when the robot is about 108" from boiler
 	
 	// Gear Constants (Game piece)
 	public static final double DISTANCE_TO_GEAR				= 15;
@@ -66,8 +68,8 @@ public final class AutoConstants {
 	public static final int 	USB_LIFT_IMG_HEIGHT 		= 240;			// height of the USB image - resolution
 
 	
-	// USB Camera Constants
-	public static final double 	USB_BOILER_FOV_DEGREES 			= 43.5;			// Field of View of the AXIS Camera
+	// AXIS Camera Constants
+	public static final double 	USB_BOILER_FOV_DEGREES 			= 47.5;			// Field of View of the AXIS Camera - from RoboRealm
 	public static final int 	USB_BOILER_IMG_WIDTH 			= 320;			// width of the USB image - resolution
 	public static final int 	USB_BOILER_IMG_HEIGHT 			= 240;			// height of the USB image - resolution
 

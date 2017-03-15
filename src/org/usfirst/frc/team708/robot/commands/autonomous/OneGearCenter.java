@@ -69,8 +69,10 @@ public class OneGearCenter extends CommandGroup {
     	addSequential(new RotateAndDriveToBoiler(AutoConstants.DISTANCE_TO_BOILER_LOCATION2));
 
 // unload balls
-		addParallel(new SpinShooter(7));
-		addSequential(new SpinFeeder(6));    
+		addParallel(new SpinShooter(8));
+
+		addSequential(new WaitCommand(1));  //this work? spin shooter up for x secs
+		addSequential(new SpinFeeder(6));     //then shoot
 		addSequential(new StopShooter());	
     	
 //this is a test replace with 3 gear

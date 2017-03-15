@@ -21,18 +21,20 @@ public class RotateAndDriveToBoiler extends Command {
 	 * Constructor
 	 * @param targetDistance - the distance to stop in front of the target
 	 */
-// VIET ARE WE STILL USING THE TARGET DISTANCE HERE - I THINK WE ARE ACTUALLY CALCULATING IT IN THE SUBSYSTEM
-// IN THE METHOD ISATDISTANCE
-// BUT WE NEED TO FIGURE OUT HOW WE ARE GOING TO MAKE THIS WORK WITH MULITPLE DISTANCES FOUND
-	public RotateAndDriveToBoiler(double bstopAtDistance){
-		double test = bstopAtDistance;
-//		SmartDashboard.putNumber("Bstop at distance", test);
+
+//	public RotateAndDriveToBoiler(double bstopAtDistance){
+	public RotateAndDriveToBoiler(double bstopHeight){
 
 //        requires(Robot.drivetrain);
 //        requires(Robot.visionBoiler);
         
         // save the distance
-        Robot.visionBoiler.putBoilerStopAtDistance(bstopAtDistance);
+//        Robot.visionBoiler.putBoilerStopAtDistance(bstopAtDistance);
+        
+        // save the height
+//        Robot.visionBoiler.putBoilerStopAtHeight(bstopHeight);
+        Robot.visionBoiler.putBoilerStopAtHeight(AutoConstants.STOP_AT_BOILER_HEIGHT);
+
 
     }
 
@@ -41,8 +43,10 @@ public class RotateAndDriveToBoiler extends Command {
     	Robot.visionBoiler.putBoilerIsCentered(false);
     	Robot.visionBoiler.putBoilerHasTarget(false);
     	Robot.visionBoiler.putBoilerAtDistance(false);
+    	Robot.visionBoiler.putBoilerAtHeight(false);
     	Robot.visionBoiler.putBoilerCounter(0);
     	Robot.visionBoiler.putBoilerCurrentCenter(0);
+    	Robot.visionBoiler.putBoilerCurrentHeight(0);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -52,7 +56,7 @@ public class RotateAndDriveToBoiler extends Command {
     	rotate 	  = Robot.visionBoiler.boilerGetRotate();  
     	moveSpeed = Robot.visionBoiler.boilerGetMove();
 
- 
+
     	Robot.drivetrain.haloDrive(moveSpeed, rotate, false);
 
     }
@@ -60,14 +64,13 @@ public class RotateAndDriveToBoiler extends Command {
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
     	if (Robot.visionBoiler.getBoilerCounter() >= AutoConstants.SWEEP3_MAX){
-    		
     		return true;
     	}
-    	//Check if the sonar distance is less then the target Distance, end
-    	else if (Robot.visionBoiler.boilerIsAtDistance() && Robot.visionBoiler.boilerIsCentered()){
+    	else if (Robot.visionBoiler.boilerIsAtHeight() && Robot.visionBoiler.boilerIsCentered()){
 			Robot.led1.send_to_led(Constants.SET_TARGET_FOUND);
      		return true;
     	}
+
     	else {
     		return false;
     	}

@@ -3,6 +3,9 @@ package org.usfirst.frc.team708.robot.commands.autonomous;
 import org.usfirst.frc.team708.robot.Robot;
 import org.usfirst.frc.team708.robot.commands.drivetrain.DriveStraightToEncoderDistance;
 import org.usfirst.frc.team708.robot.commands.drivetrain.ToggleBrakeMode;
+import org.usfirst.frc.team708.robot.commands.feeder.SpinFeeder;
+import org.usfirst.frc.team708.robot.commands.shooter.SpinShooter;
+import org.usfirst.frc.team708.robot.commands.shooter.StopShooter;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
@@ -19,9 +22,9 @@ public class driveDistance extends CommandGroup {
    
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.drivetrain.resetEncoder();
-    	Robot.drivetrain.resetEncoder2();
-    	Robot.drivetrain.resetGyro();
+//    	Robot.drivetrain.resetEncoder();
+//    	Robot.drivetrain.resetEncoder2();
+//    	Robot.drivetrain.resetGyro();
 
     }
 	
@@ -30,6 +33,14 @@ public class driveDistance extends CommandGroup {
     	addSequential(new WaitCommand(2.0));
     	addSequential(new DriveStraightToEncoderDistance(80, .4, false));
 
+//		addSequential(new WaitCommand(2));  //this work? spin shooter up for x secs
+//
+//		addParallel(new SpinShooter(8));
+//		addSequential(new WaitCommand(1));  //this work? spin shooter up for x secs
+//
+//		addSequential(new SpinFeeder(6));     //then shoot
+//		addSequential(new StopShooter());	
+    	
     }
     
     // Make this return true when this Command no longer needs to run execute()
