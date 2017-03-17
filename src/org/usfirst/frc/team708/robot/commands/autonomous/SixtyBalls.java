@@ -57,10 +57,10 @@ public class SixtyBalls extends CommandGroup {
     	
 // unload balls
     	addParallel(new SpinShooter(8));
-    	addSequential(new DriveStraightToEncoderDistance(50, .4, true));
-    	
-//    	addSequential(new WaitCommand(1));
-    	addSequential(new SpinFeeder(6));
+
+//      addSequential(new AutoFireBalls());
+    	addSequential(new DriveStraightToEncoderDistance(48, .4, true));
+       	addSequential(new SpinFeeder(6));
     	addSequential(new StopShooter());
  
 // go to lever
@@ -71,12 +71,9 @@ public class SixtyBalls extends CommandGroup {
     	addSequential(new RotateAndDriveToLift());
     	
 //  place gear on lever and back away    	
-//    	addSequential(new WaitCommand(0.5));
     	addSequential(new Intake_Gear_Out());
     	addParallel(new Intake_Gear_Down());
-    	addSequential(new DriveStraightToEncoderDistance(15, .4, true));    	
-
-
+    	addSequential(new DriveStraightToEncoderDistance(15, .4, true));
     }
     
     // Make this return true when this Command no longer needs to run execute()

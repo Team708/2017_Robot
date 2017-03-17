@@ -2,7 +2,7 @@ package org.usfirst.frc.team708.robot.commands.autonomous;
 
 import org.usfirst.frc.team708.robot.AutoConstants;
 import org.usfirst.frc.team708.robot.Constants;
-import org.usfirst.frc.team708.robot.commands.intake_gear.ReleaseGear;
+//import org.usfirst.frc.team708.robot.commands.intake_gear.ReleaseGear;
 import org.usfirst.frc.team708.robot.commands.led_out.SetLED;
 import org.usfirst.frc.team708.robot.commands.shooter.SpinShooter;
 import org.usfirst.frc.team708.robot.commands.shooter.StopShooter;
@@ -30,18 +30,13 @@ public class OneGearLeft extends CommandGroup {
     public  OneGearLeft() {
 // go to lever
     	addSequential(new DriveStraightToEncoderDistance(70, .4, false));
-//    	addSequential(new DriveStraightForTime(-.3, 3.5));
-    	addSequential(new TurnToDegreesAlliance(.6, 40, Constants.CLOCKWISE));
+    	addSequential(new TurnToDegreesAlliance(.5, 45, Constants.CLOCKWISE));
     	
-//    	addSequential(new DriveStraightForTime(-.3, .5));
-//    	addSequential(new DriveStraightToEncoderDistance(10, .3, false));
-
 //  target lever
-    	addSequential(new WaitCommand(1.0));
+    	addSequential(new WaitCommand(.75));  //was 1.0
     	addSequential(new RotateAndDriveToLift());
     	
 //  place gear on lever and back away    	
-//    	addSequential(new WaitCommand(0.5));
     	addSequential(new Intake_Gear_Out());
     	addParallel(new Intake_Gear_Down());
     	
@@ -49,10 +44,8 @@ public class OneGearLeft extends CommandGroup {
     	addSequential(new DriveStraightToEncoderDistance(42, .4, true));
     	
 // turn toward boiler
-    	addSequential(new TurnToDegreesAlliance(.6, 85, Constants.COUNTERCLOCKWISE));
-    	
-//    	addSequential(new DriveStraightForTime(.3, 2.5));
-    	addSequential(new DriveStraightToEncoderDistance(50, .4, true));
+    	addSequential(new TurnToDegreesAlliance(.5, 85, Constants.COUNTERCLOCKWISE));
+    	addSequential(new DriveStraightToEncoderDistance(47, .5, true));
 
 //    	addSequential(new TurnToDegreesAlliance(.5, 30, Constants.COUNTERCLOCKWISE));
 
@@ -64,8 +57,9 @@ public class OneGearLeft extends CommandGroup {
 
 // unload balls
 		addParallel(new SpinShooter(8));
-    	addSequential(new DriveStraightToEncoderDistance(50, .4, true));
-//    	addSequential(new WaitCommand(1));
+		
+//      addSequential(new AutoFireBalls());
+    	addSequential(new DriveStraightToEncoderDistance(48, .4, true));
 		addSequential(new SpinFeeder(6));   
 		addSequential(new StopShooter());    	
    }

@@ -14,7 +14,7 @@ import org.usfirst.frc.team708.robot.commands.drivetrain.TurnToDegreesAlliance;
 import org.usfirst.frc.team708.robot.commands.feeder.SpinFeeder;
 import org.usfirst.frc.team708.robot.commands.intake_gear.Intake_Gear_Off;
 import org.usfirst.frc.team708.robot.commands.intake_gear.Intake_Gear_Out;
-import org.usfirst.frc.team708.robot.commands.intake_gear.ReleaseGear;
+//import org.usfirst.frc.team708.robot.commands.intake_gear.ReleaseGear;
 import org.usfirst.frc.team708.robot.commands.led_out.SetLED;
 //import org.usfirst.frc.team708.robot.commands.led_out.SetLED;
 import org.usfirst.frc.team708.robot.commands.shooter.SpinShooter;
@@ -36,51 +36,37 @@ public class OneGearCenter extends CommandGroup {
     }
 	
     public  OneGearCenter() {
-
- // go to lever
- //   	addSequential(new DriveStraightToEncoderDistance(24, .3, false));
- //   	addSequential(new DriveStraightForTime(-.3, .5));
-
+// go to lever
+//   	addSequential(new DriveStraightToEncoderDistance(24, .3, false));
 
 //  target lever
-//    	addSequential(new WaitCommand(1.0));
+//    	addSequential(new WaitCommand(.75));
     	addSequential(new RotateAndDriveToLift());
     	
 //  place gear on lever and back away    	
-//    	addSequential(new WaitCommand(0.5));
-//    	addSequential(new DriveStraightToEncoderDistance(6, .4, false));
-
     	addSequential(new Intake_Gear_Out());
     	addParallel(new Intake_Gear_Down());
-//    	addSequential(new WaitCommand(0.5));
-//    	addSequential(new Intake_Gear_Off());
-//    	addSequential(new DriveStraightToEncoderDistance(5, .3, true));  //put this back in!!!!
-//    	addSequential(new DriveStraightForTime(.3, 1));
 
 // get off lever and go for some balls
-    	addSequential(new DriveStraightToEncoderDistance(15, .3, true));  //put this back in!!!!    	
+    	addSequential(new DriveStraightToEncoderDistance(15, .4, true));  //put this back in!!!!    	
 
 // turn toward boiler
     	addSequential(new TurnToDegreesAlliance(.5, 50, Constants.COUNTERCLOCKWISE));
 
 // target Boiler
-    	addSequential(new WaitCommand(1.0));
+    	addSequential(new WaitCommand(.75));
     	addSequential(new SetLED(Constants.SET_TARGETING));
     	addSequential(new RotateAndDriveToBoiler(AutoConstants.DISTANCE_TO_BOILER_LOCATION2));
 
 // unload balls
 		addParallel(new SpinShooter(8));
-    	addSequential(new DriveStraightToEncoderDistance(50, .4, true));
 
-//		addSequential(new WaitCommand(1));  //this work? spin shooter up for x secs
-    	
+//      addSequential(new AutoFireBalls());
+		addSequential(new DriveStraightToEncoderDistance(48, .4, true));
 		addSequential(new SpinFeeder(6));     //then shoot
 		addSequential(new StopShooter());	
     	
-//this is a test replace with 3 gear
-//    	addSequential(new TurnToDegreesAlliance(.6, 45));  //add alliance direction
-//    	addSequential(new DriveStraightToEncoderDistance(110, .4, false));
-    	
+		
 // get gear 2
 //    	addSequential(new TurnToDegreesAlliance(.6, 125, Constants.CLOCKWISE));
 //    	addSequential(new Intake_Gear_Down());
