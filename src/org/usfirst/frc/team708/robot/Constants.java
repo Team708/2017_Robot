@@ -26,8 +26,8 @@ public final class Constants {
 
 	
 	public static final int PIVOT_GEAR_ENCODER_COUNT	=  1024;
-	public static final int PIVOT_GEAR_ENCODER_HIGH		=  35;
-	public static final int PIVOT_GEAR_ENCODER_LOW		=  5;
+	public static final int PIVOT_GEAR_ENCODER_HIGH		=  20; //35;
+	public static final int PIVOT_GEAR_ENCODER_LOW		=  -19; // 5;
 
 
 	public static final double MOTOR_FORWARD 		=  1.0;
@@ -39,8 +39,8 @@ public final class Constants {
  
 	public static final double VISION_ROTATE_MOTOR_SPEED		= 0.8;
 	
-	public static final double FEEDER_MOTOR_FORWARD 		=   0.8;    //1.0;
-	public static final double FEEDER_MOTOR_REVERSE 		=  -0.8;    //-1.0;
+	public static final double FEEDER_MOTOR_FORWARD 		=   0.5;    //1.0;
+	public static final double FEEDER_MOTOR_REVERSE 		=  -0.5;    //-1.0;
 	public static final double FEEDER_OFF 					=   0.0;	
 	
 //	public static final double LOADER_MOTOR_FORWARD 		=  1.0;
@@ -51,10 +51,11 @@ public final class Constants {
 	public static final double SHOOTER_MOTOR_OFF			=  0.0;
 	public static final double SHOOTER_MOTOR_BACKWARD 		=  -1.0;
 	
-	public static final int SHOOTER_MOTOR_SPEED_BOILER 		=  2000;
-	public static final int SHOOTER_MOTOR_SPEED_LEVER 		=  2800;
-	public static final int SHOOTER_MOTOR_SPEED_MID 		=  2700;
-	public static final int SHOOTER_CLOSE_SHOT				=  40;
+	public static final int SHOOTER_MOTOR_SPEED_BOILER 		=  2100;
+	public static final int SHOOTER_MOTOR_SPEED_LEVER 		=  2700;
+
+//	public static final int SHOOTER_MOTOR_SPEED_MID 		=  2700;
+	public static final int SHOOTER_CLOSE_SHOT				=  20; //encoder value for bumper
 	
 
 	public static final double 	SHOOTER_PEAK_POS 			=  12.0;
@@ -62,9 +63,9 @@ public final class Constants {
 	
 	public static final int 	HOOD_MIN 				=  30;
 	public static final int		HOOD_MAX 				=  2050;	
-	public static final int 	HOOD_BOILER 			=  520;
+	public static final int 	HOOD_BOILER 			=  400;
 	public static final int 	HOOD_MID	 			=  300;
-	public static final int 	HOOD_LEVER				=  330;
+	public static final int 	HOOD_LEVER				=  30 ; //330;
 
 	public static final int 	SHOOTER_ENCODER_PULSES	 	= 12;
 	
@@ -86,7 +87,7 @@ public final class Constants {
 	public static final double  SEND_STATS_INTERVAL		= .5;	// Interval for reporting in seconds
 	public static final boolean DEBUG 					= false;
 	public static final boolean LIFT_DEBUG 				= false;
-	public static final boolean BOILER_DEBUG 			= false;
+	public static final boolean BOILER_DEBUG 			= true;
 	public static final boolean GEAR_DEBUG 				= false;
 
 	/*

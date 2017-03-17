@@ -31,8 +31,7 @@ public class driveDistance extends CommandGroup {
     public  driveDistance() {
 
     	addSequential(new WaitCommand(2.0));
-    	addSequential(new DriveStraightToEncoderDistance(80, .4, false));
-
+//    	addSequential(new DriveStraightToEncoderDistance(80, .4, false));
 //		addSequential(new WaitCommand(2));  //this work? spin shooter up for x secs
 //
 //		addParallel(new SpinShooter(8));

@@ -29,9 +29,9 @@ public class OneGearLeft extends CommandGroup {
 	
     public  OneGearLeft() {
 // go to lever
-    	addSequential(new DriveStraightToEncoderDistance(80, .3, false));
+    	addSequential(new DriveStraightToEncoderDistance(70, .4, false));
 //    	addSequential(new DriveStraightForTime(-.3, 3.5));
-    	addSequential(new TurnToDegreesAlliance(.5, 45, Constants.CLOCKWISE));
+    	addSequential(new TurnToDegreesAlliance(.6, 40, Constants.CLOCKWISE));
     	
 //    	addSequential(new DriveStraightForTime(-.3, .5));
 //    	addSequential(new DriveStraightToEncoderDistance(10, .3, false));
@@ -49,7 +49,7 @@ public class OneGearLeft extends CommandGroup {
     	addSequential(new DriveStraightToEncoderDistance(42, .4, true));
     	
 // turn toward boiler
-    	addSequential(new TurnToDegreesAlliance(.5, 90, Constants.COUNTERCLOCKWISE));
+    	addSequential(new TurnToDegreesAlliance(.6, 85, Constants.COUNTERCLOCKWISE));
     	
 //    	addSequential(new DriveStraightForTime(.3, 2.5));
     	addSequential(new DriveStraightToEncoderDistance(50, .4, true));
@@ -58,13 +58,14 @@ public class OneGearLeft extends CommandGroup {
 
 
 // target Boiler
-    	addSequential(new WaitCommand(1.0));
+    	addSequential(new WaitCommand(.75));
     	addSequential(new SetLED(Constants.SET_TARGETING));
     	addSequential(new RotateAndDriveToBoiler(AutoConstants.DISTANCE_TO_BOILER_LOCATION2));
 
 // unload balls
 		addParallel(new SpinShooter(8));
-    	addSequential(new WaitCommand(1));
+    	addSequential(new DriveStraightToEncoderDistance(50, .4, true));
+//    	addSequential(new WaitCommand(1));
 		addSequential(new SpinFeeder(6));   
 		addSequential(new StopShooter());    	
    }

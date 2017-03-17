@@ -118,9 +118,9 @@ public class Robot extends IterativeRobot {
     oi 				= new OI();	// Initializes the OI. 
 						// This MUST BE LAST or a NullPointerException will be thrown
 
-//	UsbCamera ucamera=CameraServer.getInstance().startAutomaticCapture("cam0", 0);
-//	AxisCamera camera=CameraServer.getInstance().addAxisCamera("cam1", "10.7.8.11");
-    
+	UsbCamera ucamera=CameraServer.getInstance().startAutomaticCapture("cam1", 1);
+    ucamera.setResolution(240, 320);
+	
 //    pwr0 			= new Solenoid(RobotMap.PWR0);
 //    pwr1 			= new Solenoid(RobotMap.PWR1);
 //    pwr2 			= new Solenoid(RobotMap.PWR2);
@@ -216,6 +216,9 @@ public class Robot extends IterativeRobot {
     	
         if (autonomousCommand != null) autonomousCommand.cancel();
         drivetrain.toggleBrakeMode();
+        
+		Robot.drivetrain.setGearLight(false);
+	    Robot.drivetrain.setBoilerLight(false);
     }
 
     /**

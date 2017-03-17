@@ -70,8 +70,10 @@ public class OneGearCenter extends CommandGroup {
 
 // unload balls
 		addParallel(new SpinShooter(8));
+    	addSequential(new DriveStraightToEncoderDistance(50, .4, true));
 
-		addSequential(new WaitCommand(1));  //this work? spin shooter up for x secs
+//		addSequential(new WaitCommand(1));  //this work? spin shooter up for x secs
+    	
 		addSequential(new SpinFeeder(6));     //then shoot
 		addSequential(new StopShooter());	
     	

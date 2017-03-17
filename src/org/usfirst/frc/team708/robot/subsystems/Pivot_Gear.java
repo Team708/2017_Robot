@@ -57,8 +57,8 @@ public class Pivot_Gear extends Subsystem {
 	}
 	
     public void sendToDashboard() {
+    	SmartDashboard.putNumber("Pivot encoder", pivotMotor.getPosition());
 		if (Constants.DEBUG) {
-			SmartDashboard.putNumber("Pivot encoder", pivotMotor.getPosition());
 		}
     }
 }

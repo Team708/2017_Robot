@@ -32,11 +32,11 @@ public class GearAdjust extends Command {
     	if ((gearAngle >0) 
  //   			&& (!Robot.pivot_gear.isFwdSwitch())
     			)
-    		Robot.pivot_gear.moveMotor(Constants.GEAR_UP);
+    		Robot.pivot_gear.moveMotor(.8);
     	else if ((gearAngle <0) 
     			&& (!Robot.pivot_gear.isRevSwitch())
     			)
-    		Robot.pivot_gear.moveMotor(Constants.GEAR_DOWN); //Defines move speed from the operator's controller
+    		Robot.pivot_gear.moveMotor(-.8); //Defines move speed from the operator's controller
     }
 
     
