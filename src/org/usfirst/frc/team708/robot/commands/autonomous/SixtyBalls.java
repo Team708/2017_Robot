@@ -12,6 +12,7 @@ import org.usfirst.frc.team708.robot.commands.feeder.FeederOff;
 import org.usfirst.frc.team708.robot.commands.feeder.SpinFeeder;
 import org.usfirst.frc.team708.robot.commands.intake_ball.Intake_Ball_In;
 import org.usfirst.frc.team708.robot.commands.intake_gear.Intake_Gear_Down;
+import org.usfirst.frc.team708.robot.commands.intake_gear.Intake_Gear_Up;
 import org.usfirst.frc.team708.robot.commands.intake_gear.Intake_Gear_Off;
 import org.usfirst.frc.team708.robot.commands.intake_gear.Intake_Gear_Out;
 import org.usfirst.frc.team708.robot.commands.led_out.SetLED;
@@ -67,6 +68,7 @@ public class SixtyBalls extends CommandGroup {
 //    	addSequential(new TurnToDegreesAlliance(.4, 20, Constants.COUNTERCLOCKWISE));
     	
 //  target lever
+    	addSequential(new Intake_Gear_Up());
     	addSequential(new WaitCommand(.75));
     	addSequential(new RotateAndDriveToLift());
     	

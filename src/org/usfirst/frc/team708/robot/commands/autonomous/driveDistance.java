@@ -6,6 +6,7 @@ import org.usfirst.frc.team708.robot.commands.drivetrain.ToggleBrakeMode;
 import org.usfirst.frc.team708.robot.commands.feeder.SpinFeeder;
 import org.usfirst.frc.team708.robot.commands.shooter.SpinShooter;
 import org.usfirst.frc.team708.robot.commands.shooter.StopShooter;
+import org.usfirst.frc.team708.robot.commands.autonomous.AutoFireBalls;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
