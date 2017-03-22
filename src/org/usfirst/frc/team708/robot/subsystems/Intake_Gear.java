@@ -39,7 +39,7 @@ public class Intake_Gear extends Subsystem {
 	public boolean hasGear() {
 		
 		if (gearSensor.get()) {
-			Robot.led1.send_to_led(Constants.SET_HAS_GEAR_TARGETING);
+//			Robot.led1.send_to_led(Constants.SET_HAS_GEAR_TARGETING);
 			return (true);
 	    }
 		else {

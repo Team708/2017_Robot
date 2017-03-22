@@ -127,16 +127,16 @@ public final class Constants {
 	 
 	// LED CONTROLS
 	
-	public static final byte SET_ALLIANCE_INVALID 		= 	0x00;
-	public static final byte SET_ALLIANCE_RED 	 		=	0x01;
-	public static final byte SET_ALLIANCE_BLUE  		=	0x02;
-	public static final byte SET_TARGETING  		 	=	0x03;
-	public static final byte SET_TARGET_FOUND  	 		=	0x04;
-	public static final byte SET_HAS_GEAR	  	 		=	0x05;
-	public static final byte SET_HAS_GEAR_TARGETING		=	0x06;
+	public static final byte SET_ALLIANCE_INVALID 		= 	0x00; // blinky white
+	public static final byte SET_ALLIANCE_RED 	 		=	0x01; // knight rider red
+	public static final byte SET_ALLIANCE_BLUE  		=	0x02; // knight rider blue
+	public static final byte SET_TARGETING  		 	=	0x03; // blinky red J
+	public static final byte SET_TARGET_FOUND  	 		=	0x04; // solid red
+	public static final byte SET_HAS_GEAR	  	 		=	0x05; // solid green
+	public static final byte SET_HAS_GEAR_TARGETING		=	0x06; //  ????  blank?? blinky green
 //	public static final byte 	  	 					=	0x07;
 //	public static final byte 		  					=	0x08;
-	public static final byte SET_OFF		  			=	0x09;
+	public static final byte SET_OFF		  			=	0x09; // off
 	public static final byte MAX_LED_CODE				=	0x10;	
 	
 	public static final int ALLIANCE_RED 	 	=	1;

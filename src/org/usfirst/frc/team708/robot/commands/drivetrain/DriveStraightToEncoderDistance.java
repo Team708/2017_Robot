@@ -26,7 +26,7 @@ public class DriveStraightToEncoderDistance extends Command {
     
     public DriveStraightToEncoderDistance(double distance, double speed, boolean goForward) {
     	// Use requires() here to declare subsystem dependencies
-    	requires(Robot.drivetrain);
+ //   	requires(Robot.drivetrain);
     	
     	if(goForward) {
     		targetDistance = distance;

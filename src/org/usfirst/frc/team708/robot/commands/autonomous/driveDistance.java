@@ -28,7 +28,7 @@ public class driveDistance extends CommandGroup {
     	addSequential(new WaitCommand(2.0));
     	
     	addSequential(new Intake_Gear_Up());
-    	addSequential(new DriveStraightToEncoderDistance(80, .4, false));
+    	addSequential(new DriveStraightToEncoderDistance(60, .5, false));
 
 //    	addSequential(new SpinShooter(8));
 //    	addSequential(new AutoFireBalls());

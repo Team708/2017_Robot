@@ -79,8 +79,8 @@ public class Robot extends IterativeRobot {
 //    public static Solenoid			pwr1;
 //    public static Solenoid			pwr2;
 //    public static Solenoid			pwr3;    
-    public static Solenoid			gearLight;    
-    public static Solenoid			boilerLight;    
+//    public static Solenoid			gearLight;    
+//    public static Solenoid			boilerLight;    
 
     SendableChooser 	autonomousMode 		= new SendableChooser<>();
     SendableChooser 	allianceSelection 	= new SendableChooser<>();
@@ -125,15 +125,15 @@ public class Robot extends IterativeRobot {
 //    pwr1 			= new Solenoid(RobotMap.PWR1);
 //    pwr2 			= new Solenoid(RobotMap.PWR2);
 //    pwr3 			= new Solenoid(RobotMap.PWR3);
-    gearLight  		= new Solenoid(RobotMap.GEARLIGHT);
-    boilerLight		= new Solenoid(RobotMap.BOILERLIGHT);
+//    gearLight  		= new Solenoid(RobotMap.GEARLIGHT);
+//    boilerLight		= new Solenoid(RobotMap.BOILERLIGHT);
 //
 //    pwr0.set(true);
 //    pwr1.set(true);
 //    pwr2.set(true);
 //    pwr3.set(true);
-    gearLight.set(true);
-    boilerLight.set(true);
+//    gearLight.set(true);
+//    boilerLight.set(true);
     
 	sendDashboardSubsystems();		// Sends each subsystem's currently running command to the Smart Dashboard
 	queueAutonomousModes();			// Adds autonomous modes to the selection box    
@@ -194,7 +194,9 @@ public class Robot extends IterativeRobot {
     		allianceCommand.start();
     	autonomousCommand = (Command)autonomousMode.getSelected();
         if (autonomousCommand != null) autonomousCommand.start();
-        
+
+    	Robot.drivetrain.setGearLight(true);
+	    Robot.drivetrain.setBoilerLight(true);
     }
 
     /**
@@ -217,8 +219,8 @@ public class Robot extends IterativeRobot {
         if (autonomousCommand != null) autonomousCommand.cancel();
         drivetrain.toggleBrakeMode();
         
-//		Robot.drivetrain.setGearLight(false);
-//	    Robot.drivetrain.setBoilerLight(false);
+		Robot.drivetrain.setGearLight(false);
+	    Robot.drivetrain.setBoilerLight(false);
     }
 
     /**
