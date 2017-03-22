@@ -11,25 +11,25 @@ public final class AutoConstants {
 	
 	// Sweep Constants
 	public static final int SWEEP1_MIN						= 0;
-	public static final int SWEEP1_MAX 						= 75;
-	public static final int SWEEP2_MIN 						= 76;
-	public static final int SWEEP2_MAX 						= 150;
-	public static final int SWEEP3_MIN 						= 151;
-	public static final int SWEEP3_MAX 						= 225;
+	public static final int SWEEP1_MAX 						= 15;
+	public static final int SWEEP2_MIN 						= 16;
+	public static final int SWEEP2_MAX 						= 45;
+	public static final int SWEEP3_MIN 						= 46;
+	public static final int SWEEP3_MAX 						= 60;
 	public static final int SWEEP_DIRECTION_LEFT 			= -1;
 	public static final int SWEEP_DIRECTION_RIGHT 			= 1;
-	public static final double SWEEP_ROTATE 				= .6;
+	public static final double SWEEP_ROTATE 				= .3;
 
 	// Drivetrain Constants
-	public static final double DRIVE_ROTATE_MIN 			= .4;
-	public static final double DRIVE_ROTATE_MAX 			= .5;
-	public static final double DRIVE_MOVE_MIN 				= .4;
-	public static final double DRIVE_MOVE_MAX 				= .5;
+	public static final double DRIVE_ROTATE_MIN 			= .3;
+	public static final double DRIVE_ROTATE_MAX 			= .6;
+	public static final double DRIVE_MOVE_MIN 				= .3;
+	public static final double DRIVE_MOVE_MAX 				= .6;
 	
 	// Lift Constants (Field)
 	public static final int LIFT_TARGET_HEIGHT 				= 5;
 	public static final int LIFT_TARGET_WIDTH 				= 10;
-	public static final int DISTANCE_TO_LIFT_TARGET 		= 14;	// Distance to stop at to place gear on lift peg
+	public static final int DISTANCE_TO_LIFT_TARGET 		= 18;	//was 18,  Distance to stop at to place gear on lift peg
 	
 	
 	// Boiler Constants (Field)
@@ -38,10 +38,10 @@ public final class AutoConstants {
 	public static final double DISTANCE_TO_BOILER_LOCATION1 = 54;	// A distance to stop at and shoot for high goal in inches
 	public static final double DISTANCE_TO_BOILER_LOCATION2	= 108;	// A distance to stop at and shoot for high goal in inches (9')
 
-	public static final double STOP_AT_BOILER_HEIGHT		= 10;  //100;  // y value when the robot is about 108" from boiler
+	public static final double STOP_AT_BOILER_HEIGHT		= 60;  //100;  // y value when the robot is about 108" from boiler
 	
 	// Gear Constants (Game piece)
-	public static final double DISTANCE_TO_GEAR				= 15;
+	public static final double DISTANCE_TO_GEAR				= 14;
 	public static final int GEAR_TARGET_HEIGHT 				= 4;
 	public static final int GEAR_TARGET_WIDTH 				= 10;
 
@@ -75,7 +75,7 @@ public final class AutoConstants {
 
 	public static final String AXIS_IP_ADDRESS				= "10.7.8.12";      // lift -practice - 10.7.8.2
 	public static final String AXIS_CAMERA_ID				=  "cam3";			// lift - practice - cam1    comp - 3
-	public static final String USB_CAMERA_ID				=  "cam2";			// boiler - practice - cam3   comp - 2
+	public static final String USB_CAMERA_ID				=  "cam0";			// boiler - practice - cam3   comp - 2
 	public static final int USB_VIDEO_PORT					=  0;				// boiler - practice - 0
 							
 }

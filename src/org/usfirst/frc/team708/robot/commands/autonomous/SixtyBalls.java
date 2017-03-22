@@ -5,6 +5,7 @@ import org.usfirst.frc.team708.robot.Constants;
 import org.usfirst.frc.team708.robot.Robot;
 import org.usfirst.frc.team708.robot.commands.drivetrain.DriveStraightForTime;
 import org.usfirst.frc.team708.robot.commands.drivetrain.DriveStraightToEncoderDistance;
+import org.usfirst.frc.team708.robot.commands.drivetrain.DriveStraightToEncoderDistanceOrTime;
 import org.usfirst.frc.team708.robot.commands.drivetrain.RotateAndDriveToBoiler;
 import org.usfirst.frc.team708.robot.commands.drivetrain.RotateAndDriveToLift;
 import org.usfirst.frc.team708.robot.commands.drivetrain.TurnToDegreesAlliance;
@@ -41,7 +42,7 @@ public class SixtyBalls extends CommandGroup {
 //    	addSequential(new DriveStraightForTime(.3, .5));
     	addSequential(new DriveStraightToEncoderDistance(25, .5, true));
     	
-    	addSequential(new Intake_Ball_In(4));
+    	addSequential(new Intake_Ball_In(3));
     	
 // back off hopper and turn toward boiler		
 //    	addSequential(new DriveStraightForTime(-.3, 2.0));
@@ -52,7 +53,7 @@ public class SixtyBalls extends CommandGroup {
 //    	addSequential(new DriveStraightToEncoderDistance(40, .4, true));
 
 // target Boiler
-    	addSequential(new WaitCommand(.75));
+    	addSequential(new WaitCommand(1.0));
     	addSequential(new SetLED(Constants.SET_TARGETING));
     	addSequential(new RotateAndDriveToBoiler(AutoConstants.DISTANCE_TO_BOILER_LOCATION2));
     	
@@ -60,8 +61,10 @@ public class SixtyBalls extends CommandGroup {
     	addParallel(new SpinShooter(8));
 
 //      addSequential(new AutoFireBalls());
-    	addSequential(new DriveStraightToEncoderDistance(48, .4, true));
-       	addSequential(new SpinFeeder(6));
+//    	addSequential(new DriveStraightToEncoderDistance(43, .4, true));
+    	addSequential(new DriveStraightToEncoderDistanceOrTime(48, .4, true, 4));
+    	addSequential(new WaitCommand(1.0));
+    	addSequential(new SpinFeeder(6));
     	addSequential(new StopShooter());
  
 // go to lever
@@ -69,6 +72,7 @@ public class SixtyBalls extends CommandGroup {
     	
 //  target lever
     	addSequential(new Intake_Gear_Up());
+    	addSequential(new SetLED(Constants.SET_HAS_GEAR_TARGETING));
     	addSequential(new WaitCommand(.75));
     	addSequential(new RotateAndDriveToLift());
     	

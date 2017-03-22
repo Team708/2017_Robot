@@ -1,7 +1,10 @@
 package org.usfirst.frc.team708.robot.commands.drivetrain;
 
 import org.usfirst.frc.team708.robot.AutoConstants;
+import org.usfirst.frc.team708.robot.Constants;
 import org.usfirst.frc.team708.robot.Robot;
+import org.usfirst.frc.team708.robot.commands.led_out.SetLED;
+
 import edu.wpi.first.wpilibj.command.Command;
 
 
@@ -54,7 +57,7 @@ public class RotateAndDriveToLift extends Command {
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
     	if (Robot.visionLift.getLiftCounter() >= AutoConstants.SWEEP3_MAX){
-    		
+			Robot.led1.send_to_led(Constants.SET_TARGET_FOUND);
     		return true;
     	}
     	//Check if the sonar distance is less then the target Distance, end

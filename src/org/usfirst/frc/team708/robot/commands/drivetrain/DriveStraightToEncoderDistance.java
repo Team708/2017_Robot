@@ -43,6 +43,7 @@ public class DriveStraightToEncoderDistance extends Command {
     // Enables the PIDController (if it was not already) before attempting to drive straight
     protected void initialize() {
     	Robot.drivetrain.resetEncoder();
+    	Robot.drivetrain.resetEncoder2();
     	Robot.drivetrain.resetGyro();
 //    	Robot.drivetrain.enable();
 //    	Robot.drivetrain.disable(); //JNP disabled
@@ -58,9 +59,9 @@ public class DriveStraightToEncoderDistance extends Command {
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
         if(goForward) {
-        	return (Robot.drivetrain.getEncoderDistance() >= targetDistance);
+        	return ( Robot.drivetrain.getEncoderDistance2() >= targetDistance);
         } else {
-        	return (Robot.drivetrain.getEncoderDistance() <= targetDistance);
+        	return ( Robot.drivetrain.getEncoderDistance2() <= targetDistance);
         }
     }
 

@@ -63,14 +63,13 @@ public class RotateAndDriveToBoiler extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	if (Robot.visionBoiler.getBoilerCounter() >= AutoConstants.SWEEP3_MAX){
+    	if (Robot.visionBoiler.boilerIsAtHeight() && Robot.visionBoiler.boilerIsCentered()){
+			Robot.led1.send_to_led(Constants.SET_TARGET_FOUND);
     		return true;
     	}
-    	else if (Robot.visionBoiler.boilerIsAtHeight() && Robot.visionBoiler.boilerIsCentered()){
-			Robot.led1.send_to_led(Constants.SET_TARGET_FOUND);
-     		return true;
+    	else if (Robot.visionBoiler.getBoilerCounter() >= AutoConstants.SWEEP3_MAX){
+    		return true;
     	}
-
     	else {
     		return false;
     	}

@@ -9,6 +9,7 @@ import org.usfirst.frc.team708.robot.commands.shooter.StopShooter;
 import org.usfirst.frc.team708.robot.Robot;
 import org.usfirst.frc.team708.robot.commands.drivetrain.DriveStraightForTime;
 import org.usfirst.frc.team708.robot.commands.drivetrain.DriveStraightToEncoderDistance;
+import org.usfirst.frc.team708.robot.commands.drivetrain.DriveStraightToEncoderDistanceOrTime;
 import org.usfirst.frc.team708.robot.commands.drivetrain.RotateAndDriveToBoiler;
 import org.usfirst.frc.team708.robot.commands.drivetrain.RotateAndDriveToLift;
 import org.usfirst.frc.team708.robot.commands.drivetrain.ToggleBrakeMode;
@@ -17,6 +18,7 @@ import org.usfirst.frc.team708.robot.commands.feeder.SpinFeeder;
 import org.usfirst.frc.team708.robot.commands.intake_gear.Intake_Gear_Down;
 import org.usfirst.frc.team708.robot.commands.intake_gear.Intake_Gear_Off;
 import org.usfirst.frc.team708.robot.commands.intake_gear.Intake_Gear_Out;
+import org.usfirst.frc.team708.robot.commands.intake_gear.Intake_Gear_Up;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
@@ -33,7 +35,9 @@ public class OneGearLeft extends CommandGroup {
     	addSequential(new TurnToDegreesAlliance(.5, 45, Constants.CLOCKWISE));
     	
 //  target lever
-    	addSequential(new WaitCommand(.75));  //was 1.0
+    	addSequential(new SetLED(Constants.SET_HAS_GEAR_TARGETING));
+    	addSequential(new WaitCommand(1.0));  //was 1.0
+    	addSequential(new Intake_Gear_Up());
     	addSequential(new RotateAndDriveToLift());
     	
 //  place gear on lever and back away    	
@@ -59,8 +63,9 @@ public class OneGearLeft extends CommandGroup {
 		addParallel(new SpinShooter(8));
 		
 //      addSequential(new AutoFireBalls());
-    	addSequential(new DriveStraightToEncoderDistance(48, .4, true));
-		addSequential(new SpinFeeder(6));   
+    	addSequential(new DriveStraightToEncoderDistanceOrTime(48, .4, true, 4));
+    	addSequential(new WaitCommand(1.0));
+    	addSequential(new SpinFeeder(6));   
 		addSequential(new StopShooter());    	
    }
     

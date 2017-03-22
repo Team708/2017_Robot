@@ -102,9 +102,10 @@ public  class VisionLift extends Subsystem {
 
 		usbCameraLiftGear=CameraServer.getInstance().startAutomaticCapture(AutoConstants.USB_CAMERA_ID, AutoConstants.USB_VIDEO_PORT);
 		usbCameraLiftGear.setResolution(liftImageWidth, liftImageHeight);
-//		usbCameraLiftGear.setBrightness(40);        		//40 for lift 
-//		usbCameraLiftGear.setExposureManual(0);			    //was 25 for lift 
-//		usbCameraLiftGear.setWhiteBalanceManual(10000);		//10000 for lift 2800 for gear
+		usbCameraLiftGear.setBrightness(0);        			//40 for lift 
+		usbCameraLiftGear.setExposureManual(0);			    //was 25 for lift 
+		usbCameraLiftGear.setWhiteBalanceManual(10000);		//10000 for lift 2800 for gear
+//		usbCameraLiftGear.setFPS(20)
 		setLiftCamera();
 		
 	    // define the output stream on the smart dashboard
@@ -113,17 +114,17 @@ public  class VisionLift extends Subsystem {
 		// Vision thread which processes the image contours
 	    visionThreadLift = new VisionThread(usbCameraLiftGear, new GripPipelineLift(), lgPipeline -> {
 	    	
-	    	liftPipelineSize 	= lgPipeline.findContoursOutput().size();
+	    	liftPipelineSize 	= lgPipeline.filterContoursOutput().size();
 	    	
 	    	// if the grip pipeline filter "filterContours0Output" sees the target
 	    	// loop through each contour image  
 	    	// grab the bounding rectangle values of each contour 
 	    	// to create the biggest rectangle around the 2 vertical retro-reflective tapes 
 	    	// on either side of the lift peg
-	        if (!lgPipeline.findContoursOutput().isEmpty()) {
+	        if (!lgPipeline.filterContoursOutput().isEmpty()) {
 	        	
-	        	for (int i = 0; i < lgPipeline.findContoursOutput().size(); i++) {
-	        		Rect lift = Imgproc.boundingRect(lgPipeline.findContoursOutput().get(i));
+	        	for (int i = 0; i < lgPipeline.filterContoursOutput().size(); i++) {
+	        		Rect lift = Imgproc.boundingRect(lgPipeline.filterContoursOutput().get(i));
 	        		
 	        		// set the min/max values to match the values form the 1st image
 	        		if (i == 0) {
@@ -417,21 +418,21 @@ public  class VisionLift extends Subsystem {
 	public void sendToDashboard() {
 		if (Constants.LIFT_DEBUG) {
 		   
-			SmartDashboard.putBoolean("L-Has Target", liftIsHasTarget());
-			SmartDashboard.putBoolean("L-Is At Distance", liftIsAtDistance());
-			SmartDashboard.putNumber("L-Center of Target", liftCurrentCenter);
-			SmartDashboard.putNumber("L-Rotation", rotate);
-			SmartDashboard.putNumber("L-Rotate Difference", liftRotateDiff);
-			SmartDashboard.putNumber("L-Distance Difference", liftMoveDiff);
-			SmartDashboard.putNumber("L-Sweep Counter", liftSweepCounter);
-			SmartDashboard.putNumber("L-SweepDirection", liftSweepDirection);
-			SmartDashboard.putBoolean("L-isCentered", liftIsCentered());
-			SmartDashboard.putNumber("L-rectX", lrectX);
-			SmartDashboard.putNumber("L-rectY", lrectY);
-			SmartDashboard.putNumber("L-rectWidth", lrectWidth);
-			SmartDashboard.putNumber("L-rectHeight", lrectHeight);
+//			SmartDashboard.putBoolean("L-Has Target", liftIsHasTarget());
+//			SmartDashboard.putBoolean("L-Is At Distance", liftIsAtDistance());
+//			SmartDashboard.putNumber("L-Center of Target", liftCurrentCenter);
+//			SmartDashboard.putNumber("L-Rotation", rotate);
+//			SmartDashboard.putNumber("L-Rotate Difference", liftRotateDiff);
+//			SmartDashboard.putNumber("L-Distance Difference", liftMoveDiff);
+//			SmartDashboard.putNumber("L-Sweep Counter", liftSweepCounter);
+//			SmartDashboard.putNumber("L-SweepDirection", liftSweepDirection);
+//			SmartDashboard.putBoolean("L-isCentered", liftIsCentered());
+//			SmartDashboard.putNumber("L-rectX", lrectX);
+//			SmartDashboard.putNumber("L-rectY", lrectY);
+//			SmartDashboard.putNumber("L-rectWidth", lrectWidth);
+//			SmartDashboard.putNumber("L-rectHeight", lrectHeight);
 			SmartDashboard.putNumber("L-Distance To Target", liftCurrentDistance);
-			SmartDashboard.putNumber("L-pipelineSize", liftPipelineSize);
+//			SmartDashboard.putNumber("L-pipelineSize", liftPipelineSize);
 		}
 	}
 	

@@ -14,6 +14,7 @@ import org.usfirst.frc.team708.robot.commands.drivetrain.TurnToDegreesAlliance;
 import org.usfirst.frc.team708.robot.commands.feeder.SpinFeeder;
 import org.usfirst.frc.team708.robot.commands.intake_gear.Intake_Gear_Off;
 import org.usfirst.frc.team708.robot.commands.intake_gear.Intake_Gear_Out;
+import org.usfirst.frc.team708.robot.commands.intake_gear.Intake_Gear_Up;
 //import org.usfirst.frc.team708.robot.commands.intake_gear.ReleaseGear;
 import org.usfirst.frc.team708.robot.commands.led_out.SetLED;
 //import org.usfirst.frc.team708.robot.commands.led_out.SetLED;
@@ -40,7 +41,10 @@ public class OneGearCenter extends CommandGroup {
 //   	addSequential(new DriveStraightToEncoderDistance(24, .3, false));
 
 //  target lever
-//    	addSequential(new WaitCommand(.75));
+    	addSequential(new WaitCommand(1.0));
+    	addSequential(new SetLED(Constants.SET_HAS_GEAR_TARGETING));
+    	addSequential(new Intake_Gear_Up());
+
     	addSequential(new RotateAndDriveToLift());
     	
 //  place gear on lever and back away    	
@@ -51,10 +55,10 @@ public class OneGearCenter extends CommandGroup {
     	addSequential(new DriveStraightToEncoderDistance(15, .4, true));  //put this back in!!!!    	
 
 // turn toward boiler
-    	addSequential(new TurnToDegreesAlliance(.5, 50, Constants.COUNTERCLOCKWISE));
+    	addSequential(new TurnToDegreesAlliance(.5, 65, Constants.COUNTERCLOCKWISE));
 
 // target Boiler
-    	addSequential(new WaitCommand(.75));
+    	addSequential(new WaitCommand(1.0));
     	addSequential(new SetLED(Constants.SET_TARGETING));
     	addSequential(new RotateAndDriveToBoiler(AutoConstants.DISTANCE_TO_BOILER_LOCATION2));
 
@@ -62,7 +66,8 @@ public class OneGearCenter extends CommandGroup {
 		addParallel(new SpinShooter(8));
 
 //      addSequential(new AutoFireBalls());
-		addSequential(new DriveStraightToEncoderDistance(48, .4, true));
+    	addSequential(new DriveStraightToEncoderDistanceOrTime(48, .4, true, 4));
+    	addSequential(new WaitCommand(1.0));
 		addSequential(new SpinFeeder(6));     //then shoot
 		addSequential(new StopShooter());	
     	

@@ -29,14 +29,14 @@ public class ManualShoot extends Command {
     
 // Called just before this Command runs the first time
     protected void initialize() {
-    	if (Robot.drivetrain.getSonarDistance() > Constants.SHOOTER_CLOSE_SHOT)
-    	{
-    		Robot.shooter.moveHood(Constants.HOOD_LEVER);
-    		Robot.shooter.manualRPM(Constants.SHOOTER_MOTOR_SPEED_LEVER);
-    		Robot.shooter.setSpinSpeed(Constants.SHOOTER_MOTOR_SPEED_LEVER);
-    		Robot.led1.send_to_led(Constants.SET_TARGETING);
-    	}
-    	else
+//    	if (Robot.drivetrain.getSonarDistance() > Constants.SHOOTER_CLOSE_SHOT)
+//    	{
+//    		Robot.shooter.moveHood(Constants.HOOD_LEVER);
+//    		Robot.shooter.manualRPM(Constants.SHOOTER_MOTOR_SPEED_LEVER);
+//    		Robot.shooter.setSpinSpeed(Constants.SHOOTER_MOTOR_SPEED_LEVER);
+//    		Robot.led1.send_to_led(Constants.SET_TARGETING);
+//    	}
+//    	else
     	{
     		Robot.shooter.manualRPM(Constants.SHOOTER_MOTOR_SPEED_BOILER);
     		Robot.shooter.moveHood(Constants.HOOD_BOILER);

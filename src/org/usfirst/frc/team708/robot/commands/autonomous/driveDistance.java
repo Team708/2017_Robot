@@ -6,6 +6,7 @@ import org.usfirst.frc.team708.robot.commands.drivetrain.ToggleBrakeMode;
 import org.usfirst.frc.team708.robot.commands.feeder.SpinFeeder;
 import org.usfirst.frc.team708.robot.commands.shooter.SpinShooter;
 import org.usfirst.frc.team708.robot.commands.shooter.StopShooter;
+import org.usfirst.frc.team708.robot.commands.intake_gear.Intake_Gear_Up;
 import org.usfirst.frc.team708.robot.commands.autonomous.AutoFireBalls;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -13,13 +14,6 @@ import edu.wpi.first.wpilibj.command.WaitCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class driveDistance extends CommandGroup {
-
-	
-	private static final double driveStraightSpeed = 0.4;
-	private static final double driveStraightTime = 2;
-	
-	private static final double turnSpeed = -0.4;
-	private static final double turnDegrees = 90;
    
     // Called just before this Command runs the first time
     protected void initialize() {
@@ -32,10 +26,12 @@ public class driveDistance extends CommandGroup {
     public  driveDistance() {
 
     	addSequential(new WaitCommand(2.0));
-//    	addSequential(new DriveStraightToEncoderDistance(80, .4, false));
+    	
+    	addSequential(new Intake_Gear_Up());
+    	addSequential(new DriveStraightToEncoderDistance(80, .4, false));
 
-		addParallel(new SpinShooter(8));
-    	addSequential(new AutoFireBalls());
+//    	addSequential(new SpinShooter(8));
+//    	addSequential(new AutoFireBalls());
     	
     }
     

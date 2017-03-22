@@ -64,8 +64,8 @@ public class Drivetrain extends PIDSubsystem {
     public static Solenoid			pwr1;
     public static Solenoid			pwr2;
     public static Solenoid			pwr3;    
-    public static Solenoid			gearLight;    
-    public static Solenoid			boilerLight;    
+//    public static Solenoid			gearLight;    
+//    public static Solenoid			boilerLight;    
 
     public Drivetrain() {
     	// Passes variables from this class into the superclass constructor
@@ -119,16 +119,16 @@ public class Drivetrain extends PIDSubsystem {
     pwr1 			= new Solenoid(RobotMap.PWR1);
     pwr2 			= new Solenoid(RobotMap.PWR2);
     pwr3 			= new Solenoid(RobotMap.PWR3);
-    gearLight  		= new Solenoid(RobotMap.GEARLIGHT);
-    boilerLight		= new Solenoid(RobotMap.BOILERLIGHT);
+//    gearLight  		= new Solenoid(RobotMap.GEARLIGHT);
+//    boilerLight		= new Solenoid(RobotMap.BOILERLIGHT);
 
     pwr0.set(true);
     pwr1.set(true);
     pwr2.set(true);
     pwr3.set(true);
     
-    setGearLight(true);  
-    setBoilerLight(true); 
+//    setGearLight(true);  
+//    setBoilerLight(true); 
 }
     
 
@@ -188,13 +188,13 @@ public class Drivetrain extends PIDSubsystem {
 		haloDrive(move, rotate, this.usePID);
 	}
 
-	public void setGearLight(boolean on) {
-	    gearLight.set(on);
-	}
-	
-	public void setBoilerLight(boolean on) {
-		boilerLight.set(on);
-	}
+//	public void setGearLight(boolean on) {
+//	    gearLight.set(on);
+//	}
+//	
+//	public void setBoilerLight(boolean on) {
+//		boilerLight.set(on);
+//	}
 	
 	public boolean getUsePID() {
 		return usePID;

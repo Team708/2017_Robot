@@ -292,31 +292,32 @@ public class VisionBoiler extends Subsystem {
 		// if in the sweep the robot does not find the target, it stops after 3 sweeps
 		// otherwise it will jump back into the hasTarget logic identified above
 		else if (!boilerHasTarget){
-			if (Math.abs(boilerSweepDirection) < .1){
-				boilerSweepDirection = AutoConstants.SWEEP_DIRECTION_RIGHT;
-				boilerRotate = AutoConstants.SWEEP_ROTATE;
-			}
-			else if (boilerSweepDirection > AutoConstants.SWEEP1_MIN){
-				if ((boilerSweepCounter >= AutoConstants.SWEEP1_MIN && boilerSweepCounter <= AutoConstants.SWEEP1_MAX)
-				|| (boilerSweepCounter >= AutoConstants.SWEEP3_MIN && boilerSweepCounter <= AutoConstants.SWEEP3_MAX)){
-				
-					boilerRotate = AutoConstants.SWEEP_ROTATE;
-					if (boilerSweepCounter== AutoConstants.SWEEP1_MAX || boilerSweepCounter== AutoConstants.SWEEP3_MAX){
-						boilerSweepDirection = AutoConstants.SWEEP_DIRECTION_LEFT;
-					}
-				}
-			}
-			else {
-				if (boilerSweepCounter >= AutoConstants.SWEEP2_MIN && boilerSweepCounter <= AutoConstants.SWEEP2_MAX)
-					boilerRotate = -AutoConstants.SWEEP_ROTATE;
-					if (boilerSweepCounter== AutoConstants.SWEEP2_MAX){
-						boilerSweepDirection = AutoConstants.SWEEP_DIRECTION_RIGHT;
-				}
-			}
+//			if (Math.abs(boilerSweepDirection) < .1){
+//				boilerSweepDirection = AutoConstants.SWEEP_DIRECTION_RIGHT;
+//				boilerRotate = AutoConstants.SWEEP_ROTATE;
+//			}
+//			else if (boilerSweepDirection > AutoConstants.SWEEP1_MIN){
+//				if ((boilerSweepCounter >= AutoConstants.SWEEP1_MIN && boilerSweepCounter <= AutoConstants.SWEEP1_MAX)
+//				|| (boilerSweepCounter >= AutoConstants.SWEEP3_MIN && boilerSweepCounter <= AutoConstants.SWEEP3_MAX)){
+//				
+//					boilerRotate = AutoConstants.SWEEP_ROTATE;
+//					if (boilerSweepCounter== AutoConstants.SWEEP1_MAX || boilerSweepCounter== AutoConstants.SWEEP3_MAX){
+//						boilerSweepDirection = AutoConstants.SWEEP_DIRECTION_LEFT;
+//					}
+//				}
+//			}
+//			else {
+//				if (boilerSweepCounter >= AutoConstants.SWEEP2_MIN && boilerSweepCounter <= AutoConstants.SWEEP2_MAX)
+//					boilerRotate = -AutoConstants.SWEEP_ROTATE;
+//					if (boilerSweepCounter== AutoConstants.SWEEP2_MAX){
+//						boilerSweepDirection = AutoConstants.SWEEP_DIRECTION_RIGHT;
+//				}
+//			}
 				
 			boilerSweepCounter++;
+			boilerRotate = 0.0;  //no sweep sit there till time out or find target rolling forward slowly
 		}
-		boilerRotateDiff = difference;
+		boilerRotateDiff = difference;  // what is this for????
 		
 		return boilerRotate;
 	}
@@ -348,9 +349,9 @@ public class VisionBoiler extends Subsystem {
 			boilerMove = Math708.getClippedPercentError(boilerCurrentDistance, boilerStopAtValue, AutoConstants.DRIVE_MOVE_MIN, AutoConstants.DRIVE_MOVE_MAX); 
 //			boilerMove = .3;
 			//if the target distance is farther than the current distance move backwards
-			if(difference >= 0){
-				boilerMove = boilerMove * -1;
-			}
+//			if(difference >= 0){
+//				boilerMove = boilerMove * -1;
+//			}
 			
 			//Check if target is at correct distance within threshold
 			if (Math.abs(difference) <= thresholdDistance) {
@@ -360,8 +361,9 @@ public class VisionBoiler extends Subsystem {
 				boilerIsAtDistance = false;
 			}
 			boilerMoveDiff = difference;
-		} else {
- 			boilerMove = 0.0;
+		} else { // no target - where is it?
+// 			boilerMove = 0.0;
+ 			boilerMove = 0.2; //move forward slowly
 		}
 
 		return boilerMove;
@@ -460,23 +462,24 @@ public class VisionBoiler extends Subsystem {
 
 	public void sendToDashboard() {
 		if (Constants.BOILER_DEBUG) {
-			SmartDashboard.putNumber("b-True Center", 			trueCenter);
-			SmartDashboard.putBoolean("b-Has Target", 			boilerIsHasTarget());
-			SmartDashboard.putBoolean("b-IsAtHeight", 		boilerIsAtHeight());
-			SmartDashboard.putNumber("b-Center of Target", 		boilerCurrentCenter);
-			SmartDashboard.putNumber("b-Rotation", 				boilerRotate);
-			SmartDashboard.putNumber("b-Rotate Difference", 	boilerRotateDiff);
-			SmartDashboard.putNumber("b-Distance Move Difference", 	boilerMoveDiff);
-			SmartDashboard.putNumber("b-Sweep Counter", 		boilerSweepCounter);
-			SmartDashboard.putNumber("b-SweepDirection", 		boilerSweepDirection);
-			SmartDashboard.putBoolean("b-isCentered", 			boilerIsCentered());
-			SmartDashboard.putNumber("b-rectX", 				brectX);
-			SmartDashboard.putNumber("b-maxY", 					bmaxY);
-			SmartDashboard.putNumber("b-rectY", 				brectY);
-			SmartDashboard.putNumber("b-rectWidth", 			brectWidth);
-			SmartDashboard.putNumber("b-rectHeight", 			brectHeight);
-			SmartDashboard.putNumber("b-pipelineSize", 			bPipelineSize);
-			SmartDashboard.putNumber("b-stop at distance", 		boilerStopAtDistance);
+//			SmartDashboard.putNumber("b-True Center", 			trueCenter);
+//			SmartDashboard.putBoolean("b-Has Target", 			boilerIsHasTarget());
+//			SmartDashboard.putBoolean("b-IsAtHeight", 		boilerIsAtHeight());
+//			SmartDashboard.putNumber("b-Center of Target", 		boilerCurrentCenter);
+//			SmartDashboard.putNumber("b-Rotation", 				boilerRotate);
+//			SmartDashboard.putNumber("b-Rotate Difference", 	boilerRotateDiff);
+//			SmartDashboard.putNumber("b-Distance Move Difference", 	boilerMoveDiff);
+//			SmartDashboard.putNumber("b-Sweep Counter", 		boilerSweepCounter);
+//			SmartDashboard.putNumber("b-SweepDirection", 		boilerSweepDirection);
+//			SmartDashboard.putBoolean("b-isCentered", 			boilerIsCentered());
+//			SmartDashboard.putNumber("b-rectX", 				brectX);
+//			SmartDashboard.putNumber("b-maxY", 					bmaxY);
+//			SmartDashboard.putNumber("b-rectY", 				brectY);
+//			SmartDashboard.putNumber("b-rectWidth", 			brectWidth);
+//			SmartDashboard.putNumber("b-rectHeight", 			brectHeight);
+//			SmartDashboard.putNumber("b-pipelineSize", 			bPipelineSize);
+//			SmartDashboard.putNumber("b-stop at distance", 		boilerStopAtDistance);
+
 			SmartDashboard.putNumber("b-boiler current height (y)", boilerCurrentHeight);
 
 		}
