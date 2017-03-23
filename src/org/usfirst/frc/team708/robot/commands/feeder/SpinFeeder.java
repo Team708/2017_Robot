@@ -30,10 +30,10 @@ public class SpinFeeder extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if (timeSinceInitialized() > 1.0){
+//    	if (timeSinceInitialized() > 1.0){
     		Robot.feeder.manualMove(Constants.FEEDER_MOTOR_FORWARD);
     		Robot.intake_ball.moveMotor(Constants.INTAKE_FORWARD);
-    	}
+//    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()

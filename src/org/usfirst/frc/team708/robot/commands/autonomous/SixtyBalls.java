@@ -34,21 +34,21 @@ public class SixtyBalls extends CommandGroup {
     public  SixtyBalls() {  	
 // goto Hopper
 //    	addSequential(new DriveStraightForTime(-.3, 4.0));
-    	addSequential(new DriveStraightToEncoderDistance(55, .4, false));
+    	addSequential(new DriveStraightToEncoderDistance(70, .4, false)); //55
     	
     	addSequential(new TurnToDegreesAlliance(.5, 85, Constants.COUNTERCLOCKWISE));
 
     	
 //    	addSequential(new DriveStraightForTime(.3, .5));
-    	addSequential(new DriveStraightToEncoderDistance(25, .5, true));
+    	addSequential(new DriveStraightToEncoderDistance(26, .5, true)); //25
     	
     	addSequential(new Intake_Ball_In(3));
     	
 // back off hopper and turn toward boiler		
 //    	addSequential(new DriveStraightForTime(-.3, 2.0));
-    	addSequential(new DriveStraightToEncoderDistance(25, .5, false));
+    	addSequential(new DriveStraightToEncoderDistance(30, .5, false));   //25
     	
-    	addSequential(new TurnToDegreesAlliance(.5, 45, Constants.CLOCKWISE));
+    	addSequential(new TurnToDegreesAlliance(.5, 50, Constants.CLOCKWISE));  //45
 
 //    	addSequential(new DriveStraightToEncoderDistance(40, .4, true));
 
@@ -58,12 +58,12 @@ public class SixtyBalls extends CommandGroup {
     	addSequential(new RotateAndDriveToBoiler(AutoConstants.DISTANCE_TO_BOILER_LOCATION2));
     	
 // unload balls
-    	addParallel(new SpinShooter(8));
+    	addParallel(new SpinShooter(10)); 
 
 //      addSequential(new AutoFireBalls());
 //    	addSequential(new DriveStraightToEncoderDistance(43, .4, true));
     	addSequential(new DriveStraightToEncoderDistanceOrTime(48, .4, true, 4));
-    	addSequential(new WaitCommand(1.0));
+ ////   	addSequential(new WaitCommand(1.0));
     	addSequential(new SpinFeeder(6));
     	addSequential(new StopShooter());
  

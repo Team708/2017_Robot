@@ -274,7 +274,7 @@ public  class VisionLift extends Subsystem {
 			difference = trueCenter - (liftCurrentCenter);
 	
 			rotate = Math708.getClippedPercentError(liftCurrentCenter, trueCenter, AutoConstants.DRIVE_ROTATE_MIN, AutoConstants.DRIVE_ROTATE_MAX);
-		
+//			rotate = .6;
 			
 			if (Math.abs(difference) > thresholdX) {
 				if (liftCurrentCenter < trueCenter){
@@ -333,7 +333,8 @@ public  class VisionLift extends Subsystem {
 		{
 			double difference = liftDistanceToStop - liftCurrentDistance;			
 			move = Math708.getClippedPercentError(liftCurrentDistance, liftDistanceToStop, AutoConstants.DRIVE_MOVE_MIN, AutoConstants.DRIVE_MOVE_MAX); 
-	
+//			move = .6;
+			
 			//Check if target is at correct distance within threshold
 			if (Math.abs(difference) <= thresholdDistance) {
 				move = 0.0;

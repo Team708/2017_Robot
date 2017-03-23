@@ -38,7 +38,7 @@ public final class AutoConstants {
 	public static final double DISTANCE_TO_BOILER_LOCATION1 = 54;	// A distance to stop at and shoot for high goal in inches
 	public static final double DISTANCE_TO_BOILER_LOCATION2	= 108;	// A distance to stop at and shoot for high goal in inches (9')
 
-	public static final double STOP_AT_BOILER_HEIGHT		= 60;  //100;  // y value when the robot is about 108" from boiler
+	public static final double STOP_AT_BOILER_HEIGHT		= 10;  //60//100;  // y value when the robot is about 108" from boiler
 	
 	// Gear Constants (Game piece)
 	public static final double DISTANCE_TO_GEAR				= 14;
