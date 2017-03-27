@@ -178,8 +178,10 @@ public  class VisionLift extends Subsystem {
 		             liftCurrentDistance = liftTargetWidth * liftImageWidth / (2*(Math.tan(Math.toRadians(fovDegrees))/2)*lrectWidth);
 		             
 		            // display the current image on the driver station 
-		             
-//		            	outputStreamLift.putFrame(lgPipeline.resizeImageOutput());
+		             if (Constants.LIFT_CAMERA_OUTPUT_DEBUG){
+		            //	outputStreamLift.putFrame(lgPipeline.resizeImageOutput());
+		            	 outputStreamLift.putFrame(lgPipeline.rgbThresholdOutput());
+		             }
 	            }
 	        }
 	            	        

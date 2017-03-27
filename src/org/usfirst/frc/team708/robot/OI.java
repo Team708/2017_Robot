@@ -38,7 +38,7 @@ public class OI {
 	
 	public static final int LED_BUTTON 					= Gamepad.button_X;
 	public static final int BRAKE_BUTTON 				= Gamepad.button_B;
-	public static final int RELEASE_GEAR_BUTTON 		= Gamepad.button_A;
+	public static final int INTAKE_GEAR_BUTTON 			= Gamepad.button_A;
 
 	
 	/*
@@ -49,7 +49,7 @@ public class OI {
 	private static final int SPIN_FEEDER_BUTTON			= Gamepad.button_R_Shoulder;
 	private static final int SPIN_FEEDER_BACK_BUTTON	= Gamepad.shoulderAxisRight;
 	
-	private static final int OPERATE_HOOD				= Gamepad.rightStick_Y;
+//	private static final int OPERATE_HOOD				= Gamepad.rightStick_Y;
 	private static final int OPERATE_GEAR_PIVOT			= Gamepad.leftStick_Y;
 	private static final int OPERATE_GEAR_INTAKE		= Gamepad.leftStick_X;
 
@@ -68,7 +68,7 @@ public class OI {
 	public static final Trigger intakeBallOut	= new AxisUp(driverGamepad, INTAKE_BALL_OUT);
 	public static final Button 	led				= new JoystickButton(driverGamepad, LED_BUTTON);
 	public static final Button 	brake			= new JoystickButton(driverGamepad, BRAKE_BUTTON);
-	public static final Button 	releaseGear		= new JoystickButton(driverGamepad, RELEASE_GEAR_BUTTON);
+	public static final Button 	intakeGear		= new JoystickButton(driverGamepad, INTAKE_GEAR_BUTTON);
 
 // Operator Button Commands
 	
@@ -83,8 +83,8 @@ public class OI {
 
 	public static final Button  hoodHigh		= new JoystickButton(operatorGamepad, HOOD_HIGH);
 	public static final Button  hoodLow			= new JoystickButton(operatorGamepad, HOOD_LOW);
-	public static final Trigger hoodAdjust		= new AxisUp(operatorGamepad, OPERATE_HOOD);
-	public static final Trigger hoodAdjustDown	= new AxisDown(operatorGamepad, OPERATE_HOOD);
+//	public static final Trigger hoodAdjust		= new AxisUp(operatorGamepad, OPERATE_HOOD);
+//	public static final Trigger hoodAdjustDown	= new AxisDown(operatorGamepad, OPERATE_HOOD);
 	public static final Trigger gearUp			= new AxisUp(operatorGamepad, OPERATE_GEAR_PIVOT);
 	public static final Trigger gearDown		= new AxisDown(operatorGamepad, OPERATE_GEAR_PIVOT);
 	public static final Trigger gearIn			= new AxisUp(operatorGamepad, OPERATE_GEAR_INTAKE);
@@ -104,7 +104,7 @@ public class OI {
 //		intakeBallOut.whileActive(new Intake_Ball_Out());
 		intakeBallIn.whileHeld(new ManualIntake_Ball());
 		intakeBallOut.whileActive(new ManualIntake_Ball());
-		releaseGear.whenPressed(new ReleaseGear());
+		intakeGear.whenPressed(new Intake_Gear_In());
 
 		
 //	Operator		
@@ -117,14 +117,16 @@ public class OI {
 		
 		hoodHigh.whenPressed(new MoveHoodHigh());
 		hoodLow.whenPressed(new MoveHoodLow());
-		hoodAdjust.whileActive(new HoodAdjust());
-		hoodAdjustDown.whileActive(new HoodAdjust());
+//		hoodAdjust.whileActive(new HoodAdjust());
+//		hoodAdjustDown.whileActive(new HoodAdjust());
 		
 		led.whenPressed(new LED_out());
 		brake.whenPressed(new ToggleBrakeMode());
 
 		gearUp.whileActive(new GearAdjust());
 		gearDown.whileActive(new GearAdjust());
+//		gearIn.whileActive(new GearAdjust());
+//		gearOut.whileActive(new GearAdjust());
 		gearIn.whileActive(new GearIntake());
 		gearOut.whileActive(new GearIntake());
 

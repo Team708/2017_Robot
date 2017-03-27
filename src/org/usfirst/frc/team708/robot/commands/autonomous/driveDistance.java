@@ -7,6 +7,9 @@ import org.usfirst.frc.team708.robot.commands.feeder.SpinFeeder;
 import org.usfirst.frc.team708.robot.commands.shooter.SpinShooter;
 import org.usfirst.frc.team708.robot.commands.shooter.StopShooter;
 import org.usfirst.frc.team708.robot.commands.intake_gear.Intake_Gear_Up;
+//import org.usfirst.frc.team708.robot.commands.intake_gear.Intake_Gear_In;
+import org.usfirst.frc.team708.robot.commands.intake_gear.Intake_Gear_Out;
+//import org.usfirst.frc.team708.robot.commands.intake_gear.ReleaseGear;
 import org.usfirst.frc.team708.robot.commands.autonomous.AutoFireBalls;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -26,9 +29,13 @@ public class driveDistance extends CommandGroup {
     public  driveDistance() {
 
     	addSequential(new WaitCommand(2.0));
+
+    	addSequential(new Intake_Gear_Out());
+//    	addSequential(new Intake_Gear_In());
     	
-    	addSequential(new Intake_Gear_Up());
-    	addSequential(new DriveStraightToEncoderDistance(60, .5, false));
+    	
+//    	addSequential(new Intake_Gear_Up());
+//    	addSequential(new DriveStraightToEncoderDistance(60, .5, false));
 
 //    	addSequential(new SpinShooter(8));
 //    	addSequential(new AutoFireBalls());

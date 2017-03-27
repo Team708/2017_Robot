@@ -278,6 +278,7 @@ public class Robot extends IterativeRobot {
     	autonomousMode.addObject("One Gear Center", 	new OneGearCenter());
     	autonomousMode.addObject("One Gear Open Side", 	new OneGearLeft());
     	autonomousMode.addObject("10 Ball", 			new TenBalls());
+    	autonomousMode.addObject("Just 10 Ball", 		new JustTenBalls());
     	autonomousMode.addObject("60 Ball", 			new SixtyBalls());
 
 	autonomousMode.addObject("Drive To Lift", new RotateAndDriveToLift());

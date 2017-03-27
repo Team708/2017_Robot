@@ -165,7 +165,7 @@ public class VisionBoiler extends Subsystem {
 		             
 		             
 		            // display the current image on the driver station 
-		            if (Constants.BOILER_DEBUG){
+		            if (Constants.BOILER_CAMERA_OUTPUT_DEBUG){
 		            	outputStreamBoiler.putFrame(boilerPipeline.hsvThresholdOutput()); 	               
 		            }  
 	            }

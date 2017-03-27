@@ -33,8 +33,8 @@ public class TenBalls extends CommandGroup {
 	
     public  TenBalls() {  	
 // go to lever
-    	addSequential(new DriveStraightToEncoderDistance(70, .4, false));
-    	addSequential(new TurnToDegreesAlliance(.5, 45, Constants.COUNTERCLOCKWISE));
+    	addSequential(new DriveStraightToEncoderDistance(73, .4, false));
+    	addSequential(new TurnToDegreesAlliance(.5, 43, Constants.COUNTERCLOCKWISE));
 
 //  target lever
     	addSequential(new SetLED(Constants.SET_HAS_GEAR_TARGETING));
@@ -47,8 +47,8 @@ public class TenBalls extends CommandGroup {
     	addParallel(new Intake_Gear_Down());
     	
 // get off lever and go for some balls
-    	addSequential(new DriveStraightToEncoderDistance(25, .4, true));
-    	addSequential(new TurnToDegreesAlliance(.5, 22, Constants.CLOCKWISE));
+    	addSequential(new DriveStraightToEncoderDistance(10, .4, true));
+//    	addSequential(new TurnToDegreesAlliance(.5, 22, Constants.CLOCKWISE));
 
 // target Boiler
     	addSequential(new WaitCommand(1.0));
@@ -59,8 +59,8 @@ public class TenBalls extends CommandGroup {
     	addParallel(new SpinShooter(8));
 
 //      addSequential(new AutoFireBalls());
-    	addSequential(new DriveStraightToEncoderDistanceOrTime(40, .5, true, 2));
-    	addSequential(new WaitCommand(1.0));
+    	addSequential(new DriveStraightToEncoderDistanceOrTime(10, .5, true, 2));
+//    	addSequential(new WaitCommand(1.0));
     	addSequential(new SpinFeeder(6));  
     	addSequential(new StopShooter());
     }

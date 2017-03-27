@@ -21,8 +21,8 @@ import org.usfirst.frc.team708.robot.commands.led_out.SetLED;
 import org.usfirst.frc.team708.robot.commands.shooter.SpinShooter;
 import org.usfirst.frc.team708.robot.commands.shooter.StopShooter;
 import org.usfirst.frc.team708.robot.commands.intake_gear.Intake_Gear_Down;
-import org.usfirst.frc.team708.robot.commands.intake_gear.Intake_Gear_In;
-import org.usfirst.frc.team708.robot.commands.intake_gear.AquireGear;
+//import org.usfirst.frc.team708.robot.commands.intake_gear.Intake_Gear_In;
+//import org.usfirst.frc.team708.robot.commands.intake_gear.AquireGear;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
@@ -66,8 +66,8 @@ public class OneGearCenter extends CommandGroup {
 		addParallel(new SpinShooter(8));
 
 //      addSequential(new AutoFireBalls());
-    	addSequential(new DriveStraightToEncoderDistanceOrTime(48, .4, true, 4));
-    	addSequential(new WaitCommand(1.0));
+    	addSequential(new DriveStraightToEncoderDistanceOrTime(14, .5, true, 2));
+ //   	addSequential(new WaitCommand(1.0));
 		addSequential(new SpinFeeder(6));     //then shoot
 		addSequential(new StopShooter());	
     	

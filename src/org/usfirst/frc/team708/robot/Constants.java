@@ -26,8 +26,8 @@ public final class Constants {
 
 	
 	public static final int PIVOT_GEAR_ENCODER_COUNT	=  1024;
-	public static final int PIVOT_GEAR_ENCODER_HIGH		=  10;  //20; //35;
-	public static final int PIVOT_GEAR_ENCODER_LOW		=  -25;   //-19; // 5;
+	public static final int PIVOT_GEAR_ENCODER_HIGH		=  0;  //20; //35;
+	public static final int PIVOT_GEAR_ENCODER_LOW		=  -35;   //-19; // 5;
 
 
 	public static final double MOTOR_FORWARD 		=  1.0;
@@ -51,7 +51,7 @@ public final class Constants {
 	public static final double SHOOTER_MOTOR_OFF			=  0.0;
 	public static final double SHOOTER_MOTOR_BACKWARD 		=  -1.0;
 	
-	public static final int SHOOTER_MOTOR_SPEED_BOILER 		=  2175;
+	public static final int SHOOTER_MOTOR_SPEED_BOILER 		=  2050;
 	public static final int SHOOTER_MOTOR_SPEED_LEVER 		=  2700;
 
 //	public static final int SHOOTER_MOTOR_SPEED_MID 		=  2700;
@@ -69,9 +69,9 @@ public final class Constants {
 
 	public static final int 	SHOOTER_ENCODER_PULSES	 	= 12;
 	
-	public static final double 	SHOOTER_P 					=  1.5;
-	public static final double	SHOOTER_I 					=  0.005;
-	public static final double 	SHOOTER_D 					=  10.0;
+	public static final double 	SHOOTER_P 					=  40.0;//1.5;
+	public static final double	SHOOTER_I 					=  0.0;//0.005;
+	public static final double 	SHOOTER_D 					=  0.0;//10.0;
 	public static final double 	SHOOTER_F 					=  2.3;
 	public static final int 	SHOOTER_IZONE 				=  00;
 	public static final double 	SHOOTER_RAMPRATE 			=  0.0;
@@ -89,6 +89,8 @@ public final class Constants {
 	public static final boolean LIFT_DEBUG 				= true;
 	public static final boolean BOILER_DEBUG 			= true;
 	public static final boolean GEAR_DEBUG 				= false;
+	public static final boolean LIFT_CAMERA_OUTPUT_DEBUG 	= false;
+	public static final boolean BOILER_CAMERA_OUTPUT_DEBUG	= false;
 
 	/*
 	 * Sensors

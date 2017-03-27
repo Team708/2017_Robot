@@ -33,14 +33,14 @@ public class GearIntake extends Command {
 		}
 		else
 		{
-			Robot.intake_gear.stop();
+//			Robot.intake_gear.stop();
 //			Robot.pivot_gear.moveMotor(Constants.GEAR_UP);
 		}
     	
-    	if (Robot.intake_gear.hasGear())
-    		Robot.led1.send_to_led(Constants.SET_HAS_GEAR_TARGETING);
-    	else
-			Robot.led1.send_to_led(Robot.ledAllianceColor);
+//    	if (Robot.intake_gear.hasGear())
+//    		Robot.led1.send_to_led(Constants.SET_HAS_GEAR_TARGETING);
+//    	else
+//			Robot.led1.send_to_led(Robot.ledAllianceColor);
 	}
 
     // Make this return true when this Command no longer needs to run execute()

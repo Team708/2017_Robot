@@ -63,8 +63,8 @@ public class OneGearLeft extends CommandGroup {
 		addParallel(new SpinShooter(8));
 		
 //      addSequential(new AutoFireBalls());
-    	addSequential(new DriveStraightToEncoderDistanceOrTime(48, .4, true, 4));
-    	addSequential(new WaitCommand(1.0));
+    	addSequential(new DriveStraightToEncoderDistanceOrTime(14, .5, true, 2));
+//    	addSequential(new WaitCommand(1.0));
     	addSequential(new SpinFeeder(6));   
 		addSequential(new StopShooter());    	
    }

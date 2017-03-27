@@ -48,7 +48,7 @@ public class Shooter extends Subsystem {
         shooterSlave.changeControlMode(CANTalon.TalonControlMode.Follower);
         shooterSlave.set(shooter.getDeviceID());
 
-        shooter.reset();
+//      shooter.reset();
 		shooter.enable();
 
 		shooter.reverseSensor(true);

@@ -6,6 +6,7 @@ import org.usfirst.frc.team708.robot.RobotMap;
 
 import com.ctre.CANTalon;
 import com.ctre.CANTalon.FeedbackDevice;
+import com.ctre.CANTalon.TalonControlMode;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -26,6 +27,9 @@ public class Intake_Gear extends Subsystem {
 	public Intake_Gear() {
 		intakeMotor = new CANTalon (RobotMap.intakeMotorGear);
 	    gearSensor = new DigitalInput(RobotMap.gearSensorSwitch);
+	    
+//	    intakeMotor.reset();
+//	    intakeMotor.changeControlMode(TalonControlMode.Voltage);
 	}
 	
 	public void initDefaultCommand() {

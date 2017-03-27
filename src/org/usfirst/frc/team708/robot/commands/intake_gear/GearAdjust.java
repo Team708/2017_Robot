@@ -29,6 +29,17 @@ public class GearAdjust extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	double gearAngle = OI.operatorGamepad.getAxis(Gamepad.leftStick_Y); //Gets Input from operator's controller
+//    	double gearAnglex = OI.operatorGamepad.getAxis(Gamepad.leftStick_X); //Gets Input from operator's controller
+
+//    	if ((gearAnglex>0))
+//		{
+//		    Robot.intake_gear.moveMotor(Constants.GEAR_IN);
+//		}
+//		else if (gearAnglex<0)
+//		{
+//			Robot.intake_gear.moveMotor(Constants.GEAR_OUT);
+//		}
+    	
     	if ((gearAngle >0) 
  //   			&& (!Robot.pivot_gear.isFwdSwitch())
     			)
@@ -48,6 +59,8 @@ public class GearAdjust extends Command {
     // Called once after isFinished returns true
     protected void end() {
     	Robot.pivot_gear.stop();
+//    	Robot.intake_gear.stop();
+
     }
 
     // Called when another command which requires one or more of the same

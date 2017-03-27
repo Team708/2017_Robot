@@ -47,8 +47,8 @@ public class Pivot_Gear extends Subsystem {
 	}
 	
 	public boolean isRevSwitch() {
-		return (pivotMotor.getPosition()<= Constants.PIVOT_GEAR_ENCODER_LOW);
-//		return (false);
+//		return (pivotMotor.getPosition()<= Constants.PIVOT_GEAR_ENCODER_LOW);
+		return (false);
 	}
 	
 	//I believe this stops the motor
