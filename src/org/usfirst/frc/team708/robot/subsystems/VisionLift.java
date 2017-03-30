@@ -333,20 +333,24 @@ public  class VisionLift extends Subsystem {
 		// Method to determine whether the robot is at the correct distance to the target so stop
 		if (liftHasTarget) 
 		{
-			double difference = liftDistanceToStop - liftCurrentDistance;			
-			move = Math708.getClippedPercentError(liftCurrentDistance, liftDistanceToStop, AutoConstants.DRIVE_MOVE_MIN, AutoConstants.DRIVE_MOVE_MAX); 
-//			move = .6;
+//			double difference = liftDistanceToStop - liftCurrentDistance;			
+			double difference = liftCurrentDistance - liftDistanceToStop;			
+
+			liftMoveDiff = difference;
 			
 			//Check if target is at correct distance within threshold
-			if (Math.abs(difference) <= thresholdDistance) {
+//			if (Math.abs(difference) <= thresholdDistance) {
+			if (difference <= thresholdDistance) {
 				move = 0.0;
 				liftIsAtDistance = true;
 			} else {
+				move = Math708.getClippedPercentError(liftCurrentDistance, liftDistanceToStop, AutoConstants.DRIVE_MOVE_MIN, AutoConstants.DRIVE_MOVE_MAX); 
+//	     		move = .6;
 				liftIsAtDistance = false;
 			}
-			liftMoveDiff = difference;
+			
 		} else {
-				move = 0.0;
+			move = 0.0;
 		}
 		
 		return move;
@@ -361,9 +365,11 @@ public  class VisionLift extends Subsystem {
 	
 	
 	public boolean liftIsAtDistance() {
-		double difference = liftDistanceToStop - liftCurrentDistance;			
+//		double difference = liftDistanceToStop - liftCurrentDistance;			
+		double difference = liftCurrentDistance - liftDistanceToStop;			
 		//Check if target is at correct level within threshold
-		if (Math.abs(difference) <= thresholdDistance) {
+//		if (Math.abs(difference) <= thresholdDistance) {
+		if (difference <= thresholdDistance) {
 			liftIsAtDistance = true;
 		} else {
 			liftIsAtDistance = false;

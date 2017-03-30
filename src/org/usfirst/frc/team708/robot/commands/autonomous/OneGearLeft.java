@@ -12,6 +12,7 @@ import org.usfirst.frc.team708.robot.commands.drivetrain.DriveStraightToEncoderD
 import org.usfirst.frc.team708.robot.commands.drivetrain.DriveStraightToEncoderDistanceOrTime;
 import org.usfirst.frc.team708.robot.commands.drivetrain.RotateAndDriveToBoiler;
 import org.usfirst.frc.team708.robot.commands.drivetrain.RotateAndDriveToLift;
+import org.usfirst.frc.team708.robot.commands.drivetrain.Send;
 import org.usfirst.frc.team708.robot.commands.drivetrain.ToggleBrakeMode;
 import org.usfirst.frc.team708.robot.commands.drivetrain.TurnToDegreesAlliance;
 import org.usfirst.frc.team708.robot.commands.feeder.SpinFeeder;
@@ -30,6 +31,8 @@ public class OneGearLeft extends CommandGroup {
     }
 	
     public  OneGearLeft() {
+    	addSequential(new Send("In OneGearLeft"));
+
 // go to lever
     	addSequential(new DriveStraightToEncoderDistance(70, .4, false));
     	addSequential(new TurnToDegreesAlliance(.5, 45, Constants.CLOCKWISE));

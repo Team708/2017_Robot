@@ -402,6 +402,7 @@ public class Drivetrain extends PIDSubsystem {
 //	    	SmartDashboard.putNumber("DT Rt Slave", rightSlave.getTemperature());
 //	    	SmartDashboard.putNumber("DT Lft Master", leftMaster.getTemperature());
 //	    	SmartDashboard.putNumber("DT Lft Slave", leftSlave.getTemperature());
+//    	SmartDashboard.putNumber("Sonar Mode", sonarOverride);		
     		SmartDashboard.putNumber("DT Encoder 1 Distance", encoder.getDistance());	// Encoder reading
     		SmartDashboard.putNumber("DT Encoder 2 Distance", encoder2.getDistance());	// Encoder reading
     	}
@@ -409,7 +410,6 @@ public class Drivetrain extends PIDSubsystem {
     	SmartDashboard.putBoolean("Brake", brake);						// Brake or Coast
     	SmartDashboard.putNumber("AllianceColor", getAlliance());
     	SmartDashboard.putNumber("Gyro angle", ( (int)getAngle()));			// Gyro angle
-    	SmartDashboard.putNumber("DT Sonar Distance", getSonarDistance());			// Sonar distance reading
-//    	SmartDashboard.putNumber("Sonar Mode", sonarOverride);		
+//    	SmartDashboard.putNumber("DT Sonar Distance", getSonarDistance());			// Sonar distance reading
     }
 }

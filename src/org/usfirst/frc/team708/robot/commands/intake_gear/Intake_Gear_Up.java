@@ -22,9 +22,9 @@ public class Intake_Gear_Up extends Command {
 	}
 
 	protected boolean isFinished() {
-		if (Robot.pivot_gear.isFwdSwitch())
-     		return(true);
-		else
+//		if (Robot.pivot_gear.isFwdSwitch())
+//     		return(true);
+//		else
 			return(isTimedOut());
 	}
 

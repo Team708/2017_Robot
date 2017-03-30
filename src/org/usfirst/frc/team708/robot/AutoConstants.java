@@ -3,10 +3,10 @@ package org.usfirst.frc.team708.robot;
 public final class AutoConstants {
 	
 	// Threshold Constants 
-	public static final double DISTANCE_TARGET_THRESHOLD	= 2;	// threshold for determining the distance to stop in front of the lift
-	public static final double X_THRESHOLD_CENTER 			= 20;	// threshold for determining center of the target 
-	public static final double X_THRESHOLD_HAS_TARGET_MIN 	= 20;	// threshold for determining min value for whether the robot sees the target	 
-	public static final double X_THRESHOLD_HAS_TARGET_MAX 	= 300;	// threshold for determining max value for whether the robot sees the target
+	public static final double DISTANCE_TARGET_THRESHOLD	= 0; //5;	// threshold for determining the distance to stop in front of the lift
+	public static final double X_THRESHOLD_CENTER 			= 5; //20;	// threshold for determining center of the target 
+	public static final double X_THRESHOLD_HAS_TARGET_MIN 	= 1;	// threshold for determining min value for whether the robot sees the target	 
+	public static final double X_THRESHOLD_HAS_TARGET_MAX 	= 320;	// threshold for determining max value for whether the robot sees the target
 	public static final double Y_HEIGHT_THRESHOLD			= 5;	// threshold for determining the stop location of height
 	
 	// Sweep Constants

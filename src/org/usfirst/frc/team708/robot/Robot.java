@@ -250,8 +250,8 @@ public class Robot extends IterativeRobot {
      * Sends data from each subsystem periodically as set by sendStatsIntervalSec
      */
     private void sendStatistics() {
-        if (statsTimer.get() >= Constants.SEND_STATS_INTERVAL) {
-            statsTimer.reset();
+ //       if (statsTimer.get() >= Constants.SEND_STATS_INTERVAL) {
+ //           statsTimer.reset();
 
             // Various debug information
             drivetrain.sendToDashboard();
@@ -265,7 +265,7 @@ public class Robot extends IterativeRobot {
 //          visionProcessor.sendToDashboard();
             visionLift.sendToDashboard();
             visionBoiler.sendToDashboard();
-        }
+//       }
     }
 	
 	/**

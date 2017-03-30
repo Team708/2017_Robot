@@ -38,7 +38,7 @@ public class OI {
 	
 	public static final int LED_BUTTON 					= Gamepad.button_X;
 	public static final int BRAKE_BUTTON 				= Gamepad.button_B;
-	public static final int INTAKE_GEAR_BUTTON 			= Gamepad.button_A;
+	public static final int RELEASE_GEAR_BUTTON 		= Gamepad.button_A;
 
 	
 	/*
@@ -68,7 +68,7 @@ public class OI {
 	public static final Trigger intakeBallOut	= new AxisUp(driverGamepad, INTAKE_BALL_OUT);
 	public static final Button 	led				= new JoystickButton(driverGamepad, LED_BUTTON);
 	public static final Button 	brake			= new JoystickButton(driverGamepad, BRAKE_BUTTON);
-	public static final Button 	intakeGear		= new JoystickButton(driverGamepad, INTAKE_GEAR_BUTTON);
+	public static final Button 	releaseGear		= new JoystickButton(driverGamepad, RELEASE_GEAR_BUTTON);
 
 // Operator Button Commands
 	
@@ -104,7 +104,7 @@ public class OI {
 //		intakeBallOut.whileActive(new Intake_Ball_Out());
 		intakeBallIn.whileHeld(new ManualIntake_Ball());
 		intakeBallOut.whileActive(new ManualIntake_Ball());
-		intakeGear.whenPressed(new Intake_Gear_In());
+		releaseGear.whenPressed(new ReleaseGear());
 
 		
 //	Operator		

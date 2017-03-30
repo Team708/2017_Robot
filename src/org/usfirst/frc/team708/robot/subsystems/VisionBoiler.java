@@ -331,20 +331,17 @@ public class VisionBoiler extends Subsystem {
 		// if the robot sees the target
 		// Method to determine whether the robot is at the correct distance to the target so stop
 		if (boilerHasTarget) 
-		{
-			
-			
+		{		
 			double difference;
 			double boilerCurrentDistance;
 			double boilerStopAtValue;
-			double differenceY = boilerStopAtHeight - boilerCurrentHeight;
+//			double differenceY = boilerStopAtHeight - boilerCurrentHeight;
+			double differenceY = boilerCurrentHeight - boilerStopAtHeight;
 			
 			//using the y value
 			difference = differenceY;
 			boilerCurrentDistance = boilerCurrentHeight;
-			boilerStopAtValue = boilerStopAtHeight;
-			
-			
+			boilerStopAtValue = boilerStopAtHeight;	
 			
 			boilerMove = Math708.getClippedPercentError(boilerCurrentDistance, boilerStopAtValue, AutoConstants.DRIVE_MOVE_MIN, AutoConstants.DRIVE_MOVE_MAX); 
 //			boilerMove = .3;
@@ -354,7 +351,8 @@ public class VisionBoiler extends Subsystem {
 //			}
 			
 			//Check if target is at correct distance within threshold
-			if (Math.abs(difference) <= thresholdDistance) {
+//			if (Math.abs(difference) <= thresholdDistance) {
+			if (difference <= thresholdDistance) {
 				boilerMove = 0.0;
 				boilerIsAtDistance = true;
 			} else {
@@ -362,8 +360,8 @@ public class VisionBoiler extends Subsystem {
 			}
 			boilerMoveDiff = difference;
 		} else { // no target - where is it?
-// 			boilerMove = 0.0;
- 			boilerMove = 0.2; //move forward slowly
+ 			boilerMove = 0.0;
+// 			boilerMove = 0.2; //move forward slowly
 		}
 
 		return boilerMove;
@@ -387,9 +385,12 @@ public class VisionBoiler extends Subsystem {
 	 * Method to determine whether the robot is at the distance from the target based on the threshold value
 	 */
 	public boolean boilerIsAtHeight() {
-		double difference = boilerStopAtHeight - boilerCurrentHeight;			
+//		double difference = boilerStopAtHeight - boilerCurrentHeight;			
+		double difference = boilerCurrentHeight - boilerStopAtHeight;		
+		
 		//Check if target is at correct level within threshold
-		if (Math.abs(difference) <= thresholdHeight) {
+//		if (Math.abs(difference) <= thresholdHeight) {
+		if (difference <= thresholdHeight) {
 			boilerIsAtHeight = true;
 		} else {
 			boilerIsAtHeight = false;

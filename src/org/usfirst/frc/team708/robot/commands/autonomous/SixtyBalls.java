@@ -8,6 +8,7 @@ import org.usfirst.frc.team708.robot.commands.drivetrain.DriveStraightToEncoderD
 import org.usfirst.frc.team708.robot.commands.drivetrain.DriveStraightToEncoderDistanceOrTime;
 import org.usfirst.frc.team708.robot.commands.drivetrain.RotateAndDriveToBoiler;
 import org.usfirst.frc.team708.robot.commands.drivetrain.RotateAndDriveToLift;
+import org.usfirst.frc.team708.robot.commands.drivetrain.Send;
 import org.usfirst.frc.team708.robot.commands.drivetrain.TurnToDegreesAlliance;
 import org.usfirst.frc.team708.robot.commands.feeder.FeederOff;
 import org.usfirst.frc.team708.robot.commands.feeder.SpinFeeder;
@@ -31,7 +32,9 @@ public class SixtyBalls extends CommandGroup {
     protected void initialize() {
     }
 	
-    public  SixtyBalls() {  	
+    public  SixtyBalls() {  
+    	addSequential(new Send("In Sixty Ball"));
+
 // goto Hopper
 //    	addSequential(new DriveStraightForTime(-.3, 4.0));
 //    	addSequential(new DriveStraightToEncoderDistance(100, .4, false)); //RED    to close hopper
