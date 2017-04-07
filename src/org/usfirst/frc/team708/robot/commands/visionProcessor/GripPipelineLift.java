@@ -43,7 +43,7 @@ public class GripPipelineLift implements VisionPipeline {
 		// Step RGB_Threshold0:
 		Mat rgbThresholdInput = source0;
 		double[] rgbThresholdRed = {0.0, 0.0};
-		double[] rgbThresholdGreen = {79.02135918383937, 255.0};
+		double[] rgbThresholdGreen = {56, 255.0};
 		double[] rgbThresholdBlue = {0.0, 0.0};
 		rgbThreshold(rgbThresholdInput, rgbThresholdRed, rgbThresholdGreen, rgbThresholdBlue, rgbThresholdOutput);
 

@@ -37,13 +37,17 @@ public class SixtyBalls extends CommandGroup {
 
 // goto Hopper
 //    	addSequential(new DriveStraightForTime(-.3, 4.0));
-//    	addSequential(new DriveStraightToEncoderDistance(100, .4, false)); //RED    to close hopper
-    	addSequential(new DriveStraightToEncoderDistance(100, .4, false)); //BLUE    to close hopper
-    	
-    	addSequential(new TurnToDegreesAlliance(.5, 85, Constants.COUNTERCLOCKWISE)); //red
+//    	addSequential(new DriveStraightToEncoderDistance(100, .4, false)); //RED  to far hopper
+    	addSequential(new DriveStraightToEncoderDistance(100, .4, false)); //BLUE to far hopper
+
+    	addSequential(new Send("running turning to hopper"));
+
+    	addSequential(new TurnToDegreesAlliance(.5, 82, Constants.COUNTERCLOCKWISE)); //generic
+//    	addSequential(new TurnToDegreesAlliance(.5, 85, Constants.COUNTERCLOCKWISE)); //red
 //    	addSequential(new TurnToDegreesAlliance(.5, 80, Constants.COUNTERCLOCKWISE)); //blue
 
-    	
+    	addSequential(new Send("running drive to hopper"));
+
 //    	addSequential(new DriveStraightForTime(.3, .5));
     	addSequential(new DriveStraightToEncoderDistanceOrTime(45, .5, true, 2)); //25
     	
@@ -54,42 +58,56 @@ public class SixtyBalls extends CommandGroup {
     	
 // back off hopper and turn toward boiler		
 //    	addSequential(new DriveStraightForTime(-.3, 2.0));
+    	
+    	addSequential(new Send("running back away from hopper"));
+
     	addSequential(new DriveStraightToEncoderDistance(40, .4, false));   //30
 
     	addSequential(new WaitCommand(.5));
 
-    	addSequential(new TurnToDegreesAlliance(.5, 48, Constants.CLOCKWISE));  //50
+    	addSequential(new Send("running turn to boiler"));
+
+    	addSequential(new TurnToDegreesAlliance(.5, 58, Constants.CLOCKWISE));  //50 bigboard in way
 
 //    	addSequential(new DriveStraightToEncoderDistance(40, .4, true));
 
 // target Boiler
+    	addSequential(new Send("running target boiler"));
+
     	addSequential(new WaitCommand(1.0));
     	addSequential(new SetLED(Constants.SET_TARGETING));
     	addSequential(new RotateAndDriveToBoiler(AutoConstants.DISTANCE_TO_BOILER_LOCATION2));
     	
 // unload balls
+    	addSequential(new Send("running spin shooter"));
+
     	addParallel(new SpinShooter(10)); 
 
 //      addSequential(new AutoFireBalls());
 //    	addSequential(new DriveStraightToEncoderDistance(43, .4, true));
     	addSequential(new DriveStraightToEncoderDistanceOrTime(10, .5, true, 2)); //48
+
+    	addSequential(new Send("running shoot"));
+
     	addSequential(new WaitCommand(1.0));
     	addSequential(new SpinFeeder(6));
     	addSequential(new StopShooter());
  
+    	addSequential(new Send("finished sitxy ball"));
+
 // go to lever
 //    	addSequential(new TurnToDegreesAlliance(.4, 20, Constants.COUNTERCLOCKWISE));
     	
 //  target lever
-    	addSequential(new Intake_Gear_Up());
-    	addSequential(new SetLED(Constants.SET_HAS_GEAR_TARGETING));
-    	addSequential(new WaitCommand(.75));
-    	addSequential(new RotateAndDriveToLift());
-    	
-//  place gear on lever and back away    	
-    	addSequential(new Intake_Gear_Out());
-    	addParallel(new Intake_Gear_Down());
-    	addSequential(new DriveStraightToEncoderDistance(15, .4, true));
+//    	addSequential(new Intake_Gear_Up());
+//    	addSequential(new SetLED(Constants.SET_HAS_GEAR_TARGETING));
+//    	addSequential(new WaitCommand(.75));
+//    	addSequential(new RotateAndDriveToLift());
+//    	
+////  place gear on lever and back away    	
+//    	addSequential(new Intake_Gear_Out());
+//    	addParallel(new Intake_Gear_Down());
+//    	addSequential(new DriveStraightToEncoderDistance(15, .4, true));
     }
     
     // Make this return true when this Command no longer needs to run execute()

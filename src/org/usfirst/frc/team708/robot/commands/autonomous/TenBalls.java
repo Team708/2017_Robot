@@ -36,16 +36,23 @@ public class TenBalls extends CommandGroup {
     	addSequential(new Send("In Ten Ball"));
 
 // go to lever
-    	addSequential(new DriveStraightToEncoderDistance(73, .4, false));
+    	addSequential(new DriveStraightToEncoderDistance(60, .4, false)); //was 73 moved bot over
+    	
+    	addSequential(new Send("running turn to lift"));
+
     	addSequential(new TurnToDegreesAlliance(.5, 43, Constants.COUNTERCLOCKWISE));
 
 //  target lever
+    	addSequential(new Send("running drive to lift"));
+
     	addSequential(new SetLED(Constants.SET_HAS_GEAR_TARGETING));
     	addSequential(new WaitCommand(1.0));  //was 1.0
     	addSequential(new Intake_Gear_Up());
     	addSequential(new RotateAndDriveToLift());
     	
 //  place gear on lever and back away    	
+    	addSequential(new Send("running release gear"));
+
     	addSequential(new Intake_Gear_Out());
     	addParallel(new Intake_Gear_Down());
     	
@@ -54,18 +61,26 @@ public class TenBalls extends CommandGroup {
 //    	addSequential(new TurnToDegreesAlliance(.5, 22, Constants.CLOCKWISE));
 
 // target Boiler
+    	addSequential(new Send("running target boiler"));
+
     	addSequential(new WaitCommand(1.0));
     	addSequential(new SetLED(Constants.SET_TARGETING));
     	addSequential(new RotateAndDriveToBoiler(AutoConstants.DISTANCE_TO_BOILER_LOCATION2));
 
 // unload balls
+    	addSequential(new Send("running spin shooter"));
+
     	addParallel(new SpinShooter(8));
 
 //      addSequential(new AutoFireBalls());
     	addSequential(new DriveStraightToEncoderDistanceOrTime(10, .5, true, 2));
 //    	addSequential(new WaitCommand(1.0));
+    	addSequential(new Send("running shoot"));
+
     	addSequential(new SpinFeeder(6));  
     	addSequential(new StopShooter());
+    	
+    	addSequential(new Send("finished 10 ball"));
     }
     
     // Make this return true when this Command no longer needs to run execute()

@@ -102,6 +102,7 @@ public  class VisionLift extends Subsystem {
 
 		usbCameraLiftGear=CameraServer.getInstance().startAutomaticCapture(AutoConstants.USB_CAMERA_ID, AutoConstants.USB_VIDEO_PORT);
 		usbCameraLiftGear.setResolution(liftImageWidth, liftImageHeight);
+		
 		usbCameraLiftGear.setBrightness(0);        			//40 for lift 
 		usbCameraLiftGear.setExposureManual(0);			    //was 25 for lift 
 		usbCameraLiftGear.setWhiteBalanceManual(10000);		//10000 for lift 2800 for gear

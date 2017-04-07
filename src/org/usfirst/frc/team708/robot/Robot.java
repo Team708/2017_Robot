@@ -119,7 +119,7 @@ public class Robot extends IterativeRobot {
 						// This MUST BE LAST or a NullPointerException will be thrown
 
 	UsbCamera ucamera=CameraServer.getInstance().startAutomaticCapture("cam1", 1);
-    ucamera.setResolution(240, 320);
+    ucamera.setResolution(180, 240);
 	
 //    pwr0 			= new Solenoid(RobotMap.PWR0);
 //    pwr1 			= new Solenoid(RobotMap.PWR1);

@@ -317,6 +317,11 @@ public class VisionBoiler extends Subsystem {
 			boilerSweepCounter++;
 			boilerRotate = 0.0;  //no sweep sit there till time out or find target rolling forward slowly
 		}
+		else
+		{
+			boilerRotate = 0.0;
+    		SmartDashboard.putBoolean("boiler in dead end if", true);
+		}
 		boilerRotateDiff = difference;  // what is this for????
 		
 		return boilerRotate;

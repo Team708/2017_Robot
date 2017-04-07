@@ -45,13 +45,17 @@ public class OneGearCenter extends CommandGroup {
 //   	addSequential(new DriveStraightToEncoderDistance(24, .3, false));
 
 //  target lever
+    	addSequential(new Send("running drive to lift"));
+
     	addSequential(new WaitCommand(1.0));
     	addSequential(new SetLED(Constants.SET_HAS_GEAR_TARGETING));
     	addSequential(new Intake_Gear_Up());
 
     	addSequential(new RotateAndDriveToLift());
     	
-//  place gear on lever and back away    	
+//  place gear on lever and back away  
+    	addSequential(new Send("running Gear out"));
+
     	addSequential(new Intake_Gear_Out());
     	addParallel(new Intake_Gear_Down());
 
@@ -59,22 +63,32 @@ public class OneGearCenter extends CommandGroup {
     	addSequential(new DriveStraightToEncoderDistance(15, .4, true));  //put this back in!!!!    	
 
 // turn toward boiler
+    	addSequential(new Send("running turn to boiler"));
+
     	addSequential(new TurnToDegreesAlliance(.5, 65, Constants.COUNTERCLOCKWISE));
 
 // target Boiler
+    	addSequential(new Send("running target boiler"));
+
     	addSequential(new WaitCommand(1.0));
     	addSequential(new SetLED(Constants.SET_TARGETING));
     	addSequential(new RotateAndDriveToBoiler(AutoConstants.DISTANCE_TO_BOILER_LOCATION2));
 
 // unload balls
+    	addSequential(new Send("running spin shooter"));
+
 		addParallel(new SpinShooter(8));
 
 //      addSequential(new AutoFireBalls());
+		
     	addSequential(new DriveStraightToEncoderDistanceOrTime(14, .5, true, 2));
  //   	addSequential(new WaitCommand(1.0));
+    	addSequential(new Send("running spin feeder "));
 		addSequential(new SpinFeeder(6));     //then shoot
 		addSequential(new StopShooter());	
     	
+    	addSequential(new Send("finished One Gear"));
+
 		
 // get gear 2
 //    	addSequential(new TurnToDegreesAlliance(.6, 125, Constants.CLOCKWISE));
