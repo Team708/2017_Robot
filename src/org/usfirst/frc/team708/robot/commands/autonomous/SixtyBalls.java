@@ -42,9 +42,8 @@ public class SixtyBalls extends CommandGroup {
 
     	addSequential(new Send("running turning to hopper"));
 
-    	addSequential(new TurnToDegreesAlliance(.5, 82, Constants.COUNTERCLOCKWISE)); //generic
 //    	addSequential(new TurnToDegreesAlliance(.5, 85, Constants.COUNTERCLOCKWISE)); //red
-//    	addSequential(new TurnToDegreesAlliance(.5, 80, Constants.COUNTERCLOCKWISE)); //blue
+    	addSequential(new TurnToDegreesAlliance(.5, 80, Constants.COUNTERCLOCKWISE)); //blue
 
     	addSequential(new Send("running drive to hopper"));
 
@@ -74,9 +73,9 @@ public class SixtyBalls extends CommandGroup {
 // target Boiler
     	addSequential(new Send("running target boiler"));
 
-    	addSequential(new WaitCommand(1.0));
-    	addSequential(new SetLED(Constants.SET_TARGETING));
-    	addSequential(new RotateAndDriveToBoiler(AutoConstants.DISTANCE_TO_BOILER_LOCATION2));
+//    	addSequential(new WaitCommand(1.0));
+//    	addSequential(new SetLED(Constants.SET_TARGETING));
+//    	addSequential(new RotateAndDriveToBoiler(AutoConstants.DISTANCE_TO_BOILER_LOCATION2));
     	
 // unload balls
     	addSequential(new Send("running spin shooter"));
@@ -85,11 +84,11 @@ public class SixtyBalls extends CommandGroup {
 
 //      addSequential(new AutoFireBalls());
 //    	addSequential(new DriveStraightToEncoderDistance(43, .4, true));
-    	addSequential(new DriveStraightToEncoderDistanceOrTime(10, .5, true, 2)); //48
+    	addSequential(new DriveStraightToEncoderDistanceOrTime(120, .5, true, 4)); //48
 
     	addSequential(new Send("running shoot"));
 
-    	addSequential(new WaitCommand(1.0));
+//    	addSequential(new WaitCommand(1.0));
     	addSequential(new SpinFeeder(6));
     	addSequential(new StopShooter());
  

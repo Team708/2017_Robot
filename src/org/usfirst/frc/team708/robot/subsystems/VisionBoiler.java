@@ -166,7 +166,7 @@ public class VisionBoiler extends Subsystem {
 		             
 		            // display the current image on the driver station 
 		            if (Constants.BOILER_CAMERA_OUTPUT_DEBUG){
-		            	outputStreamBoiler.putFrame(boilerPipeline.hsvThresholdOutput()); 	               
+		            	outputStreamBoiler.putFrame(boilerPipeline.rgbThresholdOutput()); 	               
 		            }  
 	            }
 	            
@@ -365,11 +365,12 @@ public class VisionBoiler extends Subsystem {
 			}
 			boilerMoveDiff = difference;
 		} else { // no target - where is it?
- 			boilerMove = 0.0;
-// 			boilerMove = 0.2; //move forward slowly
+// 			boilerMove = 0.0;
+ 			boilerMove = 0.2; //move forward slowly
 		}
 
-		return boilerMove;
+//		return boilerMove;
+		return 0;
 	}
 	
 
@@ -486,7 +487,7 @@ public class VisionBoiler extends Subsystem {
 //			SmartDashboard.putNumber("b-pipelineSize", 			bPipelineSize);
 //			SmartDashboard.putNumber("b-stop at distance", 		boilerStopAtDistance);
 
-			SmartDashboard.putNumber("b-boiler current height (y)", boilerCurrentHeight);
+//			SmartDashboard.putNumber("b-boiler current height (y)", boilerCurrentHeight);
 
 		}
 	}

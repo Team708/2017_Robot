@@ -12,17 +12,17 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class ReleaseGear extends CommandGroup {
    
     protected void initialize() {
-    }
-//	
-    public  ReleaseGear() {
 	   	this.setTimeout(1.0);
+    }
+	
+    public  ReleaseGear() {
 
     //  place gear on lever and back away 
-	   	addParallel(new Intake_Gear_Out(), 1);
-    	addParallel(new Intake_Gear_Down(), 1);
+	   	addSequential(new Intake_Gear_Out());
+    	addParallel(new Intake_Gear_Down());
 
     // get off lever and go for some balls
-    	addSequential(new DriveStraightToEncoderDistanceOrTime(10, .4, true, 1), 1);
+    	addSequential(new DriveStraightToEncoderDistanceOrTime(10, .4, true, 1));
     }
     
     // Make this return true when this Command no longer needs to run execute()

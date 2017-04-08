@@ -2,6 +2,7 @@ package org.usfirst.frc.team708.robot;
 
 public final class AutoConstants {
 	
+		
 	// Threshold Constants 
 	public static final double DISTANCE_TARGET_THRESHOLD	= 0; //5;	// threshold for determining the distance to stop in front of the lift
 	public static final double X_THRESHOLD_CENTER 			= 10; //20;	// threshold for determining center of the target 
@@ -11,20 +12,20 @@ public final class AutoConstants {
 	
 	// Sweep Constants
 	public static final int SWEEP1_MIN						= 0;
-	public static final int SWEEP1_MAX 						= 15;
-	public static final int SWEEP2_MIN 						= 16;
-	public static final int SWEEP2_MAX 						= 45;
-	public static final int SWEEP3_MIN 						= 46;
-	public static final int SWEEP3_MAX 						= 60;
+	public static final int SWEEP1_MAX 						= 100;
+	public static final int SWEEP2_MIN 						= 101;
+	public static final int SWEEP2_MAX 						= 200;
+	public static final int SWEEP3_MIN 						= 201;
+	public static final int SWEEP3_MAX 						= 300;
 	public static final int SWEEP_DIRECTION_LEFT 			= -1;
 	public static final int SWEEP_DIRECTION_RIGHT 			= 1;
 	public static final double SWEEP_ROTATE 				= .3;
 
 	// Drivetrain Constants
 	public static final double DRIVE_ROTATE_MIN 			= .3;
-	public static final double DRIVE_ROTATE_MAX 			= .6;
+	public static final double DRIVE_ROTATE_MAX 			= .5;
 	public static final double DRIVE_MOVE_MIN 				= .3;
-	public static final double DRIVE_MOVE_MAX 				= .6;
+	public static final double DRIVE_MOVE_MAX 				= .5;
 	
 	// Lift Constants (Field)
 	public static final int LIFT_TARGET_HEIGHT 				= 5;

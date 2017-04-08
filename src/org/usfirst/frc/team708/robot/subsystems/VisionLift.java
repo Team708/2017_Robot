@@ -237,6 +237,7 @@ public  class VisionLift extends Subsystem {
 			
 			double difference = trueCenter - (liftCurrentCenter);			
 			if (Math.abs(difference) <= thresholdX) {
+	    		SmartDashboard.putBoolean("Lift is centered", true);
 				liftIsCentered = true;
 			}
 			else if (Math.abs(difference) > thresholdX) {
@@ -372,6 +373,8 @@ public  class VisionLift extends Subsystem {
 //		if (Math.abs(difference) <= thresholdDistance) {
 		if (difference <= thresholdDistance) {
 			liftIsAtDistance = true;
+    		SmartDashboard.putBoolean("Lift is at distance", true);
+
 		} else {
 			liftIsAtDistance = false;
 		}
@@ -430,7 +433,7 @@ public  class VisionLift extends Subsystem {
 		   
 //			SmartDashboard.putBoolean("L-Has Target", liftIsHasTarget());
 //			SmartDashboard.putBoolean("L-Is At Distance", liftIsAtDistance());
-//			SmartDashboard.putNumber("L-Center of Target", liftCurrentCenter);
+			SmartDashboard.putNumber("L-Center of Target", liftCurrentCenter);
 //			SmartDashboard.putNumber("L-Rotation", rotate);
 //			SmartDashboard.putNumber("L-Rotate Difference", liftRotateDiff);
 //			SmartDashboard.putNumber("L-Distance Difference", liftMoveDiff);

@@ -51,25 +51,25 @@ public class OneGearLeft extends CommandGroup {
     	addSequential(new DriveStraightToEncoderDistance(42, .4, true));
     	
 // turn toward boiler
-    	addSequential(new TurnToDegreesAlliance(.5, 85, Constants.COUNTERCLOCKWISE));
-    	addSequential(new DriveStraightToEncoderDistance(47, .5, true));
+//    	addSequential(new TurnToDegreesAlliance(.5, 85, Constants.COUNTERCLOCKWISE));
+//    	addSequential(new DriveStraightToEncoderDistance(47, .5, true));
 
 //    	addSequential(new TurnToDegreesAlliance(.5, 30, Constants.COUNTERCLOCKWISE));
 
 
 // target Boiler
-    	addSequential(new WaitCommand(.75));
-    	addSequential(new SetLED(Constants.SET_TARGETING));
-    	addSequential(new RotateAndDriveToBoiler(AutoConstants.DISTANCE_TO_BOILER_LOCATION2));
+//    	addSequential(new WaitCommand(.75));
+//    	addSequential(new SetLED(Constants.SET_TARGETING));
+//    	addSequential(new RotateAndDriveToBoiler(AutoConstants.DISTANCE_TO_BOILER_LOCATION2));
 
 // unload balls
-		addParallel(new SpinShooter(8));
+//		addParallel(new SpinShooter(8));
 		
 //      addSequential(new AutoFireBalls());
-    	addSequential(new DriveStraightToEncoderDistanceOrTime(14, .5, true, 2));
+//    	addSequential(new DriveStraightToEncoderDistanceOrTime(14, .5, true, 2));
 //    	addSequential(new WaitCommand(1.0));
-    	addSequential(new SpinFeeder(6));   
-		addSequential(new StopShooter());    	
+//    	addSequential(new SpinFeeder(6));   
+//		addSequential(new StopShooter());    	
    }
     
     // Make this return true when this Command no longer needs to run execute()

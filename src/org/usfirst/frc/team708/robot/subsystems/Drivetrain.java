@@ -403,7 +403,7 @@ public class Drivetrain extends PIDSubsystem {
 //	    	SmartDashboard.putNumber("DT Lft Master", leftMaster.getTemperature());
 //	    	SmartDashboard.putNumber("DT Lft Slave", leftSlave.getTemperature());
 //    	SmartDashboard.putNumber("Sonar Mode", sonarOverride);		
-    		SmartDashboard.putNumber("DT Encoder 1 Distance", encoder.getDistance());	// Encoder reading
+//    		SmartDashboard.putNumber("DT Encoder 1 Distance", encoder.getDistance());	// Encoder reading
     		SmartDashboard.putNumber("DT Encoder 2 Distance", encoder2.getDistance());	// Encoder reading
     	}
     	

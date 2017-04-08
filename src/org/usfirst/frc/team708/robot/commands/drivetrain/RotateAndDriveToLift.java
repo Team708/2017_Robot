@@ -56,16 +56,17 @@ public class RotateAndDriveToLift extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	if (Robot.visionLift.getLiftCounter() >= AutoConstants.SWEEP3_MAX){
-			Robot.led1.send_to_led(Constants.SET_TARGET_FOUND);
-    		return true;
-    	}
     	//Check if the sonar distance is less then the target Distance, end
 //    	if (Robot.drivetrain.getSonarDistance() < targetDistance  && Robot.visionProcessor.wasCentered()){
 //     	if (Robot.visionProcessor.isAtY() && Robot.visionProcessor.wasCentered()){
-    	else if (Robot.visionLift.liftIsAtDistance() && Robot.visionLift.liftIsCentered()){
+    	if (Robot.visionLift.liftIsCentered() && Robot.visionLift.liftIsAtDistance() ){
          		     		return true;
-    	}
+    	} 
+    	 else if (Robot.visionLift.getLiftCounter() >= AutoConstants.SWEEP3_MAX){
+ 			Robot.led1.send_to_led(Constants.SET_TARGET_FOUND);
+     		return true;
+     	}
+
 //    	else if (Robot.drivetrain.getSonarDistance() < targetDistance && Robot.visionProcessor.isHasTarget()) {
 //    	else if (Robot.visionLiftGear.liftIsAtDistance() && Robot.visionLiftGear.liftIsHasTarget()) {
 //    		return false;

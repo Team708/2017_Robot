@@ -28,7 +28,7 @@ import org.opencv.objdetect.*;
 public class GripPipelineBoiler implements VisionPipeline {
 
 	//Outputs
-	private Mat hsvThresholdOutput = new Mat();
+	private Mat rgbThresholdOutput = new Mat();
 	private ArrayList<MatOfPoint> findContoursOutput = new ArrayList<MatOfPoint>();
 	private ArrayList<MatOfPoint> filterContoursOutput = new ArrayList<MatOfPoint>();
 
@@ -41,14 +41,14 @@ public class GripPipelineBoiler implements VisionPipeline {
 	 */
 	@Override	public void process(Mat source0) {
 		// Step HSV_Threshold0:
-		Mat hsvThresholdInput = source0;
-		double[] hsvThresholdHue = {37.7043113245079, 93.36633212673053};
-		double[] hsvThresholdSaturation = {77.96510683088461, 254.9818279249991};
-		double[] hsvThresholdValue = {56.50179856115108, 255.0};
-		hsvThreshold(hsvThresholdInput, hsvThresholdHue, hsvThresholdSaturation, hsvThresholdValue, hsvThresholdOutput);
+		Mat rgbThresholdInput = source0;
+		double[] rgbThresholdRed = {0.0, 32.0};
+		double[] rgbThresholdGreen = {105.0, 255.0};
+		double[] rgbThresholdBlue = {0.0, 255.0};
+		rgbThreshold(rgbThresholdInput, rgbThresholdRed, rgbThresholdGreen, rgbThresholdBlue, rgbThresholdOutput);
 
 		// Step Find_Contours0:
-		Mat findContoursInput = hsvThresholdOutput;
+		Mat findContoursInput = rgbThresholdOutput;
 		boolean findContoursExternalOnly = false;
 		findContours(findContoursInput, findContoursExternalOnly, findContoursOutput);
 
@@ -73,8 +73,8 @@ public class GripPipelineBoiler implements VisionPipeline {
 	 * This method is a generated getter for the output of a HSV_Threshold.
 	 * @return Mat output from HSV_Threshold.
 	 */
-	public Mat hsvThresholdOutput() {
-		return hsvThresholdOutput;
+	public Mat rgbThresholdOutput() {
+		return rgbThresholdOutput;
 	}
 
 	/**
@@ -103,7 +103,7 @@ public class GripPipelineBoiler implements VisionPipeline {
 	 * @param val The min and max value
 	 * @param output The image in which to store the output.
 	 */
-	private void hsvThreshold(Mat input, double[] hue, double[] sat, double[] val,
+	private void rgbThreshold(Mat input, double[] hue, double[] sat, double[] val,
 	    Mat out) {
 		Imgproc.cvtColor(input, out, Imgproc.COLOR_BGR2HSV);
 		Core.inRange(out, new Scalar(hue[0], sat[0], val[0]),
