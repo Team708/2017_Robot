@@ -36,7 +36,6 @@ public class SixtyBalls extends CommandGroup {
     	addSequential(new Send("In Sixty Ball"));
 
 // goto Hopper
-//    	addSequential(new DriveStraightForTime(-.3, 4.0));
 //    	addSequential(new DriveStraightToEncoderDistance(100, .4, false)); //RED  to far hopper
     	addSequential(new DriveStraightToEncoderDistance(100, .4, false)); //BLUE to far hopper
 
@@ -47,25 +46,18 @@ public class SixtyBalls extends CommandGroup {
 
     	addSequential(new Send("running drive to hopper"));
 
-//    	addSequential(new DriveStraightForTime(.3, .5));
     	addSequential(new DriveStraightToEncoderDistanceOrTime(45, .5, true, 2)); //25
-    	
     	addParallel(new Intake_Ball_In(7));
 
-    	addSequential(new WaitCommand(1.0));
+    	addSequential(new WaitCommand(.2)); //if we can start getting balls from hopper increase this
 
-    	
-// back off hopper and turn toward boiler		
-//    	addSequential(new DriveStraightForTime(-.3, 2.0));
-    	
+// back off hopper and turn toward boiler		    	
     	addSequential(new Send("running back away from hopper"));
 
     	addSequential(new DriveStraightToEncoderDistance(40, .4, false));   //30
-
     	addSequential(new WaitCommand(.5));
 
     	addSequential(new Send("running turn to boiler"));
-
     	addSequential(new TurnToDegreesAlliance(.5, 58, Constants.CLOCKWISE));  //50 bigboard in way
 
 //    	addSequential(new DriveStraightToEncoderDistance(40, .4, true));
@@ -73,23 +65,21 @@ public class SixtyBalls extends CommandGroup {
 // target Boiler
     	addSequential(new Send("running target boiler"));
 
-//    	addSequential(new WaitCommand(1.0));
-//    	addSequential(new SetLED(Constants.SET_TARGETING));
-//    	addSequential(new RotateAndDriveToBoiler(AutoConstants.DISTANCE_TO_BOILER_LOCATION2));
+    	addSequential(new WaitCommand(.5));  //was 1.0
+    	addSequential(new SetLED(Constants.SET_TARGETING));
+    	addSequential(new RotateAndDriveToBoiler(111), 3);
     	
 // unload balls
     	addSequential(new Send("running spin shooter"));
 
-    	addParallel(new SpinShooter(10)); 
+    	addParallel(new SpinShooter(12)); 
 
-//      addSequential(new AutoFireBalls());
-//    	addSequential(new DriveStraightToEncoderDistance(43, .4, true));
-    	addSequential(new DriveStraightToEncoderDistanceOrTime(120, .5, true, 4)); //48
+    	addSequential(new DriveStraightToEncoderDistanceOrTime(110, .5, true, 3)); //48
 
     	addSequential(new Send("running shoot"));
 
-//    	addSequential(new WaitCommand(1.0));
-    	addSequential(new SpinFeeder(6));
+//    	addSequential(new WaitCommand(1.0)); 
+    	addSequential(new SpinFeeder(8));
     	addSequential(new StopShooter());
  
     	addSequential(new Send("finished sitxy ball"));

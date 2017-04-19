@@ -68,7 +68,7 @@ public class VisionBoiler extends Subsystem {
 	private double boilerStopAtDistance 	= 0.0;		// distance to stop at based on sonar
 	
 
-	private double thresholdX = AutoConstants.X_THRESHOLD_CENTER;					// threshold for determining center of the target
+	private double thresholdX = AutoConstants.X_THRESHOLD_CENTER_BOILER;					// threshold for determining center of the target
 	private double thresholdDistance = AutoConstants.DISTANCE_TARGET_THRESHOLD; 	// threshold for determining threshold for stopping at the target
 	private double minThresholdX = AutoConstants.X_THRESHOLD_HAS_TARGET_MIN;	// threshold for determining min value for whether the robot sees the target
 	private double maxThresholdX = AutoConstants.X_THRESHOLD_HAS_TARGET_MAX;	// threshold for determining max value for whether the robot sees the target
@@ -273,8 +273,8 @@ public class VisionBoiler extends Subsystem {
 		else if (boilerHasTarget && !boilerIsCentered){
 			difference = trueCenter - (boilerCurrentCenter);
 
-			boilerRotate = Math708.getClippedPercentError(boilerCurrentCenter, trueCenter, AutoConstants.DRIVE_ROTATE_MIN, AutoConstants.DRIVE_ROTATE_MAX);
-//		    boilerRotate = .3;
+//			boilerRotate = Math708.getClippedPercentError(boilerCurrentCenter, trueCenter, AutoConstants.DRIVE_ROTATE_MIN, AutoConstants.DRIVE_ROTATE_MAX);
+		    boilerRotate = AutoConstants.BOILER_ROTATE_SPEED;
 			
 			if (Math.abs(difference) > thresholdX) {
 				if (boilerCurrentCenter < trueCenter){
@@ -472,7 +472,6 @@ public class VisionBoiler extends Subsystem {
 //			SmartDashboard.putNumber("b-True Center", 			trueCenter);
 //			SmartDashboard.putBoolean("b-Has Target", 			boilerIsHasTarget());
 //			SmartDashboard.putBoolean("b-IsAtHeight", 		boilerIsAtHeight());
-//			SmartDashboard.putNumber("b-Center of Target", 		boilerCurrentCenter);
 //			SmartDashboard.putNumber("b-Rotation", 				boilerRotate);
 //			SmartDashboard.putNumber("b-Rotate Difference", 	boilerRotateDiff);
 //			SmartDashboard.putNumber("b-Distance Move Difference", 	boilerMoveDiff);
@@ -486,8 +485,9 @@ public class VisionBoiler extends Subsystem {
 //			SmartDashboard.putNumber("b-rectHeight", 			brectHeight);
 //			SmartDashboard.putNumber("b-pipelineSize", 			bPipelineSize);
 //			SmartDashboard.putNumber("b-stop at distance", 		boilerStopAtDistance);
-
 //			SmartDashboard.putNumber("b-boiler current height (y)", boilerCurrentHeight);
+			
+			SmartDashboard.putNumber("b-Center of Target", 		boilerCurrentCenter);
 
 		}
 	}

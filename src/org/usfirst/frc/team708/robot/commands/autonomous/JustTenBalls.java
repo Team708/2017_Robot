@@ -39,9 +39,9 @@ public class JustTenBalls extends CommandGroup {
     	addSequential(new DriveStraightToEncoderDistance(85, .4, false));
 
 // target Boiler
-//    	addSequential(new WaitCommand(1.0));
-//    	addSequential(new SetLED(Constants.SET_TARGETING));
-//    	addSequential(new RotateAndDriveToBoiler(AutoConstants.DISTANCE_TO_BOILER_LOCATION2));
+    	addSequential(new WaitCommand(1.0));
+    	addSequential(new SetLED(Constants.SET_TARGETING));
+    	addSequential(new RotateAndDriveToBoiler(111), 3);
 
 // unload balls
     	addParallel(new SpinShooter(8));

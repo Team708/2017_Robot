@@ -3,6 +3,8 @@ package org.usfirst.frc.team708.robot.commands.autonomous;
 import org.usfirst.frc.team708.robot.Robot;
 import org.usfirst.frc.team708.robot.commands.drivetrain.DriveStraightToEncoderDistance;
 import org.usfirst.frc.team708.robot.commands.drivetrain.DriveStraightToEncoderDistanceOrTime;
+import org.usfirst.frc.team708.robot.commands.drivetrain.DriveStraightForTime;
+import org.usfirst.frc.team708.robot.commands.drivetrain.RotateAndDriveToBoiler;
 import org.usfirst.frc.team708.robot.commands.drivetrain.ToggleBrakeMode;
 import org.usfirst.frc.team708.robot.commands.drivetrain.Send;
 import org.usfirst.frc.team708.robot.commands.feeder.SpinFeeder;
@@ -34,34 +36,13 @@ public class driveDistance extends CommandGroup {
     	addSequential(new Send("In DriveDistance"));
 
     	addSequential(new Send("Calling wait 2"));
-    	addSequential(new WaitCommand(2.0));
+    	addSequential(new WaitCommand(1.0));
 
-    	addSequential(new Send("Calling Intake Gear Out"));
-    	addSequential(new Intake_Gear_Out());
+    	addSequential(new RotateAndDriveToBoiler(111), 3);
 
-//    	addSequential(new Send("Calling wait 2"));
-//    	addSequential(new WaitCommand(2.0));
+//    	addSequential(new RotateAndDriveToBoiler(111));
     	
-//    	addSequential(new Send("Calling Intake Gear IN"));
-//      addSequential(new Intake_Gear_In());
-    	
-    	addSequential(new Send("Calling wait 2"));
-    	addSequential(new WaitCommand(2.0));
-
-    	addSequential(new Send("Calling Gear Up"));
-    	addSequential(new Intake_Gear_Up());
-
-    	addSequential(new Send("Calling wait 2"));
-    	addSequential(new WaitCommand(2.0));
-
-    	addSequential(new Send("Calling Gear Down"));
-    	addSequential(new Intake_Gear_Down());
-    	
-    	addSequential(new Send("Calling wait 2"));
-    	addSequential(new WaitCommand(2.0));
-
-    	addSequential(new Send("Calling Release Gear"));
-    	addSequential(new ReleaseGear(), 1);
+    	addSequential(new DriveStraightForTime(.3, 3));
 
 
 //    	addSequential(new WaitCommand(2.0));    	

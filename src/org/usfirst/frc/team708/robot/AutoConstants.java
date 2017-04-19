@@ -34,6 +34,9 @@ public final class AutoConstants {
 	
 	
 	// Boiler Constants (Field)
+	public static final double X_THRESHOLD_CENTER_BOILER 		= 1.0;
+	public static final double BOILER_ROTATE_SPEED  			= .25;
+
 	public static final int BOILER_TARGET_HEIGHT 			= 10;
 	public static final int BOILER_TARGET_WIDTH 			= 14;
 	public static final double DISTANCE_TO_BOILER_LOCATION1 = 54;	// A distance to stop at and shoot for high goal in inches

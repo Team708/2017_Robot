@@ -118,9 +118,9 @@ public class Shooter extends Subsystem {
 	public void sendToDashboard() {
 		if (Constants.DEBUG) {
 		}
-		SmartDashboard.putNumber("Encoder Position", 	shooter.getEncPosition());
+//		SmartDashboard.putNumber("Encoder Position", 	shooter.getEncPosition());
 		SmartDashboard.putNumber("Encoder Speed", 		shooter.getSpeed());
-		SmartDashboard.putNumber("Encoder Velocity", 	shooter.getEncVelocity());
+//		SmartDashboard.putNumber("Encoder Velocity", 	shooter.getEncVelocity());
 
 	}
 }

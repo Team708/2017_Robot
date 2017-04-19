@@ -38,17 +38,13 @@ public class OneGearCenter extends CommandGroup {
     }
 	
     public  OneGearCenter() {
-    	
     	addSequential(new Send("In OneGearCenter"));
 
-// go to lever
-//   	addSequential(new DriveStraightToEncoderDistance(24, .3, false));
-
-//  target lever
+//  target lift
     	addSequential(new Send("running drive to lift"));
 
     	addSequential(new SetLED(Constants.SET_HAS_GEAR_TARGETING));
-    	addSequential(new WaitCommand(1.0));
+    	addSequential(new WaitCommand(.5)); //was working at 1.0
     	addSequential(new Intake_Gear_Up());
 
     	addSequential(new RotateAndDriveToLift());
@@ -65,78 +61,28 @@ public class OneGearCenter extends CommandGroup {
 // turn toward boiler
     	addSequential(new Send("running turn to boiler"));
 
-    	addSequential(new TurnToDegreesAlliance(.5, 46, Constants.COUNTERCLOCKWISE));
+    	addSequential(new TurnToDegreesAlliance(.5, 47, Constants.COUNTERCLOCKWISE));
 
 // target Boiler
     	addSequential(new Send("running target boiler"));
 
-//    	addSequential(new WaitCommand(1.0));
-//    	addSequential(new SetLED(Constants.SET_TARGETING));
-//    	addSequential(new RotateAndDriveToBoiler(AutoConstants.DISTANCE_TO_BOILER_LOCATION2));
+    	addSequential(new WaitCommand(.5)); //was working at 1.0
+    	addSequential(new SetLED(Constants.SET_TARGETING));
+    	addSequential(new RotateAndDriveToBoiler(111), 3);
 
 // unload balls
     	addSequential(new Send("running spin shooter"));
 
-//		addParallel(new SpinShooter(8));
 		addParallel(new SpinShooter(12));
-
-//      addSequential(new AutoFireBalls());
 		
-    	addSequential(new DriveStraightToEncoderDistanceOrTime(120, .5, true, 5));
-//    	addSequential(new WaitCommand(1.0));
+    	addSequential(new DriveStraightToEncoderDistanceOrTime(110, .5, true, 5));
+    	
+//    	addSequential(new WaitCommand(.5)); //commented out - check to see if we need to pause a bit
     	addSequential(new Send("running spin feeder "));
 		addSequential(new SpinFeeder(6));     //then shoot
 		addSequential(new StopShooter());	
     	
     	addSequential(new Send("finished One Gear"));
-
-		
-// get gear 2
-//    	addSequential(new TurnToDegreesAlliance(.6, 125, Constants.CLOCKWISE));
-//    	addSequential(new Intake_Gear_Down());
-//
-//    	addSequential(new SetLED(Constants.SET_HAS_GEAR_TARGETING));
-//    	addSequential(new WaitCommand(1.0));
-//    	addParallel(new Intake_Gear_In());
-//    	addParallel(new RotateAndDriveToGear());
-//    	addSequential(new AquireGear());
-//    	
-//    	addSequential(new TurnToDegreesAlliance(.6, 120, Constants.COUNTERCLOCKWISE));
-//    	addSequential(new RotateAndDriveToLift());
-//    	
-////    	addSequential(new DriveStraightToEncoderDistance(6, .4, false));
-    	
-//    	addParallel(new Intake_Gear_Down());
-//    	addSequential(new Intake_Gear_Out());
-//    	addParallel(new Intake_Gear_Out());
-//    	addSequential(new WaitCommand(0.5));
-//    	addSequential(new Intake_Gear_Off());
-//    	
-//    	addSequential(new DriveStraightToEncoderDistance(5, .3, true));
-//    	addSequential(new DriveStraightToEncoderDistance(45, .4, true));
-//    	
-// get gear 3
-//    	addSequential(new TurnToDegreesAlliance(.6, 120, Constants.CLOCKWISE));
-//    	addSequential(new Intake_Gear_Down());
-//
-//    	addSequential(new SetLED(Constants.SET_HAS_GEAR_TARGETING));
-//
-//    	addParallel(new Intake_Gear_In());
-//    	addParallel(new RotateAndDriveToGear());
-//    	addSequential(new AquireGear());
-//   	
-//    	addSequential(new TurnToDegreesAlliance(.6, 120, Constants.COUNTERCLOCKWISE));
-//    	addSequential(new RotateAndDriveToLift());
-//    	
-////    	addSequential(new DriveStraightToEncoderDistance(6, .4, false));
-//    	
-//    	addParallel(new Intake_Gear_Out());
-//    	addSequential(new WaitCommand(0.5));
-//    	addSequential(new Intake_Gear_Off());
-//    	
-//    	addSequential(new DriveStraightToEncoderDistance(5, .4, true));
-//    	addSequential(new Intake_Gear_Out());
-//    	addSequential(new DriveStraightToEncoderDistance(12, .4, true));
     }
     
     // Make this return true when this Command no longer needs to run execute()

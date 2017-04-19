@@ -40,11 +40,11 @@ public class GripPipelineBoiler implements VisionPipeline {
 	 * This is the primary method that runs the entire pipeline and updates the outputs.
 	 */
 	@Override	public void process(Mat source0) {
-		// Step HSV_Threshold0:
+		// Step RGB_Threshold0:
 		Mat rgbThresholdInput = source0;
-		double[] rgbThresholdRed = {0.0, 32.0};
-		double[] rgbThresholdGreen = {105.0, 255.0};
-		double[] rgbThresholdBlue = {0.0, 255.0};
+		double[] rgbThresholdRed = {0.0, 0.0};
+		double[] rgbThresholdGreen = {15.0, 255.0};
+		double[] rgbThresholdBlue = {0.0, 0.0};
 		rgbThreshold(rgbThresholdInput, rgbThresholdRed, rgbThresholdGreen, rgbThresholdBlue, rgbThresholdOutput);
 
 		// Step Find_Contours0:
@@ -58,7 +58,7 @@ public class GripPipelineBoiler implements VisionPipeline {
 		double filterContoursMinPerimeter = 40.0;
 		double filterContoursMinWidth = 20.0;
 		double filterContoursMaxWidth = 100.0;
-		double filterContoursMinHeight = 5.0;
+		double filterContoursMinHeight = 10.0;
 		double filterContoursMaxHeight = 1000.0;
 		double[] filterContoursSolidity = {0, 100};
 		double filterContoursMaxVertices = 1000000.0;
@@ -70,8 +70,8 @@ public class GripPipelineBoiler implements VisionPipeline {
 	}
 
 	/**
-	 * This method is a generated getter for the output of a HSV_Threshold.
-	 * @return Mat output from HSV_Threshold.
+	 * This method is a generated getter for the output of a RGB_Threshold.
+	 * @return Mat output from RGB_Threshold.
 	 */
 	public Mat rgbThresholdOutput() {
 		return rgbThresholdOutput;
@@ -95,19 +95,18 @@ public class GripPipelineBoiler implements VisionPipeline {
 
 
 	/**
-	 * Segment an image based on hue, saturation, and value ranges.
-	 *
-	 * @param input The image on which to perform the HSL threshold.
-	 * @param hue The min and max hue
-	 * @param sat The min and max saturation
-	 * @param val The min and max value
+	 * Segment an image based on color ranges.
+	 * @param input The image on which to perform the RGB threshold.
+	 * @param red The min and max red.
+	 * @param green The min and max green.
+	 * @param blue The min and max blue.
 	 * @param output The image in which to store the output.
 	 */
-	private void rgbThreshold(Mat input, double[] hue, double[] sat, double[] val,
-	    Mat out) {
-		Imgproc.cvtColor(input, out, Imgproc.COLOR_BGR2HSV);
-		Core.inRange(out, new Scalar(hue[0], sat[0], val[0]),
-			new Scalar(hue[1], sat[1], val[1]), out);
+	private void rgbThreshold(Mat input, double[] red, double[] green, double[] blue,
+		Mat out) {
+		Imgproc.cvtColor(input, out, Imgproc.COLOR_BGR2RGB);
+		Core.inRange(out, new Scalar(red[0], green[0], blue[0]),
+			new Scalar(red[1], green[1], blue[1]), out);
 	}
 
 	/**

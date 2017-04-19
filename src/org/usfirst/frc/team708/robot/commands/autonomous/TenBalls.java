@@ -46,7 +46,7 @@ public class TenBalls extends CommandGroup {
     	addSequential(new Send("running drive to lift"));
 
     	addSequential(new SetLED(Constants.SET_HAS_GEAR_TARGETING));
-    	addSequential(new WaitCommand(1.0));  //was 1.0
+    	addSequential(new WaitCommand(1.0));  //was 1.0 do we need to shorten this?
     	addSequential(new Intake_Gear_Up());
     	
     	addSequential(new RotateAndDriveToLift());
@@ -64,21 +64,20 @@ public class TenBalls extends CommandGroup {
 // target Boiler
     	addSequential(new Send("running target boiler"));
 
-//    	addSequential(new WaitCommand(1.0));
-//    	addSequential(new SetLED(Constants.SET_TARGETING));
-//    	addSequential(new RotateAndDriveToBoiler(AutoConstants.DISTANCE_TO_BOILER_LOCATION2));
+    	addSequential(new WaitCommand(.5)); //was 1.0
+    	addSequential(new SetLED(Constants.SET_TARGETING));
+    	addSequential(new RotateAndDriveToBoiler(111), 3);
 
 // unload balls
     	addSequential(new Send("running spin shooter"));
 
-    	addParallel(new SpinShooter(8));
+    	addParallel(new SpinShooter(12));
 
-//      addSequential(new AutoFireBalls());
     	addSequential(new DriveStraightToEncoderDistanceOrTime(100, .5, true, 4));
-//    	addSequential(new WaitCommand(1.0));
+//    	addSequential(new WaitCommand(1.0)); //do we need to add this back
+    	
     	addSequential(new Send("running shoot"));
-
-    	addSequential(new SpinFeeder(6));  
+    	addSequential(new SpinFeeder(7));  //was 6
     	addSequential(new StopShooter());
     	
     	addSequential(new Send("finished 10 ball"));

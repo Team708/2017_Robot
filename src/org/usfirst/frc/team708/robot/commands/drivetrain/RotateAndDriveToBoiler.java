@@ -17,6 +17,9 @@ public class RotateAndDriveToBoiler extends Command {
 	
 	private double		moveSpeed;
 	private double		rotate;
+	
+	private int         count;
+	
 	/**
 	 * Constructor
 	 * @param targetDistance - the distance to stop in front of the target
@@ -47,6 +50,7 @@ public class RotateAndDriveToBoiler extends Command {
     	Robot.visionBoiler.putBoilerCounter(0);
     	Robot.visionBoiler.putBoilerCurrentCenter(0);
     	Robot.visionBoiler.putBoilerCurrentHeight(0);
+    	count = 0 ;
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -54,10 +58,11 @@ public class RotateAndDriveToBoiler extends Command {
 
     	Robot.visionBoiler.boilerProcessData();
     	rotate 	  = Robot.visionBoiler.boilerGetRotate();  
-    	moveSpeed = Robot.visionBoiler.boilerGetMove();
+//    	moveSpeed = Robot.visionBoiler.boilerGetMove();
 
 
-    	Robot.drivetrain.haloDrive(moveSpeed, rotate, false);
+//    	Robot.drivetrain.haloDrive(moveSpeed, rotate, false);
+    	Robot.drivetrain.haloDrive(0, rotate, false);
 
     }
 
@@ -69,12 +74,12 @@ public class RotateAndDriveToBoiler extends Command {
     		Robot.led1.send_to_led(Constants.SET_TARGET_FOUND);
     		return true;
     	}
-    	else if (Robot.visionBoiler.getBoilerCounter() >= AutoConstants.SWEEP3_MAX){
-    		SmartDashboard.putBoolean("boiler is in sweep", true);
-    		return true;
-    	}
+//    	else if (Robot.visionBoiler.getBoilerCounter() >= AutoConstants.SWEEP3_MAX){
+//    		SmartDashboard.putBoolean("boiler is in sweep", true);
+//    		return true;
+//    	}
     	else {
-//    		SmartDashboard.putBoolean("boiler is running", false);
+//    		SmartDashboard.putNumber("boiler is running", count++);
 
     		return false;
     	}

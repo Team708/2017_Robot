@@ -121,6 +121,7 @@ public class Robot extends IterativeRobot {
 	UsbCamera ucamera=CameraServer.getInstance().startAutomaticCapture("cam1", 1);
     ucamera.setResolution(180, 240);
 	
+    
 //    pwr0 			= new Solenoid(RobotMap.PWR0);
 //    pwr1 			= new Solenoid(RobotMap.PWR1);
 //    pwr2 			= new Solenoid(RobotMap.PWR2);
