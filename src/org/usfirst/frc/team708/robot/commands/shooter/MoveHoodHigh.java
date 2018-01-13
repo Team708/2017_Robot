@@ -15,6 +15,13 @@ import edu.wpi.first.wpilibj.command.WaitCommand;
 
 public class MoveHoodHigh extends Command {
 
+	@Override
+	protected boolean isFinished() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	/*
 
     public MoveHoodHigh() {
 //    	requires(Robot.shooter);
@@ -44,4 +51,5 @@ public class MoveHoodHigh extends Command {
     protected void interrupted() {
     	end();
     }
+    */
 }

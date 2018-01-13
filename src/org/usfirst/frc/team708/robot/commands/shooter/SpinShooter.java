@@ -18,6 +18,13 @@ import edu.wpi.first.wpilibj.command.WaitCommand;
  */
 public class SpinShooter extends Command {
 
+	@Override
+	protected boolean isFinished() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	/*
 	private double maxTime;
 
     public SpinShooter(double maxTime) {
@@ -67,4 +74,5 @@ public class SpinShooter extends Command {
     protected void interrupted() {
     	end();
     }
+    */
 }

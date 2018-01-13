@@ -27,6 +27,8 @@ import edu.wpi.first.wpilibj.command.WaitCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class TenBalls extends CommandGroup {
+	
+	/*
    
     // Called just before this Command runs the first time
     protected void initialize() {
@@ -96,4 +98,5 @@ public class TenBalls extends CommandGroup {
     // subsystems is scheduled to run
     protected void interrupted() {
     }
+    */
 }

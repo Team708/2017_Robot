@@ -1,9 +1,9 @@
 package org.usfirst.frc.team708.robot.util;
 
-import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
-public class HatterDrive extends RobotDrive {
+public class HatterDrive extends DifferentialDrive {
 
 	private double turnSensitivity 	= 1.5; 	// How sensitive turning is for the
 						// drivetrain
@@ -13,12 +13,13 @@ public class HatterDrive extends RobotDrive {
 	
 	private final boolean USE_SAFETY = false;
 	
+	/*
 	public HatterDrive(int leftMotorChannel, int rightMotorChannel, boolean squaredInputs) {
 		super(leftMotorChannel, rightMotorChannel);
 		this.setSafetyEnabled(USE_SAFETY);
 		this.squaredInputs = squaredInputs;
 	}
-
+*/
 	public HatterDrive(SpeedController leftMotor, SpeedController rightMotor, boolean squaredInputs) {
 		super(leftMotor, rightMotor);
 		this.setSafetyEnabled(USE_SAFETY);
@@ -66,7 +67,7 @@ public class HatterDrive extends RobotDrive {
 		
 		lPower = correctDriveStall(lPower);
 		rPower = correctDriveStall(rPower);
-		setLeftRightMotorOutputs(lPower, rPower);
+	//	setLeftRightMotorOutputs(lPower, rPower);                HATTERS DRIVE DOES NOT USE THIS James Makovics
 	}
 	
 	/**

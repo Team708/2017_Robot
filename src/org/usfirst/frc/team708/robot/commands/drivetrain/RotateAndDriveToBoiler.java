@@ -56,7 +56,7 @@ public class RotateAndDriveToBoiler extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
 
-    	Robot.visionBoiler.boilerProcessData();
+    //	Robot.visionBoiler.boilerProcessData();
     	rotate 	  = Robot.visionBoiler.boilerGetRotate();  
 //    	moveSpeed = Robot.visionBoiler.boilerGetMove();
 

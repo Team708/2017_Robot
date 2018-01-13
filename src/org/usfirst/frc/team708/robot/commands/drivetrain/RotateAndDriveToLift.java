@@ -45,7 +45,7 @@ public class RotateAndDriveToLift extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
 
-    	Robot.visionLift.liftProcessData();
+  //  	Robot.visionLift.liftProcessData();
     	rotate 		= Robot.visionLift.liftGetRotate();  
     	moveSpeed 	= Robot.visionLift.liftGetMove();   
 

@@ -31,6 +31,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class OneGearCenter extends CommandGroup {
    
+	/*
     protected void initialize() {
 //    	Robot.drivetrain.resetEncoder();
 //    	Robot.drivetrain.resetEncoder2();
@@ -98,4 +99,5 @@ public class OneGearCenter extends CommandGroup {
     // subsystems is scheduled to run
     protected void interrupted() {
     }
+    */
 }

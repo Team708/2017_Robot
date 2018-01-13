@@ -19,6 +19,13 @@ import edu.wpi.first.wpilibj.command.WaitCommand;
  */
 public class ManualShoot extends Command {
 
+	@Override
+	protected boolean isFinished() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	/*
 
     public ManualShoot() {
 //    	requires(Robot.feeder);
@@ -67,4 +74,5 @@ public class ManualShoot extends Command {
     protected void interrupted() {
     	end();
     }
+    */
 }

@@ -262,7 +262,7 @@ public class Robot extends IterativeRobot {
             climber.sendToDashboard();
             intake_ball.sendToDashboard();
             intake_gear.sendToDashboard();
-            pivot_gear.sendToDashboard();
+ //           pivot_gear.sendToDashboard();
 //          visionProcessor.sendToDashboard();
             visionLift.sendToDashboard();
             visionBoiler.sendToDashboard();

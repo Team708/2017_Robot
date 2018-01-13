@@ -28,6 +28,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class JustTenBalls extends CommandGroup {
    
+	/*
     // Called just before this Command runs the first time
     protected void initialize() {
     }
@@ -65,4 +66,5 @@ public class JustTenBalls extends CommandGroup {
     // subsystems is scheduled to run
     protected void interrupted() {
     }
+    */
 }

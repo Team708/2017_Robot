@@ -6,6 +6,13 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class Intake_Gear_Down extends Command {
 
+	@Override
+	protected boolean isFinished() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	/*
 	public Intake_Gear_Down() {
 //		requires(Robot.pivot_gear);
 		this.setTimeout(1.0);
@@ -32,6 +39,7 @@ public class Intake_Gear_Down extends Command {
 	protected void interrupted() {
 		end();
 	}
+ */
 }
-	
+
 

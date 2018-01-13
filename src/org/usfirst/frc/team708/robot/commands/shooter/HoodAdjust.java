@@ -14,6 +14,14 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 
 public class HoodAdjust extends Command {
+
+	@Override
+	protected boolean isFinished() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
+	/*
     
     public HoodAdjust() {
 //    	requires(Robot.shooter);
@@ -48,4 +56,5 @@ public class HoodAdjust extends Command {
     protected void interrupted() {
     	end();
     }
+    */
 }

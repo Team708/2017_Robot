@@ -15,7 +15,6 @@ import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.tables.TableKeyNotDefinedException;
 import edu.wpi.first.wpilibj.vision.VisionThread;
 
 /**
@@ -203,6 +202,8 @@ public class VisionBoiler extends Subsystem {
 	 * ProcessData
 	 * Method to interpret the camera data received above
 	 */
+	
+	/*
 	public void boilerProcessData() {
 		try {
 			
@@ -220,7 +221,7 @@ public class VisionBoiler extends Subsystem {
 			e.printStackTrace();
 		}
 	}
-	
+	*/
 	/*
 	 * isCentered
 	 * Method to determine whether the robot sees the center of the target (within the threshold value)

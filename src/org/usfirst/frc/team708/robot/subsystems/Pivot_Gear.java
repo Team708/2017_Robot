@@ -6,8 +6,6 @@ import org.usfirst.frc.team708.robot.RobotMap;
 import org.usfirst.frc.team708.robot.util.Math708;
 
 import com.ctre.CANTalon;
-import com.ctre.CANTalon.FeedbackDevice;
-import com.ctre.CANTalon.TalonControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -26,13 +24,13 @@ public class Pivot_Gear extends Subsystem {
 	//I'm trying to link the right motor to the intake code here
 	public Pivot_Gear() {
 		pivotMotor 	= new WPI_TalonSRX (RobotMap.pivotGearMotor);
-		pivotMotor.enable();
+	//	pivotMotor.Enabled();
 
 //		pivotMotor.reverseSensor(true);
-		pivotMotor.enableBrakeMode(true);
-		pivotMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+//		pivotMotor.enableBrakeMode(true);
+//		pivotMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
 //		pivotMotor.changeControlMode(com.ctre.CANTalon.TalonControlMode.Position);
-		pivotMotor.configEncoderCodesPerRev(Constants.PIVOT_GEAR_ENCODER_COUNT);
+//		pivotMotor.configEncoderCodesPerRev(Constants.PIVOT_GEAR_ENCODER_COUNT);
 	}
 	
 	public void initDefaultCommand() {
@@ -42,12 +40,12 @@ public class Pivot_Gear extends Subsystem {
 	public void moveMotor(double speed) {
     		pivotMotor.set(speed);
 	}
-	
-	public boolean isFwdSwitch() {
-		return (pivotMotor.getPosition()>= Constants.PIVOT_GEAR_ENCODER_HIGH);
+}
+//	public boolean isFwdSwitch() {
+	//	return (pivotMotor.getPosition()>= Constants.PIVOT_GEAR_ENCODER_HIGH);
 //		return (false);
-	}
-	
+//	}
+/*	
 	public boolean isRevSwitch() {
 		return (pivotMotor.getPosition()<= Constants.PIVOT_GEAR_ENCODER_LOW);
 //		return (false);
@@ -64,4 +62,4 @@ public class Pivot_Gear extends Subsystem {
 		}
     }
 }
-
+*/

@@ -15,6 +15,7 @@ import org.usfirst.frc.team708.robot.util.Math708;
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import com.ctre.CANTalon;
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 //import com.ctre.CANTalon.FeedbackDevice;
 //import com.ctre.CanTalonJNI;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -99,8 +100,8 @@ public class Drivetrain extends PIDSubsystem {
 	distancePerPulse = (Constants.DRIVETRAIN_WHEEL_DIAMETER * Math.PI) /
 				                                    	(Constants.DRIVETRAIN_ENCODER_PULSES_PER_REV);
 
-	leftMaster.configEncoderCodesPerRev(Constants.DRIVETRAIN_ENCODER_PULSES_PER_REV);
-	rightMaster.configEncoderCodesPerRev(Constants.DRIVETRAIN_ENCODER_PULSES_PER_REV);
+	leftMaster.set(ControlMode.PercentOutput,Constants.DRIVETRAIN_ENCODER_PULSES_PER_REV);
+	rightMaster.set(ControlMode.PercentOutput,Constants.DRIVETRAIN_ENCODER_PULSES_PER_REV);
 
 	encoder.setDistancePerPulse(distancePerPulse);  // Sets the distance per pulse of the encoder to read distance properly
 	encoder.reset();								//	Resets the encoder so that it starts with a 0.0 value
@@ -108,10 +109,10 @@ public class Drivetrain extends PIDSubsystem {
 	encoder2.setDistancePerPulse(distancePerPulse);
 	encoder2.reset();								
 	
-	leftMaster.enableBrakeMode(brake);
-	leftSlave.enableBrakeMode(brake);
-	rightMaster.enableBrakeMode(brake);
-	rightSlave.enableBrakeMode(brake);
+	leftMaster.setNeutralMode(NeutralMode.Brake);
+	leftSlave.setNeutralMode(NeutralMode.Brake);
+	rightMaster.setNeutralMode(NeutralMode.Brake);
+	rightSlave.setNeutralMode(NeutralMode.Brake);
 	
 //	drivetrainIRSensor 			= new IRSensor(RobotMap.gearIRSensor, IRSensor.GP2Y0A21YK0F);
 	drivetrainUltrasonicSensor 	= new UltrasonicSensor(RobotMap.dtSonar, UltrasonicSensor.MB1010);
@@ -292,8 +293,8 @@ public class Drivetrain extends PIDSubsystem {
      * talon is doing
      */
     public void setupMasterSlave() {
-    	leftSlave.changeControlMode(WPI_TalonSRX.set(ControlMode.Follower));
-		rightSlave.changeControlMode(WPI_TalonSRX.set(ControlMode.Follower));
+    	leftSlave.follow(leftMaster);
+		rightSlave.follow(rightMaster);
 		
 		leftSlave.set(leftMaster.getDeviceID());
 		rightSlave.set(rightMaster.getDeviceID());
@@ -304,17 +305,17 @@ public class Drivetrain extends PIDSubsystem {
      */
     public void toggleBrakeMode() {
     	brake = !brake;
-    	leftMaster.enableBrakeMode(brake);
-    	leftSlave.enableBrakeMode(brake);
-    	rightMaster.enableBrakeMode(brake);
-    	rightSlave.enableBrakeMode(brake);
+    	leftMaster.setNeutralMode(NeutralMode.Brake);
+    	leftSlave.setNeutralMode(NeutralMode.Brake);
+    	rightMaster.setNeutralMode(NeutralMode.Brake);
+    	rightSlave.setNeutralMode(NeutralMode.Brake);
     }
     
     public void setBrakeMode(Boolean brake) {
-    	leftMaster.enableBrakeMode(brake);
-    	leftSlave.enableBrakeMode(brake);
-    	rightMaster.enableBrakeMode(brake);
-    	rightSlave.enableBrakeMode(brake);
+    	leftMaster.setNeutralMode(NeutralMode.Brake);
+    	leftSlave.setNeutralMode(NeutralMode.Brake);
+    	rightMaster.setNeutralMode(NeutralMode.Brake);
+    	rightSlave.setNeutralMode(NeutralMode.Brake);
     }
     /**
      * Sets encoder direction depending on which side of the drivetrain it is on

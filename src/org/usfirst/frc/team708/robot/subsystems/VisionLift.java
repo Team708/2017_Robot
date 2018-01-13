@@ -204,6 +204,7 @@ public  class VisionLift extends Subsystem {
 	 * liftProcessData
 	 * Method to interpret the camera data received above
 	 */	 
+	/*
 	public void liftProcessData() {
 		try {
 			
@@ -222,7 +223,7 @@ public  class VisionLift extends Subsystem {
 			e.printStackTrace();
 		}
 	}
-	
+	*/
 	/*
 	 * isCentered
 	 * Method to determine whether the robot sees the center of the target (within the threshold value)

@@ -18,7 +18,13 @@ import edu.wpi.first.wpilibj.command.WaitCommand;
  */
 public class StopShooter extends Command {
 
+	@Override
+	protected boolean isFinished() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 
+/*
     public StopShooter() {
     	requires(Robot.shooter);
     }
@@ -48,4 +54,5 @@ public class StopShooter extends Command {
     protected void interrupted() {
     	end();
     }
+    */
 }

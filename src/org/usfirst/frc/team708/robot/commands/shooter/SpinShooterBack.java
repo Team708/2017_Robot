@@ -18,6 +18,13 @@ import edu.wpi.first.wpilibj.command.WaitCommand;
  */
 public class SpinShooterBack extends Command {
 
+	@Override
+	protected boolean isFinished() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	/*
 
     public SpinShooterBack() {
 //    	requires(Robot.shooter);
@@ -47,4 +54,5 @@ public class SpinShooterBack extends Command {
     protected void interrupted() {
     	end();
     }
+    */
 }

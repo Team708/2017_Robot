@@ -9,8 +9,6 @@ import org.usfirst.frc.team708.robot.commands.drivetrain.JoystickDrive;
 import org.usfirst.frc.team708.robot.commands.visionProcessor.SonarOverride;
 
 import com.ctre.CANTalon;
-import com.ctre.CANTalon.FeedbackDevice;
-import com.ctre.CANTalon.TalonControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -18,7 +16,6 @@ import edu.wpi.first.wpilibj.Encoder;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Talon;
-import edu.wpi.first.wpilibj.TalonSRX;
 import edu.wpi.first.wpilibj.Servo;
 
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
@@ -37,12 +34,12 @@ public class Shooter extends Subsystem {
 	/**
 	 * Constructor
 	 */
-	public Shooter() {
+//	public Shooter() {
 		// Initializes the encoder
         
 		
 		// Initializes the motor
-
+/*
 		shooter      = new WPI_TalonSRX(RobotMap.shooterMotorMaster);
         shooterSlave = new WPI_TalonSRX(RobotMap.shooterMotorSlave);
 
@@ -120,9 +117,15 @@ public class Shooter extends Subsystem {
 		if (Constants.DEBUG) {
 		}
 //		SmartDashboard.putNumber("Encoder Position", 	shooter.getEncPosition());
-		SmartDashboard.putNumber("Encoder Speed", 		shooter.getSpeed());
+//		SmartDashboard.putNumber("Encoder Speed", 		shooter.getSpeed());
 //		SmartDashboard.putNumber("Encoder Velocity", 	shooter.getEncVelocity());
 
+	}
+
+	@Override
+	protected void initDefaultCommand() {
+		// TODO Auto-generated method stub
+		
 	}
 }
 
