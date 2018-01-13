@@ -11,6 +11,8 @@ import org.usfirst.frc.team708.robot.commands.visionProcessor.SonarOverride;
 import com.ctre.CANTalon;
 import com.ctre.CANTalon.FeedbackDevice;
 import com.ctre.CANTalon.TalonControlMode;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -21,12 +23,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Feeder extends Subsystem {
 	
-	private CANTalon feedMotor;
+	private WPI_TalonSRX feedMotor;
 	/**
 	 * Constructor
 	 */
 	public Feeder() {
-		feedMotor = new CANTalon(RobotMap.feederMotor); //initializes the loading motor
+		feedMotor = new WPI_TalonSRX(RobotMap.feederMotor); //initializes the loading motor
 	}
 	
 	public void initDefaultCommand() {

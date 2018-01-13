@@ -5,7 +5,7 @@ import org.usfirst.frc.team708.robot.Constants;
 import org.usfirst.frc.team708.robot.RobotMap;
 import org.usfirst.frc.team708.robot.commands.Climber.ManualMoveClimber;
 
-import com.ctre.CANTalon;
+import com.ctre.phoenix.motorcontrol.can.*;
 
 //import org.usfirst.frc.team708.robot.RobotMap;
 //import edu.wpi.first.wpilibj.DigitalInput;
@@ -20,14 +20,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *  @author James McPeak
  */
 public class Climber extends Subsystem {
-	public static CANTalon climberMotor; // Uses the Motor CanTalon
+	public static WPI_TalonSRX climberMotor; // Uses the Motor CanTalon
 
 	/**
 	 * Constructor
 	 */
 	public Climber() {
 	// Initializes the motor for the Climber
-		climberMotor = new CANTalon (RobotMap.climberMotor);
+		climberMotor = new WPI_TalonSRX (RobotMap.climberMotor);
 	}
 
 	public void initDefaultCommand() {

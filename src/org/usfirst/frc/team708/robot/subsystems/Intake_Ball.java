@@ -4,6 +4,7 @@ import org.usfirst.frc.team708.robot.Constants;
 import org.usfirst.frc.team708.robot.RobotMap;
 
 import com.ctre.CANTalon;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -16,10 +17,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Intake_Ball extends Subsystem {
 	
-    private CANTalon intakeMotor;
+    private WPI_TalonSRX intakeMotor;
     
 	public Intake_Ball() {
-		intakeMotor = new CANTalon (RobotMap.intakeMotorBall);	
+		intakeMotor = new WPI_TalonSRX (RobotMap.intakeMotorBall);	
 	}
 	
 	public void initDefaultCommand() {

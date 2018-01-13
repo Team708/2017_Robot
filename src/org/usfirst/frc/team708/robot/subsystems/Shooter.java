@@ -11,6 +11,7 @@ import org.usfirst.frc.team708.robot.commands.visionProcessor.SonarOverride;
 import com.ctre.CANTalon;
 import com.ctre.CANTalon.FeedbackDevice;
 import com.ctre.CANTalon.TalonControlMode;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
@@ -28,7 +29,7 @@ public class Shooter extends Subsystem {
 	// Put methods for controlling this subsystem here. Call these
 	// from Commands.
 	
-	private CANTalon 	shooter, shooterSlave;	// Motor Controllers
+	private WPI_TalonSRX 	shooter, shooterSlave;	// Motor Controllers
 	private Servo	 	hood;
 	private int	 		hoodLocation;
 	private int			spinSpeed;
@@ -42,10 +43,10 @@ public class Shooter extends Subsystem {
 		
 		// Initializes the motor
 
-		shooter      = new CANTalon(RobotMap.shooterMotorMaster);
-        shooterSlave = new CANTalon(RobotMap.shooterMotorSlave);
+		shooter      = new WPI_TalonSRX(RobotMap.shooterMotorMaster);
+        shooterSlave = new WPI_TalonSRX(RobotMap.shooterMotorSlave);
 
-        shooterSlave.changeControlMode(CANTalon.TalonControlMode.Follower);
+        shooterSlave.changeControlMode(WPI_TalonSRX.TalonControlMode.Follower);
         shooterSlave.set(shooter.getDeviceID());
 
 //      shooter.reset();

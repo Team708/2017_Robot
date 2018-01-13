@@ -7,6 +7,7 @@ import org.usfirst.frc.team708.robot.RobotMap;
 import com.ctre.CANTalon;
 import com.ctre.CANTalon.FeedbackDevice;
 import com.ctre.CANTalon.TalonControlMode;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -20,12 +21,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Intake_Gear extends Subsystem {
 	
-    private CANTalon 		intakeMotor;
+    private WPI_TalonSRX 		intakeMotor;
 	private DigitalInput	gearSensor;
 
 	//I'm trying to link the right motor to the intake code here
 	public Intake_Gear() {
-		intakeMotor = new CANTalon (RobotMap.intakeMotorGear);
+		intakeMotor = new WPI_TalonSRX (RobotMap.intakeMotorGear);
 	    gearSensor = new DigitalInput(RobotMap.gearSensorSwitch);
 	    
 //	    intakeMotor.reset();

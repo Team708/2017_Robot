@@ -8,6 +8,7 @@ import org.usfirst.frc.team708.robot.util.Math708;
 import com.ctre.CANTalon;
 import com.ctre.CANTalon.FeedbackDevice;
 import com.ctre.CANTalon.TalonControlMode;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -20,11 +21,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Pivot_Gear extends Subsystem {
 	
-    private CANTalon pivotMotor;
+    private WPI_TalonSRX pivotMotor;
 
 	//I'm trying to link the right motor to the intake code here
 	public Pivot_Gear() {
-		pivotMotor 	= new CANTalon (RobotMap.pivotGearMotor);
+		pivotMotor 	= new WPI_TalonSRX (RobotMap.pivotGearMotor);
 		pivotMotor.enable();
 
 //		pivotMotor.reverseSensor(true);

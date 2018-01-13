@@ -14,8 +14,11 @@ import org.usfirst.frc.team708.robot.util.Math708;
 
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import com.ctre.CANTalon;
-import com.ctre.CANTalon.FeedbackDevice;
-import com.ctre.CanTalonJNI;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+//import com.ctre.CANTalon.FeedbackDevice;
+//import com.ctre.CanTalonJNI;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Solenoid;
@@ -24,7 +27,7 @@ import edu.wpi.first.wpilibj.Solenoid;
 //import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Talon;
-import edu.wpi.first.wpilibj.TalonSRX;
+//import edu.wpi.first.wpilibj.TalonSRX;
 
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -41,7 +44,7 @@ public class Drivetrain extends PIDSubsystem {
 	private double moveSpeed 	= 0.0;
 	private double pidOutput 	= 0.0;
 	
-	private CANTalon leftMaster, leftSlave, rightMaster, rightSlave;	// Motor Controllers
+	private WPI_TalonSRX leftMaster, leftSlave, rightMaster, rightSlave;	// Motor Controllers
 
 	private HatterDrive drivetrain;						// FRC provided drivetrain class
 	
@@ -76,10 +79,10 @@ public class Drivetrain extends PIDSubsystem {
     
  
     	// Initializes motor controllers with device IDs from RobotMap
-	leftMaster  = new CANTalon(RobotMap.drivetrainLeftMotorMaster);
-	leftSlave   = new CANTalon(RobotMap.drivetrainLeftMotorSlave);
-	rightMaster = new CANTalon(RobotMap.drivetrainRightMotorMaster);
-	rightSlave  = new CANTalon(RobotMap.drivetrainRightMotorSlave);
+	leftMaster  = new WPI_TalonSRX(RobotMap.drivetrainLeftMotorMaster);
+	leftSlave   = new WPI_TalonSRX(RobotMap.drivetrainLeftMotorSlave);
+	rightMaster = new WPI_TalonSRX(RobotMap.drivetrainRightMotorMaster);
+	rightSlave  = new WPI_TalonSRX(RobotMap.drivetrainRightMotorSlave);
 	
 	drivetrain = new HatterDrive(leftMaster, rightMaster, Constants.DRIVE_USE_SQUARED_INPUT);		// Initializes drivetrain class
 	
@@ -289,8 +292,8 @@ public class Drivetrain extends PIDSubsystem {
      * talon is doing
      */
     public void setupMasterSlave() {
-    	leftSlave.changeControlMode(CANTalon.TalonControlMode.Follower);
-		rightSlave.changeControlMode(CANTalon.TalonControlMode.Follower);
+    	leftSlave.changeControlMode(WPI_TalonSRX.set(ControlMode.Follower));
+		rightSlave.changeControlMode(WPI_TalonSRX.set(ControlMode.Follower));
 		
 		leftSlave.set(leftMaster.getDeviceID());
 		rightSlave.set(rightMaster.getDeviceID());
